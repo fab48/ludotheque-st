@@ -35,6 +35,23 @@ func envAffichage() []string {
 	return []string{"HATARI_LUDO_FILTRE=" + f, "HATARI_LUDO_LIGNES=" + strconv.Itoa(l), "HATARI_LUDO_43=" + a}
 }
 
+// argsAffichage : options Hatari qui vont avec le filtre. Hatari double la basse
+// résolution en interne (surface 832×552, pixels en blocs de 2×2) : le lissage
+// linéaire n'adoucissait alors que la jointure des blocs, presque comme « net ».
+// En « lisse », on garde la taille d'origine (416×276 avec les bords) pour lisser
+// les vrais pixels ST ; en fenêtre, --zoom 2 garde la même taille de fenêtre
+// (il doit précéder --max-width/--max-height, qu'il écrase).
+func argsAffichage(pleinEcran bool) []string {
+	if cfg.EcranFiltre != "lisse" {
+		return nil
+	}
+	var a []string
+	if !pleinEcran {
+		a = append(a, "--zoom", "2")
+	}
+	return append(a, "--max-width", "416", "--max-height", "276")
+}
+
 func etatAffichage() map[string]any {
 	return map[string]any{"filtre": cfg.EcranFiltre, "lignes": cfg.EcranLignes, "format43": cfg.Ecran43}
 }

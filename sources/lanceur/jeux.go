@@ -494,6 +494,7 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 	fifo := ""
 	if v2 {
 		args = append(args, "--drive-led", "no", "--screenshot-dir", l.medias)
+		args = append(args, argsAffichage(l.pleinEcran)...)
 		if l.dossier != "" {
 			d, err := chemin(l.dossier)
 			if err != nil || !existe(d) {

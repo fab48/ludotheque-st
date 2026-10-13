@@ -100,7 +100,9 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   Random (`/api/demo/demarrer` {"mode":"lecture"} : l'activité n'arrête pas ; Échap ou
   Select+Start reviennent, Espace ou tir → `/api/demo/suivante`, surveillés par
   `surveillerEntrees`).
-- `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari.
+- `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari. En « lisse »,
+  `--max-width 416 --max-height 276` : sinon Hatari double la basse résolution (832×552,
+  blocs de 2×2) et le lissage linéaire ne se voit presque pas.
 - `navigateur.go` : Chrome/Chromium/Edge/Firefox en kiosque, profil dans runtime/.
 
 Entrées : sortie de jeu = Échap maintenu 2 s, ou Select+Start 1 s (surveillés par le lanceur).
