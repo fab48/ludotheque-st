@@ -32,13 +32,18 @@ ou Select + Start.
 
 ### 1. Récupérer la ludothèque
 
-Téléchargez le dépôt (bouton *Code › Download ZIP*) ou clonez-le :
+Le plus simple : le pack prêt à l'emploi de la dernière
+[release](https://github.com/fab48/ludotheque-st/releases/latest)
+(`ludotheque-st-<version>.zip`, lanceurs Windows et Linux déjà compilés). Décompressez-le
+et passez directement à l'étape 3.
+
+Sinon, téléchargez le dépôt (bouton *Code › Download ZIP*) ou clonez-le :
 
 ```bash
 git clone https://github.com/fab48/ludotheque-st.git
 ```
 
-### 2. Compiler le lanceur
+### 2. Compiler le lanceur (dépôt seulement)
 
 Le lanceur est un petit programme Go, sans dépendance (Go 1.24 ou plus récent,
 `winget install GoLang.Go` sous Windows) :
