@@ -1,0 +1,521 @@
+{
+ "machine": "st",
+ "tos": [
+  "tos/tos104fr.img",
+  "tos/tos104.img",
+  "tos/tos102fr.img",
+  "tos/tos102.img",
+  "tos/tos162fr.img"
+ ],
+ "demos": [
+  {
+   "id": "union",
+   "titre": "The Union Demo",
+   "groupe": "The Union",
+   "annee": 1989,
+   "texte": "Janvier 1989 : TEX, TCB, Level 16, Delta Force, TNT-Crew et Replicants unis. Charly arpente une rue bordée de portes ; derrière : plein écran, scrollers 3D et musiques de Mad Max.",
+   "disques": [
+    "demos/Union Demo, The (1989-01)(Union).stx"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "cuddly",
+   "titre": "The Cuddly Demos",
+   "groupe": "The Carebears",
+   "annee": 1989,
+   "texte": "Le chef-d'œuvre des Carebears (juillet 1989) : un menu-jeu qui défile dans toutes les directions, un plein écran sans bordures en parallaxe, musiques de Mad Max. La référence du sync-scroll.",
+   "disques": [
+    "demos/Cuddly Demos, The (1989-04)(The Carebears)(SE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "spoon",
+   "titre": "Dark Side of the Spoon",
+   "groupe": "Unlimited Matricks (ULM)",
+   "annee": 1991,
+   "texte": "ULM, janvier 1991 : un menu plein écran où un lion ailé survole un palais fantastique en parallaxe à 50 Hz, des écrans sans bordures, des samples et des invités (The Lost Boys).",
+   "disques": [
+    "demos/Dark Side of the Spoon (1991-01-03)(Unlimited Matricks)(LU)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "crikey",
+   "titre": "Ooh Crikey Wot a Scorcher",
+   "groupe": "The Lost Boys",
+   "annee": 1991,
+   "texte": "Dernière démo des Lost Boys (Atari Messe, août 1991) : on choisit les écrans aux commandes d'un vaisseau au-dessus d'un paysage fractal en 3D. Graphismes de Spaz, code de Manikin.",
+   "disques": [
+    "demos/Ooh Crickey Wot a Scorcher (1991-08)(The Lost Boys)(GB).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "mindbomb",
+   "titre": "The Mindbomb Demo",
+   "groupe": "The Lost Boys",
+   "annee": 1990,
+   "texte": "The Lost Boys, avril 1990 : 3D Megaballs, parallaxe, paysage, Red Sector Demo… et des samples de Robocop. Un pilier de la scène britannique (Manikin, Spaz, Digital Insanity).",
+   "disques": [
+    "demos/Mindbomb (1990-04-18)(The Lost Boys)(GB).st"
+   ],
+   "machine": "ste",
+   "tos": "tos/tos162fr.img",
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "punish",
+   "titre": "Punish Your Machine",
+   "groupe": "Delta Force",
+   "annee": 1991,
+   "texte": "Delta Force à l'ICC 2 de Leutenbach (novembre 1991) : musiques de Big Alec, un aperçu de Return of Medusa et un écran de reset où des milliers de points forment un champ d'étoiles.",
+   "disques": [
+    "demos/Punish your Machine (1991-11-13)(Delta Force)(STE)(DE)(en)(Disk 1 of 2).st",
+    "demos/Punish your Machine (1991-11-13)(Delta Force)(STE)(DE)(en)(Disk 2 of 2).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "syntax",
+   "titre": "Syntax Terror",
+   "groupe": "Delta Force",
+   "annee": 1990,
+   "texte": "Première mégadémo de Delta Force, sortie au STNICCC (décembre 1990) : de vrais mini-jeux (Soko-Ban, Match-It), des écrans invités (TLB, NeXT…) et des musiques de Mad Max.",
+   "disques": [
+    "demos/Syntax Terror (1990-12)(Delta Force)(DE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "decade",
+   "titre": "Decade Demo",
+   "groupe": "The Inner Circle",
+   "annee": 1991,
+   "texte": "L'Inner Circle (Electronic Images, Fingerbobs, The Resistance…), août 1991 : un robot volant parcourt un menu en overscan, des écrans de haut vol et le son unique de Count Zero.",
+   "disques": [
+    "demos/Decade Demo (1991)(The Inner Circle)(GB)(PD).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "big",
+   "titre": "The B.I.G. Demo",
+   "groupe": "The Exceptions",
+   "annee": 1988,
+   "texte": "« Best In Galaxy » (TEX, janvier 1988) : des dizaines de tubes C64 de Rob Hubbard convertis par Mad Max (113 annoncés !), des écrans à 512 couleurs et l'art d'ouvrir la bordure basse.",
+   "disques": [
+    "demos/B.I.G. Demo, The (1988-01)(The Exceptions)(DE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "european",
+   "titre": "The European Demos",
+   "groupe": "The Overlanders",
+   "annee": 1990,
+   "texte": "Les Overlanders et leurs amis au STNICCC (Noël 1990) : 2 disquettes, un menu plein écran qui défile comme un jeu dans 4 directions, vecteurs, méga-scrollers… et un écran secret en monochrome.",
+   "disques": [
+    "demos/European Demos (1991)(Overlanders)(FR)(en)(Disk 1 of 2).st",
+    "demos/European Demos (1991)(Overlanders)(FR)(en)(Disk 2 of 2).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "froggies",
+   "titre": "Froggies Over the Fence",
+   "groupe": "Overlanders, ST Connexion, Legacy",
+   "annee": 1993,
+   "texte": "« La dernière des grandes mégadémos » (sept. 1993), sur 3 disquettes : diaporama en 4096 couleurs sur un ST de base, film 3D en temps réel, musiques de Jess.",
+   "disques": [
+    "demos/Froggies Over the Fence (1993)(Legacy - Overlanders - ST Connexion)(FR)(en)(Disk 1 of 3)[1MB].st",
+    "demos/Froggies Over the Fence (1993)(Legacy - Overlanders - ST Connexion)(FR)(en)(Disk 2 of 3)[1MB].st",
+    "demos/Froggies Over the Fence (1993)(Legacy - Overlanders - ST Connexion)(FR)(en)(Disk 3 of 3)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "phaleon",
+   "titre": "Phaleon Gigademo",
+   "groupe": "NeXT",
+   "annee": 1992,
+   "texte": "La giga-démo de NeXT (mai 1992) sur 4 disquettes : un menu façon Shadow of the Beast et une foule d'écrans invités (TCB, Delta Force, Aenigmatica…). Démesurée !",
+   "disques": [
+    "demos/Phaleon GigaDemo (1992-05-20)(Next)(FR)(en)(Disk 1 of 4)[1MB].st",
+    "demos/Phaleon GigaDemo (1992-05-20)(Next)(FR)(en)(Disk 2 of 4)[1MB].st",
+    "demos/Phaleon GigaDemo (1992-05-20)(Next)(FR)(en)(Disk 3 of 4)[1MB].st",
+    "demos/Phaleon GigaDemo (1992-05-20)(Next)(FR)(en)(Disk 4 of 4)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "virtual",
+   "titre": "Virtual Escape",
+   "groupe": "Equinox",
+   "annee": 1999,
+   "texte": "La démo ST la plus plébiscitée sur Pouët : Equinox (Keops, Starlion) achève en 1999 un projet né vers 1994. 3D fluide à 50 Hz, objets glenz, boules floues. Écran caché : Échap au démarrage.",
+   "disques": [
+    "demos/Virtual Escape (1999-04)(Equinox).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "swedish",
+   "titre": "Swedish New Year Demo",
+   "groupe": "The Carebears, Omega, Sync",
+   "annee": 1989,
+   "texte": "Réveillon 88-89 de trois groupes suédois (TCB, Omega, Sync) : l'écran « A Couple Of Borders » des Carebears, musiques de Mad Max et David Whittaker. Ne tourne pas sur STE.",
+   "disques": [
+    "demos/Swedish New Year (1989-01-01)(The Carebears - Omega - Sync)(SE)(en)[not STE].st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "bitch",
+   "titre": "Life's a Bitch",
+   "groupe": "The Exceptions, TGC, The Lost Boys",
+   "annee": 1990,
+   "texte": "TEX, TGC et The Lost Boys à l'Atari Messe d'août 1990 : méga-scroller d'ULM, 3D éclair de Chris Jungen (futur No Second Prize) et le célèbre morceau samplé de Mad Max.",
+   "disques": [
+    "demos/Life's a Bitch (1990-09)(The Lost Boys)(GB).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "sowatt",
+   "titre": "SoWatt",
+   "groupe": "The Carebears",
+   "annee": 1989,
+   "texte": "Les Carebears à leur party de Stockholm (août 1989) : premier menu plein écran défilant sans bordures, record de 134 sprites, et des invités (Omega, Sync, Overlanders…).",
+   "disques": [
+    "demos/Sowatt (1989-12)(The Carebears)(SE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "synergy",
+   "titre": "Synergy Megademo",
+   "groupe": "Synergy",
+   "annee": 1993,
+   "texte": "Synergy (Pays-Bas), 1993 : une section 3D unique, Crapman (un jeu à deux), les musiques de Scavenger et, touche F10 au menu, un cube qui tourne à toute allure.",
+   "disques": [
+    "demos/Synergy Megademo (1993-09)(Synergy)(NL)(en)(Disk 1 of 2)[1MB].st",
+    "demos/Synergy Megademo (1993-09)(Synergy)(NL)(en)(Disk 2 of 2)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "bollocks",
+   "titre": "Eat My Bollocks",
+   "groupe": "Equinox",
+   "annee": 1992,
+   "texte": "Equinox, juillet 1992 : code de Keops et Starlion, musiques de Mad Max. Un classique français, parmi les démos ST les mieux notées sur Pouët.",
+   "disques": [
+    "demos/Eat My Bollocks (1992-07)(Equinox)(FR)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "vodka",
+   "titre": "The Vodka Demo",
+   "groupe": "Equinox",
+   "annee": 1991,
+   "texte": "Equinox, juin 1991 : Kill The Beast 2, bobs illimités, Raster Mania, vecteurs pleins… et un écran caché des Black Cats à débusquer en pilotant le petit chasseur du menu.",
+   "disques": [
+    "demos/Vodka Demo, The (1991-06)(Equinox).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "grotesque",
+   "titre": "Grotesque",
+   "groupe": "Omega",
+   "annee": 1992,
+   "texte": "Omega, 1er à The Party 1992 en Suède : montage nerveux, flashs et 3D sur un sample de Front 242 (« Punish Your Machine Mix »). Une démo-manifeste. Attention aux flashs !",
+   "disques": [
+    "demos/Grotesque (1992-10-25)(Omega)(STE)(SE)(en)[1MB].st"
+   ],
+   "machine": "ste",
+   "tos": "tos/tos162fr.img",
+   "options": [
+    "--memsize",
+    "4096",
+    "--auto",
+    "A:\\OMEGA_92.PRG"
+   ]
+  },
+  {
+   "id": "flipo",
+   "titre": "Flip-O-Demo",
+   "groupe": "Oxygene & Diamond Design",
+   "annee": 1993,
+   "texte": "Oxygene et Diamond Design, 1er à l'Intermedia 1993 : code de Leonard, graphismes de Spiral, musiques de Jess et Scavenger. Un sommet de la scène française.",
+   "disques": [
+    "demos/Flip O Demo (1993-09)(Diamond Design - Oxygene)(FR)(en)(PD)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "amiga",
+   "titre": "The Amiga Demo",
+   "groupe": "The Exceptions",
+   "annee": 1988,
+   "texte": "TEX nargue l'Amiga (mars 1988) : les musiques de Karsten Obarski (Amegas…) sur ST et un écran en overscan qui fait déjà sauter une partie de la bordure droite.",
+   "disques": [
+    "demos/Amiga Demo, The (1988-03-05)(The Exceptions)(DE)(en)(PD).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "swedish2",
+   "titre": "Swedish New Year Demo II",
+   "groupe": "The Carebears, Omega, Sync",
+   "annee": 1990,
+   "texte": "Réveillon 89-90 de TCB, Omega et Sync : six écrans, dont le deuxième plein écran de Sync et ses vectorballs, les distorsions d'Omega et un écran caché (Maj gauche).",
+   "disques": [
+    "demos/Swedish New Year II (1990-01-01)(The Carebears - Omega - Sync)(SE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "whattaheck",
+   "titre": "Whattaheck Demo",
+   "groupe": "The Carebears",
+   "annee": 1989,
+   "texte": "Compil' géante assemblée par TCB pour une copy-party de Göteborg (mai 1989), avec Omega, Phalanx, Flexible Front, NoCrew… : rasters, sprites et distorsions à gogo.",
+   "disques": [
+    "demos/Whattaheck Demo (1989-05)(The Carebears)(SE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "flashback",
+   "titre": "Flashback",
+   "groupe": "The Carebears",
+   "annee": 1993,
+   "texte": "Le chant du cygne des Carebears (1993) : un moteur 3D très rapide et un écran partagé en quatre qui rejoue leurs démos les plus célèbres.",
+   "disques": [
+    "demos/Flashback (1993-09)(The Carebears)(SE)(en)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "overdrive",
+   "titre": "Overdrive",
+   "groupe": "Phalanx",
+   "annee": 1990,
+   "texte": "Phalanx (Suède), 1990 : un écran record de sprites, du plein écran et des rasters, sur une bande-son signée Chris Mad (Ghost).",
+   "disques": [
+    "demos/Overdrive (1989-08)(Phalanx)(SE)(en).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "pandemonium",
+   "titre": "The Pandemonium Demos",
+   "groupe": "Chaos",
+   "annee": 1992,
+   "texte": "Chaos (Royaume-Uni), 1992 : une mégadémo britannique portée par Big Alec, Mad Max, Tao et Tufty, dont l'« Aciiiiiiid Demo ».",
+   "disques": [
+    "demos/Pandemonium Demos, The (1992-04-23)(Chaos)(GB).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  },
+  {
+   "id": "nostalgic",
+   "titre": "Nostalgic-O-Demo",
+   "groupe": "Oxygene",
+   "annee": 1999,
+   "texte": "Oxygene (Leonard et sa bande), 1999 : un hommage aux grandes années, écrans old-school (Dots Revenge, Lemmings Colorshock…) sur des airs de Rob Hubbard, Jeroen Tel ou Tim Follin.",
+   "disques": [
+    "demos/Nostalgic Demo (1999)(Oxygene)(FR)(en)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "posh",
+   "titre": "Posh!",
+   "groupe": "Checkpoint",
+   "annee": 2003,
+   "texte": "Checkpoint, 1er à l'Error in Line 2003 : Defjam prouve que le ST repousse encore ses limites 18 ans après sa sortie, avec un labyrinthe texturé. Musiques de 505.",
+   "disques": [
+    "demos/Posh (2003-05)(Checkpoint)(DE)(en)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "suretrip",
+   "titre": "Suretrip 49%",
+   "groupe": "Checkpoint",
+   "annee": 1999,
+   "texte": "Checkpoint, 1er à l'Error in Line 1999 : Defjam pousse le ST bien au-delà de ses caractéristiques officielles, plein écran et samples. Musiques de 505, Scavenger et Tao.",
+   "disques": [
+    "demos/Suretrip 49% (1999-04)(Checkpoint)(DE)(en)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "oddstuff",
+   "titre": "Odd Stuff",
+   "groupe": "Dune & Sector One",
+   "annee": 2001,
+   "texte": "Dune et Sector One, 2e au STNICCC 2000 puis 1er à l'Error in Line 2001 : graphismes soignés, transitions et idées en pagaille, musique de Dma-Sc.",
+   "disques": [
+    "demos/Odd Stuff (2001-04)(Dune - Sector One)(STE)(FR)(en)[1MB].st"
+   ],
+   "machine": "ste",
+   "tos": "tos/tos162fr.img",
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "fantasia",
+   "titre": "Fantasia",
+   "groupe": "Dune & Sector One",
+   "annee": 2003,
+   "texte": "Dune et Sector One, Noël 2003 : un mélange réussi d'old-school et de new-school, graphismes de Mic, musique de Dma-Sc.",
+   "disques": [
+    "demos/Fantasia (2003-12-13)(Dune)(FR)(en)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "colorz",
+   "titre": "Colorz",
+   "groupe": "Hemoroids & ST Knights",
+   "annee": 1993,
+   "texte": "Hemoroids et ST Knights, 1er à la Place To Be 1993 : des effets de couleurs codés par Axel et Jace, sur une musique d'AJT.",
+   "disques": [
+    "demos/Colorz (1993-08)(Hemoroids)(FR)(en)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024"
+   ]
+  },
+  {
+   "id": "hallucinations",
+   "titre": "Hallucinations",
+   "groupe": "Reservoir Gods",
+   "annee": 2003,
+   "texte": "Reservoir Gods à l'Error in Line 2003 : code de Griff et Mr. Pink, musique de MSG. Une des démos du renouveau de la scène ST des années 2000.",
+   "disques": [
+    "demos/Hallucinations (2003-04)(Reservoir Gods)(GB)[1MB].st"
+   ],
+   "options": [
+    "--memsize",
+    "1024",
+    "--auto",
+    "A:\\HALLUCIN.TOS"
+   ]
+  },
+  {
+   "id": "ventura",
+   "titre": "The Ventura Demo",
+   "groupe": "The Overlanders & The Union",
+   "annee": 1992,
+   "texte": "Overlanders et The Union, fin 1992 : 2 disquettes et une douzaine d'écrans, dont « The Ultimate Dist », un distordeur plein écran en temps réel.",
+   "disques": [
+    "demos/Ventura Demo, The (1992-11)(Overlanders)(FR)(en)(Disk 1 of 2).st",
+    "demos/Ventura Demo, The (1992-11)(Overlanders)(FR)(en)(Disk 2 of 2).st"
+   ],
+   "options": [
+    "--memsize",
+    "512"
+   ]
+  }
+ ]
+}

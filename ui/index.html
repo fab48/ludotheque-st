@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<base href="/ui/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ludothèque ST</title>
+<style>
+@font-face { font-family: 'VT323'; src: url('polices/VT323-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Caveat'; src: url('polices/Caveat.ttf') format('truetype'); font-weight: 400 700; }
+
+:root {
+  --vert: #00a000; --blanc: #fff; --noir: #000;
+  --gris-lecteur: #d3cec2;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+body { font-family: 'VT323', monospace; color: #000; user-select: none; -webkit-user-select: none; cursor: default; }
+button { font-family: inherit; color: inherit; }
+
+#ecran { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
+#scene { position: relative; width: 1280px; height: 720px; flex: none; overflow: hidden; background: var(--vert); transform-origin: center center; }
+.cache { display: none !important; }
+
+/* ---------- barre de menus GEM ---------- */
+#menus { position: absolute; left: 0; top: 0; width: 1280px; height: 36px; background: #fff; border-bottom: 2px solid #000; display: flex; padding-left: 8px; z-index: 1000; }
+.menu { position: relative; }
+.menu > button { font-size: 24px; line-height: 34px; height: 34px; padding: 0 12px; border: 0; background: #fff; cursor: pointer; }
+.menu > button.ouvert, .menu > button:hover { background: #000; color: #fff; }
+.deroulant { position: absolute; top: 34px; left: 0; background: #fff; border: 2px solid #000; box-shadow: 4px 4px 0 #000; min-width: 290px; padding: 2px 0; display: none; flex-direction: column; }
+.menu.ouvert .deroulant { display: flex; }
+.deroulant button { font-size: 22px; text-align: left; padding: 2px 14px 2px 30px; border: 0; background: #fff; cursor: pointer; white-space: pre; position: relative; }
+.deroulant button:hover, .deroulant button.actif { background: #000; color: #fff; }
+.deroulant button[disabled] { color: #888; background: #fff; cursor: default; }
+.deroulant button .coche { position: absolute; left: 10px; }
+.deroulant .sep { border-top: 2px dotted #000; margin: 4px 0; }
+#horloge { margin-left: auto; padding: 0 18px; font-size: 24px; line-height: 34px; }
+
+/* ---------- fenêtre de la ludothèque ---------- */
+#fenetre { position: absolute; left: 24px; top: 52px; width: 808px; height: 560px; background: #fff; border: 2px solid #000; z-index: 10; }
+.titre-fen { height: 32px; border-bottom: 2px solid #000; display: flex; background: repeating-linear-gradient(0deg, #000 0 2px, #fff 2px 4px); }
+.titre-fen .case { width: 32px; background: #fff; display: flex; align-items: center; justify-content: center; }
+.titre-fen .case:first-child { border-right: 2px solid #000; }
+.titre-fen .case:last-child { border-left: 2px solid #000; }
+.titre-fen .texte { flex: 1; display: flex; align-items: center; justify-content: center; }
+.titre-fen .texte span { background: #fff; padding: 0 12px; font-size: 24px; line-height: 28px; }
+#infos { height: 26px; border-bottom: 2px solid #000; padding: 0 12px; font-size: 20px; line-height: 25px; display: flex; justify-content: space-between; }
+
+#bac { position: relative; height: 470px; perspective: 1100px; perspective-origin: 50% 30%; overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 0%, #fff 0%, #e9e6df 70%, #d8d4ca 100%); }
+#bac .fond { position: absolute; left: 40px; top: 122px; width: 724px; height: 190px; background: linear-gradient(#2a2b30, #3b3c42); border-radius: 10px 10px 0 0; box-shadow: inset 0 10px 30px rgba(0,0,0,.6); }
+.disq { position: absolute; left: 329px; top: 180px; width: 150px; height: 156px; padding: 0; border: 0; cursor: pointer; border-radius: 3px;
+  clip-path: polygon(0 0, 92% 0, 100% 6%, 100% 100%, 0 100%);
+  transition: transform .38s cubic-bezier(.2,.9,.3,1.25), opacity .4s ease;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.18), inset 0 -6px 10px rgba(0,0,0,.35); will-change: transform; }
+.disq .etiq { position: absolute; left: 10px; top: 8px; width: 130px; height: 94px; background: #f6f2e6; border-radius: 2px; box-shadow: 0 1px 0 rgba(0,0,0,.3); display: flex; flex-direction: column; overflow: hidden; }
+.disq .bande { height: 9px; flex: none; }
+.disq .nom { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2px 6px; text-align: center; line-height: .95; color: #1b1b3a; overflow: hidden; }
+.disq .sous { font-size: 15px; color: #555; text-align: center; padding-bottom: 3px; border-top: 1px solid #cfc8b4; margin: 0 6px; white-space: nowrap; overflow: hidden; }
+.disq .volet { position: absolute; left: 36px; bottom: 0; width: 78px; height: 46px; background: linear-gradient(90deg, #9da1a6, #e4e6e8 45%, #a9adb2); border-radius: 2px 2px 0 0; }
+.disq .volet::after { content: ''; position: absolute; left: 28px; bottom: 6px; width: 20px; height: 28px; background: #2a2a2a; border-radius: 1px; }
+.disq .prot { position: absolute; right: 8px; bottom: 8px; width: 10px; height: 10px; background: rgba(0,0,0,.55); }
+.disq .elastique { position: absolute; left: -2px; right: -2px; top: 60px; height: 5px; background: #b5651d; opacity: .85; }
+.onglet { position: absolute; top: -34px; left: 6px; width: 64px; height: 30px; background: #f2d36b; border: 2px solid #8a7330; border-bottom: 0; border-radius: 6px 6px 0 0;
+  font-size: 22px; line-height: 26px; text-align: center; color: #3a2e0a; overflow: hidden; white-space: nowrap; }
+
+#facade { position: absolute; left: 24px; top: 292px; width: 756px; height: 178px; z-index: 400; background: linear-gradient(180deg, rgba(58,60,68,.92) 0%, rgba(22,23,27,.97) 100%); border-top: 3px solid rgba(255,255,255,.35); border-radius: 6px 6px 0 0; box-shadow: 0 -8px 24px rgba(0,0,0,.35); color: #fff; }
+#facade .haut { position: absolute; left: 24px; right: 24px; top: 14px; display: flex; justify-content: space-between; font-size: 22px; letter-spacing: 2px; color: rgba(255,255,255,.55); }
+#facade .titre { position: absolute; left: 24px; right: 24px; top: 52px; font-size: 44px; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#facade .meta { position: absolute; left: 24px; right: 24px; top: 100px; font-size: 24px; color: rgba(255,255,255,.65); white-space: nowrap; overflow: hidden; }
+#facade .vers { position: absolute; left: 24px; right: 24px; top: 132px; font-size: 20px; color: rgba(255,255,255,.45); white-space: nowrap; overflow: hidden; }
+
+#ascenseur { position: absolute; left: 0; bottom: 0; width: 804px; height: 28px; border-top: 2px solid #000; display: flex; background: #fff; }
+#ascenseur button { width: 30px; height: 26px; border: 0; background: #fff; font-size: 20px; cursor: pointer; }
+#ascenseur button:hover { background: #000; color: #fff; }
+#ascenseur .piste { position: relative; flex: 1; border-left: 2px solid #000; border-right: 2px solid #000; background-image: radial-gradient(#000 1px, transparent 1.2px); background-size: 4px 4px; }
+#curseur { position: absolute; top: 1px; width: 80px; height: 24px; background: #fff; border: 2px solid #000; transition: left .3s; }
+
+/* ---------- boîtes GEM ---------- */
+.boite { background: #fff; border: 2px solid #000; box-shadow: 4px 4px 0 #000; padding: 5px; }
+.boite > .interieur { border: 2px solid #000; height: 100%; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.bouton { font-size: 24px; background: #fff; border: 2px solid #000; border-radius: 7px; padding: 3px 18px; cursor: pointer; }
+.bouton:hover, .bouton.focus { background: #000; color: #fff; }
+.bouton.defaut { border-width: 4px; padding: 1px 16px; }
+.boutons { display: flex; justify-content: flex-end; gap: 14px; }
+
+#fiche { position: absolute; left: 852px; top: 52px; width: 404px; height: 652px; z-index: 5; }
+#fiche .interieur { overflow: hidden; gap: 8px; }
+#f-titre { font-size: 36px; line-height: 1; }
+#f-lignes { font-size: 21px; line-height: 22px; }
+#f-capture { position: relative; flex: 1 1 200px; min-height: 110px; max-height: 250px; border: 2px solid #000; background: #000; overflow: hidden; }
+#f-capture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+#f-capture .vide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #fff; text-align: center; padding: 10px; }
+#f-capture .vide .grand { font-size: 30px; }
+#f-capture .vide .petit { font-size: 18px; color: rgba(255,255,255,.65); }
+#f-capture .trame { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); pointer-events: none; }
+#f-capture .poubelle { position: absolute; right: 6px; top: 6px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: #fff; color: #000; border: 2px solid #000; border-radius: 4px; cursor: pointer; opacity: .55; transition: opacity .15s; }
+#f-capture:hover .poubelle { opacity: .9; }
+#f-capture .poubelle:hover { opacity: 1; background: #000; color: #fff; }
+#f-capture .poubelle:hover svg rect[fill="#fff"] { fill: #000; }
+#f-capture .fleche { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 46px; font-size: 22px; line-height: 1; background: #fff; color: #000; border: 2px solid #000; border-radius: 4px; cursor: pointer; opacity: .55; transition: opacity .15s; padding: 0; }
+#f-capture .fleche.prec { left: 6px; }
+#f-capture .fleche.suiv { right: 6px; }
+#f-capture:hover .fleche { opacity: .9; }
+#f-capture .fleche:hover { opacity: 1; background: #000; color: #fff; }
+#f-capture .num { position: absolute; right: 8px; bottom: 4px; font-size: 18px; color: #fff; text-shadow: 1px 1px 0 #000; }
+#f-commandes { flex: none; display: grid; grid-template-columns: max-content 1fr; gap: 3px 10px; align-items: baseline; font-size: 20px; line-height: 21px; }
+#f-commandes .cle { justify-self: start; white-space: nowrap; background: #000; color: #fff; padding: 0 6px; border-radius: 3px; }
+#f-commandes .act { color: #111; }
+#f-commandes .seul { grid-column: 1 / -1; color: #444; }
+.sous-titre { flex: none; font-size: 22px; border-bottom: 2px dotted #000; padding-bottom: 2px; }
+#f-astuce { flex: none; font-size: 19px; line-height: 20px; color: #000; background: #ffe98a; border: 1px solid #000; padding: 2px 8px; }
+#f-variantes { flex: none; display: flex; flex-direction: column; gap: 1px; }
+.radio { display: flex; align-items: center; gap: 10px; width: 100%; font-size: 22px; background: #fff; border: 0; padding: 2px 4px; cursor: pointer; text-align: left; }
+.radio:hover, .radio.focus { background: #eee; }
+.radio[disabled] { color: #999; cursor: default; }
+.radio .rond { width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; }
+.radio .rond i { width: 10px; height: 10px; border-radius: 50%; background: transparent; }
+.radio.choisie .rond i { background: currentColor; }
+.radio .nom { white-space: nowrap; flex: none; }
+.disq.absente { filter: grayscale(.85) brightness(.8); }
+.radio .desc { color: #555; font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- lecteur ---------- */
+#lecteur { position: absolute; left: 420px; top: 622px; width: 404px; height: 88px; z-index: 5; border-radius: 6px; background: linear-gradient(180deg, #e8e4da 0%, #d3cec2 55%, #bdb8ac 100%); box-shadow: 0 3px 0 #6f6b62, 4px 6px 0 rgba(0,0,0,.35); }
+#lecteur .marque { position: absolute; left: 20px; top: 12px; font-size: 18px; color: #6c675c; letter-spacing: 2px; }
+#lecteur .fente { position: absolute; left: 34px; top: 40px; width: 230px; height: 22px; border-radius: 4px; background: linear-gradient(#a7a296, #cbc6ba); box-shadow: inset 0 2px 3px rgba(0,0,0,.45); overflow: hidden; }
+#lecteur .fente::before { content: ''; position: absolute; left: 10px; top: 8px; width: 210px; height: 6px; background: #1d1d1d; border-radius: 2px; }
+#l-disque { position: absolute; left: 14px; top: 9px; width: 202px; height: 4px; transform: translateY(-30px); transition: transform .3s ease-out; }
+#l-disque.dedans { transform: translateY(0); }
+#led { position: absolute; left: 286px; top: 42px; width: 18px; height: 8px; border-radius: 2px; background: #4a2e14; }
+#led.allumee { background: #ff8a1c; box-shadow: 0 0 10px 2px rgba(255,138,28,.85); animation: clignote .18s infinite; }
+#lecteur .ejecter { position: absolute; left: 318px; top: 38px; width: 50px; height: 18px; border-radius: 4px; border: 0; background: linear-gradient(#ece8de, #c4bfb3); box-shadow: 0 2px 0 #8a857a; cursor: pointer; }
+#lecteur .ejecter:active { transform: translateY(2px); box-shadow: none; }
+#lecteur .etat { position: absolute; left: 20px; bottom: 6px; right: 20px; display: flex; justify-content: space-between; font-size: 20px; }
+
+/* ---------- icônes du bureau ---------- */
+#icones { position: absolute; left: 30px; top: 628px; display: flex; gap: 18px; z-index: 2; }
+.icone { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 104px; }
+.icone span { background: #fff; padding: 0 4px; font-size: 18px; }
+
+/* ---------- calques ---------- */
+.calque { position: absolute; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center; }
+#alerte .boite { width: 520px; }
+#alerte .corps { display: flex; gap: 18px; }
+#alerte .signe { width: 48px; height: 48px; border: 3px solid #000; display: flex; align-items: center; justify-content: center; font-size: 42px; flex: none; }
+#alerte .texte { font-size: 22px; line-height: 24px; white-space: pre-line; flex: 1; }
+
+#panneau .boite { width: 760px; height: 600px; }
+#panneau .liste { flex: 1; overflow-y: auto; border: 2px solid #000; padding: 4px 0; scrollbar-width: thin; scrollbar-color: #000 #fff; }
+#panneau .ligne { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: #fff; font-size: 22px; padding: 1px 10px; cursor: pointer; text-align: left; }
+#panneau .ligne:hover, #panneau .ligne.focus { background: #000; color: #fff; }
+#panneau .ligne .cb { width: 18px; height: 18px; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; flex: none; }
+#panneau .ligne .info { margin-left: auto; color: inherit; opacity: .6; font-size: 19px; }
+#panneau .groupe { font-size: 20px; padding: 6px 10px 2px; border-bottom: 2px dotted #000; margin-bottom: 2px; }
+
+#enjeu { background: #000; color: #9cff9c; flex-direction: column; gap: 14px; z-index: 1500; animation: fondu .5s ease; }
+#enjeu .t1 { font-size: 54px; color: #fff; }
+#enjeu .t2 { font-size: 26px; color: #6a6; }
+#web { background: #000; z-index: 1600; }
+#web iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+#web .aide { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 22px; color: #fff; background: rgba(0,0,0,.7); padding: 4px 14px; border: 1px solid #555; pointer-events: none; animation: disparait 6s forwards; }
+
+#demarrage { background: #000; z-index: 2000; flex-direction: column; gap: 22px; color: #e8e4da; }
+#demarrage .allumer { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #555; background: radial-gradient(#2a2a2a, #111); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+#demarrage .ligne { position: absolute; left: 40px; bottom: 34px; font-size: 22px; color: #bbb; }
+.clignote { animation: curseur 1s steps(1) infinite; }
+
+#veille { background: #000; z-index: 2500; overflow: hidden; }
+#veille canvas { position: absolute; inset: 0; }
+
+#crt { position: absolute; inset: 0; z-index: 3000; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); box-shadow: inset 0 0 120px rgba(0,0,0,.55); }
+#abeille { position: absolute; z-index: 2100; pointer-events: none; width: 32px; height: 32px; animation: bzz .4s infinite; }
+
+@keyframes clignote { 0%,100% { opacity: 1 } 50% { opacity: .55 } }
+@keyframes fondu { from { opacity: 0 } to { opacity: 1 } }
+@keyframes disparait { 0%,70% { opacity: 1 } 100% { opacity: 0 } }
+@keyframes curseur { 0%,49% { opacity: 1 } 50%,100% { opacity: 0 } }
+@keyframes bzz { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-3px) } }
+</style>
+</head>
+<body>
+<div id="ecran">
+<div id="scene">
+
+  <nav id="menus">
+    <div class="menu" data-menu="bureau"><button>Bureau</button>
+      <div class="deroulant">
+        <button data-action="apropos">À propos de la ludothèque…</button>
+        <div class="sep"></div>
+        <button data-action="panneau">Panneau de contrôle   F10</button>
+      </div>
+    </div>
+    <div class="menu" data-menu="fichier"><button>Fichier</button>
+      <div class="deroulant">
+        <button data-action="charger">Charger la disquette   ⏎</button>
+        <button data-action="ejecter">Éjecter</button>
+        <div class="sep"></div>
+        <button data-action="demos">Play Demo Random   F7</button>
+        <div class="sep"></div>
+        <button data-action="quitter">Quitter la ludothèque</button>
+        <button data-action="eteindre">Éteindre l'ordinateur</button>
+        <button data-action="redemarrer">Redémarrer</button>
+      </div>
+    </div>
+    <div class="menu" data-menu="affichage"><button>Affichage</button>
+      <div class="deroulant">
+        <button data-action="tri:titre"><span class="coche"></span>Trier par titre</button>
+        <button data-action="tri:annee"><span class="coche"></span>Trier par année</button>
+        <button data-action="tri:genre"><span class="coche"></span>Trier par genre</button>
+        <button data-action="tri:joueurs"><span class="coche"></span>Trier par joueurs</button>
+      </div>
+    </div>
+    <div class="menu" data-menu="options"><button>Options</button>
+      <div class="deroulant">
+        <button data-action="opt:son"><span class="coche"></span>Son</button>
+        <button data-action="opt:crt"><span class="coche"></span>Écran cathodique</button>
+        <button data-action="opt:veille"><span class="coche"></span>Écran de veille (3 min)</button>
+        <div class="sep"></div>
+        <button data-action="jeu:net"><span class="coche"></span>Jeux : pixels nets</button>
+        <button data-action="jeu:lisse"><span class="coche"></span>Jeux : image lissée</button>
+        <button data-action="jeu:entier"><span class="coche"></span>Jeux : pixels entiers (cadre noir)</button>
+        <div class="sep"></div>
+        <button data-action="lignes:0"><span class="coche"></span>Lignes de balayage : aucune</button>
+        <button data-action="lignes:35"><span class="coche"></span>Lignes de balayage : légères</button>
+        <button data-action="lignes:65"><span class="coche"></span>Lignes de balayage : marquées</button>
+        <button data-action="jeu:43"><span class="coche"></span>Format 4:3 (écran d'époque)</button>
+      </div>
+    </div>
+    <div id="horloge"></div>
+  </nav>
+
+  <section id="fenetre" aria-label="Ludothèque">
+    <div class="titre-fen">
+      <div class="case"><svg width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="none" stroke="#000" stroke-width="2"/></svg></div>
+      <div class="texte"><span id="titre-fenetre">LUDOTHÈQUE ST — A:\JEUX\</span></div>
+      <div class="case"><svg width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="none" stroke="#000" stroke-width="2"/><rect x="1" y="1" width="8" height="8" fill="none" stroke="#000" stroke-width="2"/></svg></div>
+    </div>
+    <div id="infos"><span id="info-g"></span><span>◀ ▶ choisir · ⏎ charger · F10 panneau</span></div>
+    <div id="bac">
+      <div class="fond"></div>
+      <div id="disques"></div>
+      <div id="facade">
+        <div class="haut"><span id="fa-groupe">BAC À DISQUETTES · 3"1/2</span><span id="fa-compteur"></span></div>
+        <div class="titre" id="fa-titre"></div>
+        <div class="meta" id="fa-meta"></div>
+        <div class="vers" id="fa-vers"></div>
+      </div>
+    </div>
+    <div id="ascenseur">
+      <button aria-label="Disquette précédente" data-action="prec">◀</button>
+      <div class="piste"><div id="curseur"></div></div>
+      <button aria-label="Disquette suivante" data-action="suiv">▶</button>
+    </div>
+  </section>
+
+  <section id="fiche" class="boite" aria-label="Fiche du jeu">
+    <div class="interieur">
+      <div style="flex:none">
+        <div id="f-titre"></div>
+        <div id="f-lignes"></div>
+      </div>
+      <div id="f-capture"></div>
+      <div class="sous-titre">Commandes :</div>
+      <div id="f-commandes"></div>
+      <div id="f-astuce" class="cache"></div>
+      <div class="sous-titre">Version :</div>
+      <div id="f-variantes"></div>
+      <div class="boutons" style="margin-top:auto">
+        <button class="bouton" data-action="annuler">Annuler</button>
+        <button class="bouton defaut" data-action="charger">CHARGER</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="lecteur" aria-label="Lecteur de disquette">
+    <div class="marque">LECTEUR A:</div>
+    <div class="fente"><div id="l-disque"></div></div>
+    <div id="led"></div>
+    <button class="ejecter" aria-label="Éjecter" data-action="ejecter"></button>
+    <div class="etat"><span id="l-etat">Prêt</span><span style="color:#6c675c">720 Ko · DD</span></div>
+  </section>
+
+  <div id="icones" aria-hidden="true">
+    <div class="icone"><svg width="56" height="44" viewBox="0 0 28 22" shape-rendering="crispEdges"><rect x="1" y="1" width="26" height="20" fill="#fff" stroke="#000" stroke-width="2"/><rect x="4" y="12" width="20" height="3" fill="#000"/><rect x="21" y="4" width="3" height="3" fill="#000"/></svg><span>DISQUETTE A</span></div>
+    <div class="icone"><svg width="56" height="44" viewBox="0 0 28 22" shape-rendering="crispEdges"><rect x="1" y="1" width="26" height="20" fill="#fff" stroke="#000" stroke-width="2"/><rect x="4" y="12" width="20" height="3" fill="#000"/></svg><span>DISQUETTE B</span></div>
+    <div class="icone"><svg width="44" height="44" viewBox="0 0 22 22" shape-rendering="crispEdges"><rect x="3" y="5" width="16" height="16" fill="#fff" stroke="#000" stroke-width="2"/><rect x="1" y="2" width="20" height="3" fill="#000"/><rect x="8" y="0" width="6" height="2" fill="#000"/><rect x="7" y="8" width="2" height="10" fill="#000"/><rect x="13" y="8" width="2" height="10" fill="#000"/></svg><span>CORBEILLE</span></div>
+  </div>
+
+  <div id="alerte" class="calque cache" role="alertdialog">
+    <div class="boite"><div class="interieur">
+      <div class="corps"><div class="signe" id="al-signe">!</div><div class="texte" id="al-texte"></div></div>
+      <div class="boutons" id="al-boutons"></div>
+    </div></div>
+  </div>
+
+  <div id="panneau" class="calque cache" role="dialog" aria-label="Panneau de contrôle">
+    <div class="boite"><div class="interieur">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <span style="font-size:32px">PANNEAU DE CONTRÔLE</span><span id="pn-compte" style="font-size:22px"></span>
+      </div>
+      <div style="font-size:19px;color:#444">⏎ / A : cocher · F10 / Échap : fermer · les disquettes cochées vont dans le bac</div>
+      <div class="liste" id="pn-liste"></div>
+      <div class="boutons">
+        <button class="bouton" data-action="pn-tout">Tout</button>
+        <button class="bouton" data-action="pn-rien">Rien</button>
+        <span style="flex:1"></span>
+        <button class="bouton" data-action="pn-annuler">Annuler</button>
+        <button class="bouton defaut" data-action="pn-ok">ENREGISTRER</button>
+      </div>
+    </div></div>
+  </div>
+
+  <div id="enjeu" class="calque cache">
+    <div class="t2">Partie en cours</div>
+    <div class="t1" id="ej-titre"></div>
+    <div class="t2" id="ej-sortie"></div>
+    <div class="t2" id="ej-commandes" style="font-size:26px;color:#cfc;white-space:pre-line;text-align:center"></div>
+    <div class="t2" id="ej-aide" style="font-size:22px;color:#4a4"></div>
+  </div>
+
+  <div id="web" class="calque cache"><div class="aide" id="web-aide"></div></div>
+
+  <div id="veille" class="calque cache"><canvas id="v-canvas" width="1280" height="720"></canvas></div>
+  <div id="demo" class="calque cache" style="background:#000;color:#6a6;font-size:26px;z-index:2400">Démo en cours. La moindre action ramène à la ludothèque.</div>
+
+  <div id="demarrage" class="calque">
+    <button class="allumer cache" id="d-allumer" aria-label="Allumer">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e8e4da" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v9"/><path d="M6.3 6.8a8 8 0 1 0 11.4 0"/></svg>
+    </button>
+    <div id="d-texte" style="font-size:28px;letter-spacing:4px" class="cache">LUDOTHÈQUE ST</div>
+    <div class="ligne" id="d-ligne"></div>
+  </div>
+
+  <svg id="abeille" class="cache" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="6" y="5" width="6" height="8" fill="#fff" stroke="#000"/><rect x="6" y="7" width="6" height="1" fill="#000"/><rect x="6" y="10" width="6" height="1" fill="#000"/><rect x="2" y="3" width="4" height="4" fill="#fff" stroke="#000"/><rect x="11" y="2" width="4" height="4" fill="#fff" stroke="#000"/></svg>
+
+  <div id="crt" class="cache"></div>
+</div>
+</div>
+
+<script>
+'use strict';
+/* =====================================================================
+   Ludothèque ST : interface. Parle au lanceur local (/api/...).
+   ===================================================================== */
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+const etat = {
+  cat: null, liste: [], sel: 0, variante: 0, capture: 0,
+  tri: 'titre', son: true, crt: false, veille: true,
+  phase: 'demarrage',   // demarrage | bureau | insertion | lecture | jeu | web | ejection
+  menu: null, menuIndex: -1, dialogue: null, dernierInput: Date.now(),
+};
+
+/* ---------- préférences (navigateur du pack) ---------- */
+function lirePrefs() {
+  try {
+    const p = JSON.parse(localStorage.getItem('ludo-prefs') || '{}');
+    if (p.tri) etat.tri = p.tri;
+    if (typeof p.son === 'boolean') etat.son = p.son;
+    if (typeof p.crt === 'boolean') etat.crt = p.crt;
+    if (typeof p.veille === 'boolean') etat.veille = p.veille;
+    etat.dernierId = p.dernierId;
+  } catch (e) {}
+}
+function ecrirePrefs() {
+  try {
+    const j = etat.liste[etat.sel];
+    localStorage.setItem('ludo-prefs', JSON.stringify({ tri: etat.tri, son: etat.son, crt: etat.crt, veille: etat.veille, dernierId: j && j.id }));
+  } catch (e) {}
+}
+
+/* ---------- mise à l'échelle 1280×720 ---------- */
+function ajuster() {
+  const k = Math.min(innerWidth / 1280, innerHeight / 720);
+  $('#scene').style.transform = 'scale(' + k + ')';
+}
+addEventListener('resize', ajuster);
+
+/* =====================================================================
+   SON : synthèse façon YM2149 + vrai lecteur de disquette
+   ===================================================================== */
+const Son = {
+  ac: null, wav: null,
+  init() {
+    if (this.ac) return this.ac;
+    const A = window.AudioContext || window.webkitAudioContext;
+    if (!A) return null;
+    this.ac = new A();
+    fetch('sons/disquette.wav').then(r => r.arrayBuffer()).then(b => this.ac.decodeAudioData(b)).then(d => { this.wav = d; }).catch(() => {});
+    return this.ac;
+  },
+  pret() { if (!etat.son) return null; const a = this.init(); if (a && a.state === 'suspended') a.resume(); return a; },
+  bruit(t0, dur, freq, q, vol, type) {
+    const a = this.ac, n = Math.max(1, Math.floor(a.sampleRate * dur));
+    const b = a.createBuffer(1, n, a.sampleRate), ch = b.getChannelData(0);
+    for (let i = 0; i < n; i++) ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+    const s = a.createBufferSource(); s.buffer = b;
+    const f = a.createBiquadFilter(); f.type = type || 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+    const g = a.createGain(); g.gain.value = vol;
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t0);
+  },
+  ton(t0, freq, dur, vol, type, fin) {
+    const a = this.ac, o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'square'; o.frequency.setValueAtTime(freq, t0);
+    if (fin) o.frequency.exponentialRampToValueAtTime(fin, t0 + dur);
+    g.gain.setValueAtTime(vol, t0); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(a.destination); o.start(t0); o.stop(t0 + dur + 0.02);
+  },
+  clic() { const a = this.pret(); if (!a) return; const t = a.currentTime; this.bruit(t, 0.02, 2600, 1.4, 0.3); this.bruit(t + 0.008, 0.03, 650, 2, 0.22); },
+  touche() { const a = this.pret(); if (!a) return; const t = a.currentTime; this.bruit(t, 0.007, 3800, 0.8, 0.25, 'highpass'); this.ton(t, 1900, 0.012, 0.035, 'square'); },
+  cloche() { const a = this.pret(); if (!a) return; const t = a.currentTime; this.ton(t, 1046, 0.55, 0.06); this.ton(t, 1568, 0.35, 0.025); },
+  insertion() { const a = this.pret(); if (!a) return; const t = a.currentTime; this.bruit(t, 0.07, 900, 1, 0.4); this.bruit(t + 0.09, 0.03, 1500, 2, 0.55); this.ton(t + 0.09, 160, 0.05, 0.1); },
+  ejection() { const a = this.pret(); if (!a) return; const t = a.currentTime; this.bruit(t, 0.05, 1200, 2, 0.55); this.ton(t + 0.02, 420, 0.16, 0.05, 'triangle', 140); this.bruit(t + 0.05, 0.12, 700, 1, 0.28); },
+  lecteur(debut, duree, vol) {   // extrait du vrai lecteur (sons/disquette.wav)
+    const a = this.pret(); if (!a || !this.wav) return 0;
+    const s = a.createBufferSource(); s.buffer = this.wav;
+    const g = a.createGain(); g.gain.value = vol || 0.9;
+    s.connect(g); g.connect(a.destination);
+    const d = Math.min(duree || this.wav.duration, this.wav.duration - (debut || 0));
+    s.start(a.currentTime, debut || 0, d);
+    return d;
+  },
+};
+
+/* =====================================================================
+   DONNÉES
+   ===================================================================== */
+async function api(chemin, corps) {
+  const r = await fetch(chemin, corps === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.erreur || ('erreur ' + r.status));
+  return j;
+}
+
+function groupeDe(j) {
+  switch (etat.tri) {
+    case 'annee': return j.annee ? String(j.annee) : '?';
+    case 'genre': return j.genre || '?';
+    case 'joueurs': return (j.joueurs || 1) > 1 ? (j.joueurs + ' JOUEURS') : '1 JOUEUR';
+    default: {
+      const c = (j.titre || '?').replace(/^(the|le|la|les|l')\s+/i, '').charAt(0).toUpperCase();
+      return /[A-Z]/.test(c) ? c : '#';
+    }
+  }
+}
+function cleTri(j) { return (j.titre || '').replace(/^(the|le|la|les)\s+/i, '').toLowerCase(); }
+
+function construireListe() {
+  const c = etat.cat; if (!c) return;
+  const actuel = etat.liste[etat.sel];
+  let l = c.jeux.filter(j => j.actif !== false);
+  if (c.vrac_actif) l = l.concat(c.vrac);
+  const t = etat.tri;
+  l.sort((a, b) => {
+    if (t === 'annee') return (a.annee || 9999) - (b.annee || 9999) || cleTri(a).localeCompare(cleTri(b));
+    if (t === 'genre') return (a.genre || '').localeCompare(b.genre || '') || cleTri(a).localeCompare(cleTri(b));
+    if (t === 'joueurs') return (b.joueurs || 1) - (a.joueurs || 1) || cleTri(a).localeCompare(cleTri(b));
+    return cleTri(a).localeCompare(cleTri(b));
+  });
+  etat.liste = l;
+  const viseId = actuel ? actuel.id : etat.dernierId;
+  const i = l.findIndex(j => j.id === viseId);
+  etat.sel = i >= 0 ? i : 0;
+  construireBac();
+}
+
+async function chargerCatalogue() {
+  try {
+    etat.cat = await api('/api/catalogue');
+  } catch (e) {
+    etat.cat = { jeux: [], vrac: [], systeme: {} };
+    alerte('Le lanceur ne répond pas.\n\nOuvrez la ludothèque avec\nLudotheque.exe (Windows) ou\nludotheque.sh (Linux).', ['OK']);
+  }
+  const s = etat.cat.systeme || {};
+  etat.sortie = 'Échap maintenu ' + (s.sortie_echap_s || 2) + ' s  ·  Select + Start';
+  construireListe();
+  try { etat.demos = await api('/api/demos'); } catch (e) { etat.demos = { disponibles: 0 }; }
+}
+
+/* =====================================================================
+   LE BAC
+   ===================================================================== */
+const FENETRE = 9; // disquettes affichées de chaque côté
+
+function tailleNom(t) { const n = t.length; return n <= 8 ? 32 : n <= 14 ? 28 : n <= 20 ? 24 : n <= 28 ? 21 : 18; }
+
+function construireBac() {
+  const zone = $('#disques'); zone.textContent = '';
+  let grp = null;
+  etat.liste.forEach((j, i) => {
+    const d = j.disquette || {};
+    const b = document.createElement('button');
+    b.className = 'disq' + (j.variantes.some(v => v.dispo) ? '' : ' absente'); b.dataset.i = i;
+    b.setAttribute('aria-label', j.titre);
+    b.style.background = d.corps || (j.vrac ? '#55585e' : '#1c1c1f');
+    const manuscrit = d.police === 'manuscrit';
+    const nbD = (j.variantes[0] && j.variantes[0].disques || []).length;
+    const sous = [j.annee, (j.editeur || '').split(/[\/,]/)[0]].filter(Boolean).join(' · ') || (j.vrac ? 'vrac' : '');
+    b.innerHTML =
+      '<span class="etiq"><span class="bande"></span><span class="nom"></span><span class="sous"></span></span>' +
+      '<span class="volet"></span><span class="prot"></span>' + (nbD > 1 ? '<span class="elastique"></span>' : '');
+    b.querySelector('.bande').style.background = d.bande || '#bbb';
+    const nom = b.querySelector('.nom');
+    nom.textContent = j.titre;
+    nom.style.fontFamily = manuscrit ? "'Caveat', cursive" : "'VT323', monospace";
+    nom.style.fontWeight = manuscrit ? '700' : '400';
+    nom.style.fontSize = (tailleNom(j.titre) + (manuscrit ? 3 : 0)) + 'px';
+    b.querySelector('.sous').textContent = sous;
+    const g = groupeDe(j);
+    if (g !== grp) { const o = document.createElement('span'); o.className = 'onglet'; o.textContent = g; b.appendChild(o); grp = g; j._debutGroupe = true; } else j._debutGroupe = false;
+    j._groupe = g;
+    b.addEventListener('click', () => { if (i === etat.sel) { etat.capture++; dessinerFiche(); Son.touche(); } else choisir(i); });
+    b.addEventListener('dblclick', () => { if (i === etat.sel) charger(); });
+    zone.appendChild(b);
+  });
+  placer();
+  dessinerFiche();
+}
+
+function placer() {
+  const n = etat.liste.length, sel = etat.sel;
+  const vol = etat.phase === 'insertion' || etat.phase === 'lecture' || etat.phase === 'jeu' || etat.phase === 'web';
+  $$('#disques .disq').forEach((b) => {
+    const i = +b.dataset.i, k = i - sel, ad = Math.abs(k);
+    if (ad > FENETRE + 1) { b.style.display = 'none'; return; }
+    b.style.display = '';
+    let dx = k === 0 ? 0 : Math.sign(k) * (118 + (ad - 1) * 46);
+    let dy = k === 0 ? -78 : 0, dz = k === 0 ? 40 : -(40 + ad * 16), ry = k === 0 ? 0 : (k < 0 ? 52 : -52), rz = 0, sc = 1, op = ad > FENETRE ? 0 : 1, z = 100 - ad;
+    if (k === 0 && vol) { dx = 140; dy = 400; dz = 0; ry = 0; rz = 90; sc = 0.3; op = 0; z = 300; }
+    b.style.transform = `translateX(${dx}px) translateY(${dy}px) translateZ(${dz}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${sc})`;
+    b.style.zIndex = z; b.style.opacity = op;
+    b.tabIndex = k === 0 ? 0 : -1;
+  });
+  const j = etat.liste[sel];
+  $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * 662) : 0) + 'px';
+  $('#fa-compteur').textContent = n ? (sel + 1) + ' / ' + n : '0 / 0';
+  $('#info-g').textContent = n + ' disquettes · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
+  if (!j) { $('#fa-titre').textContent = 'Bac vide'; $('#fa-meta').textContent = 'F10 : panneau de contrôle'; $('#fa-vers').textContent = ''; return; }
+  $('#fa-groupe').textContent = 'BAC À DISQUETTES · ' + j._groupe;
+  $('#fa-titre').textContent = j.titre;
+  $('#fa-meta').textContent = [j.editeur, j.annee].filter(Boolean).join(' · ');
+  $('#fa-vers').textContent = j.variantes.filter((v, i) => v.dispo || i === 0).map(v => v.nom + (v.dispo ? '' : ' (absente)')).join('  ·  ');
+}
+
+function choisir(i) {
+  const n = etat.liste.length; if (!n) return;
+  i = Math.max(0, Math.min(n - 1, i));
+  if (i === etat.sel || etat.phase !== 'bureau') return;
+  etat.sel = i; etat.capture = 0;
+  const j = etat.liste[i];
+  etat.variante = Math.max(0, j.variantes.findIndex(v => v.dispo));
+  Son.clic(); placer(); dessinerFiche(); ecrirePrefs();
+}
+
+function sauterGroupe(sens) {
+  const l = etat.liste; let i = etat.sel;
+  if (sens < 0) { // début du groupe courant, ou du précédent si déjà au début
+    if (l[i] && l[i]._debutGroupe && i > 0) i--;
+    while (i > 0 && !l[i]._debutGroupe) i--;
+  } else {
+    i++; while (i < l.length - 1 && !l[i]._debutGroupe) i++;
+  }
+  choisir(i);
+}
+
+function sauterLettre(c) {
+  const l = etat.liste, n = l.length;
+  for (let k = 1; k <= n; k++) {
+    const i = (etat.sel + k) % n;
+    if (cleTri(l[i]).charAt(0) === c.toLowerCase()) { choisir(i); return; }
+  }
+}
+
+/* ---------- la fiche ---------- */
+function dessinerFiche() {
+  const j = etat.liste[etat.sel];
+  const cap = $('#f-capture');
+  if (!j) { $('#f-titre').textContent = '—'; $('#f-lignes').textContent = ''; $('#f-variantes').textContent = ''; cap.innerHTML = ''; return; }
+  $('#f-titre').textContent = j.titre;
+  const l1 = [j.editeur, j.annee].filter(Boolean).join(', ');
+  const l2 = [j.genre, j.joueurs ? (j.joueurs + (j.joueurs > 1 ? ' joueurs' : ' joueur')) : ''].filter(Boolean).join(' · ');
+  $('#f-lignes').innerHTML = '';
+  [l1, j.auteur ? 'par ' + j.auteur : '', l2].filter(Boolean).forEach(t => { const d = document.createElement('div'); d.textContent = t; $('#f-lignes').appendChild(d); });
+
+  const caps = j.captures || [];
+  cap.innerHTML = '';
+  if (caps.length) {
+    const img = document.createElement('img'); img.alt = j.titre; img.src = '/' + caps[idxCapture(caps.length)];
+    cap.appendChild(img);
+    if (caps.length > 1) { const n = document.createElement('div'); n.className = 'num'; n.textContent = (idxCapture(caps.length) + 1) + '/' + caps.length; cap.appendChild(n);
+      [['prec', -1, '◀', 'Capture précédente'], ['suiv', 1, '▶', 'Capture suivante']].forEach(([c, d, t, l]) => {
+        const f = document.createElement('button'); f.className = 'fleche ' + c; f.textContent = t; f.title = l; f.setAttribute('aria-label', l);
+        f.addEventListener('click', (e) => { e.stopPropagation(); etat.capture += d; Son.touche(); dessinerFiche(); });
+        cap.appendChild(f);
+      });
+    }
+    const pb = document.createElement('button'); pb.className = 'poubelle'; pb.title = 'Retirer cette capture (Suppr)'; pb.setAttribute('aria-label', 'Retirer cette capture');
+    pb.innerHTML = '<svg width="22" height="24" viewBox="0 0 11 12" shape-rendering="crispEdges" aria-hidden="true"><rect x="4" y="0" width="3" height="1" fill="currentColor"/><rect x="0" y="1" width="11" height="2" fill="currentColor"/><rect x="1" y="3" width="9" height="9" fill="currentColor"/><rect x="3" y="4" width="1" height="7" fill="#fff"/><rect x="5" y="4" width="1" height="7" fill="#fff"/><rect x="7" y="4" width="1" height="7" fill="#fff"/></svg>';
+    pb.addEventListener('click', (e) => { e.stopPropagation(); if (etat.phase === 'bureau') retirerCapture(); });
+    cap.appendChild(pb);
+  } else {
+    const c = (j.disquette && j.disquette.bande) || '#3a6ea5';
+    cap.style.background = `linear-gradient(160deg, ${c} 0%, #0b0b14 100%)`;
+    cap.innerHTML = '<div class="trame"></div><div class="vide"><div class="grand"></div><div class="petit">Pas encore de capture.<br>En jeu : F8</div></div>';
+    cap.querySelector('.grand').textContent = j.titre.toUpperCase();
+  }
+  if (caps.length) cap.style.background = '#000';
+
+  const fc = $('#f-commandes'); fc.textContent = '';
+  commandes(j).forEach(([c, a]) => {
+    const e1 = document.createElement('span');
+    if (c) { e1.className = 'cle'; e1.textContent = c; const e2 = document.createElement('span'); e2.className = 'act'; e2.textContent = a; fc.append(e1, e2); }
+    else { e1.className = 'seul'; e1.textContent = a; fc.append(e1); }
+  });
+  const ast = [];
+  if (j.note) ast.push(j.note);
+  const v = j.variantes[etat.variante];
+  if (v && v.type === 'hatari' && v.auto && etat.cat.systeme && !etat.cat.systeme.hatari2) ast.push('Hatari 1.x : lancer ' + v.auto.replace(/^A:\\/i, '') + ' depuis le bureau GEM');
+  $('#f-astuce').classList.toggle('cache', !ast.length);
+  $('#f-astuce').textContent = ast.join(' · ');
+
+  const zv = $('#f-variantes'); zv.textContent = '';
+  const visible = (v, i) => v.dispo || i === 0;
+  const toutes = !j.variantes.some(visible);
+  j.variantes.forEach((v, i) => {
+    if (!toutes && !visible(v, i)) return;
+    const b = document.createElement('button');
+    b.className = 'radio' + (i === etat.variante ? ' choisie' : '');
+    b.disabled = !v.dispo;
+    b.innerHTML = '<span class="rond"><i></i></span><span class="nom"></span><span class="desc"></span>';
+    b.querySelector('.nom').textContent = v.nom;
+    b.querySelector('.desc').textContent = v.dispo ? (v.desc || '') : (v.absent || 'absente');
+    b.title = v.absent || '';
+    b.addEventListener('click', () => { if (v.dispo && etat.phase === 'bureau') { etat.variante = i; Son.touche(); dessinerFiche(); } });
+    zv.appendChild(b);
+  });
+  placer();
+}
+
+// commandes : paires [touche, action] ; touche vide = ligne simple.
+function idxCapture(n) { return ((etat.capture % n) + n) % n; }
+
+function commandes(j) {
+  const m = (etat.cat && etat.cat.systeme && etat.cat.systeme.manettes) || 0;
+  const j1 = m >= 1 ? 'manette 1' : 'flèches + Ctrl droit';
+  const j2 = m >= 2 ? 'manette 2' : 'Z Q S D + Ctrl gauche';
+  const deux = (j.joueurs || 1) > 1;
+  const l = j.commandes === 'souris'
+    ? [['Souris', 'pointer, cliquer']].concat(deux ? [['Joystick', j1]] : [])
+    : [['Joueur 1', j1]].concat(deux ? [['Joueur 2', j2]] : []);
+  (j.aide || '').split(' · ').filter(Boolean).forEach(a => {
+    const i = a.indexOf(' : ');
+    if (i < 0) { l.push(['', a.charAt(0).toUpperCase() + a.slice(1)]); return; }
+    const c = a.slice(0, i), act = a.slice(i + 3);
+    if (/^souris$/i.test(c) && l[0][0] === 'Souris') { l[0][1] = act; return; }
+    l.push([c.charAt(0).toUpperCase() + c.slice(1), act]);
+  });
+  return l;
+}
+
+function texteCommandes(j) {
+  return commandes(j).map(([c, a]) => c ? c + ' : ' + a : a).join('\n');
+}
+
+function changerVariante(sens) {
+  const j = etat.liste[etat.sel]; if (!j) return;
+  let i = etat.variante;
+  for (let k = 0; k < j.variantes.length; k++) {
+    i = (i + sens + j.variantes.length) % j.variantes.length;
+    if (j.variantes[i].dispo) break;
+  }
+  if (i !== etat.variante) { etat.variante = i; Son.touche(); dessinerFiche(); }
+}
+
+/* =====================================================================
+   LECTEUR : charger, jouer, éjecter
+   ===================================================================== */
+function led(on) { $('#led').classList.toggle('allumee', on); }
+function etatLecteur(t) { $('#l-etat').textContent = t; }
+const attendre = (ms) => new Promise(r => setTimeout(r, ms));
+
+async function charger() {
+  if (etat.phase !== 'bureau') return;
+  const j = etat.liste[etat.sel]; if (!j) return;
+  const v = j.variantes[etat.variante];
+  if (!v || !v.dispo) { Son.cloche(); alerte('Cette version n\'est pas disponible.\n\n' + ((v && v.absent) || ''), ['OK']); return; }
+  Son.touche();
+  etat.phase = 'insertion'; placer(); etatLecteur('Insertion…');
+  await attendre(520);
+  Son.insertion();
+  $('#l-disque').style.background = (j.disquette && j.disquette.bande) || '#888';
+  $('#l-disque').classList.add('dedans');
+  etat.phase = 'lecture'; led(true);
+  let piste = 0; const tp = setInterval(() => { piste = Math.min(79, piste + 3 + Math.floor(Math.random() * 6)); etatLecteur('Lecture piste ' + String(piste).padStart(2, '0')); }, 90);
+  const duree = Son.lecteur(0.25, 2.9) || 2.6;
+  let rep;
+  try {
+    rep = await api('/api/lancer', { id: j.id, variante: etat.variante });
+  } catch (e) {
+    clearInterval(tp); led(false);
+    Son.cloche();
+    alerte('Impossible de lancer « ' + j.titre + ' ».\n\n' + e.message, ['OK']);
+    await ejecter(true);
+    return;
+  }
+  await attendre(Math.max(900, duree * 1000 - 150));
+  clearInterval(tp); led(false); etatLecteur('En service');
+  if (rep.type === 'web') ouvrirWeb(rep.url, j);
+  else afficherEnJeu(j, rep);
+  etat.capturesAvant = (j.captures || []).length; etat.idEnJeu = j.id;
+}
+
+function afficherEnJeu(j, rep) {
+  etat.phase = 'jeu';
+  $('#ej-titre').textContent = j.titre;
+  $('#ej-sortie').textContent = 'Pour revenir : ' + etat.sortie;
+  const aide = ['F8 : capture d\'écran pour la fiche'];
+  $('#ej-commandes').textContent = texteCommandes(j);
+  $('#ej-aide').textContent = aide.join('  ·  ');
+  $('#enjeu').classList.remove('cache');
+}
+
+async function ejecter(force) {
+  if (!force && !['jeu', 'web', 'lecture'].includes(etat.phase)) return;
+  $('#enjeu').classList.add('cache');
+  fermerWeb(true);
+  etat.phase = 'ejection'; etatLecteur('Éjection…');
+  Son.ejection();
+  $('#l-disque').classList.remove('dedans');
+  await attendre(450);
+  etat.phase = 'bureau'; etatLecteur('Prêt'); led(false);
+  placer(); revenir();
+  await chargerCatalogue(); // nouvelles captures éventuelles
+  const j = etat.cat && etat.cat.jeux.find(x => x.id === etat.idEnJeu);
+  if (j && (j.captures || []).length > (etat.capturesAvant || 0)) {
+    const n = j.captures.length - etat.capturesAvant;
+    etat.capture = 0; dessinerFiche();
+    etatLecteur(n + (n > 1 ? ' captures ajoutées' : ' capture ajoutée'));
+    setTimeout(() => etatLecteur('Prêt'), 4000);
+  }
+  etat.idEnJeu = null;
+}
+
+function revenir() { try { window.focus(); } catch (e) {} etat.dernierInput = Date.now(); }
+
+/* ---------- versions web dans un cadre plein écran ---------- */
+function ouvrirWeb(url, j) {
+  etat.phase = 'web';
+  const w = $('#web');
+  const f = document.createElement('iframe');
+  f.src = url; f.allow = 'fullscreen; autoplay; gamepad'; f.title = j.titre;
+  w.appendChild(f);
+  $('#web-aide').textContent = 'Pour revenir au bac : ' + etat.sortie;
+  w.classList.remove('cache');
+  // agrandir hors de la scène 1280×720 : le cadre prend toute la fenêtre
+  w.style.position = 'fixed'; w.style.transform = 'none';
+  document.body.appendChild(w);
+  f.addEventListener('load', () => {
+    try { // même origine : on écoute Échap maintenu dans le jeu
+      f.contentWindow.addEventListener('keydown', toucheWeb, true);
+      f.contentWindow.addEventListener('keyup', toucheWebFin, true);
+      f.contentWindow.focus();
+    } catch (e) {}
+  });
+  setTimeout(() => { try { f.focus(); } catch (e) {} }, 100);
+}
+let echapDebut = 0;
+function toucheWeb(e) { if (e.key === 'Escape' && !e.repeat) echapDebut = Date.now(); }
+function toucheWebFin(e) { if (e.key === 'Escape') echapDebut = 0; }
+function fermerWeb(silencieux) {
+  const w = $('#web'); const f = w.querySelector('iframe');
+  if (!f) return;
+  f.remove(); w.classList.add('cache');
+  $('#scene').appendChild(w);
+  echapDebut = 0;
+  api('/api/fin-web', {}).catch(() => {});
+  if (!silencieux) ejecter(true);
+}
+
+/* =====================================================================
+   ÉVÈNEMENTS DU LANCEUR
+   ===================================================================== */
+function ecouter() {
+  let es;
+  try { es = new EventSource('/api/evenements'); } catch (e) { return; }
+  es.onmessage = (m) => {
+    let ev; try { ev = JSON.parse(m.data); } catch (e) { return; }
+    if (ev.type === 'fin' && (etat.phase === 'jeu' || etat.phase === 'lecture')) {
+      if (ev.donnees && ev.donnees.erreur && ev.donnees.duree_s < 3) {
+        ejecter(true).then(() => { Son.cloche(); alerte('Le jeu s\'est arrêté tout de suite.\n\n' + ev.donnees.erreur + '\n\nDétails : runtime/ludotheque.log', ['OK']); });
+      } else ejecter(true);
+    }
+    if (ev.type === 'quitter' && etat.phase === 'web') fermerWeb(false);
+    if (ev.type === 'fin-demo' && (etat.phase === 'demo' || etat.phase === 'veille')) quitterVeille();
+  };
+}
+
+/* =====================================================================
+   MENUS, ALERTES, PANNEAU
+   ===================================================================== */
+function ouvrirMenu(nom) {
+  $$('.menu').forEach(m => m.classList.toggle('ouvert', m.dataset.menu === nom));
+  $$('.menu > button').forEach(b => b.classList.toggle('ouvert', b.parentElement.dataset.menu === nom));
+  etat.menu = nom; etat.menuIndex = -1; surlignerMenu();
+  majCoches();
+}
+function fermerMenu() { $$('.menu').forEach(m => m.classList.remove('ouvert')); $$('.menu > button').forEach(b => b.classList.remove('ouvert')); etat.menu = null; }
+function itemsMenu() { return etat.menu ? $$(`.menu[data-menu="${etat.menu}"] .deroulant button:not([disabled])`) : []; }
+function surlignerMenu() { itemsMenu().forEach((b, i) => b.classList.toggle('actif', i === etat.menuIndex)); }
+function majCoches() {
+  const c = (a, on) => { const b = document.querySelector(`[data-action="${a}"] .coche`); if (b) b.textContent = on ? '✓' : ''; };
+  ['titre', 'annee', 'genre', 'joueurs'].forEach(t => c('tri:' + t, etat.tri === t));
+  c('opt:son', etat.son); c('opt:crt', etat.crt); c('opt:veille', etat.veille);
+  const s = (etat.cat && etat.cat.systeme) || {};
+  const af = s.affichage || {};
+  ['net', 'lisse', 'entier'].forEach(f => c('jeu:' + f, (af.filtre || 'net') === f));
+  const ln = af.lignes || 0;
+  [0, 35, 65].forEach(v => c('lignes:' + v, (ln === 0 ? 0 : ln < 50 ? 35 : 65) === v));
+  c('jeu:43', !!af.format43);
+  ['eteindre', 'redemarrer'].forEach(a => { const b = document.querySelector(`[data-action="${a}"]`); if (b) b.disabled = s.extinction === false; });
+}
+
+let alerteResolve = null, alerteFocus = 0;
+function alerte(texte, boutons, signe) {
+  return new Promise((ok) => {
+    $('#al-texte').textContent = texte;
+    $('#al-signe').textContent = signe || '!';
+    const zb = $('#al-boutons'); zb.textContent = '';
+    boutons.forEach((t, i) => {
+      const b = document.createElement('button');
+      b.className = 'bouton' + (i === boutons.length - 1 ? ' defaut' : '');
+      b.textContent = t;
+      b.addEventListener('click', () => fermerAlerte(i));
+      zb.appendChild(b);
+    });
+    alerteFocus = boutons.length - 1; marquerAlerte();
+    alerteResolve = ok; etat.dialogue = 'alerte';
+    $('#alerte').classList.remove('cache');
+  });
+}
+function marquerAlerte() { $$('#al-boutons .bouton').forEach((b, i) => b.classList.toggle('focus', i === alerteFocus)); }
+function fermerAlerte(i) {
+  $('#alerte').classList.add('cache'); etat.dialogue = null; Son.touche();
+  const r = alerteResolve; alerteResolve = null; if (r) r(i);
+}
+
+/* ---------- panneau de contrôle (F10) ---------- */
+let pn = { coches: {}, vrac: false, focus: 0, lignes: [] };
+function ouvrirPanneau() {
+  if (!etat.cat || etat.phase !== 'bureau') return;
+  fermerMenu(); Son.cloche();
+  pn.coches = {}; etat.cat.jeux.forEach(j => { pn.coches[j.id] = j.actif !== false; });
+  pn.vrac = !!etat.cat.vrac_actif; pn.focus = 0;
+  dessinerPanneau();
+  etat.dialogue = 'panneau';
+  $('#panneau').classList.remove('cache');
+}
+function dessinerPanneau() {
+  const L = $('#pn-liste'); L.textContent = ''; pn.lignes = [];
+  const ajouterLigne = (texte, info, coche, basculer) => {
+    const b = document.createElement('button'); b.className = 'ligne';
+    b.innerHTML = '<span class="cb"></span><span class="t"></span><span class="info"></span>';
+    b.querySelector('.cb').textContent = coche ? '✕' : '';
+    b.querySelector('.t').textContent = texte; b.querySelector('.info').textContent = info || '';
+    const idx = pn.lignes.length;
+    b.addEventListener('click', () => { pn.focus = idx; basculer(); Son.touche(); dessinerPanneau(); });
+    pn.lignes.push({ el: b, basculer });
+    L.appendChild(b);
+  };
+  const titre = (t) => { const d = document.createElement('div'); d.className = 'groupe'; d.textContent = t; L.appendChild(d); };
+  titre('Mode vrac');
+  ajouterLigne('Afficher toutes les autres disquettes de disques/', (etat.cat.vrac || []).length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
+  titre('Catalogue');
+  const js = etat.cat.jeux.slice().sort((a, b) => cleTri(a).localeCompare(cleTri(b)));
+  js.forEach(j => {
+    const ok = j.variantes.some(v => v.dispo);
+    ajouterLigne(j.titre, (j.annee || '') + (ok ? '' : ' · absent'), pn.coches[j.id], () => { pn.coches[j.id] = !pn.coches[j.id]; });
+  });
+  pn.focus = Math.max(0, Math.min(pn.lignes.length - 1, pn.focus));
+  pn.lignes.forEach((l, i) => l.el.classList.toggle('focus', i === pn.focus));
+  const f = pn.lignes[pn.focus]; if (f) f.el.scrollIntoView({ block: 'nearest' });
+  const n = Object.values(pn.coches).filter(Boolean).length;
+  $('#pn-compte').textContent = n + ' / ' + etat.cat.jeux.length + ' dans le bac';
+}
+function fermerPanneau() { $('#panneau').classList.add('cache'); etat.dialogue = null; }
+async function enregistrerPanneau() {
+  try {
+    await api('/api/admin', { actifs: pn.coches, vrac: pn.vrac });
+    fermerPanneau(); Son.touche();
+    await chargerCatalogue();
+  } catch (e) { alerte('Enregistrement impossible.\n\n' + e.message, ['OK']); }
+}
+
+// Écran des jeux (Hatari du pack) : enregistré dans config.json par le lanceur.
+async function reglerAffichage(a) {
+  const s = (etat.cat && etat.cat.systeme) || {};
+  const af = Object.assign({ filtre: 'net', lignes: 0, format43: false }, s.affichage || {});
+  const [k, v] = a.split(':');
+  if (k === 'lignes') af.lignes = +v;
+  else if (v === '43') af.format43 = !af.format43;
+  else af.filtre = v;
+  Son.touche();
+  try { s.affichage = await api('/api/affichage', af); majCoches(); }
+  catch (e) { alerte(/404/.test(e.message) ? 'Réglage impossible : le lanceur en mémoire est une ancienne version.\n\nQuittez la ludothèque (Fichier › Quitter) et relancez Ludotheque.exe.' : 'Réglage impossible.\n\n' + e.message, ['OK']); }
+}
+
+async function retirerCapture() {
+  const j = etat.liste[etat.sel]; if (!j || !(j.captures || []).length) return;
+  const c = j.captures[idxCapture(j.captures.length)];
+  Son.cloche();
+  if (await alerte('Retirer cette capture de la fiche ?\n\n' + c.split('/').pop() + '\n(rangée dans _retirees, pas effacée)', ['Annuler', 'Retirer'], '?') !== 1) return;
+  try { await api('/api/capture/retirer', { chemin: c }); await chargerCatalogue(); }
+  catch (e) { alerte(e.message, ['OK']); }
+}
+
+/* ---------- actions ---------- */
+async function action(a) {
+  if (/^(jeu|lignes):/.test(a)) { reglerAffichage(a); return; }
+  fermerMenu();
+  if (a.startsWith('tri:')) { etat.tri = a.slice(4); Son.touche(); ecrirePrefs(); construireListe(); return; }
+  switch (a) {
+    case 'prec': choisir(etat.sel - 1); break;
+    case 'suiv': choisir(etat.sel + 1); break;
+    case 'charger': charger(); break;
+    case 'annuler': Son.touche(); etat.variante = Math.max(0, (etat.liste[etat.sel] || { variantes: [] }).variantes.findIndex(v => v.dispo)); dessinerFiche(); break;
+    case 'ejecter': if (etat.phase === 'jeu') api('/api/arreter', {}).catch(() => {}); else if (etat.phase === 'web') fermerWeb(false); break;
+    case 'apropos': {
+      const s = (etat.cat && etat.cat.systeme) || {};
+      Son.cloche();
+      alerte('LUDOTHÈQUE ST  v' + (s.version || '?') + '\n\nHatari : ' + (s.hatari ? s.hatari.split(/[\\/]/).slice(-3).join('/') : 'introuvable') + (s.hatari2 ? '  (2.x)' : '  (1.x)') + '\n' + (etat.cat ? etat.cat.jeux.length : 0) + ' jeux au catalogue, ' + ((etat.cat && etat.cat.vrac) || []).length + ' en vrac.\n\nFab, 2026.', ['OK']);
+      break;
+    }
+    case 'panneau': ouvrirPanneau(); break;
+    case 'demos': lancerDemos(); break;
+    case 'quitter': if (await alerte('Quitter la ludothèque ?', ['Annuler', 'Quitter'], '?') === 1) api('/api/systeme', { action: 'quitter' }).catch(() => {}); break;
+    case 'eteindre': if (await alerte('Éteindre l\'ordinateur ?', ['Annuler', 'Éteindre'], '?') === 1) api('/api/systeme', { action: 'eteindre' }).catch(e => alerte(e.message, ['OK'])); break;
+    case 'redemarrer': if (await alerte('Redémarrer l\'ordinateur ?', ['Annuler', 'Redémarrer'], '?') === 1) api('/api/systeme', { action: 'redemarrer' }).catch(e => alerte(e.message, ['OK'])); break;
+    case 'opt:son': etat.son = !etat.son; ecrirePrefs(); Son.touche(); break;
+    case 'opt:crt': etat.crt = !etat.crt; $('#crt').classList.toggle('cache', !etat.crt); ecrirePrefs(); Son.touche(); break;
+    case 'opt:veille': etat.veille = !etat.veille; ecrirePrefs(); Son.touche(); break;
+    case 'pn-tout': Object.keys(pn.coches).forEach(k => pn.coches[k] = true); dessinerPanneau(); break;
+    case 'pn-rien': Object.keys(pn.coches).forEach(k => pn.coches[k] = false); dessinerPanneau(); break;
+    case 'pn-annuler': fermerPanneau(); Son.touche(); break;
+    case 'pn-ok': enregistrerPanneau(); break;
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-action]');
+  if (b && !b.disabled) { action(b.dataset.action); return; }
+  const m = e.target.closest('.menu > button');
+  if (m) { Son.touche(); const n = m.parentElement.dataset.menu; etat.menu === n ? fermerMenu() : ouvrirMenu(n); return; }
+  if (etat.menu && !e.target.closest('.menu')) fermerMenu();
+});
+$$('.menu > button').forEach(b => b.addEventListener('mouseenter', () => { if (etat.menu && etat.menu !== b.parentElement.dataset.menu) ouvrirMenu(b.parentElement.dataset.menu); }));
+$('#bac').addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const now = Date.now(); if (now - (etat.molette || 0) < 90) return; etat.molette = now;
+  choisir(etat.sel + ((e.deltaY || e.deltaX) > 0 ? 1 : -1));
+}, { passive: false });
+
+/* =====================================================================
+   CLAVIER ET MANETTE : une seule table d'intentions
+   ===================================================================== */
+const MENUS = ['bureau', 'fichier', 'affichage', 'options'];
+function intention(t) {
+  etat.dernierInput = Date.now();
+  if (etat.phase === 'veille' || etat.phase === 'demo') {
+    if (!etat.demoLecture) quitterVeille();
+    else if (t === 'retour') quitterVeille();
+    else if (t === 'x' || t === 'ok') api('/api/demo/suivante', {}).catch(() => {});
+    return;
+  }
+  if (etat.phase === 'demarrage') { if (t === 'ok' || t === 'retour') allumer(); return; }
+  if (etat.dialogue === 'alerte') {
+    const n = $$('#al-boutons .bouton').length;
+    if (t === 'gauche' || t === 'haut') { alerteFocus = (alerteFocus + n - 1) % n; marquerAlerte(); }
+    else if (t === 'droite' || t === 'bas') { alerteFocus = (alerteFocus + 1) % n; marquerAlerte(); }
+    else if (t === 'ok') fermerAlerte(alerteFocus);
+    else if (t === 'retour') fermerAlerte(0);
+    return;
+  }
+  if (etat.dialogue === 'panneau') {
+    if (t === 'haut') { pn.focus--; dessinerPanneau(); }
+    else if (t === 'bas') { pn.focus++; dessinerPanneau(); }
+    else if (t === 'pgprec') { pn.focus -= 10; dessinerPanneau(); }
+    else if (t === 'pgsuiv') { pn.focus += 10; dessinerPanneau(); }
+    else if (t === 'ok' || t === 'x') { const l = pn.lignes[pn.focus]; if (l) { l.basculer(); Son.touche(); dessinerPanneau(); } }
+    else if (t === 'menu' || t === 'admin') enregistrerPanneau();
+    else if (t === 'retour') fermerPanneau();
+    return;
+  }
+  if (etat.phase !== 'bureau') return;
+  if (etat.menu) {
+    const items = itemsMenu(), mi = MENUS.indexOf(etat.menu);
+    if (t === 'bas') { etat.menuIndex = (etat.menuIndex + 1) % items.length; surlignerMenu(); Son.touche(); }
+    else if (t === 'haut') { etat.menuIndex = (etat.menuIndex - 1 + items.length) % items.length; surlignerMenu(); Son.touche(); }
+    else if (t === 'gauche') ouvrirMenu(MENUS[(mi + 3) % 4]);
+    else if (t === 'droite') ouvrirMenu(MENUS[(mi + 1) % 4]);
+    else if (t === 'ok') { const b = items[etat.menuIndex]; if (b) action(b.dataset.action); }
+    else if (t === 'retour' || t === 'menu') fermerMenu();
+    return;
+  }
+  switch (t) {
+    case 'gauche': choisir(etat.sel - 1); break;
+    case 'droite': choisir(etat.sel + 1); break;
+    case 'pgprec': sauterGroupe(-1); break;
+    case 'pgsuiv': sauterGroupe(1); break;
+    case 'debut': choisir(0); break;
+    case 'fin': choisir(etat.liste.length - 1); break;
+    case 'haut': changerVariante(-1); break;
+    case 'bas': changerVariante(1); break;
+    case 'ok': charger(); break;
+    case 'x': etat.capture++; Son.touche(); dessinerFiche(); break;
+    case 'suppr': retirerCapture(); break;
+    case 'menu': ouvrirMenu('fichier'); etat.menuIndex = 0; surlignerMenu(); break;
+    case 'admin': ouvrirPanneau(); break;
+    case 'demos': lancerDemos(); break;
+    case 'retour': action('annuler'); break;
+  }
+}
+
+const TOUCHES = { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas', Enter: 'ok', ' ': 'x', Escape: 'retour',
+  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
+document.addEventListener('keydown', (e) => {
+  if (etat.phase === 'web') return;
+  const t = TOUCHES[e.key];
+  if (t) { e.preventDefault(); intention(t); return; }
+  if (/^[a-z0-9]$/i.test(e.key) && etat.phase === 'bureau' && !etat.dialogue && !etat.menu) { sauterLettre(e.key); etat.dernierInput = Date.now(); }
+});
+
+/* Manette (API Gamepad, disposition standard) */
+const pad = { avant: {}, repete: {} };
+const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
+function lireManettes(t) {
+  const ps = navigator.getGamepads ? navigator.getGamepads() : [];
+  const actifs = {};
+  let selStart = false;
+  for (const p of ps) {
+    if (!p) continue;
+    p.buttons.forEach((b, i) => { if (b.pressed && BOUTONS[i]) actifs[BOUTONS[i]] = true; });
+    const ax = p.axes[0] || 0, ay = p.axes[1] || 0;
+    if (ax < -0.6) actifs.gauche = true; if (ax > 0.6) actifs.droite = true;
+    if (ay < -0.6) actifs.haut = true; if (ay > 0.6) actifs.bas = true;
+    if (p.buttons[8] && p.buttons[8].pressed && p.buttons[9] && p.buttons[9].pressed) selStart = true;
+  }
+  if (selStart) delete actifs.menu;
+  for (const k in actifs) {
+    if (!pad.avant[k]) { intention(k); pad.repete[k] = t + 380; }
+    else if (['gauche', 'droite', 'haut', 'bas'].includes(k) && t > pad.repete[k]) { intention(k); pad.repete[k] = t + 95; }
+  }
+  pad.avant = actifs;
+  // dans une version web : Select + Start maintenus, ou Échap maintenu
+  if (etat.phase === 'web') {
+    if (selStart) { pad.ss = pad.ss || t; if (t - pad.ss > 1000) { pad.ss = 0; fermerWeb(false); } } else pad.ss = 0;
+    if (echapDebut && Date.now() - echapDebut > 2000) { echapDebut = 0; fermerWeb(false); }
+  }
+}
+
+/* =====================================================================
+   DÉMARRAGE, VEILLE, HORLOGE
+   ===================================================================== */
+async function allumer() {
+  if (etat.phase !== 'demarrage') return;
+  $('#d-allumer').classList.add('cache'); $('#d-texte').classList.add('cache');
+  etat.phase = 'amorcage';
+  Son.init(); Son.pret();
+  await attendre(250);
+  $('#d-ligne').innerHTML = 'Lecture de la disquette d\'amorçage<span class="clignote">_</span>';
+  for (let i = 0; i < 20 && !Son.wav; i++) await attendre(50);
+  Son.lecteur(0, 2.3, 0.9);
+  await attendre(2200);
+  $('#demarrage').classList.add('cache');
+  const ab = $('#abeille'); ab.classList.remove('cache'); ab.style.left = '620px'; ab.style.top = '340px';
+  await attendre(700);
+  ab.classList.add('cache');
+  etat.phase = 'bureau'; etat.dernierInput = Date.now();
+}
+
+function demarrage() {
+  // Son autorisé d'office (navigateur lancé par Ludotheque) : on démarre seul.
+  const a = Son.init();
+  const auto = a && a.state === 'running';
+  if (auto) allumer();
+  else {
+    $('#d-allumer').classList.remove('cache'); $('#d-texte').classList.remove('cache');
+    $('#d-ligne').textContent = 'Appuyez sur une touche ou cliquez pour allumer.';
+    $('#d-allumer').addEventListener('click', allumer);
+  }
+}
+
+/* écran de veille : défilement façon démo */
+let veille = { t0: 0, etoiles: [] };
+function entrerVeille() {
+  etat.phase = 'veille'; veille.t0 = performance.now(); veille.demos = false;
+  if (etat.demos && etat.demos.disponibles > 0) {
+    veille.demos = true;
+    veille.minuteur = setTimeout(async () => {
+      if (etat.phase !== 'veille') return;
+      try { await api('/api/demo/demarrer', {}); etat.phase = 'demo'; $('#veille').classList.add('cache'); $('#demo').classList.remove('cache'); }
+      catch (e) { veille.demos = false; }
+    }, 6000);
+  }
+  veille.etoiles = Array.from({ length: 180 }, () => ({ x: Math.random() * 1280, y: Math.random() * 720, z: Math.random() * 3 + .3 }));
+  $('#veille').classList.remove('cache');
+}
+/* Play Demo Random : les démos tout de suite, au hasard, jusqu'à Échap */
+async function lancerDemos() {
+  if (etat.phase !== 'bureau') return;
+  try { etat.demos = await api('/api/demos'); } catch (e) {}
+  if (!etat.demos || !etat.demos.disponibles) {
+    Son.cloche(); alerte('Aucune démo dans le dossier demos.\n\nDéposez-y des images .ST / .MSA\n(voir demos/LISEZMOI.txt).', ['OK']); return;
+  }
+  Son.insertion();
+  etat.phase = 'demo'; etat.demoLecture = true;
+  $('#demo').textContent = 'PLAY DEMO RANDOM · ' + etat.demos.disponibles + ' démos au hasard. Espace : démo suivante · Échap : retour à la ludothèque.';
+  $('#demo').classList.remove('cache');
+  try { await api('/api/demo/demarrer', { mode: 'lecture' }); }
+  catch (e) {
+    etat.phase = 'bureau'; etat.demoLecture = false; $('#demo').classList.add('cache');
+    alerte(/404/.test(e.message) ? 'Le lanceur en mémoire est une ancienne version.\n\nQuittez la ludothèque (Fichier › Quitter) et relancez Ludotheque.exe.' : 'Démos impossibles.\n\n' + e.message, ['OK']);
+  }
+}
+function quitterVeille() {
+  clearTimeout(veille.minuteur);
+  if (etat.phase === 'demo') api('/api/demo/arreter', {}).catch(() => {});
+  etat.demoLecture = false;
+  $('#demo').textContent = 'Démo en cours. La moindre action ramène à la ludothèque.';
+  etat.phase = 'bureau'; $('#veille').classList.add('cache'); $('#demo').classList.add('cache'); etat.dernierInput = Date.now(); revenir();
+}
+function dessinerVeille(t) {
+  const c = $('#v-canvas').getContext('2d'), dt = (t - veille.t0) / 1000;
+  c.fillStyle = '#000'; c.fillRect(0, 0, 1280, 720);
+  for (const e of veille.etoiles) {
+    e.x -= e.z * 2.2; if (e.x < 0) { e.x = 1280; e.y = Math.random() * 720; }
+    const g = Math.floor(80 + e.z * 55); c.fillStyle = `rgb(${g},${g},${g})`; c.fillRect(Math.floor(e.x), Math.floor(e.y), e.z > 2 ? 3 : 2, e.z > 2 ? 3 : 2);
+  }
+  const l = etat.liste; if (l.length) {
+    const j = l[Math.floor(dt / 4) % l.length];
+    c.font = '72px VT323'; c.textAlign = 'center';
+    const pal = ['#ff5050', '#ffd23f', '#50ff7a', '#4fc3ff', '#d36bff'];
+    c.fillStyle = pal[Math.floor(dt / 4) % pal.length];
+    c.fillText(j.titre.toUpperCase(), 640, 300 + Math.sin(dt * 2) * 20);
+    c.font = '30px VT323'; c.fillStyle = '#888'; c.fillText([j.editeur, j.annee].filter(Boolean).join(' · '), 640, 350 + Math.sin(dt * 2) * 20);
+  }
+  if (veille.demos) {
+    c.fillStyle = '#fff'; c.fillRect(0, 0, 1280, 64); c.fillStyle = '#000'; c.fillRect(0, 64, 1280, 3);
+    c.font = '34px VT323'; c.textAlign = 'center'; c.fillText('PLACE AUX DÉMOS : les chefs-d\'œuvre de la scène Atari ST', 640, 42);
+    c.font = '26px VT323'; c.fillStyle = '#9cff9c'; c.fillText('Bougez la souris ou appuyez sur une touche pour rester dans la ludothèque', 640, 110);
+  }
+  const msg = '     LUDOTHÈQUE ST  ***  ' + l.length + ' DISQUETTES DANS LE BAC  ***  APPUYEZ SUR UNE TOUCHE POUR REVENIR  ***  ÉCHAP MAINTENU OU SELECT + START POUR QUITTER UN JEU  ***  F10 : PANNEAU DE CONTRÔLE  ***  ';
+  c.font = '48px VT323'; c.textAlign = 'left';
+  const w = 26, dec = (dt * 220) % (msg.length * w);
+  for (let i = 0; i < msg.length; i++) {
+    const x = i * w - dec; if (x < -w || x > 1280) continue;
+    const y = 620 + Math.sin(dt * 3 + x / 90) * 26;
+    c.fillStyle = `hsl(${(x / 4 + dt * 60) % 360},90%,60%)`; c.fillText(msg[i], x, y);
+  }
+}
+['mousemove', 'mousedown', 'keydown', 'wheel'].forEach(ev => addEventListener(ev, () => { etat.dernierInput = Date.now(); if ((etat.phase === 'veille' || etat.phase === 'demo') && !etat.demoLecture) quitterVeille(); }, true));
+
+function horloge() {
+  const d = new Date();
+  $('#horloge').textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+
+function boucle(t) {
+  lireManettes(t);
+  const delai = ((etat.demos && etat.demos.apres_min) || 3) * 60000;
+  if (etat.phase === 'bureau' && etat.veille && !etat.dialogue && !etat.menu && Date.now() - etat.dernierInput > delai) entrerVeille();
+  if (etat.phase === 'veille') dessinerVeille(t);
+  requestAnimationFrame(boucle);
+}
+
+/* ---------- c'est parti ---------- */
+lirePrefs();
+$('#crt').classList.toggle('cache', !etat.crt);
+ajuster(); horloge(); setInterval(horloge, 10000);
+chargerCatalogue();
+ecouter();
+demarrage();
+requestAnimationFrame(boucle);
+</script>
+</body>
+</html>

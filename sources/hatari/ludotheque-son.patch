@@ -1,0 +1,19 @@
+--- /tmp/claude-0/audio.c.orig	2026-10-12 16:49:33.357434124 +0200
++++ audio.c	2026-10-12 16:43:09.417879699 +0200
+@@ -54,6 +54,16 @@
+ //fprintf ( stderr , "audio cb in len=%d gensmpl=%d idx=%d\n" , len , nGeneratedSamples , AudioMixBuffer_pos_read );
+ 	pulse_swallowing_count = 0;	/* 0 = Unaltered emulation rate */
+ 
++	/* Ludothèque ST : silence pendant l'accéléré (chargement en turbo),
++	 * et les échantillons produits en accéléré sont jetés. */
++	if (ConfigureParams.System.bFastForward)
++	{
++		memset(stream, 0, len * 4);
++		AudioMixBuffer_pos_read = (AudioMixBuffer_pos_read + nGeneratedSamples) & AUDIOMIXBUFFER_SIZE_MASK;
++		nGeneratedSamples = 0;
++		return;
++	}
++
+ 	if (ConfigureParams.Sound.bEnableSoundSync)
+ 	{
+ 		/* Sound synchronized emulation */

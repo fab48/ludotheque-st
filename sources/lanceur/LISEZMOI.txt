@@ -1,0 +1,10 @@
+Lanceur de la ludothèque (Go 1.24, une dépendance vendorisée : purego, pour
+lire le clavier X11 sans compilation C).
+
+  Linux   : CGO_ENABLED=0 go build -mod=vendor -ldflags "-s -w" -o ../../ludotheque .
+  Windows : GOOS=windows CGO_ENABLED=0 go build -mod=vendor -ldflags "-H windowsgui -s -w" -o ../../Ludotheque.exe .
+
+main.go        serveur local, fichiers, évènements, extinction
+jeux.go        catalogue, vrac, lancement Hatari / natif / web
+navigateur.go  arguments du navigateur (profil dans runtime/)
+plateforme_*.go  navigateur, premier plan, Échap maintenu, manettes

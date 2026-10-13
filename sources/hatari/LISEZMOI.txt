@@ -1,0 +1,16 @@
+Hatari 2.6.1 du pack : version officielle + deux petits correctifs.
+
+ludotheque-ecran.patch (src/screen.c) : filtres d'affichage, réglés par le
+lanceur avec des variables d'environnement (menu Options de la ludothèque) :
+  HATARI_LUDO_FILTRE = net | lisse | entier
+  HATARI_LUDO_LIGNES = 0..100   (lignes de balayage)
+  HATARI_LUDO_43     = 1        (proportions 4:3)
+ludotheque-son.patch (src/audio.c) : silence pendant l'accéléré.
+ludotheque-turbo.patch (main.c, fdc.c, video.c, psg.c) : HATARI_LUDO_TURBO=disque,
+accéléré seulement pendant les chargements (moteur du lecteur allumé sans
+musique, ou décompactage : couleur 0 qui clignote sans musique). Les intros,
+menus et jeux restent à vitesse normale.
+
+Sources : https://github.com/hatari/hatari (tag v2.6.1), sous licence GPL v2.
+Windows : compilé avec mingw-w64 et SDL 2.30.9. Linux : compilé sur Ubuntu 22.04
+(glibc 2.35), livré avec sa libSDL2.

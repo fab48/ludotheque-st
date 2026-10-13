@@ -1,0 +1,24 @@
+HATARI
+======
+hatari-windows/   Hatari 2.6.1 pour Windows 64 bits (compilé pour ce pack,
+                  avec SDL2, zlib et PNG). Licence GPL v2 : COPYING-hatari.txt.
+hatari-linux/     Hatari 2.6.1 pour Linux 64 bits (glibc 2.34 ou plus :
+                  Mint 21+, Manjaro). libSDL2 fournie à côté.
+                  Si ce binaire ne démarre pas sur votre système, le lanceur
+                  utilise le Hatari installé (Gestionnaire de logiciels :
+                  « hatari »).
+hatari-1.8-windows/  l'ancien Hatari 1.8, gardé tel quel.
+
+Hatari 2.x est nécessaire pour :
+  - lancer un programme sans passer par le bureau GEM ("auto") ;
+  - monter un dossier comme disque dur (IK+ Reforged) ;
+  - ranger les captures (AltGr + G) dans medias/<jeu>/.
+
+Mettre à jour : remplacez le contenu de hatari-windows/ par une version plus
+récente (hatari.exe et ses DLL). Le lanceur cherche aussi un hatari.exe
+dans un sous-dossier de hatari-windows/.
+
+Formats : .st, .msa, .dim, .stx (natif) et .zip. Les images .ipf demandent
+la bibliothèque CAPSImage 5.1 (capsimg.dll), non fournie.
+
+Réglages Hatari conservés dans runtime/hatari/ (pas dans votre profil).

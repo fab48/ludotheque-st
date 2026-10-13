@@ -1,0 +1,17 @@
+# données locales et générées
+runtime/
+medias/**/_retirees/
+# images de disquettes et ROM TOS (droits d'auteur, volumineux)
+disques/*
+!disques/LISEZMOI.txt
+tos/*.img
+tos/*.rom
+# binaires compilés (refaits par build.bat / build.sh)
+Ludotheque.exe
+ludotheque
+# restes d'extraction et journaux
+Atari ST [[]TOSEC[]]/
+emulateurs/**/stderr.txt
+emulateurs/**/stdout.txt
+__pycache__/
+*.tmp

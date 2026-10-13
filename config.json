@@ -1,0 +1,37 @@
+{
+  "autoriser_extinction": true,
+  "boutons_manette": [
+    [
+      6,
+      7
+    ],
+    [
+      8,
+      9
+    ]
+  ],
+  "carte_au_chargement": true,
+  "chargement_rapide": true,
+  "demos_apres_min": 3,
+  "duree_demo_min": 4,
+  "ecran_4_3": true,
+  "ecran_filtre": "net",
+  "ecran_lignes": 0,
+  "hatari_linux": "emulateurs/hatari-linux/hatari",
+  "hatari_options": [],
+  "hatari_windows": "emulateurs/hatari-windows/hatari.exe",
+  "joystick": "auto",
+  "kiosque": true,
+  "navigateur": "auto",
+  "nettoyer_amorce": true,
+  "plein_ecran_jeux": true,
+  "port": 8480,
+  "sortie_echap_s": 2,
+  "sortie_manette_s": 1,
+  "tir_clavier": "Right Ctrl",
+  "tir_clavier_j2": "Left Ctrl",
+  "touche_capture": "F8",
+  "touche_menu_auto": true,
+  "turbo": "disque",
+  "turbo_chargement_s": 4
+}

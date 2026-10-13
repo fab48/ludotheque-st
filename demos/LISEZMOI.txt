@@ -1,0 +1,34 @@
+DÉMOS
+=====
+35 démos célèbres de la scène Atari ST (1988-2003), choisies d'après les
+classements de pouet.net, demozoo et la liste de compatibilité de Hatari,
+tirées de la collection TOSEC et testées dans le Hatari du pack.
+
+DEUX FAÇONS DE LES VOIR
+  - En veille : après quelques minutes sans action (config.json :
+    "demos_apres_min"), elles défilent au hasard, avec un bandeau en haut
+    qui dit ce que c'est. Souris, clavier ou manette : retour au bac.
+  - PLAY DEMO RANDOM : F7 dans le bac, ou Fichier › Play Demo Random. Les
+    mêmes démos tout de suite, au hasard, sans s'arrêter au moindre geste :
+      Espace ou tir        démo suivante
+      Échap                retour à la ludothèque
+      Select + Start       retour à la ludothèque (manette)
+Chaque démo tourne "duree_demo_min" minutes (config.json), puis la suivante.
+
+demos.json
+  Une fiche par démo : titre, groupe, année, texte du bandeau, disquettes
+  ("disques"), et si besoin "machine" (st / ste), "tos", "options" Hatari
+  (mémoire : "--memsize", "1024" ; programme à lancer : "--auto", "A:\X.PRG").
+  Par défaut : STF avec le premier TOS présent de la liste "tos" (TOS 1.04 FR).
+
+AJOUTER UNE DÉMO
+  Déposez l'image (.st, .msa, .stx, .zip) ici : elle est jouée aussi, sous
+  son nom de fichier. Pour un titre et un texte, ajoutez une fiche dans
+  demos.json (ou un mot de son nom de fichier dans "cles").
+  Où les trouver : demozoo.org, pouet.net, atarimania.com, ou la collection
+  TOSEC (dossier Demos). Les démos de la scène sont gratuites.
+
+ÉCARTÉES APRÈS ESSAI (dans Hatari, sans personne au clavier)
+  Braindamage (réclame la disquette 2 dans le lecteur A), Anomaly et The
+  Delirious Demo (attendent une touche), Transbeauce 2 (image brouillée).
+  The Cebit '90 Conversion n'est pas dans la collection TOSEC.

@@ -1,0 +1,30 @@
+VERSIONS REFORGED
+=================
+shufflepuck/shufflepuck.html
+    Shufflepuck Café reforged (fab48/shufflepuck-cafe-reforged, dist/).
+    Fichier unique, ouvert dans la ludothèque. Prêt.
+
+stuntcar-web/
+    Réplique navigateur de Stunt Car Racer (fab48/stuntcar-racer, replica/).
+    Au premier lancement, « Charger la disquette » : choisissez votre image
+    originale Stunt_Car_Racer.st. Les circuits restent ensuite mémorisés.
+
+stuntcar-natif/
+    Version native C++/SDL2 (fab48/stuntcar-racer, native/), compilée pour
+    ce pack : scr.exe + SDL2.dll (Windows), scr (Linux).
+    Elle lit le programme du jeu sur l'image ORIGINALE : déposez
+    disques/Stunt_Car_Racer.st (l'image de compil A_117 ne contient pas
+    GAME.PUT). Lancée en plein écran, mode HD (F1 bascule, F12 quitte).
+
+ikplus/
+    IK+ Reforged (stephane-perez/ik-plus-reforged) : 3 joueurs, STE.
+    Le dépôt ne contient aucune donnée du jeu : il corrige VOTRE IK+.PRG,
+    dans une version précise (344 516 octets, MD5
+    4107c876be9d49deb2a3cf5b390f70be). Les IK+.PRG trouvés dans
+    D:\hatari\jeux n'ont pas cette empreinte (bd3be857... pour celui
+    d'« International Karate + (1988)(Archer Maclean).st »).
+    Avec le bon IK+.PRG, sous Linux :
+        git clone https://github.com/stephane-perez/ik-plus-reforged
+        cd ik-plus-reforged && make game PRG=/chemin/IK+.PRG
+    puis copiez build/IK_PLUS dans reforged/ikplus/IK_PLUS/.
+    La ludothèque le lance alors sur un STE 1 Mo, dossier monté en C:.

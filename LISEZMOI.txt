@@ -1,0 +1,169 @@
+LUDOTHÈQUE ST
+=============
+
+Une ludothèque Atari ST au look du bureau GEM : un bac de disquettes, une
+fiche par jeu, et Hatari (ou une version reforged) qui démarre en plein écran.
+Tout est dans ce dossier : copiez-le où vous voulez (disque, clé USB), il
+fonctionne sous Windows et sous Linux sans rien installer.
+
+
+LANCER
+------
+Windows : double-cliquez sur Ludotheque.exe
+Linux   : double-cliquez sur ludotheque.sh (ou : bash ludotheque.sh)
+
+Le navigateur s'ouvre en plein écran (Chrome, Chromium, Edge ou Firefox,
+le premier trouvé). Pour une fenêtre au lieu du plein écran :
+  Ludotheque.exe --fenetre        ./ludotheque.sh --fenetre
+
+
+COMMANDES
+---------
+                         Clavier                 Manette
+Choisir une disquette    ← →  (ou molette)       croix, stick
+Changer de groupe        Page préc. / suiv.      LB / RB
+Aller à une lettre       la lettre
+Choisir la version       ↑ ↓                     haut / bas
+Image suivante           Espace                  X
+Charger                  Entrée (ou double-clic) A
+Annuler                  Échap                   B
+Menus                    F9 ou Tab               Start
+Panneau de contrôle      F10                     Y
+Play Demo Random         F7 (ou menu Fichier)
+
+QUITTER UN JEU ET REVENIR AU BAC
+  Échap maintenu 2 secondes            (clavier, marche dans tous les jeux)
+  Select + Start maintenus 1 seconde   (manette)
+Le lanceur surveille le clavier et la manette lui-même : ça marche aussi
+dans Hatari, dans les versions natives et dans les versions web.
+Durées et boutons réglables dans config.json.
+
+JOYSTICKS
+  Joueur 1 (port joystick) : manette 1, sinon flèches + Ctrl droit.
+  Joueur 2 (port souris)   : manette 2, sinon Z Q S D + Ctrl gauche.
+  Les jeux à la souris (catalogue.json : "commandes": "souris") gardent la
+  souris sur le port 0. La fiche de chaque jeu rappelle ses commandes.
+  Réglages : config.json, "joystick": "auto" | "manette" | "clavier",
+  "tir_clavier", "tir_clavier_j2".
+
+COMMANDES DU JEU
+  Au lancement, un encart plein écran rappelle les commandes du jeu
+  pendant 3 secondes. En jeu, Pause (clavier)
+  ou Select (manette, appui court) met le jeu en pause et réaffiche cet
+  encart ; la même touche le referme. ("carte_au_chargement" dans config.json)
+
+CAPTURES POUR LES FICHES
+  F8 en jeu : capture de l'écran du ST, rangée dans medias/<jeu>/ et
+  affichée dans la fiche au retour. Dans le bac, la petite poubelle sur
+  l'image (ou Suppr) retire la capture affichée (rangée dans _retirees,
+  pas effacée). Touche réglable dans
+  config.json ("touche_capture").
+
+ÉCRAN DES JEUX (menu Options)
+  Pixels nets (par défaut), image lissée, ou pixels entiers (cadre noir
+  autour) ; lignes de balayage aucune / légères / marquées ; format 4:3
+  comme un écran d'époque. Enregistré dans config.json ("ecran_filtre",
+  "ecran_lignes" de 0 à 100, "ecran_4_3"). Le son est coupé pendant le
+  chargement accéléré.
+
+Dans Hatari : F12 ouvre son menu (changer de disquette, réglages).
+
+
+MENUS DE COMPIL, INTROS DE CRACK, TRAINERS
+------------------------------------------
+Beaucoup d'images sont des compilations (Automation, LSD...) ou des
+versions crackées : un menu, une intro « press space » ou un « Trainer
+(Y/N) ? » s'affiche d'abord. Le lanceur presse seul les bonnes touches
+pendant le chargement : le jeu démarre sans rien toucher. Dans
+catalogue.json :
+  "sequence": ["espace", "N"]   touches pressées à tour de rôle pendant 5 s
+                                (espace, entree, F1…F10, pave1…pave9,
+                                1…0 = rangée des chiffres, une lettre)
+  "touche_duree": 15            les presser plus longtemps (secondes)
+  "touche_delai": 10            attendre avant de commencer (secondes)
+  (ancienne forme, toujours lue : "touche" + "touche_type")
+
+CHARGEMENT
+  Notre Hatari passe tout seul en accéléré pendant les chargements : quand
+  le lecteur de disquette tourne et pendant les décompactages (bandes de
+  couleur), son coupé. Les intros, les menus et le jeu restent à vitesse
+  normale, avec leur musique. Un chargement accompagné de musique reste
+  aussi à vitesse normale. Réglage "turbo" dans config.json : "disque" (par
+  défaut), "debut" (ancienne méthode : "turbo_chargement_s" secondes au
+  démarrage) ou "non".
+  Lecteur de disquette accéléré et démarrage rapide du TOS
+  ("chargement_rapide"). Si une protection refuse de charger, ajoutez pour
+  ce jeu : "options": ["--fastfdc", "no"].
+  L'écran blanc « The Little Green Desktop » de certaines images est
+  masqué : le lanceur en fait une copie sans cette amorce dans
+  runtime/disques/ ("nettoyer_amorce"). Les sauvegardes de ces jeux vont
+  dans cette copie.
+
+DÉMOS
+  Après 3 minutes sans action, les démos célèbres du ST défilent au hasard
+  (35 chefs-d'œuvre de la scène, 1988-2003), avec un bandeau d'explication
+  en haut ; la moindre action ramène au bac.
+  PLAY DEMO RANDOM (F7, ou Fichier › Play Demo Random) : les mêmes démos
+  tout de suite, au hasard. Espace ou tir : démo suivante. Échap (ou
+  Select + Start) : retour au bac. Voir demos/LISEZMOI.txt.
+
+
+PANNEAU DE CONTRÔLE (F10)
+-------------------------
+Coche ou décoche les jeux qui vont dans le bac. Le « mode vrac » ajoute
+toutes les autres images du dossier disques/, regroupées automatiquement
+(un fullset déposé dans disques/ apparaît ainsi sans rien écrire).
+Le choix est enregistré dans catalogue.json.
+
+
+AJOUTER UN JEU
+--------------
+1. Déposez l'image (.st, .msa, .stx, .zip...) dans disques/.
+2. Soit vous activez le mode vrac (F10), soit vous ajoutez une entrée dans
+   catalogue.json (titre, éditeur, année, genre, joueurs, disquettes) :
+   copiez celle d'un jeu existant.
+Les jeux ajoutés depuis la collection TOSEC (2012) sont dans disques/tosec/
+(une centaine de classiques, testés dans Hatari). La collection complète
+reste à part : C:\Atari_ST_TOSEC_2012_04_23 (zips, un par disquette).
+Un .msa ou plusieurs disquettes : modifiez le nom dans catalogue.json.
+
+Options par jeu dans catalogue.json :
+  "auto": "A:\\JEU.PRG"   lance le programme sans passer par le bureau GEM
+  "machine": "st"          st, ste, megaste, tt, falcon
+  "tos": "tos/xxx.img"     un autre TOS pour ce jeu
+  "options": [...]         options Hatari en plus ("{pack}" = ce dossier)
+  "touche": "5"            rappel affiché sur la fiche
+
+
+DÉMARRAGE AUTOMATIQUE
+---------------------
+Windows : « Demarrage automatique - activer.bat » (et « - desactiver »).
+Linux   : bash installer-linux.sh   (démarrage avec la session)
+          bash installer-linux.sh --kiosque   (session dédiée, sans bureau)
+
+
+DOSSIERS
+--------
+Ludotheque.exe, ludotheque   le lanceur (Windows, Linux)
+config.json                  réglages : navigateur, plein écran, sortie...
+catalogue.json               la liste des jeux et leurs versions
+ui/                          l'interface (une page HTML, polices, sons)
+disques/                     les images disque (disques/tosec : collection TOSEC)
+demos/                       les démos (veille et Play Demo Random), demos.json
+tos/                         TOS 1.02 FR, 1.04 FR, 1.62 FR, 2.06 FR, 4.0x, EmuTOS
+medias/<jeu>/                captures d'écran affichées dans la fiche
+emulateurs/                  Hatari 2.6.1 (Windows, Linux) et l'ancien 1.8
+                             (correctifs du pack : sources/hatari/)
+reforged/                    Stunt Car Racer, Shufflepuck Café, IK+
+runtime/                     journal (ludotheque.log), profil du navigateur
+outils/                      catalogue et captures automatiques (Linux)
+sources/lanceur/             code source du lanceur (Go)
+
+
+EN CAS DE SOUCI
+---------------
+runtime/ludotheque.log décrit chaque lancement (commande Hatari complète).
+« Le lanceur ne répond pas » : la page a été ouverte sans Ludotheque.exe.
+Un jeu qui plante au démarrage : essayez un autre TOS dans catalogue.json
+("tos": "tos/tos206fr.img"), ou "machine": "st" avec un TOS 1.04
+(voir tos/LISEZMOI.txt).

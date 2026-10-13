@@ -1,0 +1,16 @@
+TOS
+===
+tos102fr.img   TOS 1.02 FR (Mega ST, 1987).
+tos104fr.img   TOS 1.04 FR (« Rainbow TOS », 1989) : STF, pour les vieux jeux et
+               les démos (demos.json le prend en premier).
+tos162fr.img   TOS 1.62 FR (STE) : le TOS par défaut de la ludothèque.
+tos206fr.img   TOS 2.06 FR (STE / Mega STE).
+tos400.rom, tos404.img   TOS du Falcon.
+emutos-2014.img   EmuTOS 0.9 (2014), livré avec l'ancien Hatari 1.8.
+Les TOS 1.02 et 1.04 viennent de la collection TOSEC (dossier TOS).
+
+Le TOS par défaut se règle dans catalogue.json ("hatari" > "tos"), et jeu
+par jeu avec "tos" et "machine". Certains jeux de 1987-1989 plantent avec
+un TOS de STE (IK+ original lit la ROM en $FC0000, Captain Blood, Klax...) :
+pour ceux-là, catalogue.json met
+   "machine": "st", "tos": "tos/tos104fr.img"

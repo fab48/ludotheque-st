@@ -1,0 +1,4711 @@
+{
+ "titre": "LUDOTHÈQUE ST",
+ "hatari": {
+  "machine": "ste",
+  "tos": "tos/tos162fr.img",
+  "options": []
+ },
+ "vrac": false,
+ "jeux": [
+  {
+   "id": "stunt-car-racer",
+   "titre": "Stunt Car Racer",
+   "editeur": "Micro Style",
+   "annee": 1989,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_117_stuntcarracer.ST"
+     ]
+    },
+    {
+     "type": "natif",
+     "nom": "Reforged HD",
+     "desc": "natif, 1080p",
+     "windows": [
+      "reforged/stuntcar-natif/scr.exe",
+      "{disque}",
+      "--fullscreen",
+      "--hd"
+     ],
+     "linux": [
+      "reforged/stuntcar-natif/scr",
+      "{disque}",
+      "--fullscreen",
+      "--hd"
+     ],
+     "disque": "disques/Stunt_Car_Racer.st"
+    },
+    {
+     "type": "web",
+     "nom": "Réplique web",
+     "desc": "navigateur",
+     "url": "reforged/stuntcar-web/index.html"
+    }
+   ],
+   "auteur": "Geoff Crammond",
+   "aide": "Haut : accélérer · bas : freiner · tir : boost",
+   "actif": true
+  },
+  {
+   "id": "shufflepuck-cafe",
+   "titre": "Shufflepuck Café",
+   "editeur": "Brøderbund",
+   "annee": 1989,
+   "genre": "Bar",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Shufflepuck Cafe (1989)(Broderbund)[cr Replicants][one disk].st"
+     ]
+    },
+    {
+     "type": "web",
+     "nom": "Reforged",
+     "desc": "fichier unique",
+     "url": "reforged/shufflepuck/shufflepuck.html"
+    }
+   ],
+   "auteur": "Christopher Gross",
+   "commandes": "souris",
+   "aide": "Souris : la raquette · bouton : frappe forte · Espace : menu",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "xenon",
+   "titre": "Xenon",
+   "editeur": "Melbourne House",
+   "annee": 1988,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_028_xenon.ST"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "aide": "Tir : tirer (et se transformer entre deux vagues)",
+   "touche": "5",
+   "actif": true
+  },
+  {
+   "id": "barbarian",
+   "titre": "Barbarian",
+   "editeur": "Palace Software",
+   "annee": 1987,
+   "genre": "Combat",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_029_barbarian.ST"
+     ]
+    }
+   ],
+   "aide": "F1 : partie à 1 joueur · F2 : partie à 2 joueurs · Tir + direction : coups d'épée",
+   "touche": "3",
+   "actif": true
+  },
+  {
+   "id": "barbarian-2",
+   "titre": "Barbarian II",
+   "editeur": "Palace Software",
+   "annee": 1988,
+   "genre": "Combat",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Barbarian II (1988)(Palace)(Disk 1 of 2)[cr Replicants].st",
+      "disques/tosec/Barbarian II (1988)(Palace)(Disk 2 of 2)[cr Replicants].st"
+     ]
+    }
+   ],
+   "touche_duree": 15,
+   "touche_delai": 8,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "speedball",
+   "titre": "Speedball",
+   "editeur": "Image Works",
+   "annee": 1988,
+   "genre": "Sport",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#3c9a3c",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_030_speedball.ST"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "aide": "Tir : passe ou tacle · tir maintenu : tir puissant",
+   "touche": "2",
+   "actif": true
+  },
+  {
+   "id": "bubble-bobble",
+   "titre": "Bubble Bobble",
+   "editeur": "Firebird",
+   "annee": 1987,
+   "genre": "Plates-formes",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Bubble Bobble (1987)(Firebird)[cr Lord].st"
+     ]
+    }
+   ],
+   "aide": "1 ou 2 : commencer à 1 ou 2 joueurs · Tir : bulle · Haut : saut",
+   "actif": true
+  },
+  {
+   "id": "r-type",
+   "titre": "R-Type",
+   "editeur": "Electric Dreams",
+   "annee": 1988,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_046_rtype.ST"
+     ]
+    }
+   ],
+   "touche": "2",
+   "actif": true
+  },
+  {
+   "id": "crazy-cars-2",
+   "titre": "Crazy Cars II",
+   "editeur": "Titus",
+   "annee": 1990,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_049_crazycar2.ST"
+     ]
+    }
+   ],
+   "touche": "1",
+   "actif": true
+  },
+  {
+   "id": "buggy-boy",
+   "titre": "Buggy Boy",
+   "editeur": "Elite",
+   "annee": 1988,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_018_buggyboy.ST"
+     ]
+    }
+   ],
+   "aide": "Haut : accélérer · tir : changer de vitesse",
+   "touche": "1",
+   "touche_type": "chiffre",
+   "actif": true
+  },
+  {
+   "id": "ik-plus",
+   "titre": "International Karate +",
+   "editeur": "System 3",
+   "annee": 1988,
+   "genre": "Combat",
+   "joueurs": 3,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/International Karate + (1988)(Archer Maclean).st"
+     ],
+     "correctifs": [
+      {
+       "cherche": "41f900fc0000",
+       "remplace": "41f900030000",
+       "note": "IK+ lit la ROM du TOS 1.x en $FC0000 (absente sur STE) : lecture déplacée en RAM, comme IK+ Reforged"
+      }
+     ],
+     "auto": "A:\\IK+.PRG"
+    },
+    {
+     "type": "hatari",
+     "nom": "IK+ Reforged",
+     "desc": "3 joueurs, STE",
+     "dossier": "reforged/ikplus/IK_PLUS",
+     "auto": "C:\\IK_PLUS.TOS",
+     "machine": "ste",
+     "options": [
+      "--memsize",
+      "1024",
+      "--joy0",
+      "real"
+     ]
+    }
+   ],
+   "auteur": "Archer Maclean",
+   "aide": "Coups : directions avec ou sans tir (8 + 8 mouvements)",
+   "actif": true
+  },
+  {
+   "id": "captain-blood",
+   "titre": "Captain Blood",
+   "editeur": "ERE Informatique",
+   "annee": 1988,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_077_capitainblood.ST"
+     ],
+     "machine": "st",
+     "tos": "tos/tos104fr.img"
+    }
+   ],
+   "commandes": "souris",
+   "touche": "1",
+   "actif": true
+  },
+  {
+   "id": "populous",
+   "titre": "Populous",
+   "editeur": "Bullfrog",
+   "annee": 1989,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_081_populous.ST"
+     ],
+     "machine": "st",
+     "tos": "tos/tos206fr.img"
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : bouton gauche aplanit, droit creuse",
+   "touche": "1",
+   "actif": true
+  },
+  {
+   "id": "dungeon-master",
+   "titre": "Dungeon Master",
+   "editeur": "FTL",
+   "annee": 1987,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_097_dungeonmaster.ST"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche": "1",
+   "actif": true
+  },
+  {
+   "id": "kick-off-2",
+   "titre": "Kick Off 2",
+   "editeur": "Anco",
+   "annee": 1990,
+   "genre": "Football",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Kick Off 2 (1991)(Anco)(fr)[cr Replicants - ST Amigos].st"
+     ]
+    }
+   ],
+   "touche_duree": 15,
+   "touche_delai": 8,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "afterburner",
+   "titre": "After Burner",
+   "editeur": "Activision",
+   "annee": 1988,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_069_3_afterburner.ST"
+     ]
+    }
+   ],
+   "touche": "1",
+   "touche_type": "chiffre",
+   "actif": true
+  },
+  {
+   "id": "winter-games",
+   "titre": "Winter Games",
+   "editeur": "Epyx",
+   "annee": 1986,
+   "genre": "Sport",
+   "joueurs": 4,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Winter Games (1986)(Epyx)[cr CSS].st"
+     ]
+    }
+   ],
+   "actif": true
+  },
+  {
+   "id": "prince-of-persia",
+   "titre": "Prince of Persia",
+   "editeur": "Brøderbund",
+   "annee": 1990,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#27ae60",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Prince of Persia (1990)(Broderbund)[cr Empire][m Blue Soft][one disk].st"
+     ]
+    }
+   ],
+   "aide": "Tir maintenu : s'agripper, dégainer, frapper",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "rick-dangerous",
+   "titre": "Rick Dangerous",
+   "editeur": "Firebird",
+   "annee": 1989,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Rick Dangerous (1989)(Core Design - Firebird)[cr Medway Boys][t].st"
+     ]
+    }
+   ],
+   "auteur": "Core Design",
+   "aide": "Tir + gauche/droite : tirer · tir + bas : bombe · tir + haut : bâton",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "rainbow-islands",
+   "titre": "Rainbow Islands",
+   "editeur": "Ocean",
+   "annee": 1990,
+   "genre": "Plates-formes",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#f39c12",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Rainbow Islands (1989)(Ocean)[cr Empire][t].st"
+     ]
+    }
+   ],
+   "touche_duree": 30,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "turrican-2",
+   "titre": "Turrican II",
+   "editeur": "Rainbow Arts",
+   "annee": 1991,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Turrican II (1991)(Rainbow Arts)[cr Replicants - ST Amigos][t].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "chase-hq",
+   "titre": "Chase H.Q.",
+   "editeur": "Ocean",
+   "annee": 1989,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Chase HQ (1989)(Ocean).st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "lotus-turbo",
+   "titre": "Lotus Esprit Turbo Challenge",
+   "editeur": "Gremlin",
+   "annee": 1990,
+   "genre": "Course",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_383_A_lotusturbo.ST"
+     ],
+     "tos": "tos/tos206fr.img"
+    }
+   ],
+   "aide": "Tir : accélérer · Bas : freiner · jusqu'à 2 joueurs en écran partagé",
+   "touche": "2",
+   "actif": true
+  },
+  {
+   "id": "north-and-south",
+   "titre": "North & South",
+   "editeur": "Infogrames",
+   "annee": 1989,
+   "genre": "Stratégie",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/North & South (1989)(Infogrames)(M5)[cr Corrupt].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "actif": true
+  },
+  {
+   "id": "defender-of-the-crown",
+   "titre": "Defender of the Crown",
+   "editeur": "Cinemaware",
+   "annee": 1987,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#c0392b",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Defender of the Crown (1987)(Cinemaware)[cr BOSS].st"
+     ],
+     "auto": "A:\\ALESTART.TOS"
+    }
+   ],
+   "commandes": "souris",
+   "actif": true
+  },
+  {
+   "id": "mortevielle",
+   "titre": "Le Manoir de Mortevielle",
+   "editeur": "Lankhor",
+   "annee": 1987,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/Manoir de Mortevielle, Le (1987)(Lankhor)(Fr)(Disk 1 of 2)[a].st",
+      "disques/Manoir de Mortevielle, Le (1987)(Lankhor)(Fr)(Disk 2 of 2).st"
+     ],
+     "auto": "A:\\MORT.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : menus en haut de l'écran",
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "super-hang-on",
+   "titre": "Super Hang-On",
+   "editeur": "Electric Dreams",
+   "annee": 1988,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Super Hang-On (1988)(Sega)[cr Bladerunners].st"
+     ],
+     "auto": "A:\\HANG_ON.PRG"
+    }
+   ],
+   "actif": true
+  },
+  {
+   "id": "paperboy",
+   "titre": "Paperboy",
+   "editeur": "Elite",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Paperboy (1989)(Elite).st"
+     ]
+    }
+   ],
+   "actif": true
+  },
+  {
+   "id": "vroom",
+   "titre": "Vroom",
+   "editeur": "Lankhor",
+   "annee": 1991,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#d35400",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Vroom (1991)(Lankhor)[cr].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "wings-of-death",
+   "titre": "Wings of Death",
+   "editeur": "Thalion",
+   "annee": 1990,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/Wings of Death (1990)(Thalion)(Disk 1 of 2)[cr Empire][t].st",
+      "disques/Wings of Death (1990)(Thalion)(Disk 2 of 2)[cr Empire][t].st"
+     ]
+    }
+   ],
+   "touche_duree": 12,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "mega-lo-mania",
+   "titre": "Mega lo Mania",
+   "editeur": "Image Works",
+   "annee": 1991,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/Mega lo Mania (1991)(Image Works)(Fr)[cr Replicants][t +2](Disk 1 of 2).st",
+      "disques/Mega lo Mania (1991)(Image Works)(Fr)[cr Replicants][t +2](Disk 2 of 2).st"
+     ]
+    }
+   ],
+   "auteur": "Sensible Software",
+   "commandes": "souris",
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "chaos-engine",
+   "titre": "The Chaos Engine",
+   "editeur": "Renegade",
+   "annee": 1993,
+   "genre": "Action",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#27ae60",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/Chaos Engine, The (1993)(Renegade)(Disk 1 of 2)[cr Cynix][t][a].st",
+      "disques/Chaos Engine, The (1993)(Renegade)(Disk 2 of 2)[cr Cynix][t][a].st"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "touche_duree": 15,
+   "touche_delai": 18,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "new-zealand-story",
+   "titre": "The New Zealand Story",
+   "editeur": "Ocean",
+   "annee": 1989,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/New Zealand Story, The (1989)(Ocean)[cr LSD][one disk].st"
+     ],
+     "auto": "A:\\NEWZEAL.TOS"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "midwinter",
+   "titre": "Midwinter",
+   "editeur": "Rainbird",
+   "annee": 1989,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Midwinter (1990)(Rainbird)[cr Jinx][one disk].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 15,
+   "touche_delai": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "pirates",
+   "titre": "Pirates!",
+   "editeur": "MicroProse",
+   "annee": 1989,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e8b230",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Pirates (1989)(MicroProse)[cr Replicants].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "castle-master",
+   "titre": "Castle Master",
+   "editeur": "Incentive",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Castle Master (1990)(Domark)(M3)[cr Empire].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 25,
+   "sequence": [
+    "F",
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "golden-axe",
+   "titre": "Golden Axe",
+   "editeur": "Virgin",
+   "annee": 1990,
+   "genre": "Action",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#3c9a3c",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_399_goldenaxe.ST"
+     ]
+    }
+   ],
+   "touche": "1",
+   "actif": true
+  },
+  {
+   "id": "cadaver",
+   "titre": "Cadaver",
+   "editeur": "Image Works",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#3c9a3c",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Cadaver (1990)(Bitmap Brothers)[cr Empire][One Disk].st"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "tortues-ninja",
+   "titre": "Teenage Mutant Hero Turtles",
+   "editeur": "Image Works",
+   "annee": 1990,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#c0392b",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Teenage Mutant Hero Turtles (1990)(Image Works)[cr Empire][t].st"
+     ]
+    }
+   ],
+   "touche_duree": 12,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "dynablaster",
+   "titre": "Dynablaster",
+   "editeur": "Ubi Soft",
+   "annee": 1991,
+   "genre": "Action",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Dynablaster.st"
+     ]
+    }
+   ],
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "monkey-island",
+   "titre": "The Secret of Monkey Island",
+   "editeur": "Lucasfilm Games",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 4 disquettes",
+     "disques": [
+      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 1 of 4)[cr Elite].st",
+      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 2 of 4)[cr Elite].st",
+      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 3 of 4)[cr Elite].st",
+      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 4 of 4)[cr Elite].st"
+     ],
+     "auto": "A:\\MONKEY.PRG"
+    }
+   ],
+   "auteur": "Ron Gilbert",
+   "commandes": "souris",
+   "aide": "Question du pirate : n'importe quel nombre puis Entrée (version crackée)",
+   "touche_duree": 25,
+   "touche_delai": 40,
+   "sequence": [
+    "1",
+    "entree"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "loom",
+   "titre": "Loom",
+   "editeur": "Lucasfilm Games",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/A_463_A_loom.ST",
+      "disques/A_463_B_loom.ST"
+     ],
+     "auto": "A:\\LOOM.TOS"
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 12,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "zak-mckracken",
+   "titre": "Zak McKracken",
+   "editeur": "Lucasfilm Games",
+   "annee": 1988,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/zak1.st",
+      "disques/zak2.st"
+     ],
+     "auto": "A:\\ZAK.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 15,
+   "touche_delai": 3,
+   "sequence": [
+    "entree"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "their-finest-hour",
+   "titre": "Their Finest Hour",
+   "editeur": "Lucasfilm Games",
+   "annee": 1991,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#c0392b",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 1 of 2).st",
+      "disques/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 2 of 2).st"
+     ],
+     "auto": "A:\\BOB.PRG"
+    }
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "tintin-lune",
+   "titre": "Tintin sur la Lune",
+   "editeur": "Infogrames",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Tintin on the Moon (19xx)(Infogrames)(M3)[cr V8].st"
+     ]
+    }
+   ],
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "iznogoud",
+   "titre": "Iznogoud",
+   "editeur": "Infogrames",
+   "annee": 1987,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Iznogoud (19xx)(Infogrames)(Fr)[cr].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "cannon-fodder",
+   "titre": "Cannon Fodder",
+   "editeur": "Virgin",
+   "annee": 1994,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#27ae60",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 1 of 3)[cr Cynix].st",
+      "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 2 of 3)[cr Cynix].st",
+      "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 3 of 3)[cr Cynix].st"
+     ]
+    }
+   ],
+   "auteur": "Sensible Software",
+   "commandes": "souris",
+   "touche_duree": 15,
+   "touche_delai": 18,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "voyageurs-du-temps",
+   "titre": "Les Voyageurs du Temps",
+   "editeur": "Delphine",
+   "annee": 1989,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 1 of 3).st",
+      "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 2 of 3).st",
+      "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 3 of 3).st"
+     ],
+     "auto": "A:\\DELPHINE.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "silent-service-2",
+   "titre": "Silent Service II",
+   "editeur": "MicroProse",
+   "annee": 1991,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Silent Service II (1991)(Microprose)[cr Dementia].st"
+     ],
+     "auto": "A:\\SSII.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "super-ski-2",
+   "titre": "Super Ski II",
+   "editeur": "Microïds",
+   "annee": 1990,
+   "genre": "Sport",
+   "joueurs": 4,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#c0392b",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/Super Ski II (1990)(Microids)[cr Elite](Disk 1 of 2).st",
+      "disques/Super Ski II (1990)(Microids)[cr Elite](Disk 2 of 2).st"
+     ]
+    }
+   ],
+   "touche_type": "espace",
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "carmen-sandiego",
+   "titre": "Carmen Sandiego",
+   "editeur": "Microïds",
+   "annee": 1991,
+   "genre": "Éducatif",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A La Poursuite de Carmen Sandiego dans le Monde (1991)(Microids)(Fr)[cr Replicants - ST Amigos].st"
+     ],
+     "auto": "A:\\CARMEN.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": true
+  },
+  {
+   "id": "panza-kick-boxing",
+   "titre": "Panza Kick Boxing",
+   "editeur": "Loriciel",
+   "annee": 1990,
+   "genre": "Combat",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#f39c12",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/panza_kick_boxing_fr_a.stx",
+      "disques/panza_kick_boxing_fr_b.stx"
+     ]
+    }
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "light-corridor",
+   "titre": "The Light Corridor",
+   "editeur": "Infogrames",
+   "annee": 1990,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_363_lightcorridor.ST"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche": "2",
+   "touche_type": "chiffre",
+   "actif": true
+  },
+  {
+   "id": "robocop",
+   "titre": "RoboCop",
+   "editeur": "Ocean",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Robocop (1989)(Ocean)[cr Medway Boys][t Blue Brothers].st"
+     ],
+     "auto": "A:\\ROBOCOP\\ROBOBOY.PRG"
+    }
+   ],
+   "touche_duree": 10,
+   "sequence": [
+    "F1"
+   ],
+   "actif": true
+  },
+  {
+   "id": "hostage",
+   "titre": "Hostage",
+   "editeur": "Infogrames",
+   "annee": 1988,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_095_hostage.ST"
+     ]
+    }
+   ],
+   "touche": "2",
+   "touche_type": "chiffre",
+   "actif": true
+  },
+  {
+   "id": "mouse-trap",
+   "titre": "Mouse Trap",
+   "editeur": "Microdeal",
+   "annee": 1987,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/A_016_mousetrap.ST"
+     ]
+    }
+   ],
+   "aide": "Tir : sauter",
+   "touche": "4",
+   "actif": true
+  },
+  {
+   "id": "super-sprint",
+   "titre": "Super Sprint",
+   "editeur": "Electric Dreams",
+   "annee": 1988,
+   "genre": "Course",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/ssprint.st"
+     ]
+    }
+   ],
+   "aide": "Tir : accélérer · jusqu'à 2 joueurs",
+   "actif": true
+  },
+  {
+   "id": "lemmings",
+   "titre": "Lemmings",
+   "editeur": "Psygnosis",
+   "annee": 1991,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Lemmings (1990)(Psygnosis)[cr BBC].st"
+     ]
+    }
+   ],
+   "auteur": "DMA Design",
+   "commandes": "souris",
+   "aide": "Souris : choisir une capacité, cliquer sur un lemming",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "speedball-2",
+   "titre": "Speedball 2",
+   "editeur": "Image Works",
+   "annee": 1990,
+   "genre": "Sport",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#e84393",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Speedball 2 - Brutal Deluxe (1990)(Image Works)[cr Replicants - ST Amigos].st"
+     ],
+     "auto": "A:\\SPEED\\BALL.PRG"
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "aide": "Tir : passe ou tacle · tir maintenu : tir puissant",
+   "touche_duree": 12,
+   "sequence": [
+    "N",
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "another-world",
+   "titre": "Another World",
+   "editeur": "Delphine",
+   "annee": 1991,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Another World (1991)(Delphine)(FR)(Disk 1 of 2)[cr Replicants].st",
+      "disques/tosec/Another World (1991)(Delphine)(FR)(Disk 2 of 2)[cr Replicants].st"
+     ]
+    }
+   ],
+   "auteur": "Éric Chahi",
+   "aide": "Tir : action, tir maintenu : charger le pistolet",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "arkanoid-2",
+   "titre": "Arkanoid II",
+   "editeur": "Imagine",
+   "annee": 1988,
+   "genre": "Casse-briques",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Arkanoid II - Revenge of Doh (1988)(Imagine)[cr Replicants].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : la raquette · bouton : tirer",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "strider",
+   "titre": "Strider",
+   "editeur": "U.S. Gold",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Strider (1989)(U.S. Gold)[cr Replicants][t].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "chambers-of-shaolin",
+   "titre": "Chambers of Shaolin",
+   "editeur": "Grandslam",
+   "annee": 1989,
+   "genre": "Combat",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/Chambers of Shaolin (1989)(Grandslam).st"
+     ]
+    }
+   ],
+   "actif": true
+  },
+  {
+   "id": "xenon-2",
+   "titre": "Xenon 2 Megablast",
+   "editeur": "Image Works",
+   "annee": 1989,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Xenon 2 - Megablast (1989)(Image Works)[cr Bitcrack Brothers][one disk].st"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "aide": "Tir : tirer · tir maintenu : tir continu",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "gods",
+   "titre": "Gods",
+   "editeur": "Renegade",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Gods (1991)(Renegade)(Disk 1 of 2)[cr Elite][t +3].st",
+      "disques/tosec/Gods (1991)(Renegade)(Disk 2 of 2)[cr Elite][t +3].st"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "touche_duree": 12,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "magic-pockets",
+   "titre": "Magic Pockets",
+   "editeur": "Renegade",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#f39c12",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Magic Pocket (1991)(Renegade)[cr Elite][t].st"
+     ]
+    }
+   ],
+   "auteur": "The Bitmap Brothers",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "shadow-of-the-beast",
+   "titre": "Shadow of the Beast",
+   "editeur": "Psygnosis",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Shadow of the Beast (1990)(Psygnosis)(Disk 1 of 2)[cr Replicants][t].st",
+      "disques/tosec/Shadow of the Beast (1990)(Psygnosis)(Disk 2 of 2)[cr Replicants][t].st"
+     ]
+    }
+   ],
+   "auteur": "Reflections",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "blood-money",
+   "titre": "Blood Money",
+   "editeur": "Psygnosis",
+   "annee": 1989,
+   "genre": "Shoot them up",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Blood Money (1989)(Psygnosis)[cr Delight].st"
+     ]
+    }
+   ],
+   "auteur": "DMA Design",
+   "aide": "F1 : 1 joueur · F2 : 2 joueurs · Tir : tirer",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "menace",
+   "titre": "Menace",
+   "editeur": "Psygnosis",
+   "annee": 1988,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Menace (1988)(Psyclapse)[cr Delight][one disk].st"
+     ],
+     "auto": "A:\\MENACE.TOS"
+    }
+   ],
+   "auteur": "DMA Design",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "goldrunner",
+   "titre": "Goldrunner",
+   "editeur": "Microdeal",
+   "annee": 1987,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Goldrunner (1987)(Microdeal)[cr 42-Crew].st"
+     ],
+     "auto": "A:\\GOLDRUN.42C\\GOLDRUN.PRG"
+    }
+   ],
+   "auteur": "Steve Bak",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "starglider-2",
+   "titre": "Starglider 2",
+   "editeur": "Rainbird",
+   "annee": 1988,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Starglider 2 (1988)(Rainbird)[cr Union].st"
+     ],
+     "auto": "A:\\STARGL_2.TOS"
+    }
+   ],
+   "auteur": "Argonaut (Jez San)",
+   "aide": "Mot de passe demandé : SPREAD",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "carrier-command",
+   "titre": "Carrier Command",
+   "editeur": "Rainbird",
+   "annee": 1988,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Carrier Command (1988)(Rainbird)(M3)[cr Bladerunners].st"
+     ],
+     "auto": "A:\\CARRIER.PRG"
+    }
+   ],
+   "auteur": "Realtime Games",
+   "commandes": "souris",
+   "aide": "Souris : tout se commande depuis le pont du porte-avions",
+   "sequence": [
+    "espace",
+    "3"
+   ],
+   "actif": true
+  },
+  {
+   "id": "oids",
+   "titre": "Oids",
+   "editeur": "FTL",
+   "annee": 1987,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#95a5a6",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Oids (1987)(FTL)[cr Was -Not Was-].st"
+     ]
+    }
+   ],
+   "auteur": "Dan Hewitt",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "llamatron",
+   "titre": "Llamatron",
+   "editeur": "Llamasoft",
+   "annee": 1991,
+   "genre": "Shoot them up",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#f39c12",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Llamatron v1.0 (1991-03-20)(Yak)(SW)[1MB].st"
+     ],
+     "auto": "A:\\TRON1MEG.PRG"
+    }
+   ],
+   "auteur": "Jeff Minter",
+   "aide": "Tir : passer l'écran shareware · 2 joueurs : manette 2",
+   "touche_duree": 15,
+   "actif": true
+  },
+  {
+   "id": "gauntlet-2",
+   "titre": "Gauntlet II",
+   "editeur": "U.S. Gold",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Gauntlet II (1986)(Atari Corp.)[cr Medway Boys][t][one disk].st"
+     ]
+    }
+   ],
+   "aide": "Tir : choisir son héros · jusqu'à 2 joueurs",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "bomb-jack",
+   "titre": "Bomb Jack",
+   "editeur": "Elite",
+   "annee": 1987,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Bombjack (1988)(Elite).st"
+     ],
+     "auto": "A:\\BJ.PRG"
+    }
+   ],
+   "aide": "F1 ou tir : commencer · Tir : sauter",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "out-run",
+   "titre": "Out Run",
+   "editeur": "U.S. Gold",
+   "annee": 1988,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Out Run (1987)(U.S. Gold)[cr Bladerunners].st"
+     ],
+     "auto": "A:\\OUT_RUN\\OUT_RUN.PRG"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "super-cars",
+   "titre": "Super Cars",
+   "editeur": "Gremlin",
+   "annee": 1990,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Super Cars (1990)(Gremlin)[cr Replicants].st"
+     ]
+    }
+   ],
+   "auteur": "Magnetic Fields",
+   "aide": "Clavier : votre nom, puis Entrée · Tir : accélérer",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "pang",
+   "titre": "Pang",
+   "editeur": "Ocean",
+   "annee": 1990,
+   "genre": "Action",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Pang (1990)(Ocean)[cr Empire][t].st"
+     ]
+    }
+   ],
+   "aide": "Tir : harpon · jusqu'à 2 joueurs",
+   "sequence": [
+    "N",
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "toki",
+   "titre": "Toki",
+   "editeur": "Ocean",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Toki (1991)(Ocean)[cr Replicants - ST Amigos].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "rodland",
+   "titre": "Rodland",
+   "editeur": "Storm",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Rodland (1991)(Sales Curve)[cr Elite][t].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "ghouls-n-ghosts",
+   "titre": "Ghouls'n Ghosts",
+   "editeur": "U.S. Gold",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Ghouls 'n' Ghosts (1988)(U.S. Gold)[cr Empire][one disk].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "silkworm",
+   "titre": "Silkworm",
+   "editeur": "Virgin",
+   "annee": 1989,
+   "genre": "Shoot them up",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Silk Worm (1988)(Tecmo)[cr Replicants].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "enchanted-land",
+   "titre": "Enchanted Land",
+   "editeur": "Thalion",
+   "annee": 1990,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Enchanted Land (1990)(Thalion)[cr Empire].st"
+     ],
+     "machine": "st",
+     "tos": "tos/tos104fr.img"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "lethal-xcess",
+   "titre": "Lethal Xcess",
+   "editeur": "Eclipse",
+   "annee": 1991,
+   "genre": "Shoot them up",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 1 of 2)(Disk A)[cr Elite][t].st",
+      "disques/tosec/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 2 of 2)(Disk B)[cr Elite][t].st"
+     ]
+    }
+   ],
+   "aide": "Tir : commencer · jusqu'à 2 joueurs",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "turrican",
+   "titre": "Turrican",
+   "editeur": "Rainbow Arts",
+   "annee": 1990,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Turrican (1990)(Rainbow Arts)[cr Empire][t].st"
+     ]
+    }
+   ],
+   "auteur": "Manfred Trenz",
+   "sequence": [
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "rick-dangerous-2",
+   "titre": "Rick Dangerous 2",
+   "editeur": "Micro Style",
+   "annee": 1990,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#e84393",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Rick Dangerous II (1989)(Core Design)[cr Replicants].st"
+     ]
+    }
+   ],
+   "auteur": "Core Design",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "nebulus",
+   "titre": "Nebulus",
+   "editeur": "Hewson",
+   "annee": 1988,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Nebulus (1988)(Hewson)[cr Atari Legend].st"
+     ]
+    }
+   ],
+   "auteur": "John Phillips",
+   "aide": "F1 / F2 : 1 ou 2 joueurs · Tir : commencer",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "cybernoid",
+   "titre": "Cybernoid",
+   "editeur": "Hewson",
+   "annee": 1988,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Cybernoid (1988)(Hewson).st"
+     ]
+    }
+   ],
+   "auteur": "Raffaele Cecco",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "pacmania",
+   "titre": "Pac-Mania",
+   "editeur": "Grandslam",
+   "annee": 1988,
+   "genre": "Arcade",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#c0392b",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Pacmania (1988)(Grandslam).st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "arkanoid",
+   "titre": "Arkanoid",
+   "editeur": "Imagine",
+   "annee": 1987,
+   "genre": "Casse-briques",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Arkanoid (1987)(Imagine)[cr Anit-Satanist].st"
+     ],
+     "auto": "A:\\ARKANOID.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : la raquette · clic : commencer",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "space-harrier",
+   "titre": "Space Harrier",
+   "editeur": "Elite",
+   "annee": 1987,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#27ae60",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Space Harrier (1988)(Elite)[cr MCA][one disk].st"
+     ],
+     "auto": "A:\\SPACE_H.PRG"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "double-dragon",
+   "titre": "Double Dragon",
+   "editeur": "Melbourne House",
+   "annee": 1988,
+   "genre": "Combat",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Double Dragon (1988)(Tradewest)[cr 42-Crew].st"
+     ],
+     "auto": "A:\\DOUBLE.PRG"
+    }
+   ],
+   "aide": "1 ou 2 : commencer à 1 ou 2 joueurs",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "james-pond",
+   "titre": "James Pond",
+   "editeur": "Millennium",
+   "annee": 1990,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/James Pond - Underwater Agent (1990)(Vectordean)[cr Replicants].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "robocod",
+   "titre": "James Pond 2 : Robocod",
+   "editeur": "Millennium",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#e8b230",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/James Pond II - Codename Robocod (1992)(Vectordean)[cr Vmax].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "wizball",
+   "titre": "Wizball",
+   "editeur": "Ocean",
+   "annee": 1988,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Wizball (1987)(Ocean)[cr Beng].st"
+     ],
+     "auto": "A:\\WIZBALL\\WIZBALL.TOS"
+    }
+   ],
+   "auteur": "Sensible Software",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "fantasy-world-dizzy",
+   "titre": "Fantasy World Dizzy",
+   "editeur": "Codemasters",
+   "annee": 1989,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Fantasy World Dizzy (1991)(Codemasters)(GB).stx"
+     ]
+    }
+   ],
+   "auteur": "The Oliver Twins",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "bubble-ghost",
+   "titre": "Bubble Ghost",
+   "editeur": "ERE Informatique",
+   "annee": 1987,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Bubble Ghost (1987)(ERE).st"
+     ],
+     "auto": "A:\\GHOST.PRG"
+    }
+   ],
+   "auteur": "Christophe Andréani",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "skweek",
+   "titre": "Skweek",
+   "editeur": "Loriciel",
+   "annee": 1989,
+   "genre": "Arcade",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Skweek (1989)(Loriciel)[cr Delight][f French Tos].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "tetris",
+   "titre": "Tetris",
+   "editeur": "Mirrorsoft",
+   "annee": 1988,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Tetris (1987)(MirrorSoft)[cr Lord].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "klax",
+   "titre": "Klax",
+   "editeur": "Domark",
+   "annee": 1990,
+   "genre": "Réflexion",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Klax (1990)(Atari).stx"
+     ],
+     "machine": "st",
+     "tos": "tos/tos104fr.img",
+     "options": [
+      "--fastfdc",
+      "no"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "puzznic",
+   "titre": "Puzznic",
+   "editeur": "Ocean",
+   "annee": 1990,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#c0392b",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Puzznic (1990)(Ocean).stx"
+     ],
+     "machine": "st",
+     "tos": "tos/tos104fr.img",
+     "options": [
+      "--fastfdc",
+      "no"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "bombuzal",
+   "titre": "Bombuzal",
+   "editeur": "Image Works",
+   "annee": 1988,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e84393",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Bombuzal (1988)(Image Works)[cr Bladerunners].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "ballistix",
+   "titre": "Ballistix",
+   "editeur": "Psygnosis",
+   "annee": 1989,
+   "genre": "Sport",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Ballistix (1989)(Psyclapse)[cr Replicants].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "bolo",
+   "titre": "Bolo",
+   "editeur": "Application Systems",
+   "annee": 1987,
+   "genre": "Casse-briques",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#d35400",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Bolo (1987)(Application Systems Heidelberg)(en-de).st"
+     ],
+     "machine": "st",
+     "tos": "tos/tos104fr.img",
+     "auto": "A:\\BOLO.TOS"
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : la raquette",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "oxyd",
+   "titre": "Oxyd",
+   "editeur": "Dongleware",
+   "annee": 1990,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Oxyd (1990)(Digital Art).st"
+     ],
+     "auto": "A:\\OXYD.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : guider la bille · F1 : commencer",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "archipelagos",
+   "titre": "Archipelagos",
+   "editeur": "Logotron",
+   "annee": 1989,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Archipelagos (1989)(Logotron)[cr Medway Boys][use pasti].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "sundog",
+   "titre": "Sundog : Frozen Legacy",
+   "editeur": "FTL",
+   "annee": 1985,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Sundog - Frozen Legacy v3.0 (1985)(FTL).st"
+     ],
+     "auto": "A:\\SUNDOG.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "crafton-xunk",
+   "titre": "Crafton & Xunk",
+   "editeur": "ERE Informatique",
+   "annee": 1986,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Crafton et Xunk - L'ange de Cristal (1988)(ERE)(M4).stx"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : cliquer le drapeau de la langue",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "sapiens",
+   "titre": "Sapiens",
+   "editeur": "Loriciel",
+   "annee": 1986,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#f39c12",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Sapiens (1987)(Loriciel).st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "ikari-warriors",
+   "titre": "Ikari Warriors",
+   "editeur": "Elite",
+   "annee": 1988,
+   "genre": "Action",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Ikari Warriors (1987)(Elite).st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "virus",
+   "titre": "Virus",
+   "editeur": "Firebird",
+   "annee": 1988,
+   "genre": "Shoot them up",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Virus (1988)(Braben, D.J.)[cr BCS].st"
+     ],
+     "auto": "A:\\VIRUS\\VIRUS.PRG"
+    }
+   ],
+   "auteur": "David Braben",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "frontier",
+   "titre": "Frontier : Elite II",
+   "editeur": "Konami",
+   "annee": 1993,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#8e44ad",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Frontier - Elite II (1993)(Gametek - Konami)(fr).st"
+     ]
+    }
+   ],
+   "auteur": "David Braben",
+   "commandes": "souris",
+   "aide": "Souris : commandes du vaisseau en bas de l'écran",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "mercenary",
+   "titre": "Mercenary",
+   "editeur": "Novagen",
+   "annee": 1987,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e84393",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Mercenary - Escape From Targ (1986)(Novasoft)[cr BOSS].st"
+     ]
+    }
+   ],
+   "auteur": "Paul Woakes",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "damocles",
+   "titre": "Damocles",
+   "editeur": "Novagen",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Mercenary 2 - Damocles (1990)(Novagen)[cr Medway Boys].st"
+     ]
+    }
+   ],
+   "auteur": "Paul Woakes",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "hunter",
+   "titre": "Hunter",
+   "editeur": "Activision",
+   "annee": 1991,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Hunter (1991)(Activision)[cr Paper Bag].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "f29-retaliator",
+   "titre": "F-29 Retaliator",
+   "editeur": "Ocean",
+   "annee": 1989,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#f39c12",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/F-29 Retaliator (1989)(Ocean)[cr Empire].st"
+     ],
+     "options": [
+      "--memsize",
+      "1024",
+      "--fastfdc",
+      "no"
+     ]
+    }
+   ],
+   "auteur": "Digital Image Design",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "falcon",
+   "titre": "Falcon",
+   "editeur": "Mirrorsoft",
+   "annee": 1988,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Falcon (1989)(Spectrum Holobyte)(Disk 1 of 2)[!].stx",
+      "disques/tosec/Falcon (1989)(Spectrum Holobyte)(Disk 2 of 2)[!].stx"
+     ]
+    }
+   ],
+   "auteur": "Spectrum HoloByte",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "gunship",
+   "titre": "Gunship",
+   "editeur": "MicroProse",
+   "annee": 1987,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Gunship (1987)(MicroProse)[cr Angels of Darkness][one disk].st"
+     ],
+     "auto": "A:\\GUNSHIP.TOS"
+    }
+   ],
+   "aide": "Protection : choisir le véhicule montré (souris ou joystick, puis tir)",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "hard-drivin",
+   "titre": "Hard Drivin'",
+   "editeur": "Domark",
+   "annee": 1989,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Hard Drivin' (1989)(Domark)[cr Replicants].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "super-monaco-gp",
+   "titre": "Super Monaco GP",
+   "editeur": "U.S. Gold",
+   "annee": 1991,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Super Monaco GP (1991)(U.S. Gold)[cr Hotline - MCA - Nokturnal].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "f1-grand-prix",
+   "titre": "Formula One Grand Prix",
+   "editeur": "MicroProse",
+   "annee": 1992,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#27ae60",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 1 of 2)[cr Bastards].st",
+      "disques/tosec/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 2 of 2)[cr Bastards].st"
+     ]
+    }
+   ],
+   "auteur": "Geoff Crammond",
+   "aide": "Souris : choisir la langue, puis OK",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "indy-500",
+   "titre": "Indianapolis 500",
+   "editeur": "Electronic Arts",
+   "annee": 1990,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e84393",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Indianapolis 500 (1989)(Electronic Arts)[cr Bladerunners].st"
+     ],
+     "auto": "A:\\INDY500.PRG"
+    }
+   ],
+   "auteur": "Papyrus",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "powerdrome",
+   "titre": "Powerdrome",
+   "editeur": "Electronic Arts",
+   "annee": 1988,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Powerdrome (1989)(Electronic Arts)[cr STCS].st"
+     ]
+    }
+   ],
+   "auteur": "Michael Powell",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "turbo-cup",
+   "titre": "Turbo Cup",
+   "editeur": "Loriciel",
+   "annee": 1988,
+   "genre": "Course",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Turbo Cup (1988)(Loriciel)[cr Bladerunners][m Blue Soft][one disk].st"
+     ],
+     "auto": "A:\\TURBOCUP.SYS\\TURBOCUP.TOS"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "sensible-soccer",
+   "titre": "Sensible Soccer",
+   "editeur": "Renegade",
+   "annee": 1992,
+   "genre": "Football",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Sensible Soccer (1992)(Renegade)(M4)[cr Vmax][one disk].st"
+     ],
+     "auto": "A:\\VMAX.PRG"
+    }
+   ],
+   "auteur": "Sensible Software",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "microprose-soccer",
+   "titre": "MicroProse Soccer",
+   "editeur": "MicroProse",
+   "annee": 1989,
+   "genre": "Football",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#d35400",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Microprose Soccer (1989)(MicroProse).st"
+     ]
+    }
+   ],
+   "auteur": "Sensible Software",
+   "aide": "F1 : football en plein air · F2 : football en salle",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "leaderboard",
+   "titre": "Leader Board",
+   "editeur": "Access",
+   "annee": 1986,
+   "genre": "Sport",
+   "joueurs": 4,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Leader Board Pro Golf Simulator (1986)(Access)[cr BOSS].st"
+     ]
+    }
+   ],
+   "aide": "Clavier : nombre de joueurs puis les noms, Entrée",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "california-games",
+   "titre": "California Games",
+   "editeur": "Epyx",
+   "annee": 1988,
+   "genre": "Sport",
+   "joueurs": 4,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#3c9a3c",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/California Games (1989)(Epyx - U.S. Gold)[cr Bad Brew Crew].st"
+     ],
+     "auto": "A:\\GAMES.PRG"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "purple-saturn-day",
+   "titre": "Purple Saturn Day",
+   "editeur": "Exxos",
+   "annee": 1989,
+   "genre": "Sport",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Purple Saturn Day (1989)(Exxos)[cr Bladerunners].st"
+     ],
+     "auto": "A:\\PURPLE.PRG"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "sim-city",
+   "titre": "SimCity",
+   "editeur": "Infogrames",
+   "annee": 1989,
+   "genre": "Simulation",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#e84393",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Sim City (1989)(Maxis)[cr Empire].st"
+     ],
+     "auto": "A:\\SIMCITY.PRG"
+    }
+   ],
+   "auteur": "Will Wright",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "civilization",
+   "titre": "Civilization",
+   "editeur": "MicroProse",
+   "annee": 1992,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#e84393",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 4 disquettes",
+     "disques": [
+      "disques/tosec/Civilization (1993)(MicroProse)(Disk 1 of 4)(Disk 0)[cr ICS].st",
+      "disques/tosec/Civilization (1993)(MicroProse)(Disk 2 of 4)(Disk A)[cr ICS].st",
+      "disques/tosec/Civilization (1993)(MicroProse)(Disk 3 of 4)(Disk B)[cr ICS].st",
+      "disques/tosec/Civilization (1993)(MicroProse)(Disk 4 of 4)(Disk C)[cr ICS].st"
+     ],
+     "options": [
+      "--memsize",
+      "1024"
+     ],
+     "auto": "A:\\ICS.PRG"
+    }
+   ],
+   "auteur": "Sid Meier",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "railroad-tycoon",
+   "titre": "Railroad Tycoon",
+   "editeur": "MicroProse",
+   "annee": 1991,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#d35400",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Railroad Tycoon v755.01 (1991)(MicroProse)[cr Medway Boys][m MCA][one disk].st"
+     ],
+     "auto": "A:\\GAME.PRG"
+    }
+   ],
+   "auteur": "Sid Meier",
+   "commandes": "souris",
+   "sequence": [
+    "pave2"
+   ],
+   "actif": true
+  },
+  {
+   "id": "populous-2",
+   "titre": "Populous II",
+   "editeur": "Electronic Arts",
+   "annee": 1991,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Populous II (1991)(Bullfrog)[cr ICS][512 kB].st"
+     ]
+    }
+   ],
+   "auteur": "Bullfrog",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "powermonger",
+   "titre": "Powermonger",
+   "editeur": "Electronic Arts",
+   "annee": 1990,
+   "genre": "Stratégie",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#2e86de",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Powermonger (1990)(Bullfrog)[cr Empire].st"
+     ]
+    }
+   ],
+   "auteur": "Bullfrog",
+   "commandes": "souris",
+   "aide": "Clavier : votre nom, puis Entrée",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "lemmings-2",
+   "titre": "Oh No! More Lemmings",
+   "editeur": "Psygnosis",
+   "annee": 1991,
+   "genre": "Réflexion",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Lemmings 2 - Oh no, More Lemmings (1991)(Psygnosis)[cr Elite][t].st"
+     ]
+    }
+   ],
+   "auteur": "DMA Design",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "battle-chess",
+   "titre": "Battle Chess",
+   "editeur": "Interplay",
+   "annee": 1988,
+   "genre": "Réflexion",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#27ae60",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Battle Chess (1989)(Interplay)[cr MCA].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "bloodwych",
+   "titre": "Bloodwych",
+   "editeur": "Image Works",
+   "annee": 1989,
+   "genre": "Jeu de rôle",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Bloodwych (1989)(MirrorSoft)[cr Equinox].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "aide": "F1 : partie à 1 joueur · F2 : partie à 2 joueurs (écran partagé)",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "chaos-strikes-back",
+   "titre": "Chaos Strikes Back",
+   "editeur": "FTL",
+   "annee": 1989,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#f39c12",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 1 of 2)(Game Disk)[!].stx",
+      "disques/tosec/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 2 of 2)(Game Disk)[!].stx"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "captive",
+   "titre": "Captive",
+   "editeur": "Mindscape",
+   "annee": 1990,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Captive (1990)(Mindscape)(Disk 1 of 2).stx",
+      "disques/tosec/Captive (1990)(Mindscape)(Disk 2 of 2).stx"
+     ]
+    }
+   ],
+   "auteur": "Tony Crowther",
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "ishar",
+   "titre": "Ishar",
+   "editeur": "Silmarils",
+   "annee": 1992,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#f39c12",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 1 of 2)[cr Replicants][m Fuzion].st",
+      "disques/tosec/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 2 of 2)[cr Replicants][m Fuzion].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "drakkhen",
+   "titre": "Drakkhen",
+   "editeur": "Infogrames",
+   "annee": 1989,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2e86de",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 4 disquettes",
+     "disques": [
+      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 1 of 4).st",
+      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 2 of 4).st",
+      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 3 of 4).st",
+      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 4 of 4).st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "dragonflight",
+   "titre": "Dragonflight",
+   "editeur": "Thalion",
+   "annee": 1990,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Dragonflight (1990)(Thalion)(Disk 1 of 2)(Disk A)[cr Atari Legend][t].st",
+      "disques/tosec/Dragonflight (1990)(Thalion)(Disk 2 of 2)(Disk B - C)[cr Atari Legend][t].st"
+     ],
+     "options": [
+      "--memsize",
+      "1024"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "N"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "ultima-iv",
+   "titre": "Ultima IV",
+   "editeur": "Origin",
+   "annee": 1987,
+   "genre": "Jeu de rôle",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Ultima IV - Quest of the Avatar (1988)(Origin)[cr TEX].st"
+     ]
+    }
+   ],
+   "auteur": "Richard Garriott",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "maniac-mansion",
+   "titre": "Maniac Mansion",
+   "editeur": "Lucasfilm Games",
+   "annee": 1988,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Maniac Mansion (1988)(LucasFilm Games)(fr)[one disk].st"
+     ],
+     "auto": "A:\\MANIAC.PRG"
+    }
+   ],
+   "auteur": "Ron Gilbert",
+   "commandes": "souris",
+   "sequence": [
+    "entree"
+   ],
+   "actif": true
+  },
+  {
+   "id": "indy-croisade",
+   "titre": "Indiana Jones et la Dernière Croisade",
+   "editeur": "Lucasfilm Games",
+   "annee": 1989,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#c0392b",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 1 of 3)[3 disks version].st",
+      "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 2 of 3)[3 disks version].st",
+      "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 3 of 3)[3 disks version].st"
+     ],
+     "auto": "A:\\INDY.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "operation-stealth",
+   "titre": "Operation Stealth",
+   "editeur": "Delphine",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#e8b230",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 1 of 3)[cr Replicants].st",
+      "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 2 of 3)[cr Replicants].st",
+      "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 3 of 3)[cr Replicants].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Protection : cliquer la pièce qui clignote, puis la bonne couleur",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "cruise-for-a-corpse",
+   "titre": "Croisière pour un cadavre",
+   "editeur": "Delphine",
+   "annee": 1991,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#d35400",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 5 disquettes",
+     "disques": [
+      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 1 of 5)[cr Elite].st",
+      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 2 of 5)[cr Elite].st",
+      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 3 of 5)[cr Elite].st",
+      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 4 of 5)[cr Elite].st",
+      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 5 of 5)[cr Elite].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Protection : régler le code avec les flèches jaunes, puis OK",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "gobliiins",
+   "titre": "Gobliiins",
+   "editeur": "Coktel Vision",
+   "annee": 1991,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#8e44ad",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 1 of 3)[cr Elite].st",
+      "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 2 of 3)[cr Elite].st",
+      "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 3 of 3)[cr Elite].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace",
+    "pave5",
+    "entree"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "passagers-du-vent",
+   "titre": "Les Passagers du Vent",
+   "editeur": "Infogrames",
+   "annee": 1986,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#9c2b25",
+    "bande": "#16a085",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Passagers du Vent I, Les (1987)(Infogrames)(FR)[cr][m Atariforce].st"
+     ],
+     "auto": "A:\\VENT1.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "kult",
+   "titre": "Kult",
+   "editeur": "Exxos",
+   "annee": 1989,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#3c9a3c",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Kult (1989)(ERE)(M3)[cr Replicants][one disk].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "aide": "Souris : cliquer le drapeau de la langue",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "bat",
+   "titre": "B.A.T.",
+   "editeur": "Ubi Soft",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#8e44ad",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st",
+      "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st",
+      "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st"
+     ],
+     "auto": "A:\\BAT.PRG"
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "maupiti-island",
+   "titre": "Maupiti Island",
+   "editeur": "Lankhor",
+   "annee": 1990,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#e8b230",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Maupiti Island (1990)(Lankhor)(Disk 1 of 2)[cr Medway Boys].st",
+      "disques/tosec/Maupiti Island (1990)(Lankhor)(Disk 2 of 2)[cr Medway Boys].st"
+     ]
+    }
+   ],
+   "commandes": "souris",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "iron-lord",
+   "titre": "Iron Lord",
+   "editeur": "Ubi Soft",
+   "annee": 1989,
+   "genre": "Aventure",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#95a5a6",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 3 disquettes",
+     "disques": [
+      "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st",
+      "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st",
+      "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st"
+     ],
+     "auto": "A:\\IRONLORD.PRG"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+  },
+  {
+   "id": "prehistorik",
+   "titre": "Prehistorik",
+   "editeur": "Titus",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#26573a",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Prehistorik (1991)(Titus)[cr Replicants - ST Amigos].st"
+     ],
+     "machine": "st",
+     "tos": "tos/tos104fr.img"
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "titus-the-fox",
+   "titre": "Titus the Fox",
+   "editeur": "Titus",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#f39c12",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Titus the Fox - To Marrakech and Back (1992)(Titus)[cr Replicants].st"
+     ]
+    }
+   ],
+   "aide": "1 : commencer · 2 : mot de passe",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "blues-brothers",
+   "titre": "The Blues Brothers",
+   "editeur": "Titus",
+   "annee": 1991,
+   "genre": "Plates-formes",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Blues Brothers, The (1991)(Titus)[cr Empire][t].st"
+     ]
+    }
+   ],
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true
+  },
+  {
+   "id": "parasol-stars",
+   "titre": "Parasol Stars",
+   "editeur": "Ocean",
+   "annee": 1992,
+   "genre": "Plates-formes",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#2b4f8c",
+    "bande": "#16a085",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Parasol Stars (1992)(Ocean)[cr Cynix][t +11 Cynix].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "wonder-boy",
+   "titre": "Wonder Boy in Monster Land",
+   "editeur": "Activision",
+   "annee": 1989,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#1c1c1f",
+    "bande": "#2f9e8f",
+    "police": "machine"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Wonderboy in Monsterland (1987)(Activision)[cr Vapour][one disk].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "switchblade",
+   "titre": "Switchblade",
+   "editeur": "Gremlin",
+   "annee": 1989,
+   "genre": "Plates-formes",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#8e44ad",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Switchblade (1989)(Core Design)[cr MCA].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  },
+  {
+   "id": "final-fight",
+   "titre": "Final Fight",
+   "editeur": "U.S. Gold",
+   "annee": 1991,
+   "genre": "Combat",
+   "joueurs": 2,
+   "disquette": {
+    "corps": "#6b6e73",
+    "bande": "#e8b230",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari, 2 disquettes",
+     "disques": [
+      "disques/tosec/Final Fight (1991)(Capcom)(Disk 1 of 2)[cr Elite][t].st",
+      "disques/tosec/Final Fight (1991)(Capcom)(Disk 2 of 2)[cr Elite][t].st"
+     ]
+    }
+   ],
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+  },
+  {
+   "id": "shinobi",
+   "titre": "Shinobi",
+   "editeur": "Virgin",
+   "annee": 1989,
+   "genre": "Action",
+   "joueurs": 1,
+   "disquette": {
+    "corps": "#3b3f8f",
+    "bande": "#f39c12",
+    "police": "manuscrit"
+   },
+   "variantes": [
+    {
+     "type": "hatari",
+     "nom": "Original ST",
+     "desc": "Hatari",
+     "disques": [
+      "disques/tosec/Shinobi (1989)(Sales Curve)[cr Rebels][t].st"
+     ]
+    }
+   ],
+   "sequence": [
+    "espace"
+   ],
+   "actif": true
+  }
+ ]
+}

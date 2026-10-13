@@ -1,0 +1,132 @@
+--- /tmp/claude-0/main.c.orig	2026-10-12 17:29:02.977775399 +0200
++++ main.c	2026-10-12 17:33:16.340726964 +0200
+@@ -340,6 +340,56 @@
+  * have to "busy wait" there to get an accurate timing.
+  * All times are expressed as micro seconds, to avoid too much rounding error.
+  */
++/* Ludothèque ST : HATARI_LUDO_TURBO=disque, accéléré seulement pendant les
++ * chargements :
++ *  - moteur du lecteur de disquette allumé, sauf si une musique joue
++ *    (chargement pendant une intro musicale : on la laisse à vitesse normale) ;
++ *  - ou décompactage : la couleur 0 clignote (bandes dans la bordure) alors
++ *    qu'aucune musique ne joue (une intro à rasters a presque toujours sa
++ *    musique, un décompacteur jamais).
++ * Les intros, les menus et le jeu restent à vitesse normale. Bascule sur
++ * les fronts : le raccourci d'accéléré manuel reste utilisable. */
++extern int Ludo_EcrituresYM;
++static void Main_LudoTurboDisque(void)
++{
++	static int mode = -1, calme, silence, musique;
++	static bool actif;
++	bool charge;
++
++	if (mode < 0)
++	{
++		const char *e = getenv("HATARI_LUDO_TURBO");
++		mode = e && !strcmp(e, "disque");
++	}
++	if (!mode)
++		return;
++	silence = Ludo_EcrituresYM ? 0 : silence + 1;
++	musique += Ludo_EcrituresYM ? 1 : -1;	/* images avec du son, sur ~1 s */
++	if (musique < 0)
++		musique = 0;
++	if (musique > 50)
++		musique = 50;
++	charge = (FDC_Ludo_MoteurAllume() && musique < 20)
++	         || (Ludo_EcrituresCouleur0 > 8 && silence > 25);
++	if (getenv("HATARI_LUDO_DEBUG"))
++		fprintf(stderr, "LUDO vbl=%d moteur=%d c0=%d ym=%d charge=%d ff=%d\n", nVBLCount,
++		        FDC_Ludo_MoteurAllume(), Ludo_EcrituresCouleur0, Ludo_EcrituresYM, charge,
++		        ConfigureParams.System.bFastForward);
++	Ludo_EcrituresCouleur0 = 0;
++	Ludo_EcrituresYM = 0;
++	calme = charge ? 0 : calme + 1;
++	if (charge && !actif)
++	{
++		actif = true;
++		ConfigureParams.System.bFastForward = true;
++	}
++	else if (actif && calme > 8)	/* ~0,15 s émulées sans chargement */
++	{
++		actif = false;
++		ConfigureParams.System.bFastForward = false;
++	}
++}
++
+ void Main_WaitOnVbl(void)
+ {
+ 	int64_t CurrentTicks;
+@@ -347,6 +397,7 @@
+ 	int64_t FrameDuration_micro;
+ 	int64_t nDelay;
+ 
++	Main_LudoTurboDisque();
+ 	nVBLCount++;
+ 	if (nRunVBLs &&	nVBLCount >= nRunVBLs)
+ 	{
+--- /tmp/claude-0/fdc.c.orig	2026-10-12 17:29:02.980421725 +0200
++++ fdc.c	2026-10-12 17:29:14.475820379 +0200
+@@ -548,6 +548,12 @@
+ 
+ 
+ static FDC_STRUCT	FDC;					/* All variables related to the WD1772 emulation */
++
++/* Ludothèque ST : moteur du lecteur allumé (pour le turbo pendant les chargements) */
++bool FDC_Ludo_MoteurAllume(void)
++{
++	return ( FDC.STR & FDC_STR_BIT_MOTOR_ON ) != 0;
++}
+ static FDC_DMA_STRUCT	FDC_DMA;				/* All variables related to the DMA transfer */
+ static FDC_DRIVE_STRUCT	FDC_DRIVES[ MAX_FLOPPYDRIVES ];		/* A: and B: */
+ static FDC_BUFFER_STRUCT	FDC_BUFFER;			/* Buffer of Timing/Byte to transfer with the FDC */
+--- /tmp/claude-0/fdc.h.orig	2026-10-12 17:29:02.982894502 +0200
++++ includes/fdc.h	2026-10-12 17:29:14.476569686 +0200
+@@ -118,4 +118,6 @@
+ extern void	FDC_DensityMode_WriteWord ( void );
+ extern void	FDC_DensityMode_ReadWord ( void );
+ 
++extern bool FDC_Ludo_MoteurAllume(void);
++
+ #endif /* ifndef HATARI_FDC_H */
+--- /tmp/claude-0/video.c.orig	2026-10-12 17:30:40.505248739 +0200
++++ video.c	2026-10-12 17:30:40.522892271 +0200
+@@ -5505,8 +5505,11 @@
+  * This should be changed in ioMem.c to do 2 separate .W accesses, as would do a real 68000
+  */
+ 
++int Ludo_EcrituresCouleur0;	/* Ludothèque ST : écritures de la couleur 0 depuis la dernière VBL */
++
+ void Video_Color0_WriteWord(void)
+ {
++	Ludo_EcrituresCouleur0++;
+ 	Video_ColorReg_WriteWord();
+ }
+ 
+--- /tmp/claude-0/video.h.orig	2026-10-12 17:30:40.508417859 +0200
++++ includes/video.h	2026-10-12 17:30:40.524300731 +0200
+@@ -266,4 +266,6 @@
+ 
+ extern void Video_Info(FILE *fp, uint32_t dummy);
+ 
++extern int Ludo_EcrituresCouleur0;
++
+ #endif  /* HATARI_VIDEO_H */
+--- /tmp/claude-0/psg.c.orig	2026-10-12 17:32:31.812961560 +0200
++++ psg.c	2026-10-12 17:32:31.827683483 +0200
+@@ -318,10 +318,15 @@
+ /**
+  * Write byte to YM's register (0xff8802), store according to PSG select register (0xff8800)
+  */
++int Ludo_EcrituresYM;	/* Ludothèque ST : écritures dans les registres de son du YM */
++
+ void PSG_Set_DataRegister(uint8_t val)
+ {
+ 	uint8_t	val_old;
+ 
++	if (PSGRegisterSelect < 14)
++		Ludo_EcrituresYM++;
++
+ 	if (LOG_TRACE_LEVEL(TRACE_PSG_WRITE))
+ 	{
+ 		int FrameCycles, HblCounterVideo, LineCycles;
