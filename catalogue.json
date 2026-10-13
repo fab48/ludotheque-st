@@ -1497,10 +1497,13 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/panza_kick_boxing_fr_a.stx",
-      "disques/panza_kick_boxing_fr_b.stx"
+      "disques/tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 1 of 2)[cr Empire].st",
+      "disques/tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 2 of 2)[cr Empire].st"
      ]
     }
+   ],
+   "sequence": [
+    "espace"
    ],
    "actif": true,
    "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."

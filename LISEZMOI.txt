@@ -7,6 +7,21 @@ Tout est dans ce dossier : copiez-le où vous voulez (disque, clé USB), il
 fonctionne sous Windows et sous Linux sans rien installer.
 
 
+INSTALLER LES IMAGES DE DISQUETTES ET LES TOS
+---------------------------------------------
+Les images des jeux et les TOS ne sont pas fournis (droits d'auteur). Ils
+viennent tous de la collection TOSEC Atari ST 2012-04-23 (dossier
+« Atari ST [TOSEC] », un zip par disquette). Une fois la collection
+décompressée :
+  Windows : glissez son dossier sur « Installer les images TOSEC.bat »
+  Linux   : python3 outils/installer_images.py "/chemin/Atari ST [TOSEC]"
+216 images contrôlées (CRC) vont dans disques/, disques/tosec/ et tos/.
+Une disquette déjà présente n'est jamais remplacée (vos sauvegardes).
+Python 3 est nécessaire pour ce script seulement.
+Le bac ne montre que les jeux dont les fichiers sont là ; le panneau
+(F10) liste les autres comme « absent ».
+
+
 LANCER
 ------
 Windows : double-cliquez sur Ludotheque.exe
@@ -123,8 +138,9 @@ AJOUTER UN JEU
    catalogue.json (titre, éditeur, année, genre, joueurs, disquettes) :
    copiez celle d'un jeu existant.
 Les jeux ajoutés depuis la collection TOSEC (2012) sont dans disques/tosec/
-(une centaine de classiques, testés dans Hatari). La collection complète
-reste à part : C:\Atari_ST_TOSEC_2012_04_23 (zips, un par disquette).
+(une centaine de classiques, testés dans Hatari). Pour qu'un nouveau jeu
+tiré de TOSEC s'installe aussi tout seul : après l'avoir ajouté au
+catalogue, python outils/installer_images.py --carte "<dossier TOSEC>".
 Un .msa ou plusieurs disquettes : modifiez le nom dans catalogue.json.
 
 Options par jeu dans catalogue.json :

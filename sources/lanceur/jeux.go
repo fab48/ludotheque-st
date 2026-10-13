@@ -191,8 +191,10 @@ func trouverJeu(c *Catalogue, id string) (*Jeu, bool) {
 	return nil, false
 }
 
-// completer : disponibilité de chaque variante et captures présentes.
-func completer(j *Jeu, hatariOK bool) {
+// completer : disponibilité de chaque variante (Hatari, TOS, images, programmes)
+// et captures présentes. tosDefaut : le TOS du catalogue quand la variante n'en
+// impose pas.
+func completer(j *Jeu, hatariOK bool, tosDefaut string) {
 	for k := range j.Variantes {
 		v := &j.Variantes[k]
 		v.Dispo, v.Absent = true, ""
@@ -200,6 +202,11 @@ func completer(j *Jeu, hatariOK bool) {
 		case "hatari":
 			if !hatariOK {
 				v.Dispo, v.Absent = false, "Hatari introuvable"
+			}
+			if t := firstNonEmpty(v.Tos, tosDefaut); t != "" {
+				if p, err := chemin(t); err != nil || !existe(p) {
+					v.Dispo, v.Absent = false, "TOS absent : "+t
+				}
 			}
 			for _, d := range v.Disques {
 				if p, err := chemin(d); err != nil || !existe(p) {
@@ -284,11 +291,11 @@ func apiCatalogue(w http.ResponseWriter, r *http.Request) {
 	exe, v2 := hatariExe()
 	hOK := exe != ""
 	for i := range c.Jeux {
-		completer(&c.Jeux[i], hOK)
+		completer(&c.Jeux[i], hOK, c.Hatari.Tos)
 	}
 	vr := vrac(c)
 	for i := range vr {
-		completer(&vr[i], hOK)
+		completer(&vr[i], hOK, c.Hatari.Tos)
 	}
 	repondre(w, map[string]any{
 		"titre": c.Titre, "vrac_actif": c.Vrac, "jeux": c.Jeux, "vrac": vr,

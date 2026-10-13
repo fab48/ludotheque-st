@@ -96,7 +96,7 @@ J = [
  ('carmen-sandiego', 'Carmen Sandiego', 'Microïds', 1991, 'Éducatif', 1,
   ['A La Poursuite de Carmen Sandiego dans le Monde (1991)(Microids)(Fr)[cr Replicants - ST Amigos].st'], {}),
  ('panza-kick-boxing', 'Panza Kick Boxing', 'Loriciel', 1990, 'Combat', 2,
-  ['panza_kick_boxing_fr_a.stx', 'panza_kick_boxing_fr_b.stx'], {}),
+  ['tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 1 of 2)[cr Empire].st', 'tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 2 of 2)[cr Empire].st'], {}),
  ('light-corridor', 'The Light Corridor', 'Infogrames', 1990, 'Réflexion', 1, ['A_363_lightcorridor.ST'], {'touche': '2'}),
  ('robocop', 'RoboCop', 'Ocean', 1989, 'Action', 1, ['Robocop (1989)(Ocean)[cr Medway Boys][t Blue Brothers].st'], {}),
  ('hostage', 'Hostage', 'Infogrames', 1988, 'Action', 1, ['A_095_hostage.ST'], {'touche': '2', 'touche_type': 'chiffre'}),

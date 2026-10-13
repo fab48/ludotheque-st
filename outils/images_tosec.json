@@ -1,0 +1,1301 @@
+{
+ "collection": "TOSEC Atari ST 2012-04-23",
+ "images": {
+  "disques/A La Poursuite de Carmen Sandiego dans le Monde (1991)(Microids)(Fr)[cr Replicants - ST Amigos].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/A La Poursuite de Carmen Sandiego dans le Monde (1991)(Microids)(FR)[cr Replicants - ST Amigos].zip",
+   "membre": "A La Poursuite de Carmen Sandiego dans le Monde (1991)(Microids)(FR)[cr Replicants - ST Amigos].st",
+   "crc32": "5b0c0317",
+   "taille": 737280
+  },
+  "disques/A_016_mousetrap.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 016 (19xx)(LSD - Was -Not Was-)[m LGD].zip",
+   "membre": "Automation Menu Disk 016 (19xx)(LSD - Was -Not Was-)[m LGD].st",
+   "crc32": "ccb8daa2",
+   "taille": 839680
+  },
+  "disques/A_018_buggyboy.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 018 v2.0 (19xx)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 018 v2.0 (19xx)(Automation)[m LGD].st",
+   "crc32": "d3904505",
+   "taille": 849920
+  },
+  "disques/A_028_xenon.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 028 (1989)(LSD - Was -Not Was-)[m LGD].zip",
+   "membre": "Automation Menu Disk 028 (1989)(LSD - Was -Not Was-)[m LGD].st",
+   "crc32": "f645ffe4",
+   "taille": 737280
+  },
+  "disques/A_029_barbarian.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 029 (1989)(LSD - Was -Not Was-)[m LGD].zip",
+   "membre": "Automation Menu Disk 029 (1989)(LSD - Was -Not Was-)[m LGD].st",
+   "crc32": "1781fc67",
+   "taille": 737280
+  },
+  "disques/A_030_speedball.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 030 (1989)(LSD - Was -Not Was-)[m LGD].zip",
+   "membre": "Automation Menu Disk 030 (1989)(LSD - Was -Not Was-)[m LGD].st",
+   "crc32": "fe920128",
+   "taille": 737280
+  },
+  "disques/A_046_rtype.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 046 (1989)(LSD - Was -Not Was-)[m LGD].zip",
+   "membre": "Automation Menu Disk 046 (1989)(LSD - Was -Not Was-)[m LGD].st",
+   "crc32": "4d8d81e4",
+   "taille": 737280
+  },
+  "disques/A_049_crazycar2.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 049 (1989)(LSD - Was -Not Was-)[m LGD].zip",
+   "membre": "Automation Menu Disk 049 (1989)(LSD - Was -Not Was-)[m LGD].st",
+   "crc32": "d1efa6d4",
+   "taille": 737280
+  },
+  "disques/A_069_3_afterburner.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 069 (1989)(Automation)(Disk 3 of 5)(Part C)[m LGD].zip",
+   "membre": "Automation Menu Disk 069 (1989)(Automation)(Disk 3 of 5)(Part C)[m LGD].st",
+   "crc32": "fbde6b33",
+   "taille": 839680
+  },
+  "disques/A_077_capitainblood.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 077 (1989)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 077 (1989)(Automation)[m LGD].st",
+   "crc32": "a0c03b68",
+   "taille": 839680
+  },
+  "disques/A_081_populous.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 081 (1989)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 081 (1989)(Automation)[m LGD].st",
+   "crc32": "0cb5a460",
+   "taille": 839680
+  },
+  "disques/A_095_hostage.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 095 (1989)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 095 (1989)(Automation)[m LGD].st",
+   "crc32": "e9693c23",
+   "taille": 839680
+  },
+  "disques/A_097_dungeonmaster.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 097 (1989)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 097 (1989)(Automation)[m LGD].st",
+   "crc32": "8c2dc1c1",
+   "taille": 839680
+  },
+  "disques/A_117_stuntcarracer.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 117 (1989)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 117 (1989)(Automation)[m LGD].st",
+   "crc32": "7761db41",
+   "taille": 839680
+  },
+  "disques/A_363_lightcorridor.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 363 (19xx)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 363 (19xx)(Automation)[m LGD].st",
+   "crc32": "5fbf892d",
+   "taille": 839680
+  },
+  "disques/A_383_A_lotusturbo.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 383 (19xx)(Automation)(Disk 1 of 2)(Part A)[m LGD].zip",
+   "membre": "Automation Menu Disk 383 (19xx)(Automation)(Disk 1 of 2)(Part A)[m LGD].st",
+   "crc32": "d19935a5",
+   "taille": 839680
+  },
+  "disques/A_399_goldenaxe.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 399 (19xx)(Automation)[m LGD].zip",
+   "membre": "Automation Menu Disk 399 (19xx)(Automation)[m LGD].st",
+   "crc32": "c7cfcfb3",
+   "taille": 839680
+  },
+  "disques/A_463_A_loom.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 463 (19xx)(Automation)(Disk 1 of 2)(Part A)[m LGD].zip",
+   "membre": "Automation Menu Disk 463 (19xx)(Automation)(Disk 1 of 2)(Part A)[m LGD].st",
+   "crc32": "67c293c8",
+   "taille": 839680
+  },
+  "disques/A_463_B_loom.ST": {
+   "zip": "Compilations/Games/[ST]/Atari ST - Compilations - Games - [ST] (TOSEC-v2011-08-31_CM)/Automation Menu Disk 463 (19xx)(Automation)(Disk 2 of 2)(Part B)[m LGD].zip",
+   "membre": "Automation Menu Disk 463 (19xx)(Automation)(Disk 2 of 2)(Part B)[m LGD].st",
+   "crc32": "d998a35b",
+   "taille": 839680
+  },
+  "disques/Bubble Bobble (1987)(Firebird)[cr Lord].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Bubble Bobble (1987)(Firebird)[cr Lord].zip",
+   "membre": "Bubble Bobble (1987)(Firebird)[cr Lord].st",
+   "crc32": "c8fb05d6",
+   "taille": 737280
+  },
+  "disques/Cadaver (1990)(Bitmap Brothers)[cr Empire][One Disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cadaver (1990)(Image Works)[cr Empire][one disk].zip",
+   "membre": "Cadaver (1990)(Image Works)[cr Empire][one disk].st",
+   "crc32": "1f67d520",
+   "taille": 819200
+  },
+  "disques/Chambers of Shaolin (1989)(Grandslam).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Chambers of Shaolin (1989)(Grandslam).zip",
+   "membre": "Chambers of Shaolin (1989)(Grandslam).st",
+   "crc32": "17d380ad",
+   "taille": 839680
+  },
+  "disques/Chaos Engine, The (1993)(Renegade)(Disk 1 of 2)[cr Cynix][t][a].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Chaos Engine, The (1993)(Renegade)(Disk 1 of 2)[cr Cynix][t][a].zip",
+   "membre": "Chaos Engine, The (1993)(Renegade)(Disk 1 of 2)[cr Cynix][t][a].st",
+   "crc32": "d49f9fbb",
+   "taille": 737280
+  },
+  "disques/Chaos Engine, The (1993)(Renegade)(Disk 2 of 2)[cr Cynix][t][a].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Chaos Engine, The (1993)(Renegade)(Disk 2 of 2)[cr Cynix][t][a].zip",
+   "membre": "Chaos Engine, The (1993)(Renegade)(Disk 2 of 2)[cr Cynix][t][a].st",
+   "crc32": "8c5bc73f",
+   "taille": 839680
+  },
+  "disques/Defender of the Crown (1987)(Cinemaware)[cr BOSS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Defender of the Crown (1987)(Cinemaware)[cr BOSS][one disk].zip",
+   "membre": "Defender of the Crown (1987)(Cinemaware)[cr BOSS][one disk].st",
+   "crc32": "103fe558",
+   "taille": 849920
+  },
+  "disques/Dynablaster.st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Dynablaster (1992)(Hudson Soft)[cr XCS][t].zip",
+   "membre": "Dynablaster (1992)(Hudson Soft)[cr XCS][t].st",
+   "crc32": "5f7de3c3",
+   "taille": 746496
+  },
+  "disques/International Karate + (1988)(Archer Maclean).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/International Karate + (1988)(System 3).zip",
+   "membre": "International Karate + (1988)(System 3).st",
+   "crc32": "cb8886be",
+   "taille": 819200
+  },
+  "disques/Iznogoud (19xx)(Infogrames)(Fr)[cr].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Iznogoud (1987-12-30)(Infogrames)(FR)[cr -].zip",
+   "membre": "Iznogoud (1987-12-30)(Infogrames)(FR)[cr -].st",
+   "crc32": "4f7d471d",
+   "taille": 419840
+  },
+  "disques/Manoir de Mortevielle, Le (1987)(Lankhor)(Fr)(Disk 1 of 2)[a].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Manoir de Mortevielle, Le (1987)(Lankhor)(FR)(Disk 1 of 2)[a].zip",
+   "membre": "Manoir de Mortevielle, Le (1987)(Lankhor)(FR)(Disk 1 of 2)[a].st",
+   "crc32": "0efc244c",
+   "taille": 368640
+  },
+  "disques/Manoir de Mortevielle, Le (1987)(Lankhor)(Fr)(Disk 2 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Manoir de Mortevielle, Le (1987)(Lankhor)(FR)(Disk 2 of 2).zip",
+   "membre": "Manoir de Mortevielle, Le (1987)(Lankhor)(FR)(Disk 2 of 2).st",
+   "crc32": "85ddc7c6",
+   "taille": 368640
+  },
+  "disques/Mega lo Mania (1991)(Image Works)(Fr)[cr Replicants][t +2](Disk 1 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Mega lo Mania (1991)(Image Works)(fr)(Disk 1 of 2)[cr Replicants][t +2].zip",
+   "membre": "Mega lo Mania (1991)(Image Works)(fr)(Disk 1 of 2)[cr Replicants][t +2].st",
+   "crc32": "fe28d9c2",
+   "taille": 819200
+  },
+  "disques/Mega lo Mania (1991)(Image Works)(Fr)[cr Replicants][t +2](Disk 2 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Mega lo Mania (1991)(Image Works)(fr)(Disk 2 of 2)[cr Replicants][t +2].zip",
+   "membre": "Mega lo Mania (1991)(Image Works)(fr)(Disk 2 of 2)[cr Replicants][t +2].st",
+   "crc32": "54adc427",
+   "taille": 819200
+  },
+  "disques/North & South (1989)(Infogrames)(M5)[cr Corrupt].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/North & South (1989)(Infogrames)(M5)[b graphics in train chase].zip",
+   "membre": "North & South (1989)(Infogrames)(M5)[b graphics in train chase].st",
+   "crc32": "3d16cc22",
+   "taille": 737280
+  },
+  "disques/Paperboy (1989)(Elite).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Paperboy (1989)(Elite).zip",
+   "membre": "Paperboy (1989)(Elite).st",
+   "crc32": "84361115",
+   "taille": 368640
+  },
+  "disques/Rick Dangerous (1989)(Core Design - Firebird)[cr Medway Boys][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Rick Dangerous (1989)(Core Design - Firebird)[cr Medway Boys][t].zip",
+   "membre": "Rick Dangerous (1989)(Core Design - Firebird)[cr Medway Boys][t].st",
+   "crc32": "6ccd1b3b",
+   "taille": 368640
+  },
+  "disques/Robocop (1989)(Ocean)[cr Medway Boys][t Blue Brothers].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Robocop (1989)(Ocean)[cr Medway Boys][t Blue Brothers].zip",
+   "membre": "Robocop (1989)(Ocean)[cr Medway Boys][t Blue Brothers].st",
+   "crc32": "e4313f7d",
+   "taille": 368640
+  },
+  "disques/Shufflepuck Cafe (1989)(Broderbund)[cr Replicants][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Shufflepuck Cafe (1989)(Broderbund)[cr Replicants][one disk].zip",
+   "membre": "Shufflepuck Cafe (1989)(Broderbund)[cr Replicants][one disk].st",
+   "crc32": "5d302576",
+   "taille": 737280
+  },
+  "disques/Silent Service II (1991)(Microprose)[cr Dementia].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Silent Service II (1991)(MicroProse)[cr Dementia].zip",
+   "membre": "Silent Service II (1991)(MicroProse)[cr Dementia].st",
+   "crc32": "5a46bdc2",
+   "taille": 839680
+  },
+  "disques/Stunt_Car_Racer.st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Stunt Car Racer (1989)(Micro Style)[b2].zip",
+   "membre": "Stunt Car Racer (1989)(Micro Style)[b2].st",
+   "crc32": "64c7d12e",
+   "taille": 737280
+  },
+  "disques/Super Hang-On (1988)(Sega)[cr Bladerunners].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Super Hang-On (1988)(Sega)[cr Bladerunners].zip",
+   "membre": "Super Hang-On (1988)(Sega)[cr Bladerunners].st",
+   "crc32": "9caeb296",
+   "taille": 819200
+  },
+  "disques/Super Ski II (1990)(Microids)[cr Elite](Disk 1 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Super Ski II (1990)(Microids)(Disk 1 of 2)[cr Elite].zip",
+   "membre": "Super Ski II (1990)(Microids)(Disk 1 of 2)[cr Elite].st",
+   "crc32": "35c2c8fe",
+   "taille": 839680
+  },
+  "disques/Super Ski II (1990)(Microids)[cr Elite](Disk 2 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Super Ski II (1990)(Microids)(Disk 2 of 2)[cr Elite].zip",
+   "membre": "Super Ski II (1990)(Microids)(Disk 2 of 2)[cr Elite].st",
+   "crc32": "917c8ad8",
+   "taille": 839680
+  },
+  "disques/Teenage Mutant Hero Turtles (1990)(Image Works)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Teenage Mutant Hero Turtles (1990)(Image Works)[cr Empire][t].zip",
+   "membre": "Teenage Mutant Hero Turtles (1990)(Image Works)[cr Empire][t].st",
+   "crc32": "3f5438dc",
+   "taille": 849920
+  },
+  "disques/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 1 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 1 of 2).zip",
+   "membre": "Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 1 of 2).st",
+   "crc32": "8ed65ac1",
+   "taille": 737280
+  },
+  "disques/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 2 of 2).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 2 of 2).zip",
+   "membre": "Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 2 of 2).st",
+   "crc32": "52bc0526",
+   "taille": 737280
+  },
+  "disques/Tintin on the Moon (19xx)(Infogrames)(M3)[cr V8].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Tintin on the Moon (1989)(Infogrames)(M3)[cr V8].zip",
+   "membre": "Tintin on the Moon (1989)(Infogrames)(M3)[cr V8].st",
+   "crc32": "d651789b",
+   "taille": 737280
+  },
+  "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 1 of 3).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Voyageurs du Temps, Les (1989)(Delphine)(FR)(Disk 1 of 3).zip",
+   "membre": "Voyageurs du Temps, Les (1989)(Delphine)(FR)(Disk 1 of 3).st",
+   "crc32": "ec531b72",
+   "taille": 368640
+  },
+  "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 2 of 3).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Voyageurs du Temps, Les (1989)(Delphine)(FR)(Disk 2 of 3).zip",
+   "membre": "Voyageurs du Temps, Les (1989)(Delphine)(FR)(Disk 2 of 3).st",
+   "crc32": "228c3f2b",
+   "taille": 368640
+  },
+  "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 3 of 3).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Voyageurs du Temps, Les (1989)(Delphine)(FR)(Disk 3 of 3).zip",
+   "membre": "Voyageurs du Temps, Les (1989)(Delphine)(FR)(Disk 3 of 3).st",
+   "crc32": "1aeed314",
+   "taille": 368640
+  },
+  "disques/Vroom (1991)(Lankhor)[cr].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Vroom (1991)(Lankhor)[cr Empire].zip",
+   "membre": "Vroom (1991)(Lankhor)[cr Empire].st",
+   "crc32": "37b42279",
+   "taille": 819200
+  },
+  "disques/Wings of Death (1990)(Thalion)(Disk 1 of 2)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Wings of Death (1990)(Thalion)(Disk 1 of 2)[cr Empire][t].zip",
+   "membre": "Wings of Death (1990)(Thalion)(Disk 1 of 2)[cr Empire][t].st",
+   "crc32": "408cbd90",
+   "taille": 819200
+  },
+  "disques/Wings of Death (1990)(Thalion)(Disk 2 of 2)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Wings of Death (1990)(Thalion)(Disk 2 of 2)[cr Empire][t].zip",
+   "membre": "Wings of Death (1990)(Thalion)(Disk 2 of 2)[cr Empire][t].st",
+   "crc32": "4e84fe2f",
+   "taille": 819200
+  },
+  "disques/Winter Games (1986)(Epyx)[cr CSS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Winter Games (1986)(Epyx)[cr CSS].zip",
+   "membre": "Winter Games (1986)(Epyx)[cr CSS].st",
+   "crc32": "81264237",
+   "taille": 839680
+  },
+  "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 1 of 3)[cr Cynix].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cannon Fodder (1994)(Virgin)(Disk 1 of 3)[cr Cynix].zip",
+   "membre": "Cannon Fodder (1994)(Virgin)(Disk 1 of 3)[cr Cynix].st",
+   "crc32": "e64fad69",
+   "taille": 839680
+  },
+  "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 2 of 3)[cr Cynix].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cannon Fodder (1994)(Virgin)(Disk 2 of 3)[cr Cynix].zip",
+   "membre": "Cannon Fodder (1994)(Virgin)(Disk 2 of 3)[cr Cynix].st",
+   "crc32": "2217241c",
+   "taille": 819200
+  },
+  "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 3 of 3)[cr Cynix].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cannon Fodder (1994)(Virgin)(Disk 3 of 3)[cr Cynix].zip",
+   "membre": "Cannon Fodder (1994)(Virgin)(Disk 3 of 3)[cr Cynix].st",
+   "crc32": "dad00604",
+   "taille": 819200
+  },
+  "disques/ssprint.st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Super Sprint (1986)(Electric Dreams)[cr 42-Crew][a].zip",
+   "membre": "Super Sprint (1986)(Electric Dreams)[cr 42-Crew][a].st",
+   "crc32": "3a4cca98",
+   "taille": 737280
+  },
+  "disques/tosec/Another World (1991)(Delphine)(FR)(Disk 1 of 2)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Another World (1991)(Delphine)(FR)(Disk 1 of 2)[cr Replicants].zip",
+   "membre": "Another World (1991)(Delphine)(FR)(Disk 1 of 2)[cr Replicants].st",
+   "crc32": "ec3328fa",
+   "taille": 819200
+  },
+  "disques/tosec/Another World (1991)(Delphine)(FR)(Disk 2 of 2)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Another World (1991)(Delphine)(FR)(Disk 2 of 2)[cr Replicants].zip",
+   "membre": "Another World (1991)(Delphine)(FR)(Disk 2 of 2)[cr Replicants].st",
+   "crc32": "0e11e8fb",
+   "taille": 737280
+  },
+  "disques/tosec/Archipelagos (1989)(Logotron)[cr Medway Boys][use pasti].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Archipelagos (1989)(Logotron)[cr Medway Boys][use pasti].zip",
+   "membre": "Archipelagos (1989)(Logotron)[cr Medway Boys][use pasti].st",
+   "crc32": "98692291",
+   "taille": 819200
+  },
+  "disques/tosec/Arkanoid (1987)(Imagine)[cr Anit-Satanist].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Arkanoid (1987)(Imagine)[cr Anit-Satanist].zip",
+   "membre": "Arkanoid (1987)(Imagine)[cr Anit-Satanist].st",
+   "crc32": "05ff6a55",
+   "taille": 819200
+  },
+  "disques/tosec/Arkanoid II - Revenge of Doh (1988)(Imagine)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Arkanoid II - Revenge of Doh (1988)(Imagine)[cr Replicants].zip",
+   "membre": "Arkanoid II - Revenge of Doh (1988)(Imagine)[cr Replicants].st",
+   "crc32": "841d1bc0",
+   "taille": 737280
+  },
+  "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/B.A.T. (1990)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].zip",
+   "membre": "B.A.T. (1990)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st",
+   "crc32": "e3dcabae",
+   "taille": 409600
+  },
+  "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/B.A.T. (1990)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].zip",
+   "membre": "B.A.T. (1990)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st",
+   "crc32": "87141403",
+   "taille": 409600
+  },
+  "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/B.A.T. (1990)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].zip",
+   "membre": "B.A.T. (1990)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st",
+   "crc32": "e75d8e2f",
+   "taille": 409600
+  },
+  "disques/tosec/Ballistix (1989)(Psyclapse)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Ballistix (1989)(Psyclapse)[cr Replicants].zip",
+   "membre": "Ballistix (1989)(Psyclapse)[cr Replicants].st",
+   "crc32": "4a983b88",
+   "taille": 409600
+  },
+  "disques/tosec/Barbarian II (1988)(Palace)(Disk 1 of 2)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Barbarian II (1988)(Palace)(Disk 1 of 2)[cr Replicants].zip",
+   "membre": "Barbarian II (1988)(Palace)(Disk 1 of 2)[cr Replicants].st",
+   "crc32": "c78ecdfe",
+   "taille": 737280
+  },
+  "disques/tosec/Barbarian II (1988)(Palace)(Disk 2 of 2)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Barbarian II (1988)(Palace)(Disk 2 of 2)[cr Replicants].zip",
+   "membre": "Barbarian II (1988)(Palace)(Disk 2 of 2)[cr Replicants].st",
+   "crc32": "a3b4a34f",
+   "taille": 819200
+  },
+  "disques/tosec/Battle Chess (1989)(Interplay)[cr MCA].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Battle Chess (1989)(Interplay)[cr MCA].zip",
+   "membre": "Battle Chess (1989)(Interplay)[cr MCA].st",
+   "crc32": "3717a453",
+   "taille": 737280
+  },
+  "disques/tosec/Blood Money (1989)(Psygnosis)[cr Delight].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Blood Money (1989)(Psygnosis)[cr Delight].zip",
+   "membre": "Blood Money (1989)(Psygnosis)[cr Delight].st",
+   "crc32": "ee338acc",
+   "taille": 819200
+  },
+  "disques/tosec/Bloodwych (1989)(MirrorSoft)[cr Equinox].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Bloodwych (1989)(MirrorSoft)[cr Equinox].zip",
+   "membre": "Bloodwych (1989)(MirrorSoft)[cr Equinox].st",
+   "crc32": "eb3e0574",
+   "taille": 737280
+  },
+  "disques/tosec/Blues Brothers, The (1991)(Titus)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Blues Brothers, The (1991)(Titus)[cr Empire][t].zip",
+   "membre": "Blues Brothers, The (1991)(Titus)[cr Empire][t].st",
+   "crc32": "fc687af7",
+   "taille": 419840
+  },
+  "disques/tosec/Bolo (1987)(Application Systems Heidelberg)(en-de).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Bolo (1987)(Application Systems Heidelberg)(en-de).zip",
+   "membre": "Bolo (1987)(Application Systems Heidelberg)(en-de).st",
+   "crc32": "385deb38",
+   "taille": 737280
+  },
+  "disques/tosec/Bombjack (1988)(Elite).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Bombjack (1988)(Elite).zip",
+   "membre": "Bombjack (1988)(Elite).st",
+   "crc32": "436cd074",
+   "taille": 737280
+  },
+  "disques/tosec/Bombuzal (1988)(Image Works)[cr Bladerunners].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Bombuzal (1988)(Image Works)[cr Bladerunners].zip",
+   "membre": "Bombuzal (1988)(Image Works)[cr Bladerunners].st",
+   "crc32": "da79aaee",
+   "taille": 839680
+  },
+  "disques/tosec/Bubble Ghost (1987)(ERE).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Bubble Ghost (1987)(ERE).zip",
+   "membre": "Bubble Ghost (1987)(ERE).st",
+   "crc32": "f8b20e6d",
+   "taille": 737280
+  },
+  "disques/tosec/California Games (1989)(Epyx - U.S. Gold)[cr Bad Brew Crew].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/California Games (1989)(Epyx - U.S. Gold)[cr Bad Brew Crew].zip",
+   "membre": "California Games (1989)(Epyx - U.S. Gold)[cr Bad Brew Crew].st",
+   "crc32": "9ec3bd24",
+   "taille": 737280
+  },
+  "disques/tosec/Captive (1990)(Mindscape)(Disk 1 of 2).stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Captive (1990)(Mindscape)(Disk 1 of 2).zip",
+   "membre": "Captive (1990)(Mindscape)(Disk 1 of 2).stx",
+   "crc32": "f36895cb",
+   "taille": 1792042
+  },
+  "disques/tosec/Captive (1990)(Mindscape)(Disk 2 of 2).stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Captive (1990)(Mindscape)(Disk 2 of 2).zip",
+   "membre": "Captive (1990)(Mindscape)(Disk 2 of 2).stx",
+   "crc32": "91036bf2",
+   "taille": 1496248
+  },
+  "disques/tosec/Carrier Command (1988)(Rainbird)(M3)[cr Bladerunners].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Carrier Command (1988)(Rainbird)(M3)[cr Bladerunners].zip",
+   "membre": "Carrier Command (1988)(Rainbird)(M3)[cr Bladerunners].st",
+   "crc32": "c969650d",
+   "taille": 755712
+  },
+  "disques/tosec/Castle Master (1990)(Domark)(M3)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Castle Master (1990)(Domark)(M3)[cr Empire].zip",
+   "membre": "Castle Master (1990)(Domark)(M3)[cr Empire].st",
+   "crc32": "6289f416",
+   "taille": 819200
+  },
+  "disques/tosec/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 1 of 2)(Game Disk)[!].stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 1 of 2)(Game Disk)[!].zip",
+   "membre": "Chaos Strikes Back v2.1 (1989)(FTL)(Disk 1 of 2)(Game Disk)[!].stx",
+   "crc32": "7e9cef8f",
+   "taille": 941828
+  },
+  "disques/tosec/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 2 of 2)(Game Disk)[!].stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 2 of 2)(Game Disk)[!].zip",
+   "membre": "Chaos Strikes Back v2.1 (1989)(FTL)(Disk 2 of 2)(Game Disk)[!].stx",
+   "crc32": "00ed6782",
+   "taille": 940282
+  },
+  "disques/tosec/Chase HQ (1989)(Ocean).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Chase HQ (1989)(Ocean).zip",
+   "membre": "Chase HQ (1989)(Ocean).st",
+   "crc32": "f82ac3dc",
+   "taille": 409600
+  },
+  "disques/tosec/Civilization (1993)(MicroProse)(Disk 1 of 4)(Disk 0)[cr ICS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Civilization (1993)(MicroProse)(Disk 1 of 4)(Disk 0)[cr ICS].zip",
+   "membre": "Civilization (1993)(MicroProse)(Disk 1 of 4)(Disk 0)[cr ICS].st",
+   "crc32": "b7324b7d",
+   "taille": 849920
+  },
+  "disques/tosec/Civilization (1993)(MicroProse)(Disk 2 of 4)(Disk A)[cr ICS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Civilization (1993)(MicroProse)(Disk 2 of 4)(Disk A)[cr ICS].zip",
+   "membre": "Civilization (1993)(MicroProse)(Disk 2 of 4)(Disk A)[cr ICS].st",
+   "crc32": "44bac146",
+   "taille": 737280
+  },
+  "disques/tosec/Civilization (1993)(MicroProse)(Disk 3 of 4)(Disk B)[cr ICS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Civilization (1993)(MicroProse)(Disk 3 of 4)(Disk B)[cr ICS].zip",
+   "membre": "Civilization (1993)(MicroProse)(Disk 3 of 4)(Disk B)[cr ICS].st",
+   "crc32": "2eb5442f",
+   "taille": 737280
+  },
+  "disques/tosec/Civilization (1993)(MicroProse)(Disk 4 of 4)(Disk C)[cr ICS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Civilization (1993)(MicroProse)(Disk 4 of 4)(Disk C)[cr ICS].zip",
+   "membre": "Civilization (1993)(MicroProse)(Disk 4 of 4)(Disk C)[cr ICS].st",
+   "crc32": "23a3f099",
+   "taille": 764928
+  },
+  "disques/tosec/Crafton et Xunk - L'ange de Cristal (1988)(ERE)(M4).stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Crafton et Xunk - L'ange de Cristal (1988)(ERE)(M4).zip",
+   "membre": "Crafton et Xunk - L'ange de Cristal (1988)(ERE)(M4).stx",
+   "crc32": "f4188815",
+   "taille": 914818
+  },
+  "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 1 of 5)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cruise for a Corpse (1991)(U.S. Gold)(Disk 1 of 5)[cr Elite].zip",
+   "membre": "Cruise for a Corpse (1991)(U.S. Gold)(Disk 1 of 5)[cr Elite].st",
+   "crc32": "f7c7092b",
+   "taille": 737280
+  },
+  "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 2 of 5)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cruise for a Corpse (1991)(U.S. Gold)(Disk 2 of 5)[cr Elite].zip",
+   "membre": "Cruise for a Corpse (1991)(U.S. Gold)(Disk 2 of 5)[cr Elite].st",
+   "crc32": "d27dd116",
+   "taille": 737280
+  },
+  "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 3 of 5)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cruise for a Corpse (1991)(U.S. Gold)(Disk 3 of 5)[cr Elite].zip",
+   "membre": "Cruise for a Corpse (1991)(U.S. Gold)(Disk 3 of 5)[cr Elite].st",
+   "crc32": "8a77b6f4",
+   "taille": 737280
+  },
+  "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 4 of 5)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cruise for a Corpse (1991)(U.S. Gold)(Disk 4 of 5)[cr Elite].zip",
+   "membre": "Cruise for a Corpse (1991)(U.S. Gold)(Disk 4 of 5)[cr Elite].st",
+   "crc32": "e2d11b5a",
+   "taille": 737280
+  },
+  "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 5 of 5)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cruise for a Corpse (1991)(U.S. Gold)(Disk 5 of 5)[cr Elite].zip",
+   "membre": "Cruise for a Corpse (1991)(U.S. Gold)(Disk 5 of 5)[cr Elite].st",
+   "crc32": "df1ee2a4",
+   "taille": 737280
+  },
+  "disques/tosec/Cybernoid (1988)(Hewson).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Cybernoid (1988)(Hewson).zip",
+   "membre": "Cybernoid (1988)(Hewson).st",
+   "crc32": "ad1be0b8",
+   "taille": 819200
+  },
+  "disques/tosec/Double Dragon (1988)(Tradewest)[cr 42-Crew].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Double Dragon (1988)(Tradewest)[cr 42-Crew].zip",
+   "membre": "Double Dragon (1988)(Tradewest)[cr 42-Crew].st",
+   "crc32": "bcfda601",
+   "taille": 819200
+  },
+  "disques/tosec/Dragonflight (1990)(Thalion)(Disk 1 of 2)(Disk A)[cr Atari Legend][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Dragonflight (1990)(Thalion)(Disk 1 of 2)(Disk A)[cr Atari Legend][t].zip",
+   "membre": "Dragonflight (1990)(Thalion)(Disk 1 of 2)(Disk A)[cr Atari Legend][t].st",
+   "crc32": "e5bd2f23",
+   "taille": 839680
+  },
+  "disques/tosec/Dragonflight (1990)(Thalion)(Disk 2 of 2)(Disk B - C)[cr Atari Legend][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Dragonflight (1990)(Thalion)(Disk 2 of 2)(Disk B - C)[cr Atari Legend][t].zip",
+   "membre": "Dragonflight (1990)(Thalion)(Disk 2 of 2)(Disk B - C)[cr Atari Legend][t].st",
+   "crc32": "f5d88478",
+   "taille": 839680
+  },
+  "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 1 of 4).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Drakkhen (1989)(Infogrames)(Disk 1 of 4).zip",
+   "membre": "Drakkhen (1989)(Infogrames)(Disk 1 of 4).st",
+   "crc32": "03e3d3de",
+   "taille": 368640
+  },
+  "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 2 of 4).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Drakkhen (1989)(Infogrames)(Disk 2 of 4).zip",
+   "membre": "Drakkhen (1989)(Infogrames)(Disk 2 of 4).st",
+   "crc32": "b4440148",
+   "taille": 368640
+  },
+  "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 3 of 4).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Drakkhen (1989)(Infogrames)(Disk 3 of 4).zip",
+   "membre": "Drakkhen (1989)(Infogrames)(Disk 3 of 4).st",
+   "crc32": "f54e3832",
+   "taille": 368640
+  },
+  "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 4 of 4).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Drakkhen (1989)(Infogrames)(Disk 4 of 4).zip",
+   "membre": "Drakkhen (1989)(Infogrames)(Disk 4 of 4).st",
+   "crc32": "e378c246",
+   "taille": 368640
+  },
+  "disques/tosec/Enchanted Land (1990)(Thalion)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Enchanted Land (1990)(Thalion)[cr Empire].zip",
+   "membre": "Enchanted Land (1990)(Thalion)[cr Empire].st",
+   "crc32": "d63a2a20",
+   "taille": 829440
+  },
+  "disques/tosec/F-29 Retaliator (1989)(Ocean)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/F-29 Retaliator (1989)(Ocean)[cr Empire].zip",
+   "membre": "F-29 Retaliator (1989)(Ocean)[cr Empire].st",
+   "crc32": "0d6442a8",
+   "taille": 849920
+  },
+  "disques/tosec/Falcon (1989)(Spectrum Holobyte)(Disk 1 of 2)[!].stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Falcon (1989)(Spectrum Holobyte)(Disk 1 of 2)[!].zip",
+   "membre": "Falcon (1989)(Spectrum Holobyte)(Disk 1 of 2)[!].stx",
+   "crc32": "283dfa90",
+   "taille": 926758
+  },
+  "disques/tosec/Falcon (1989)(Spectrum Holobyte)(Disk 2 of 2)[!].stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Falcon (1989)(Spectrum Holobyte)(Disk 2 of 2)[!].zip",
+   "membre": "Falcon (1989)(Spectrum Holobyte)(Disk 2 of 2)[!].stx",
+   "crc32": "6c27273e",
+   "taille": 926298
+  },
+  "disques/tosec/Fantasy World Dizzy (1991)(Codemasters)(GB).stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Fantasy World Dizzy (1991)(Codemasters)(GB).zip",
+   "membre": "Fantasy World Dizzy (1991)(Codemasters)(GB).stx",
+   "crc32": "09fb8a31",
+   "taille": 429994
+  },
+  "disques/tosec/Final Fight (1991)(Capcom)(Disk 1 of 2)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Final Fight (1991)(Capcom)(Disk 1 of 2)[cr Elite][t].zip",
+   "membre": "Final Fight (1991)(Capcom)(Disk 1 of 2)[cr Elite][t].st",
+   "crc32": "118906a5",
+   "taille": 819200
+  },
+  "disques/tosec/Final Fight (1991)(Capcom)(Disk 2 of 2)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Final Fight (1991)(Capcom)(Disk 2 of 2)[cr Elite][t].zip",
+   "membre": "Final Fight (1991)(Capcom)(Disk 2 of 2)[cr Elite][t].st",
+   "crc32": "216cfa04",
+   "taille": 819200
+  },
+  "disques/tosec/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 1 of 2)[cr Bastards].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 1 of 2)[cr Bastards].zip",
+   "membre": "Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 1 of 2)[cr Bastards].st",
+   "crc32": "361c0ca8",
+   "taille": 839680
+  },
+  "disques/tosec/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 2 of 2)[cr Bastards].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 2 of 2)[cr Bastards].zip",
+   "membre": "Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 2 of 2)[cr Bastards].st",
+   "crc32": "11840b37",
+   "taille": 839680
+  },
+  "disques/tosec/Frontier - Elite II (1993)(Gametek - Konami)(fr).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Frontier - Elite II (1993)(Gametek - Konami)(fr).zip",
+   "membre": "Frontier - Elite II (1993)(Gametek - Konami)(fr).st",
+   "crc32": "1513e2cc",
+   "taille": 737280
+  },
+  "disques/tosec/Gauntlet II (1986)(Atari Corp.)[cr Medway Boys][t][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gauntlet II (1986)(Atari Corp.)[cr Medway Boys][t][one disk].zip",
+   "membre": "Gauntlet II (1986)(Atari Corp.)[cr Medway Boys][t][one disk].st",
+   "crc32": "ba2a153b",
+   "taille": 819200
+  },
+  "disques/tosec/Ghouls 'n' Ghosts (1988)(U.S. Gold)[cr Empire][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Ghouls 'n' Ghosts (1988)(U.S. Gold)[cr Empire][one disk].zip",
+   "membre": "Ghouls 'n' Ghosts (1988)(U.S. Gold)[cr Empire][one disk].st",
+   "crc32": "fa3a54e6",
+   "taille": 737280
+  },
+  "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 1 of 3)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gobliiins (1991)(CVS)(M5)(Disk 1 of 3)[cr Elite].zip",
+   "membre": "Gobliiins (1991)(CVS)(M5)(Disk 1 of 3)[cr Elite].st",
+   "crc32": "62e615d6",
+   "taille": 737280
+  },
+  "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 2 of 3)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gobliiins (1991)(CVS)(M5)(Disk 2 of 3)[cr Elite].zip",
+   "membre": "Gobliiins (1991)(CVS)(M5)(Disk 2 of 3)[cr Elite].st",
+   "crc32": "fc158442",
+   "taille": 737280
+  },
+  "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 3 of 3)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gobliiins (1991)(CVS)(M5)(Disk 3 of 3)[cr Elite].zip",
+   "membre": "Gobliiins (1991)(CVS)(M5)(Disk 3 of 3)[cr Elite].st",
+   "crc32": "3e6ce6ba",
+   "taille": 737280
+  },
+  "disques/tosec/Gods (1991)(Renegade)(Disk 1 of 2)[cr Elite][t +3].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gods (1991)(Renegade)(Disk 1 of 2)[cr Elite][t +3].zip",
+   "membre": "Gods (1991)(Renegade)(Disk 1 of 2)[cr Elite][t +3].st",
+   "crc32": "5ef4870a",
+   "taille": 819200
+  },
+  "disques/tosec/Gods (1991)(Renegade)(Disk 2 of 2)[cr Elite][t +3].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gods (1991)(Renegade)(Disk 2 of 2)[cr Elite][t +3].zip",
+   "membre": "Gods (1991)(Renegade)(Disk 2 of 2)[cr Elite][t +3].st",
+   "crc32": "26f3aefb",
+   "taille": 819200
+  },
+  "disques/tosec/Goldrunner (1987)(Microdeal)[cr 42-Crew].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Goldrunner (1987)(Microdeal)[cr 42-Crew].zip",
+   "membre": "Goldrunner (1987)(Microdeal)[cr 42-Crew].st",
+   "crc32": "1e42bbe6",
+   "taille": 829440
+  },
+  "disques/tosec/Gunship (1987)(MicroProse)[cr Angels of Darkness][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Gunship (1987)(MicroProse)[cr Angels of Darkness][one disk].zip",
+   "membre": "Gunship (1987)(MicroProse)[cr Angels of Darkness][one disk].st",
+   "crc32": "7b685a4c",
+   "taille": 737280
+  },
+  "disques/tosec/Hard Drivin' (1989)(Domark)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Hard Drivin' (1989)(Domark)[cr Replicants].zip",
+   "membre": "Hard Drivin' (1989)(Domark)[cr Replicants].st",
+   "crc32": "2b3a150e",
+   "taille": 409600
+  },
+  "disques/tosec/Hunter (1991)(Activision)[cr Paper Bag].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Hunter (1991)(Activision)[cr Paper Bag].zip",
+   "membre": "Hunter (1991)(Activision)[cr Paper Bag].st",
+   "crc32": "0f79c573",
+   "taille": 829440
+  },
+  "disques/tosec/Ikari Warriors (1987)(Elite).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Ikari Warriors (1987)(Elite).zip",
+   "membre": "Ikari Warriors (1987)(Elite).st",
+   "crc32": "2f295517",
+   "taille": 409600
+  },
+  "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 1 of 3)[3 disks version].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 1 of 3)[3 disks version].zip",
+   "membre": "Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 1 of 3)[3 disks version].st",
+   "crc32": "6f129cb4",
+   "taille": 737280
+  },
+  "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 2 of 3)[3 disks version].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 2 of 3)[3 disks version].zip",
+   "membre": "Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 2 of 3)[3 disks version].st",
+   "crc32": "e2c688a5",
+   "taille": 737280
+  },
+  "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 3 of 3)[3 disks version].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 3 of 3)[3 disks version].zip",
+   "membre": "Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 3 of 3)[3 disks version].st",
+   "crc32": "5f2348fa",
+   "taille": 737280
+  },
+  "disques/tosec/Indianapolis 500 (1989)(Electronic Arts)[cr Bladerunners].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Indianapolis 500 (1989)(Electronic Arts)[cr Bladerunners].zip",
+   "membre": "Indianapolis 500 (1989)(Electronic Arts)[cr Bladerunners].st",
+   "crc32": "b4282021",
+   "taille": 755712
+  },
+  "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Iron Lord (1989)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].zip",
+   "membre": "Iron Lord (1989)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st",
+   "crc32": "ac5aefa2",
+   "taille": 424960
+  },
+  "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Iron Lord (1989)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].zip",
+   "membre": "Iron Lord (1989)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st",
+   "crc32": "ca43891d",
+   "taille": 414720
+  },
+  "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Iron Lord (1989)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].zip",
+   "membre": "Iron Lord (1989)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st",
+   "crc32": "7aa10f11",
+   "taille": 737280
+  },
+  "disques/tosec/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 1 of 2)[cr Replicants][m Fuzion].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 1 of 2)[cr Replicants][m Fuzion].zip",
+   "membre": "Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 1 of 2)[cr Replicants][m Fuzion].st",
+   "crc32": "c92eb323",
+   "taille": 808960
+  },
+  "disques/tosec/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 2 of 2)[cr Replicants][m Fuzion].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 2 of 2)[cr Replicants][m Fuzion].zip",
+   "membre": "Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 2 of 2)[cr Replicants][m Fuzion].st",
+   "crc32": "62a86be7",
+   "taille": 819200
+  },
+  "disques/tosec/James Pond - Underwater Agent (1990)(Vectordean)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/James Pond - Underwater Agent (1990)(Vectordean)[cr Replicants].zip",
+   "membre": "James Pond - Underwater Agent (1990)(Vectordean)[cr Replicants].st",
+   "crc32": "3aa7419b",
+   "taille": 829440
+  },
+  "disques/tosec/James Pond II - Codename Robocod (1992)(Vectordean)[cr Vmax].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/James Pond II - Codename Robocod (1992)(Vectordean)[cr Vmax].zip",
+   "membre": "James Pond II - Codename Robocod (1992)(Vectordean)[cr Vmax].st",
+   "crc32": "62d761d4",
+   "taille": 819200
+  },
+  "disques/tosec/Kick Off 2 (1991)(Anco)(fr)[cr Replicants - ST Amigos].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Kick Off 2 (1991)(Anco)(fr)[cr Replicants - ST Amigos].zip",
+   "membre": "Kick Off 2 (1991)(Anco)(fr)[cr Replicants - ST Amigos].st",
+   "crc32": "9b2f974f",
+   "taille": 737280
+  },
+  "disques/tosec/Klax (1990)(Atari).stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Klax (1990)(Atari).zip",
+   "membre": "Klax (1990)(Atari).stx",
+   "crc32": "c94c9630",
+   "taille": 897194
+  },
+  "disques/tosec/Kult (1989)(ERE)(M3)[cr Replicants][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Kult (1989)(ERE)(M3)[cr Replicants][one disk].zip",
+   "membre": "Kult (1989)(ERE)(M3)[cr Replicants][one disk].st",
+   "crc32": "b7170ca9",
+   "taille": 839680
+  },
+  "disques/tosec/Leader Board Pro Golf Simulator (1986)(Access)[cr BOSS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Leader Board Pro Golf Simulator (1986)(Access)[cr BOSS].zip",
+   "membre": "Leader Board Pro Golf Simulator (1986)(Access)[cr BOSS].st",
+   "crc32": "78936ca6",
+   "taille": 368640
+  },
+  "disques/tosec/Lemmings (1990)(Psygnosis)[cr BBC].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Lemmings (1990)(Psygnosis)[cr BBC].zip",
+   "membre": "Lemmings (1990)(Psygnosis)[cr BBC].st",
+   "crc32": "bcdbeb3d",
+   "taille": 839680
+  },
+  "disques/tosec/Lemmings 2 - Oh no, More Lemmings (1991)(Psygnosis)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Lemmings 2 - Oh no, More Lemmings (1991)(Psygnosis)[cr Elite][t].zip",
+   "membre": "Lemmings 2 - Oh no, More Lemmings (1991)(Psygnosis)[cr Elite][t].st",
+   "crc32": "175cef51",
+   "taille": 829440
+  },
+  "disques/tosec/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 1 of 2)(Disk A)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 1 of 2)(Disk A)[cr Elite][t].zip",
+   "membre": "Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 1 of 2)(Disk A)[cr Elite][t].st",
+   "crc32": "8def294f",
+   "taille": 819200
+  },
+  "disques/tosec/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 2 of 2)(Disk B)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 2 of 2)(Disk B)[cr Elite][t].zip",
+   "membre": "Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 2 of 2)(Disk B)[cr Elite][t].st",
+   "crc32": "1671d60f",
+   "taille": 819200
+  },
+  "disques/tosec/Llamatron v1.0 (1991-03-20)(Yak)(SW)[1MB].st": {
+   "zip": "Games/Atari ST - Games - Public Domain (TOSEC-v2009-09-01_CM)/Llamatron v1.0 (1991-03-20)(Yak)(SW)[1MB].zip",
+   "membre": "Llamatron v1.0 (1991-03-20)(Yak)(SW)[1MB].st",
+   "crc32": "6cb8b94f",
+   "taille": 368640
+  },
+  "disques/tosec/Magic Pocket (1991)(Renegade)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Magic Pocket (1991)(Renegade)[cr Elite][t].zip",
+   "membre": "Magic Pocket (1991)(Renegade)[cr Elite][t].st",
+   "crc32": "7936038c",
+   "taille": 819200
+  },
+  "disques/tosec/Maniac Mansion (1988)(LucasFilm Games)(fr)[one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Maniac Mansion (1988)(LucasFilm Games)(fr)[one disk].zip",
+   "membre": "Maniac Mansion (1988)(LucasFilm Games)(fr)[one disk].st",
+   "crc32": "82fb7092",
+   "taille": 737280
+  },
+  "disques/tosec/Maupiti Island (1990)(Lankhor)(Disk 1 of 2)[cr Medway Boys].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Maupiti Island (1990)(Lankhor)(Disk 1 of 2)[cr Medway Boys].zip",
+   "membre": "Maupiti Island (1990)(Lankhor)(Disk 1 of 2)[cr Medway Boys].st",
+   "crc32": "fb0cf321",
+   "taille": 819200
+  },
+  "disques/tosec/Maupiti Island (1990)(Lankhor)(Disk 2 of 2)[cr Medway Boys].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Maupiti Island (1990)(Lankhor)(Disk 2 of 2)[cr Medway Boys].zip",
+   "membre": "Maupiti Island (1990)(Lankhor)(Disk 2 of 2)[cr Medway Boys].st",
+   "crc32": "c15dc00b",
+   "taille": 819200
+  },
+  "disques/tosec/Menace (1988)(Psyclapse)[cr Delight][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Menace (1988)(Psyclapse)[cr Delight][one disk].zip",
+   "membre": "Menace (1988)(Psyclapse)[cr Delight][one disk].st",
+   "crc32": "6548ec41",
+   "taille": 839680
+  },
+  "disques/tosec/Mercenary - Escape From Targ (1986)(Novasoft)[cr BOSS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Mercenary - Escape From Targ (1986)(Novasoft)[cr BOSS].zip",
+   "membre": "Mercenary - Escape From Targ (1986)(Novasoft)[cr BOSS].st",
+   "crc32": "8f7aa419",
+   "taille": 737280
+  },
+  "disques/tosec/Mercenary 2 - Damocles (1990)(Novagen)[cr Medway Boys].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Mercenary 2 - Damocles (1990)(Novagen)[cr Medway Boys].zip",
+   "membre": "Mercenary 2 - Damocles (1990)(Novagen)[cr Medway Boys].st",
+   "crc32": "39e7bf13",
+   "taille": 737280
+  },
+  "disques/tosec/Microprose Soccer (1989)(MicroProse).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Microprose Soccer (1989)(MicroProse).zip",
+   "membre": "Microprose Soccer (1989)(MicroProse).st",
+   "crc32": "b7b56328",
+   "taille": 829440
+  },
+  "disques/tosec/Midwinter (1990)(Rainbird)[cr Jinx][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Midwinter (1990)(Rainbird)[cr Jinx][one disk].zip",
+   "membre": "Midwinter (1990)(Rainbird)[cr Jinx][one disk].st",
+   "crc32": "38429a48",
+   "taille": 737280
+  },
+  "disques/tosec/Nebulus (1988)(Hewson)[cr Atari Legend].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Nebulus (1988)(Hewson)[cr Atari Legend].zip",
+   "membre": "Nebulus (1988)(Hewson)[cr Atari Legend].st",
+   "crc32": "1017aa6a",
+   "taille": 419840
+  },
+  "disques/tosec/New Zealand Story, The (1989)(Ocean)[cr LSD][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/New Zealand Story, The (1989)(Ocean)[cr LSD][one disk].zip",
+   "membre": "New Zealand Story, The (1989)(Ocean)[cr LSD][one disk].st",
+   "crc32": "f23f5912",
+   "taille": 755712
+  },
+  "disques/tosec/Oids (1987)(FTL)[cr Was -Not Was-].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Oids (1987)(FTL)[cr Was -Not Was-].zip",
+   "membre": "Oids (1987)(FTL)[cr Was -Not Was-].st",
+   "crc32": "11aaed65",
+   "taille": 829440
+  },
+  "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 1 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 1 of 3)[cr Replicants].zip",
+   "membre": "Operation Stealth (1990)(U.S. Gold)(fr)(Disk 1 of 3)[cr Replicants].st",
+   "crc32": "de211e7a",
+   "taille": 737280
+  },
+  "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 2 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 2 of 3)[cr Replicants].zip",
+   "membre": "Operation Stealth (1990)(U.S. Gold)(fr)(Disk 2 of 3)[cr Replicants].st",
+   "crc32": "c6cde293",
+   "taille": 737280
+  },
+  "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 3 of 3)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 3 of 3)[cr Replicants].zip",
+   "membre": "Operation Stealth (1990)(U.S. Gold)(fr)(Disk 3 of 3)[cr Replicants].st",
+   "crc32": "dcc1b128",
+   "taille": 737280
+  },
+  "disques/tosec/Out Run (1987)(U.S. Gold)[cr Bladerunners].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Out Run (1987)(U.S. Gold)[cr Bladerunners].zip",
+   "membre": "Out Run (1987)(U.S. Gold)[cr Bladerunners].st",
+   "crc32": "6bc322f5",
+   "taille": 901120
+  },
+  "disques/tosec/Oxyd (1990)(Digital Art).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Oxyd (1990)(Digital Art).zip",
+   "membre": "Oxyd (1990)(Digital Art).st",
+   "crc32": "d829a4d8",
+   "taille": 737280
+  },
+  "disques/tosec/Pacmania (1988)(Grandslam).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Pacmania (1988)(Grandslam).zip",
+   "membre": "Pacmania (1988)(Grandslam).st",
+   "crc32": "09bee90d",
+   "taille": 409600
+  },
+  "disques/tosec/Pang (1990)(Ocean)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Pang (1990)(Ocean)[cr Empire][t].zip",
+   "membre": "Pang (1990)(Ocean)[cr Empire][t].st",
+   "crc32": "837e2956",
+   "taille": 901120
+  },
+  "disques/tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 1 of 2)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 1 of 2)[cr Empire].zip",
+   "membre": "Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 1 of 2)[cr Empire].st",
+   "crc32": "21465aa6",
+   "taille": 819200
+  },
+  "disques/tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 2 of 2)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 2 of 2)[cr Empire].zip",
+   "membre": "Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 2 of 2)[cr Empire].st",
+   "crc32": "5cd1cc56",
+   "taille": 819200
+  },
+  "disques/tosec/Parasol Stars (1992)(Ocean)[cr Cynix][t +11 Cynix].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Parasol Stars (1992)(Ocean)[cr Cynix][t +11 Cynix].zip",
+   "membre": "Parasol Stars (1992)(Ocean)[cr Cynix][t +11 Cynix].st",
+   "crc32": "711526b0",
+   "taille": 819200
+  },
+  "disques/tosec/Passagers du Vent I, Les (1987)(Infogrames)(FR)[cr][m Atariforce].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Passagers du Vent I, Les (1987)(Infogrames)(FR)[cr][m Atariforce].zip",
+   "membre": "Passagers du Vent I, Les (1987)(Infogrames)(FR)[cr][m Atariforce].st",
+   "crc32": "5837dec3",
+   "taille": 737280
+  },
+  "disques/tosec/Pirates (1989)(MicroProse)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Pirates (1989)(MicroProse)[cr Replicants].zip",
+   "membre": "Pirates (1989)(MicroProse)[cr Replicants].st",
+   "crc32": "85443c28",
+   "taille": 737280
+  },
+  "disques/tosec/Populous II (1991)(Bullfrog)[cr ICS][512 kB].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Populous II (1991)(Bullfrog)[cr ICS][512 kB].zip",
+   "membre": "Populous II (1991)(Bullfrog)[cr ICS][512 kB].st",
+   "crc32": "198a6644",
+   "taille": 737280
+  },
+  "disques/tosec/Powerdrome (1989)(Electronic Arts)[cr STCS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Powerdrome (1989)(Electronic Arts)[cr STCS].zip",
+   "membre": "Powerdrome (1989)(Electronic Arts)[cr STCS].st",
+   "crc32": "31b060fb",
+   "taille": 755712
+  },
+  "disques/tosec/Powermonger (1990)(Bullfrog)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Powermonger (1990)(Bullfrog)[cr Empire].zip",
+   "membre": "Powermonger (1990)(Bullfrog)[cr Empire].st",
+   "crc32": "c79fe55b",
+   "taille": 829440
+  },
+  "disques/tosec/Prehistorik (1991)(Titus)[cr Replicants - ST Amigos].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Prehistorik (1991)(Titus)[cr Replicants - ST Amigos].zip",
+   "membre": "Prehistorik (1991)(Titus)[cr Replicants - ST Amigos].st",
+   "crc32": "dd2539ed",
+   "taille": 839680
+  },
+  "disques/tosec/Prince of Persia (1990)(Broderbund)[cr Empire][m Blue Soft][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Prince of Persia (1990)(Broderbund)[cr Empire][m Blue Soft][one disk].zip",
+   "membre": "Prince of Persia (1990)(Broderbund)[cr Empire][m Blue Soft][one disk].st",
+   "crc32": "f8ab6db9",
+   "taille": 849920
+  },
+  "disques/tosec/Purple Saturn Day (1989)(Exxos)[cr Bladerunners].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Purple Saturn Day (1989)(Exxos)[cr Bladerunners].zip",
+   "membre": "Purple Saturn Day (1989)(Exxos)[cr Bladerunners].st",
+   "crc32": "bb6c200e",
+   "taille": 829440
+  },
+  "disques/tosec/Puzznic (1990)(Ocean).stx": {
+   "zip": "Games/Atari ST - Games - [STX] (TOSEC-v2011-03-20_CM)/Puzznic (1990)(Ocean).zip",
+   "membre": "Puzznic (1990)(Ocean).stx",
+   "crc32": "c46f9f4d",
+   "taille": 1874568
+  },
+  "disques/tosec/Railroad Tycoon v755.01 (1991)(MicroProse)[cr Medway Boys][m MCA][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Railroad Tycoon v755.01 (1991)(MicroProse)[cr Medway Boys][m MCA][one disk].zip",
+   "membre": "Railroad Tycoon v755.01 (1991)(MicroProse)[cr Medway Boys][m MCA][one disk].st",
+   "crc32": "ee2a9c6b",
+   "taille": 746496
+  },
+  "disques/tosec/Rainbow Islands (1989)(Ocean)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Rainbow Islands (1989)(Ocean)[cr Empire][t].zip",
+   "membre": "Rainbow Islands (1989)(Ocean)[cr Empire][t].st",
+   "crc32": "fdb0c034",
+   "taille": 829440
+  },
+  "disques/tosec/Rick Dangerous II (1989)(Core Design)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Rick Dangerous II (1989)(Core Design)[cr Replicants].zip",
+   "membre": "Rick Dangerous II (1989)(Core Design)[cr Replicants].st",
+   "crc32": "c3740b45",
+   "taille": 923648
+  },
+  "disques/tosec/Rodland (1991)(Sales Curve)[cr Elite][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Rodland (1991)(Sales Curve)[cr Elite][t].zip",
+   "membre": "Rodland (1991)(Sales Curve)[cr Elite][t].st",
+   "crc32": "a975d94a",
+   "taille": 737280
+  },
+  "disques/tosec/Sapiens (1987)(Loriciel).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Sapiens (1987)(Loriciel).zip",
+   "membre": "Sapiens (1987)(Loriciel).st",
+   "crc32": "a577852d",
+   "taille": 737280
+  },
+  "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 1 of 4)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 1 of 4)[cr Elite].zip",
+   "membre": "Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 1 of 4)[cr Elite].st",
+   "crc32": "ee33fbbb",
+   "taille": 829440
+  },
+  "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 2 of 4)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 2 of 4)[cr Elite].zip",
+   "membre": "Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 2 of 4)[cr Elite].st",
+   "crc32": "fb71de12",
+   "taille": 737280
+  },
+  "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 3 of 4)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 3 of 4)[cr Elite].zip",
+   "membre": "Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 3 of 4)[cr Elite].st",
+   "crc32": "acbd9d85",
+   "taille": 737280
+  },
+  "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 4 of 4)[cr Elite].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 4 of 4)[cr Elite].zip",
+   "membre": "Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 4 of 4)[cr Elite].st",
+   "crc32": "68fd49cf",
+   "taille": 737280
+  },
+  "disques/tosec/Sensible Soccer (1992)(Renegade)(M4)[cr Vmax][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Sensible Soccer (1992)(Renegade)(M4)[cr Vmax][one disk].zip",
+   "membre": "Sensible Soccer (1992)(Renegade)(M4)[cr Vmax][one disk].st",
+   "crc32": "5630a016",
+   "taille": 737280
+  },
+  "disques/tosec/Shadow of the Beast (1990)(Psygnosis)(Disk 1 of 2)[cr Replicants][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Shadow of the Beast (1990)(Psygnosis)(Disk 1 of 2)[cr Replicants][t].zip",
+   "membre": "Shadow of the Beast (1990)(Psygnosis)(Disk 1 of 2)[cr Replicants][t].st",
+   "crc32": "600b83aa",
+   "taille": 737280
+  },
+  "disques/tosec/Shadow of the Beast (1990)(Psygnosis)(Disk 2 of 2)[cr Replicants][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Shadow of the Beast (1990)(Psygnosis)(Disk 2 of 2)[cr Replicants][t].zip",
+   "membre": "Shadow of the Beast (1990)(Psygnosis)(Disk 2 of 2)[cr Replicants][t].st",
+   "crc32": "5e47a4d3",
+   "taille": 819200
+  },
+  "disques/tosec/Shinobi (1989)(Sales Curve)[cr Rebels][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Shinobi (1989)(Sales Curve)[cr Rebels][t].zip",
+   "membre": "Shinobi (1989)(Sales Curve)[cr Rebels][t].st",
+   "crc32": "eca4ad30",
+   "taille": 839680
+  },
+  "disques/tosec/Silk Worm (1988)(Tecmo)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Silk Worm (1988)(Tecmo)[cr Replicants].zip",
+   "membre": "Silk Worm (1988)(Tecmo)[cr Replicants].st",
+   "crc32": "b2a9deb5",
+   "taille": 409600
+  },
+  "disques/tosec/Sim City (1989)(Maxis)[cr Empire].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Sim City (1989)(Maxis)[cr Empire].zip",
+   "membre": "Sim City (1989)(Maxis)[cr Empire].st",
+   "crc32": "8f4619b2",
+   "taille": 368640
+  },
+  "disques/tosec/Skweek (1989)(Loriciel)[cr Delight][f French Tos].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Skweek (1989)(Loriciel)[cr Delight][f French Tos].zip",
+   "membre": "Skweek (1989)(Loriciel)[cr Delight][f French Tos].st",
+   "crc32": "24171fc5",
+   "taille": 737280
+  },
+  "disques/tosec/Space Harrier (1988)(Elite)[cr MCA][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Space Harrier (1988)(Elite)[cr MCA][one disk].zip",
+   "membre": "Space Harrier (1988)(Elite)[cr MCA][one disk].st",
+   "crc32": "73b1bfe9",
+   "taille": 819200
+  },
+  "disques/tosec/Speedball 2 - Brutal Deluxe (1990)(Image Works)[cr Replicants - ST Amigos].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Speedball 2 - Brutal Deluxe (1990)(Image Works)[cr Replicants - ST Amigos].zip",
+   "membre": "Speedball 2 - Brutal Deluxe (1990)(Image Works)[cr Replicants - ST Amigos].st",
+   "crc32": "8181ee9a",
+   "taille": 819712
+  },
+  "disques/tosec/Starglider 2 (1988)(Rainbird)[cr Union].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Starglider 2 (1988)(Rainbird)[cr Union].zip",
+   "membre": "Starglider 2 (1988)(Rainbird)[cr Union].st",
+   "crc32": "22b98271",
+   "taille": 819200
+  },
+  "disques/tosec/Strider (1989)(U.S. Gold)[cr Replicants][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Strider (1989)(U.S. Gold)[cr Replicants][t].zip",
+   "membre": "Strider (1989)(U.S. Gold)[cr Replicants][t].st",
+   "crc32": "a0fccebd",
+   "taille": 839680
+  },
+  "disques/tosec/Sundog - Frozen Legacy v3.0 (1985)(FTL).st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Sundog - Frozen Legacy v3.0 (1985)(FTL).zip",
+   "membre": "Sundog - Frozen Legacy v3.0 (1985)(FTL).st",
+   "crc32": "e07625bb",
+   "taille": 368640
+  },
+  "disques/tosec/Super Cars (1990)(Gremlin)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Super Cars (1990)(Gremlin)[cr Replicants].zip",
+   "membre": "Super Cars (1990)(Gremlin)[cr Replicants].st",
+   "crc32": "bfe6a09c",
+   "taille": 737280
+  },
+  "disques/tosec/Super Monaco GP (1991)(U.S. Gold)[cr Hotline - MCA - Nokturnal].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Super Monaco GP (1991)(U.S. Gold)[cr Hotline - MCA - Nokturnal].zip",
+   "membre": "Super Monaco GP (1991)(U.S. Gold)[cr Hotline - MCA - Nokturnal].st",
+   "crc32": "3e2a75a6",
+   "taille": 819200
+  },
+  "disques/tosec/Switchblade (1989)(Core Design)[cr MCA].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Switchblade (1989)(Core Design)[cr MCA].zip",
+   "membre": "Switchblade (1989)(Core Design)[cr MCA].st",
+   "crc32": "aa3ff06e",
+   "taille": 368640
+  },
+  "disques/tosec/Tetris (1987)(MirrorSoft)[cr Lord].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Tetris (1987)(MirrorSoft)[cr Lord].zip",
+   "membre": "Tetris (1987)(MirrorSoft)[cr Lord].st",
+   "crc32": "d8eda04d",
+   "taille": 737280
+  },
+  "disques/tosec/Titus the Fox - To Marrakech and Back (1992)(Titus)[cr Replicants].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Titus the Fox - To Marrakech and Back (1992)(Titus)[cr Replicants].zip",
+   "membre": "Titus the Fox - To Marrakech and Back (1992)(Titus)[cr Replicants].st",
+   "crc32": "484d4381",
+   "taille": 737280
+  },
+  "disques/tosec/Toki (1991)(Ocean)[cr Replicants - ST Amigos].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Toki (1991)(Ocean)[cr Replicants - ST Amigos].zip",
+   "membre": "Toki (1991)(Ocean)[cr Replicants - ST Amigos].st",
+   "crc32": "48a95eaf",
+   "taille": 829440
+  },
+  "disques/tosec/Turbo Cup (1988)(Loriciel)[cr Bladerunners][m Blue Soft][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Turbo Cup (1988)(Loriciel)[cr Bladerunners][m Blue Soft][one disk].zip",
+   "membre": "Turbo Cup (1988)(Loriciel)[cr Bladerunners][m Blue Soft][one disk].st",
+   "crc32": "53f7629b",
+   "taille": 737280
+  },
+  "disques/tosec/Turrican (1990)(Rainbow Arts)[cr Empire][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Turrican (1990)(Rainbow Arts)[cr Empire][t].zip",
+   "membre": "Turrican (1990)(Rainbow Arts)[cr Empire][t].st",
+   "crc32": "1284f93b",
+   "taille": 923648
+  },
+  "disques/tosec/Turrican II (1991)(Rainbow Arts)[cr Replicants - ST Amigos][t].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Turrican II (1991)(Rainbow Arts)[cr Replicants - ST Amigos][t].zip",
+   "membre": "Turrican II (1991)(Rainbow Arts)[cr Replicants - ST Amigos][t].st",
+   "crc32": "d4dbe660",
+   "taille": 901120
+  },
+  "disques/tosec/Ultima IV - Quest of the Avatar (1988)(Origin)[cr TEX].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Ultima IV - Quest of the Avatar (1988)(Origin)[cr TEX].zip",
+   "membre": "Ultima IV - Quest of the Avatar (1988)(Origin)[cr TEX].st",
+   "crc32": "3ff7d93d",
+   "taille": 746496
+  },
+  "disques/tosec/Virus (1988)(Braben, D.J.)[cr BCS].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Virus (1988)(Braben, D.J.)[cr BCS].zip",
+   "membre": "Virus (1988)(Braben, D.J.)[cr BCS].st",
+   "crc32": "ea0db270",
+   "taille": 819200
+  },
+  "disques/tosec/Wizball (1987)(Ocean)[cr Beng].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Wizball (1987)(Ocean)[cr Beng].zip",
+   "membre": "Wizball (1987)(Ocean)[cr Beng].st",
+   "crc32": "55bb3d66",
+   "taille": 409600
+  },
+  "disques/tosec/Wonderboy in Monsterland (1987)(Activision)[cr Vapour][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Wonderboy in Monsterland (1987)(Activision)[cr Vapour][one disk].zip",
+   "membre": "Wonderboy in Monsterland (1987)(Activision)[cr Vapour][one disk].st",
+   "crc32": "e98d9f95",
+   "taille": 839680
+  },
+  "disques/tosec/Xenon 2 - Megablast (1989)(Image Works)[cr Bitcrack Brothers][one disk].st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Xenon 2 - Megablast (1989)(Image Works)[cr Bitcrack Brothers][one disk].zip",
+   "membre": "Xenon 2 - Megablast (1989)(Image Works)[cr Bitcrack Brothers][one disk].st",
+   "crc32": "b5d0ff8e",
+   "taille": 839680
+  },
+  "disques/zak1.st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Zak McKracken and the Alien Mindbenders (1988)(LucasFilm Games)(fr)(Disk 1 of 2)[a2].zip",
+   "membre": "Zak McKracken and the Alien Mindbenders (1988)(LucasFilm Games)(fr)(Disk 1 of 2)[a2].st",
+   "crc32": "b36dc5d4",
+   "taille": 737280
+  },
+  "disques/zak2.st": {
+   "zip": "Games/Atari ST - Games - [ST] (TOSEC 2011-12-19)/Zak McKracken and the Alien Mindbenders (1988)(LucasFilm Games)(fr)(Disk 2 of 2)[a2].zip",
+   "membre": "Zak McKracken and the Alien Mindbenders (1988)(LucasFilm Games)(fr)(Disk 2 of 2)[a2].st",
+   "crc32": "70bd1a17",
+   "taille": 737280
+  },
+  "tos/tos102fr.img": {
+   "zip": "TOS/Atari ST - TOS - [IMG] (TOSEC-v2009-09-01_CM)/TOS v1.02 (1987)(Atari Corp)(Mega ST)(FR)[MEGA TOS].zip",
+   "membre": "TOS v1.02 (1987)(Atari Corp)(Mega ST)(FR)[MEGA TOS].img",
+   "crc32": "8688fce6",
+   "taille": 196608
+  },
+  "tos/tos104fr.img": {
+   "zip": "TOS/Atari ST - TOS - [IMG] (TOSEC-v2009-09-01_CM)/TOS v1.04 (1989)(Atari Corp)(Mega ST)(FR)[Rainbow TOS].zip",
+   "membre": "TOS v1.04 (1989)(Atari Corp)(Mega ST)(FR)[Rainbow TOS].img",
+   "crc32": "a305a404",
+   "taille": 196608
+  },
+  "tos/tos162fr.img": {
+   "zip": "TOS/Atari ST - TOS - [IMG] (TOSEC-v2009-09-01_CM)/TOS v1.62 (1990)(Atari Corp)(STE)(FR)[STE TOS, Rev 2].zip",
+   "membre": "TOS v1.62 (1990)(Atari Corp)(STE)(FR)[STE TOS, Rev 2].img",
+   "crc32": "d3d32e88",
+   "taille": 262145
+  },
+  "tos/tos206fr.img": {
+   "zip": "TOS/Atari ST - TOS - [IMG] (TOSEC-v2009-09-01_CM)/TOS v2.06 (1991)(Atari Corp)(Mega-STE)(FR).zip",
+   "membre": "TOS v2.06 (1991)(Atari Corp)(Mega-STE)(FR).img",
+   "crc32": "e3a99ca7",
+   "taille": 262144
+  }
+ }
+}

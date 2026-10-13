@@ -450,7 +450,11 @@ function cleTri(j) { return (j.titre || '').replace(/^(the|le|la|les)\s+/i, '').
 function construireListe() {
   const c = etat.cat; if (!c) return;
   const actuel = etat.liste[etat.sel];
-  let l = c.jeux.filter(j => j.actif !== false);
+  // le bac ne montre que les jeux dont une version est là (images, TOS, Hatari) ;
+  // les autres restent dans le panneau F10, marqués « absent »
+  const coches = c.jeux.filter(j => j.actif !== false);
+  let l = coches.filter(j => j.variantes.some(v => v.dispo));
+  etat.absents = coches.length - l.length;
   if (c.vrac_actif) l = l.concat(c.vrac);
   const t = etat.tri;
   l.sort((a, b) => {
@@ -536,8 +540,12 @@ function placer() {
   const j = etat.liste[sel];
   $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * 662) : 0) + 'px';
   $('#fa-compteur').textContent = n ? (sel + 1) + ' / ' + n : '0 / 0';
-  $('#info-g').textContent = n + ' disquettes · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
-  if (!j) { $('#fa-titre').textContent = 'Bac vide'; $('#fa-meta').textContent = 'F10 : panneau de contrôle'; $('#fa-vers').textContent = ''; return; }
+  $('#info-g').textContent = n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '') + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
+  if (!j) {
+    $('#fa-titre').textContent = etat.absents ? 'Aucune disquette' : 'Bac vide';
+    $('#fa-meta').textContent = etat.absents ? etat.absents + ' jeux attendent leurs images : voir le README' : 'F10 : panneau de contrôle';
+    $('#fa-vers').textContent = etat.absents ? 'outils/installer_images.py' : ''; return;
+  }
   $('#fa-groupe').textContent = 'BAC À DISQUETTES · ' + j._groupe;
   $('#fa-titre').textContent = j.titre;
   $('#fa-meta').textContent = [j.editeur, j.annee].filter(Boolean).join(' · ');

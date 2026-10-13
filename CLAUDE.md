@@ -57,7 +57,9 @@ runtime/                        journal ludotheque.log, profil navigateur, cfg H
                                 LES SAUVEGARDES DES JEUX SONT ICI), _a_supprimer/
 sources/lanceur/                code Go du lanceur (module « ludotheque », purego vendoré)
 sources/hatari/                 nos 3 patchs de Hatari 2.6.1 + LISEZMOI
-outils/                         gen_catalogue.py, valide_windows.py, captures.sh, test_ui.py, plan_captures.py
+outils/                         gen_catalogue.py, installer_images.py (+ images_tosec.json), valide_windows.py,
+                                captures.sh, test_ui.py, plan_captures.py
+README.md                       page GitHub (installation depuis TOSEC) ; dépôt public fab48/ludotheque-st
 ```
 
 ## Compiler le lanceur
@@ -127,6 +129,14 @@ démos retenus sont extraits dans `disques/tosec/` et `demos/` sous leur nom TOS
 édition : préférer `[cr Groupe]` sans `[b]` (mauvais dump), `(fr)` pour les jeux à texte, `[one
 disk]` ; éviter `[t]` (trainer : « Y/N ? » à passer avec "sequence": ["N"]). Une STX est l'original
 protégé (Hatari l'émule, mais `--fastfdc no` conseillé).
+
+Installation des images pour qui clone le dépôt : `outils/installer_images.py "<dossier TOSEC>"`
+(ou « Installer les images TOSEC.bat ») extrait les 216 images du catalogue (disques + TOS)
+d'après `outils/images_tosec.json` (zip, membre, CRC32, taille), sans jamais écraser une image
+présente. **Après tout ajout au catalogue** : `python outils/installer_images.py --carte "<TOSEC>"`
+refait le manifeste (recherche par CRC ; une image modifiée par des sauvegardes garde sa source
+notée). Le lanceur cache du bac les jeux dont une image ou le TOS manque (`completer` vérifie
+aussi le TOS ; l'interface compte les « absentes »).
 
 ## Catalogue
 
