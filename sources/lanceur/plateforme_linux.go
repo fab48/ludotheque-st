@@ -18,6 +18,9 @@ import (
 
 var navCmd *exec.Cmd
 
+// cheminCourt : rien à faire sous Linux (noms de fichiers et arguments en UTF-8).
+func cheminCourt(p string) string { return p }
+
 func preparerProcessus(cmd *exec.Cmd) {
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	// bibliothèques livrées avec le Hatari du pack

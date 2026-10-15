@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"hash/crc32"
 	"io/fs"
 	"log"
 	"net/http"
@@ -59,6 +60,8 @@ type Jeu struct {
 	Aide        string            `json:"aide,omitempty"`         // rappel des commandes du jeu
 	ToucheType  string            `json:"touche_type,omitempty"`  // pave (défaut) ou chiffre (rangée du haut)
 	Note        string            `json:"note,omitempty"`
+	Mhz16       string            `json:"mhz16,omitempty"`      // avis sur le 16 MHz : conseille | risque
+	Mhz16Note   string            `json:"mhz16_note,omitempty"` // précision affichée sur la fiche
 	Actif       *bool             `json:"actif,omitempty"`
 	Disquette   map[string]string `json:"disquette,omitempty"`
 	Variantes   []Variante        `json:"variantes"`
@@ -413,12 +416,16 @@ type lancementHatari struct {
 	correctifs    []Correctif
 }
 
-func commandeHatari(c *Catalogue, j *Jeu, v *Variante) (*exec.Cmd, string, error) {
+// mhz16 : processeur à 16 MHz (comme un Mega STE) au lieu des 8 MHz d'un ST.
+func commandeHatari(c *Catalogue, j *Jeu, v *Variante, mhz16 bool) (*exec.Cmd, string, error) {
 	medias := filepath.Join(base, "medias", j.ID)
 	if j.Vrac {
 		medias = filepath.Join(base, "medias", "_vrac")
 	}
 	opts := append(append([]string{}, c.Hatari.Options...), v.Options...)
+	if mhz16 { // après --machine, qui remet 8 MHz
+		opts = append(opts, "--cpuclock", "16")
+	}
 	return preparerHatari(lancementHatari{
 		machine: firstNonEmpty(v.Machine, c.Hatari.Machine, "ste"), tos: firstNonEmpty(v.Tos, c.Hatari.Tos),
 		disques: v.Disques, auto: v.Auto, dossier: v.Dossier, options: opts, medias: medias,
@@ -435,11 +442,29 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 	}
 	home := filepath.Join(base, "runtime", "hatari")
 	_ = os.MkdirAll(home, 0o755)
+	// Sous Windows, Hatari tourne dans le dossier du pack et ne reçoit que des chemins
+	// relatifs : SDL lui passe ses arguments en UTF-8 alors qu'il ouvre les fichiers
+	// dans l'ancien jeu de caractères de Windows ; un accent dans le dossier du pack
+	// l'empêchait de trouver le TOS (console d'erreur cachée derrière le plein écran).
+	// Hatari 1.x range ses captures dans le dossier courant : celui des captures.
+	dir := l.medias
+	if v2 {
+		dir = base
+	}
+	rel := func(p string) string {
+		if runtime.GOOS != "windows" {
+			return p
+		}
+		if r, err := filepath.Rel(dir, p); err == nil {
+			return r
+		}
+		return p
+	}
 	var args []string
 	if v2 {
 		cfgPath := filepath.Join(home, "ludotheque.cfg")
 		_ = os.WriteFile(cfgPath, []byte(configHatari()), 0o644)
-		args = append(args, "--configfile", cfgPath)
+		args = append(args, "--configfile", rel(cfgPath))
 	}
 	// TOS 1.06 / 1.62 n'existent que sur STE : Hatari bloquerait sur une alerte
 	if l.machine == "st" || l.machine == "megast" {
@@ -453,7 +478,7 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 		if err != nil || !existe(p) {
 			return nil, "", fmt.Errorf("TOS absent : %s", l.tos)
 		}
-		args = append(args, "--tos", p)
+		args = append(args, "--tos", rel(p))
 	}
 	for i, d := range l.disques {
 		if i > 1 {
@@ -464,7 +489,7 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 			return nil, "", fmt.Errorf("image absente : %s", d)
 		}
 		p = disquePropre(p, l.correctifs)
-		args = append(args, map[int]string{0: "--disk-a", 1: "--disk-b"}[i], p)
+		args = append(args, map[int]string{0: "--disk-a", 1: "--disk-b"}[i], rel(p))
 	}
 	if l.pleinEcran {
 		args = append(args, "--fullscreen")
@@ -493,14 +518,14 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 	_ = os.MkdirAll(l.medias, 0o755)
 	fifo := ""
 	if v2 {
-		args = append(args, "--drive-led", "no", "--screenshot-dir", l.medias)
+		args = append(args, "--drive-led", "no", "--screenshot-dir", rel(l.medias))
 		args = append(args, argsAffichage(l.pleinEcran)...)
 		if l.dossier != "" {
 			d, err := chemin(l.dossier)
 			if err != nil || !existe(d) {
 				return nil, "", fmt.Errorf("dossier absent : %s", l.dossier)
 			}
-			args = append(args, "--harddrive", d, "--gemdos-drive", "C")
+			args = append(args, "--harddrive", rel(d), "--gemdos-drive", "C")
 		}
 		if l.auto != "" {
 			args = append(args, "--auto", l.auto)
@@ -514,11 +539,11 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 		return nil, "", errors.New("cette version demande Hatari 2.x")
 	}
 	for _, o := range append(append([]string{}, cfg.HatariOptions...), l.options...) {
-		args = append(args, strings.ReplaceAll(o, "{pack}", base))
+		args = append(args, strings.ReplaceAll(o, "{pack}", rel(base)))
 	}
 	cmd := exec.Command(exe, args...)
-	cmd.Dir = l.medias // Hatari 1.x range ses captures dans le dossier courant
-	cmd.Env = append(os.Environ(), "HOME="+home, "XDG_CONFIG_HOME="+filepath.Join(home, ".config"))
+	cmd.Dir = cheminCourt(dir) // Windows : nom court (8.3) si le dossier a des caractères hors ASCII
+	cmd.Env = append(os.Environ(), "HOME="+rel(home), "XDG_CONFIG_HOME="+rel(filepath.Join(home, ".config")))
 	cmd.Env = append(cmd.Env, envAffichage()...)
 	if l.turbo && v2 && turboMode() == "disque" {
 		// notre Hatari accélère seul pendant les chargements (moteur du
@@ -538,9 +563,14 @@ type Correctif struct {
 	Note     string `json:"note,omitempty"`
 }
 
+// cheminMaxHatari : Hatari (C, tampons de 260 caractères sous Windows) n'ouvre pas un
+// chemin complet plus long : au-delà, il reçoit une copie au nom court.
+const cheminMaxHatari = 240
+
 func disquePropre(p string, correctifs []Correctif) string {
 	ext := strings.ToLower(filepath.Ext(p))
-	if ext != ".st" && ext != ".msa" {
+	trop := len(p) > cheminMaxHatari
+	if ext != ".st" && ext != ".msa" && !trop {
 		return p
 	}
 	d, err := os.ReadFile(p)
@@ -552,16 +582,29 @@ func disquePropre(p string, correctifs []Correctif) string {
 	if ext == ".st" {
 		cor = correctifs
 	}
-	if !lgd && len(cor) == 0 {
+	if !lgd && len(cor) == 0 && !trop {
 		return p
 	}
-	st, _ := os.Stat(p)
-	h := sha1.Sum([]byte(fmt.Sprintf("%s|%d|%d|%v", p, st.Size(), st.ModTime().UnixNano(), cor)))
+	// Nom de la copie : empreinte du contenu d'origine et des correctifs, pas du
+	// chemin (le pack peut changer de dossier sans perdre les sauvegardes faites
+	// dans la copie), puis le nom de l'image, raccourci.
+	empreinte := fmt.Sprintf("%08x|%d", crc32.ChecksumIEEE(d), len(d))
+	for _, c := range cor {
+		empreinte += "|" + c.Cherche + ">" + c.Remplace
+	}
+	h := sha1.Sum([]byte(empreinte))
 	dir := filepath.Join(base, "runtime", "disques")
 	_ = os.MkdirAll(dir, 0o755)
-	copie := filepath.Join(dir, hex.EncodeToString(h[:4])+"-"+filepath.Base(p))
+	prefixe := hex.EncodeToString(h[:4]) + "-"
+	copie := filepath.Join(dir, prefixe+nomCourt(filepath.Base(p), 40))
 	if existe(copie) {
 		return copie
+	}
+	if a := ancienneCopie(dir, prefixe, filepath.Base(p)); a != "" {
+		if err := os.Rename(a, copie); err == nil {
+			log.Printf("copie reprise avec ses sauvegardes : %s → %s", filepath.Base(a), filepath.Base(copie))
+			return copie
+		}
 	}
 	if lgd {
 		// somme des mots du secteur 0 différente de $1234 : amorce ignorée par le TOS
@@ -584,6 +627,39 @@ func disquePropre(p string, correctifs []Correctif) string {
 	}
 	return copie
 }
+
+// nomCourt : nom de fichier ramené à n caractères au plus, extension gardée.
+func nomCourt(nom string, n int) string {
+	r, ext := []rune(nom), []rune(filepath.Ext(nom))
+	if len(r) <= n || len(ext) >= n {
+		return nom
+	}
+	return string(r[:n-len(ext)]) + string(ext)
+}
+
+// ancienneCopie : copie déjà faite pour cette disquette sous un autre nom (image
+// renommée : même préfixe ; ancien nommage du lanceur : 8 chiffres hexadécimaux
+// calculés sur le chemin complet, puis le nom de l'image). La plus récente.
+func ancienneCopie(dir, prefixe, nom string) string {
+	es, err := os.ReadDir(dir)
+	if err != nil {
+		return ""
+	}
+	meilleure, date := "", time.Time{}
+	for _, e := range es {
+		n := e.Name()
+		ancien := len(n) == 9+len(nom) && n[8] == '-' && estHex(n[:8]) && strings.EqualFold(n[9:], nom)
+		if e.IsDir() || !(strings.HasPrefix(n, prefixe) || ancien) {
+			continue
+		}
+		if i, err := e.Info(); err == nil && i.ModTime().After(date) {
+			meilleure, date = filepath.Join(dir, n), i.ModTime()
+		}
+	}
+	return meilleure
+}
+
+func estHex(s string) bool { _, err := hex.DecodeString(s); return err == nil }
 
 // modeJoystick : « manette » si une manette est branchée (ou imposée), sinon « clavier ».
 func modeJoystick() string {
@@ -902,6 +978,7 @@ func (g *Gestionnaire) lancerProcessus(id, titre string, cmd *exec.Cmd) error {
 			e = ""
 		}
 		fermerCarteJeu()
+		ecranApresHatari()
 		diff.Envoyer("fin", map[string]any{"id": id, "duree_s": int(d.Seconds()), "erreur": e})
 		diff.Envoyer("etat", g.Etat())
 		revenirNavigateur()
@@ -924,11 +1001,15 @@ func apiLancer(w http.ResponseWriter, r *http.Request) {
 	var q struct {
 		ID       string `json:"id"`
 		Variante int    `json:"variante"`
+		Mhz16    bool   `json:"mhz16"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
 		erreur(w, 400, err.Error())
 		return
 	}
+	debut := time.Now()
+	log.Printf("demande de lancement : %s (version %d)", q.ID, q.Variante)
+	defer func() { log.Printf("demande de lancement traitée en %s", time.Since(debut).Round(time.Millisecond)) }()
 	muCatalogue.Lock()
 	c, err := lireCatalogue()
 	muCatalogue.Unlock()
@@ -944,9 +1025,15 @@ func apiLancer(w http.ResponseWriter, r *http.Request) {
 	v := &j.Variantes[q.Variante]
 	switch v.Type {
 	case "hatari":
-		cmd, fifo, err := commandeHatari(c, j, v)
+		cmd, fifo, err := commandeHatari(c, j, v, q.Mhz16)
 		if err == nil {
-			err = jeux.lancerProcessus(j.ID, j.Titre, cmd)
+			libre := jeux.EnJeu() != "jeu" // sinon lancerProcessus refuse
+			if libre {
+				ecranPourHatari(cfg.PleinEcranJeux)
+			}
+			if err = jeux.lancerProcessus(j.ID, j.Titre, cmd); err != nil && libre {
+				ecranApresHatari()
+			}
 		}
 		if err != nil {
 			erreur(w, 500, err.Error())

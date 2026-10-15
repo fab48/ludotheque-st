@@ -1,4 +1,5 @@
-import json
+import json, os
+PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MENU={'afterburner':'1','barbarian-2':'1','barbarian':'3','buggy-boy':'1','captain-blood':'1','castle-master':'2',
  'crazy-cars-2':'1','dungeon-master':'1','golden-axe':'1','light-corridor':'2','lotus-turbo':'2','midwinter':'1',
  'pirates':'1','populous':'1','r-type':'1','speedball':'2','xenon':'5'}
@@ -9,9 +10,9 @@ AUTO={'ik-plus':'A:\\IK+.PRG','monkey-island':'A:\\MONKEY.PRG','mortevielle':'A:
 OK={'bubble-bobble','chambers-of-shaolin','north-and-south','panza-kick-boxing','paperboy','winter-games','stunt-car-racer'}
 TOS={'loom':('tos/emutos-2014.img','st')}
 if __name__=='__main__':
-  c=json.load(open('/home/claude/pack/catalogue.json'))
-  U="/mnt/user-data/uploads/Hatari Loader/"
-  with open('/tmp/jobs2.txt','w') as f:
+  c=json.load(open(os.path.join(PACK, 'catalogue.json'), encoding='utf-8'))
+  U=PACK + '/'
+  with open(os.path.join(PACK, 'runtime', 'jobs-captures.txt'),'w') as f:
     for j in c['jeux']:
       i=j['id']
       if i in OK: continue

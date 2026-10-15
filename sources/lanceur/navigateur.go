@@ -34,6 +34,9 @@ user_pref("dom.gamepad.enabled", true);
 		"--disable-session-crashed-bubble", "--hide-crash-restore-bubble", "--noerrdialogs",
 		"--disable-pinch", "--overscroll-history-navigation=0",
 		"--check-for-update-interval=31536000",
+		// pas d'extensions : Windows en installe d'office dans le profil (Adobe…),
+		// avec des chemins de 175 caractères qui empêchent de copier le pack
+		"--disable-extensions",
 	}
 	if cfg.Kiosque {
 		a = append(a, "--kiosk")

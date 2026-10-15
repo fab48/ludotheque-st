@@ -51,6 +51,36 @@ func preparerProcessus(cmd *exec.Cmd) {
 	cmd.SysProcAttr = &syscall.SysProcAttr{CreationFlags: 0x08000000}
 }
 
+// cheminCourt : nom court Windows (8.3, tout en ASCII) d'un dossier dont le nom a
+// des caractères hors ASCII ; Hatari ne sait pas ouvrir les autres. Le dossier tel
+// quel si le disque ne garde pas de noms courts.
+func cheminCourt(p string) string {
+	ascii := true
+	for _, r := range p {
+		if r > 127 {
+			ascii = false
+			break
+		}
+	}
+	long, err := syscall.UTF16PtrFromString(p)
+	if ascii || err != nil {
+		return p
+	}
+	buf := make([]uint16, 1024)
+	n, err := syscall.GetShortPathName(long, &buf[0], uint32(len(buf)))
+	if err != nil || n == 0 || int(n) > len(buf) {
+		return p
+	}
+	court := syscall.UTF16ToString(buf[:n])
+	for _, r := range court {
+		if r > 127 {
+			log.Printf("dossier sans nom court en ASCII : Hatari risque de ne pas trouver ses fichiers (%s)", p)
+			return p
+		}
+	}
+	return court
+}
+
 // ---------- navigateur ----------
 
 func trouverNavigateur() (string, string) {
@@ -223,6 +253,12 @@ func revenirNavigateur() {
 // ---------- outils communs ----------
 
 func compterManettes() int {
+	debut := time.Now()
+	defer func() { // certains pilotes de manette rendent winmm très lent
+		if d := time.Since(debut); d > 300*time.Millisecond {
+			log.Printf("manettes : comptées en %s (lent)", d.Round(time.Millisecond))
+		}
+	}()
 	n := 0
 	if xinput != nil {
 		if pXInputGet == nil {

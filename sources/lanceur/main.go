@@ -25,7 +25,7 @@ import (
 	"time"
 )
 
-const version = "0.2"
+const version = "1.1"
 
 // Config : réglages du pack (config.json à la racine).
 type Config struct {
@@ -55,6 +55,7 @@ type Config struct {
 	EcranFiltre      string   `json:"ecran_filtre"`        // net | lisse | entier | hatari
 	EcranLignes      int      `json:"ecran_lignes"`        // lignes de balayage, 0..100
 	Ecran43          bool     `json:"ecran_4_3"`           // proportions d'un écran d'époque
+	EcranHz          int      `json:"ecran_hz"`            // écran passé à 50 Hz pendant Hatari (0 = non), voir frequence.go
 }
 
 func configParDefaut() Config {
@@ -68,7 +69,7 @@ func configParDefaut() Config {
 		AutoriserSysteme: true,
 		ChargementRapide: true, Joystick: "auto", TirClavier: "Right Ctrl", ToucheCapture: "F8",
 		ToucheAuto: true, DemosApres: 3, DureeDemo: 4, NettoyerAmorce: true, TurboChargement: 4, CarteChargement: true,
-		EcranFiltre: "net", Turbo: "disque",
+		EcranFiltre: "net", Turbo: "disque", EcranHz: 50,
 	}
 }
 
@@ -313,7 +314,13 @@ func apiSysteme(w http.ResponseWriter, r *http.Request) {
 		repondre(w, map[string]bool{"ok": true})
 		// signal pour la session dédiée Linux : ne pas relancer la ludothèque
 		_ = os.WriteFile(filepath.Join(base, "runtime", "quitter"), []byte("1"), 0o644)
-		go func() { time.Sleep(300 * time.Millisecond); jeux.Arreter(); fermerNavigateur(); os.Exit(0) }()
+		go func() {
+			time.Sleep(300 * time.Millisecond)
+			jeux.Arreter()
+			ecranAvantSortie()
+			fermerNavigateur()
+			os.Exit(0)
+		}()
 	case "eteindre", "redemarrer":
 		if !cfg.AutoriserSysteme {
 			erreur(w, 403, "extinction désactivée dans config.json")

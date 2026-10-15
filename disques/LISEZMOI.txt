@@ -5,9 +5,11 @@ dans le dépôt (droits d'auteur) : installez-les depuis la collection TOSEC
 Atari ST 2012-04-23 avec « Installer les images TOSEC.bat » (Windows) ou
 python3 outils/installer_images.py "<dossier TOSEC>" (Linux).
 
-disques/tosec/   les jeux tirés de TOSEC, sous leur nom TOSEC.
-Les autres images, à la racine, sont celles du catalogue d'origine (compils
-Automation « A_xxx », etc.), elles aussi dans TOSEC.
+disques/tosec/   les jeux tirés de TOSEC. Les autres images, à la racine,
+sont celles du catalogue d'origine (compils Automation, etc.), elles aussi
+dans TOSEC. Toutes portent un nom court, celui du jeu (monkey-island-1.st) :
+les noms TOSEC, trop longs, empêchaient de copier le pack dans un dossier
+profond ; ils restent notés dans outils/images_tosec.json.
 
 Vos propres images : déposez-les ici et activez le mode vrac (F10).
 Les sauvegardes des jeux s'écrivent dans ces images (ou dans

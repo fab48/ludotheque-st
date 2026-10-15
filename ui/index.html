@@ -73,8 +73,9 @@ button { font-family: inherit; color: inherit; }
 #ascenseur { position: absolute; left: 0; bottom: 0; width: 804px; height: 28px; border-top: 2px solid #000; display: flex; background: #fff; }
 #ascenseur button { width: 30px; height: 26px; border: 0; background: #fff; font-size: 20px; cursor: pointer; }
 #ascenseur button:hover { background: #000; color: #fff; }
-#ascenseur .piste { position: relative; flex: 1; border-left: 2px solid #000; border-right: 2px solid #000; background-image: radial-gradient(#000 1px, transparent 1.2px); background-size: 4px 4px; }
-#curseur { position: absolute; top: 1px; width: 80px; height: 24px; background: #fff; border: 2px solid #000; transition: left .3s; }
+#ascenseur .piste { position: relative; flex: 1; border-left: 2px solid #000; border-right: 2px solid #000; background-image: radial-gradient(#000 1px, transparent 1.2px); background-size: 4px 4px; cursor: pointer; touch-action: none; }
+#curseur { position: absolute; top: 1px; width: 80px; height: 24px; background: #fff; border: 2px solid #000; transition: left .3s; cursor: grab; }
+#ascenseur.glisse #curseur { transition: none; cursor: grabbing; background: #000; }
 
 /* ---------- boîtes GEM ---------- */
 .boite { background: #fff; border: 2px solid #000; box-shadow: 4px 4px 0 #000; padding: 5px; }
@@ -120,6 +121,10 @@ button { font-family: inherit; color: inherit; }
 .radio .nom { white-space: nowrap; flex: none; }
 .disq.absente { filter: grayscale(.85) brightness(.8); }
 .radio .desc { color: #555; font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#f-mhz { flex: none; }
+#f-mhz .carre { width: 18px; height: 18px; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; flex: none; }
+#f-mhz.risque .desc { color: #a00; }
+#f-mhz .touche { margin-left: auto; flex: none; font-size: 17px; color: #777; }
 
 /* ---------- lecteur ---------- */
 #lecteur { position: absolute; left: 420px; top: 622px; width: 404px; height: 88px; z-index: 5; border-radius: 6px; background: linear-gradient(180deg, #e8e4da 0%, #d3cec2 55%, #bdb8ac 100%); box-shadow: 0 3px 0 #6f6b62, 4px 6px 0 rgba(0,0,0,.35); }
@@ -225,6 +230,7 @@ button { font-family: inherit; color: inherit; }
         <button data-action="lignes:35"><span class="coche"></span>Lignes de balayage : légères</button>
         <button data-action="lignes:65"><span class="coche"></span>Lignes de balayage : marquées</button>
         <button data-action="jeu:43"><span class="coche"></span>Format 4:3 (écran d'époque)</button>
+        <button data-action="jeu:50hz"><span class="coche"></span>Écran à 50 Hz en jeu (fluide)</button>
       </div>
     </div>
     <div id="horloge"></div>
@@ -266,6 +272,7 @@ button { font-family: inherit; color: inherit; }
       <div id="f-astuce" class="cache"></div>
       <div class="sous-titre">Version :</div>
       <div id="f-variantes"></div>
+      <button id="f-mhz" class="radio cache" data-action="mhz" title="F6 · manette : Select"><span class="carre"></span><span class="nom">Processeur 16 MHz</span><span class="desc"></span><span class="touche">F6</span></button>
       <div class="boutons" style="margin-top:auto">
         <button class="bouton" data-action="annuler">Annuler</button>
         <button class="bouton defaut" data-action="charger">CHARGER</button>
@@ -349,6 +356,7 @@ const $$ = (s) => Array.from(document.querySelectorAll(s));
 const etat = {
   cat: null, liste: [], sel: 0, variante: 0, capture: 0,
   tri: 'titre', son: true, crt: false, veille: true,
+  mhz16: {},            // jeux lancés à 16 MHz (id → true), choix gardé par jeu
   phase: 'demarrage',   // demarrage | bureau | insertion | lecture | jeu | web | ejection
   menu: null, menuIndex: -1, dialogue: null, dernierInput: Date.now(),
 };
@@ -361,13 +369,14 @@ function lirePrefs() {
     if (typeof p.son === 'boolean') etat.son = p.son;
     if (typeof p.crt === 'boolean') etat.crt = p.crt;
     if (typeof p.veille === 'boolean') etat.veille = p.veille;
+    if (p.mhz16 && typeof p.mhz16 === 'object') etat.mhz16 = p.mhz16;
     etat.dernierId = p.dernierId;
   } catch (e) {}
 }
 function ecrirePrefs() {
   try {
     const j = etat.liste[etat.sel];
-    localStorage.setItem('ludo-prefs', JSON.stringify({ tri: etat.tri, son: etat.son, crt: etat.crt, veille: etat.veille, dernierId: j && j.id }));
+    localStorage.setItem('ludo-prefs', JSON.stringify({ tri: etat.tri, son: etat.son, crt: etat.crt, veille: etat.veille, mhz16: etat.mhz16, dernierId: j && j.id }));
   } catch (e) {}
 }
 
@@ -427,11 +436,20 @@ const Son = {
 /* =====================================================================
    DONNÉES
    ===================================================================== */
-async function api(chemin, corps) {
-  const r = await fetch(chemin, corps === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) });
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(j.erreur || ('erreur ' + r.status));
-  return j;
+// delaiMs : abandon si le lanceur ne répond pas (sinon l'interface resterait figée)
+async function api(chemin, corps, delaiMs) {
+  const opts = corps === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) };
+  const ctl = delaiMs ? new AbortController() : null;
+  if (ctl) opts.signal = ctl.signal;
+  const minuteur = ctl && setTimeout(() => ctl.abort(), delaiMs);
+  try {
+    const r = await fetch(chemin, opts);
+    const j = await r.json().catch((e) => { if (e.name === 'AbortError') throw e; return {}; });
+    if (!r.ok) throw new Error(j.erreur || ('erreur ' + r.status));
+    return j;
+  } catch (e) {
+    throw e.name === 'AbortError' ? new Error('Le lanceur ne répond pas (' + Math.round(delaiMs / 1000) + ' s).') : e;
+  } finally { clearTimeout(minuteur); }
 }
 
 function groupeDe(j) {
@@ -538,7 +556,7 @@ function placer() {
     b.tabIndex = k === 0 ? 0 : -1;
   });
   const j = etat.liste[sel];
-  $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * 662) : 0) + 'px';
+  $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * courseCurseur()) : 0) + 'px';
   $('#fa-compteur').textContent = n ? (sel + 1) + ' / ' + n : '0 / 0';
   $('#info-g').textContent = n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '') + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
   if (!j) {
@@ -644,7 +662,33 @@ function dessinerFiche() {
     b.addEventListener('click', () => { if (v.dispo && etat.phase === 'bureau') { etat.variante = i; Son.touche(); dessinerFiche(); } });
     zv.appendChild(b);
   });
+  const fm = $('#f-mhz'), avecMhz = !!(v && v.type === 'hatari');
+  fm.classList.toggle('cache', !avecMhz);
+  if (avecMhz) {
+    const on = !!etat.mhz16[j.id];
+    fm.classList.toggle('choisie', on);
+    fm.classList.toggle('risque', j.mhz16 !== 'conseille');
+    fm.querySelector('.carre').textContent = on ? '✕' : '';
+    fm.querySelector('.desc').textContent = j.mhz16 === 'conseille' ? (j.mhz16_note || AVIS_MHZ.conseille) : AVIS_MHZ.risque;
+  }
   placer();
+}
+
+/* ---------- processeur 16 MHz (Mega STE) : choix gardé par jeu ----------
+   Conseillé (catalogue : "mhz16": "conseille") pour les jeux limités par le
+   processeur ; ailleurs, alerte : peu de gain et risque de casser. */
+const AVIS_MHZ = { conseille: 'conseillé : plus fluide', risque: '⚠ peut mal tourner' };
+async function basculerMhz() {
+  const j = etat.liste[etat.sel], v = j && j.variantes[etat.variante];
+  if (!v || v.type !== 'hatari' || etat.phase !== 'bureau') return;
+  if (!etat.mhz16[j.id] && j.mhz16 !== 'conseille') {
+    Son.cloche();
+    const txt = '16 MHz : « ' + j.titre + ' » risque de mal tourner\n(trop rapide, plantage ou image abîmée).\nUn ST faisait 8 MHz, la plupart des jeux\nd\'action n\'y gagnent rien.\n\n' +
+      (j.mhz16_note ? j.mhz16_note + '\n\n' : '') + 'En cas de souci, revenez à 8 MHz.';
+    if (await alerte(txt, ['Annuler', '16 MHz']) !== 1) return;
+  } else Son.touche();
+  if (etat.mhz16[j.id]) delete etat.mhz16[j.id]; else etat.mhz16[j.id] = true;
+  ecrirePrefs(); dessinerFiche();
 }
 
 // commandes : paires [touche, action] ; touche vide = ligne simple.
@@ -704,12 +748,13 @@ async function charger() {
   let piste = 0; const tp = setInterval(() => { piste = Math.min(79, piste + 3 + Math.floor(Math.random() * 6)); etatLecteur('Lecture piste ' + String(piste).padStart(2, '0')); }, 90);
   const duree = Son.lecteur(0.25, 2.9) || 2.6;
   let rep;
+  etat.mhzEnJeu = v.type === 'hatari' && !!etat.mhz16[j.id];
   try {
-    rep = await api('/api/lancer', { id: j.id, variante: etat.variante });
+    rep = await api('/api/lancer', { id: j.id, variante: etat.variante, mhz16: etat.mhzEnJeu }, 30000);
   } catch (e) {
     clearInterval(tp); led(false);
     Son.cloche();
-    alerte('Impossible de lancer « ' + j.titre + ' ».\n\n' + e.message, ['OK']);
+    alerte('Impossible de lancer « ' + j.titre + ' ».\n\n' + e.message + '\n\nDétails : runtime/ludotheque.log', ['OK']);
     await ejecter(true);
     return;
   }
@@ -725,6 +770,7 @@ function afficherEnJeu(j, rep) {
   $('#ej-titre').textContent = j.titre;
   $('#ej-sortie').textContent = 'Pour revenir : ' + etat.sortie;
   const aide = ['F8 : capture d\'écran pour la fiche'];
+  if (etat.mhzEnJeu) aide.push('processeur 16 MHz');
   $('#ej-commandes').textContent = texteCommandes(j);
   $('#ej-aide').textContent = aide.join('  ·  ');
   $('#enjeu').classList.remove('cache');
@@ -827,6 +873,7 @@ function majCoches() {
   const ln = af.lignes || 0;
   [0, 35, 65].forEach(v => c('lignes:' + v, (ln === 0 ? 0 : ln < 50 ? 35 : 65) === v));
   c('jeu:43', !!af.format43);
+  c('jeu:50hz', af.ecran50 !== false);
   ['eteindre', 'redemarrer'].forEach(a => { const b = document.querySelector(`[data-action="${a}"]`); if (b) b.disabled = s.extinction === false; });
 }
 
@@ -904,10 +951,11 @@ async function enregistrerPanneau() {
 // Écran des jeux (Hatari du pack) : enregistré dans config.json par le lanceur.
 async function reglerAffichage(a) {
   const s = (etat.cat && etat.cat.systeme) || {};
-  const af = Object.assign({ filtre: 'net', lignes: 0, format43: false }, s.affichage || {});
+  const af = Object.assign({ filtre: 'net', lignes: 0, format43: false, ecran50: true }, s.affichage || {});
   const [k, v] = a.split(':');
   if (k === 'lignes') af.lignes = +v;
   else if (v === '43') af.format43 = !af.format43;
+  else if (v === '50hz') af.ecran50 = !af.ecran50;
   else af.filtre = v;
   Son.touche();
   try { s.affichage = await api('/api/affichage', af); majCoches(); }
@@ -932,6 +980,7 @@ async function action(a) {
     case 'prec': choisir(etat.sel - 1); break;
     case 'suiv': choisir(etat.sel + 1); break;
     case 'charger': charger(); break;
+    case 'mhz': basculerMhz(); break;
     case 'annuler': Son.touche(); etat.variante = Math.max(0, (etat.liste[etat.sel] || { variantes: [] }).variantes.findIndex(v => v.dispo)); dessinerFiche(); break;
     case 'ejecter': if (etat.phase === 'jeu') api('/api/arreter', {}).catch(() => {}); else if (etat.phase === 'web') fermerWeb(false); break;
     case 'apropos': {
@@ -963,11 +1012,32 @@ document.addEventListener('click', (e) => {
   if (etat.menu && !e.target.closest('.menu')) fermerMenu();
 });
 $$('.menu > button').forEach(b => b.addEventListener('mouseenter', () => { if (etat.menu && etat.menu !== b.parentElement.dataset.menu) ouvrirMenu(b.parentElement.dataset.menu); }));
-$('#bac').addEventListener('wheel', (e) => {
+['#bac', '#ascenseur'].forEach(s => $(s).addEventListener('wheel', (e) => {
   e.preventDefault();
   const now = Date.now(); if (now - (etat.molette || 0) < 90) return; etat.molette = now;
   choisir(etat.sel + ((e.deltaY || e.deltaX) > 0 ? 1 : -1));
-}, { passive: false });
+}, { passive: false }));
+
+/* ascenseur : glisser le curseur à la souris, ou cliquer dans la piste pour y sauter */
+function courseCurseur() { return $('#ascenseur .piste').clientWidth - $('#curseur').offsetWidth; }
+const glisse = { prise: null };   // position du pointeur dans le curseur (px de la scène)
+function glisserVers(x) {
+  const p = $('#ascenseur .piste'), r = p.getBoundingClientRect(), k = r.width / p.offsetWidth; // échelle de la scène
+  const n = etat.liste.length; if (n < 2) return;
+  const gauche = (x - r.left) / k - p.clientLeft - glisse.prise;
+  choisir(Math.round(Math.max(0, Math.min(1, gauche / courseCurseur())) * (n - 1)));
+}
+$('#ascenseur .piste').addEventListener('pointerdown', (e) => {
+  if (e.button !== 0 || etat.phase !== 'bureau' || etat.dialogue) return;
+  e.preventDefault();
+  const c = $('#curseur'), r = c.getBoundingClientRect(), k = r.width / c.offsetWidth;
+  glisse.prise = e.target === c ? (e.clientX - r.left) / k : c.offsetWidth / 2;
+  e.currentTarget.setPointerCapture(e.pointerId);
+  $('#ascenseur').classList.add('glisse');
+  glisserVers(e.clientX);
+});
+$('#ascenseur .piste').addEventListener('pointermove', (e) => { if (glisse.prise !== null) glisserVers(e.clientX); });
+['pointerup', 'pointercancel'].forEach(t => $('#ascenseur .piste').addEventListener(t, () => { glisse.prise = null; $('#ascenseur').classList.remove('glisse'); }));
 
 /* =====================================================================
    CLAVIER ET MANETTE : une seule table d'intentions
@@ -1022,6 +1092,7 @@ function intention(t) {
     case 'bas': changerVariante(1); break;
     case 'ok': charger(); break;
     case 'x': etat.capture++; Son.touche(); dessinerFiche(); break;
+    case 'mhz': basculerMhz(); break;
     case 'suppr': retirerCapture(); break;
     case 'menu': ouvrirMenu('fichier'); etat.menuIndex = 0; surlignerMenu(); break;
     case 'admin': ouvrirPanneau(); break;
@@ -1031,7 +1102,7 @@ function intention(t) {
 }
 
 const TOUCHES = { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas', Enter: 'ok', ' ': 'x', Escape: 'retour',
-  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
+  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
 document.addEventListener('keydown', (e) => {
   if (etat.phase === 'web') return;
   const t = TOUCHES[e.key];
@@ -1041,7 +1112,7 @@ document.addEventListener('keydown', (e) => {
 
 /* Manette (API Gamepad, disposition standard) */
 const pad = { avant: {}, repete: {} };
-const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
+const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 8: 'mhz', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
 function lireManettes(t) {
   const ps = navigator.getGamepads ? navigator.getGamepads() : [];
   const actifs = {};
@@ -1054,7 +1125,7 @@ function lireManettes(t) {
     if (ay < -0.6) actifs.haut = true; if (ay > 0.6) actifs.bas = true;
     if (p.buttons[8] && p.buttons[8].pressed && p.buttons[9] && p.buttons[9].pressed) selStart = true;
   }
-  if (selStart) delete actifs.menu;
+  if (selStart) { delete actifs.menu; delete actifs.mhz; }
   for (const k in actifs) {
     if (!pad.avant[k]) { intention(k); pad.repete[k] = t + 380; }
     else if (['gauche', 'droite', 'haut', 'bas'].includes(k) && t > pad.repete[k]) { intention(k); pad.repete[k] = t + 95; }

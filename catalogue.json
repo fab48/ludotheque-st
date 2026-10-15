@@ -25,7 +25,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_117_stuntcarracer.ST"
+      "disques/stunt-car-racer.st"
      ]
     },
     {
@@ -55,7 +55,8 @@
    ],
    "auteur": "Geoff Crammond",
    "aide": "Haut : accélérer · bas : freiner · tir : boost",
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "shufflepuck-cafe",
@@ -75,7 +76,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Shufflepuck Cafe (1989)(Broderbund)[cr Replicants][one disk].st"
+      "disques/shufflepuck-cafe.st"
      ]
     },
     {
@@ -109,7 +110,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_028_xenon.ST"
+      "disques/xenon.st"
      ]
     }
    ],
@@ -136,7 +137,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_029_barbarian.ST"
+      "disques/barbarian.st"
      ]
     }
    ],
@@ -162,8 +163,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Barbarian II (1988)(Palace)(Disk 1 of 2)[cr Replicants].st",
-      "disques/tosec/Barbarian II (1988)(Palace)(Disk 2 of 2)[cr Replicants].st"
+      "disques/tosec/barbarian-2-1.st",
+      "disques/tosec/barbarian-2-2.st"
      ]
     }
    ],
@@ -193,7 +194,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_030_speedball.ST"
+      "disques/speedball.st"
      ]
     }
    ],
@@ -220,7 +221,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Bubble Bobble (1987)(Firebird)[cr Lord].st"
+      "disques/bubble-bobble.st"
      ]
     }
    ],
@@ -245,7 +246,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_046_rtype.ST"
+      "disques/r-type.st"
      ]
     }
    ],
@@ -270,7 +271,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_049_crazycar2.ST"
+      "disques/crazy-cars-2.st"
      ]
     }
    ],
@@ -295,7 +296,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_018_buggyboy.ST"
+      "disques/buggy-boy.st"
      ]
     }
    ],
@@ -322,7 +323,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/International Karate + (1988)(Archer Maclean).st"
+      "disques/ik-plus.st"
      ],
      "correctifs": [
       {
@@ -370,7 +371,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_077_capitainblood.ST"
+      "disques/captain-blood.st"
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img"
@@ -398,7 +399,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_081_populous.ST"
+      "disques/populous.st"
      ],
      "machine": "st",
      "tos": "tos/tos206fr.img"
@@ -427,7 +428,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_097_dungeonmaster.ST"
+      "disques/dungeon-master.st"
      ]
     }
    ],
@@ -453,7 +454,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Kick Off 2 (1991)(Anco)(fr)[cr Replicants - ST Amigos].st"
+      "disques/tosec/kick-off-2.st"
      ]
     }
    ],
@@ -482,7 +483,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_069_3_afterburner.ST"
+      "disques/afterburner.st"
      ]
     }
    ],
@@ -508,7 +509,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Winter Games (1986)(Epyx)[cr CSS].st"
+      "disques/winter-games.st"
      ]
     }
    ],
@@ -532,7 +533,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Prince of Persia (1990)(Broderbund)[cr Empire][m Blue Soft][one disk].st"
+      "disques/tosec/prince-of-persia.st"
      ]
     }
    ],
@@ -558,7 +559,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Rick Dangerous (1989)(Core Design - Firebird)[cr Medway Boys][t].st"
+      "disques/rick-dangerous.st"
      ]
     }
    ],
@@ -585,7 +586,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Rainbow Islands (1989)(Ocean)[cr Empire][t].st"
+      "disques/tosec/rainbow-islands.st"
      ]
     }
    ],
@@ -614,7 +615,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Turrican II (1991)(Rainbow Arts)[cr Replicants - ST Amigos][t].st"
+      "disques/tosec/turrican-2.st"
      ]
     }
    ],
@@ -642,7 +643,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Chase HQ (1989)(Ocean).st"
+      "disques/tosec/chase-hq.st"
      ]
     }
    ],
@@ -669,7 +670,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_383_A_lotusturbo.ST"
+      "disques/lotus-turbo.st"
      ],
      "tos": "tos/tos206fr.img"
     }
@@ -696,7 +697,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/North & South (1989)(Infogrames)(M5)[cr Corrupt].st"
+      "disques/north-and-south.st"
      ]
     }
    ],
@@ -721,7 +722,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Defender of the Crown (1987)(Cinemaware)[cr BOSS].st"
+      "disques/defender-of-the-crown.st"
      ],
      "auto": "A:\\ALESTART.TOS"
     }
@@ -747,8 +748,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/Manoir de Mortevielle, Le (1987)(Lankhor)(Fr)(Disk 1 of 2)[a].st",
-      "disques/Manoir de Mortevielle, Le (1987)(Lankhor)(Fr)(Disk 2 of 2).st"
+      "disques/mortevielle-1.st",
+      "disques/mortevielle-2.st"
      ],
      "auto": "A:\\MORT.PRG"
     }
@@ -776,7 +777,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Super Hang-On (1988)(Sega)[cr Bladerunners].st"
+      "disques/super-hang-on.st"
      ],
      "auto": "A:\\HANG_ON.PRG"
     }
@@ -801,7 +802,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Paperboy (1989)(Elite).st"
+      "disques/paperboy.st"
      ]
     }
    ],
@@ -825,7 +826,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Vroom (1991)(Lankhor)[cr].st"
+      "disques/vroom.st"
      ]
     }
    ],
@@ -855,8 +856,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/Wings of Death (1990)(Thalion)(Disk 1 of 2)[cr Empire][t].st",
-      "disques/Wings of Death (1990)(Thalion)(Disk 2 of 2)[cr Empire][t].st"
+      "disques/wings-of-death-1.st",
+      "disques/wings-of-death-2.st"
      ]
     }
    ],
@@ -886,8 +887,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/Mega lo Mania (1991)(Image Works)(Fr)[cr Replicants][t +2](Disk 1 of 2).st",
-      "disques/Mega lo Mania (1991)(Image Works)(Fr)[cr Replicants][t +2](Disk 2 of 2).st"
+      "disques/mega-lo-mania-1.st",
+      "disques/mega-lo-mania-2.st"
      ]
     }
    ],
@@ -919,8 +920,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/Chaos Engine, The (1993)(Renegade)(Disk 1 of 2)[cr Cynix][t][a].st",
-      "disques/Chaos Engine, The (1993)(Renegade)(Disk 2 of 2)[cr Cynix][t][a].st"
+      "disques/chaos-engine-1.st",
+      "disques/chaos-engine-2.st"
      ]
     }
    ],
@@ -951,7 +952,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/New Zealand Story, The (1989)(Ocean)[cr LSD][one disk].st"
+      "disques/tosec/new-zealand-story.st"
      ],
      "auto": "A:\\NEWZEAL.TOS"
     }
@@ -979,7 +980,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Midwinter (1990)(Rainbird)[cr Jinx][one disk].st"
+      "disques/tosec/midwinter.st"
      ]
     }
    ],
@@ -989,7 +990,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "pirates",
@@ -1009,7 +1011,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Pirates (1989)(MicroProse)[cr Replicants].st"
+      "disques/tosec/pirates.st"
      ]
     }
    ],
@@ -1036,7 +1038,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Castle Master (1990)(Domark)(M3)[cr Empire].st"
+      "disques/tosec/castle-master.st"
      ]
     }
    ],
@@ -1046,7 +1048,8 @@
     "F",
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "golden-axe",
@@ -1066,7 +1069,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_399_goldenaxe.ST"
+      "disques/golden-axe.st"
      ]
     }
    ],
@@ -1091,7 +1094,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Cadaver (1990)(Bitmap Brothers)[cr Empire][One Disk].st"
+      "disques/cadaver.st"
      ]
     }
    ],
@@ -1118,7 +1121,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Teenage Mutant Hero Turtles (1990)(Image Works)[cr Empire][t].st"
+      "disques/tortues-ninja.st"
      ]
     }
    ],
@@ -1147,7 +1150,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Dynablaster.st"
+      "disques/dynablaster.st"
      ]
     }
    ],
@@ -1172,10 +1175,10 @@
      "nom": "Original ST",
      "desc": "Hatari, 4 disquettes",
      "disques": [
-      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 1 of 4)[cr Elite].st",
-      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 2 of 4)[cr Elite].st",
-      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 3 of 4)[cr Elite].st",
-      "disques/tosec/Secret of Monkey Island, The (1991)(LucasFilm Games)(fr)(Disk 4 of 4)[cr Elite].st"
+      "disques/tosec/monkey-island-1.st",
+      "disques/tosec/monkey-island-2.st",
+      "disques/tosec/monkey-island-3.st",
+      "disques/tosec/monkey-island-4.st"
      ],
      "auto": "A:\\MONKEY.PRG"
     }
@@ -1210,8 +1213,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/A_463_A_loom.ST",
-      "disques/A_463_B_loom.ST"
+      "disques/loom-1.st",
+      "disques/loom-2.st"
      ],
      "auto": "A:\\LOOM.TOS"
     }
@@ -1242,8 +1245,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/zak1.st",
-      "disques/zak2.st"
+      "disques/zak-mckracken-1.st",
+      "disques/zak-mckracken-2.st"
      ],
      "auto": "A:\\ZAK.PRG"
     }
@@ -1275,13 +1278,14 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 1 of 2).st",
-      "disques/Their finest Hour - The Battle of Britain (1991)(LucasFilm Games)(Disk 2 of 2).st"
+      "disques/their-finest-hour-1.st",
+      "disques/their-finest-hour-2.st"
      ],
      "auto": "A:\\BOB.PRG"
     }
    ],
    "actif": true,
+   "mhz16": "conseille",
    "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
   },
   {
@@ -1302,7 +1306,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Tintin on the Moon (19xx)(Infogrames)(M3)[cr V8].st"
+      "disques/tintin-lune.st"
      ]
     }
    ],
@@ -1327,7 +1331,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Iznogoud (19xx)(Infogrames)(Fr)[cr].st"
+      "disques/iznogoud.st"
      ]
     }
    ],
@@ -1353,9 +1357,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 1 of 3)[cr Cynix].st",
-      "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 2 of 3)[cr Cynix].st",
-      "disques/cannon fodder/Cannon Fodder (1994)(Virgin)(Disk 3 of 3)[cr Cynix].st"
+      "disques/cannon fodder/cannon-fodder-1.st",
+      "disques/cannon fodder/cannon-fodder-2.st",
+      "disques/cannon fodder/cannon-fodder-3.st"
      ]
     }
    ],
@@ -1387,9 +1391,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 1 of 3).st",
-      "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 2 of 3).st",
-      "disques/Voyageur du Temps, Les (19xx)(Delphine)(Fr)(Disk 3 of 3).st"
+      "disques/voyageurs-du-temps-1.st",
+      "disques/voyageurs-du-temps-2.st",
+      "disques/voyageurs-du-temps-3.st"
      ],
      "auto": "A:\\DELPHINE.PRG"
     }
@@ -1416,14 +1420,15 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Silent Service II (1991)(Microprose)[cr Dementia].st"
+      "disques/silent-service-2.st"
      ],
      "auto": "A:\\SSII.PRG"
     }
    ],
    "commandes": "souris",
    "touche_type": "espace",
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "super-ski-2",
@@ -1443,8 +1448,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/Super Ski II (1990)(Microids)[cr Elite](Disk 1 of 2).st",
-      "disques/Super Ski II (1990)(Microids)[cr Elite](Disk 2 of 2).st"
+      "disques/super-ski-2-1.st",
+      "disques/super-ski-2-2.st"
      ]
     }
    ],
@@ -1470,7 +1475,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A La Poursuite de Carmen Sandiego dans le Monde (1991)(Microids)(Fr)[cr Replicants - ST Amigos].st"
+      "disques/carmen-sandiego.st"
      ],
      "auto": "A:\\CARMEN.PRG"
     }
@@ -1497,8 +1502,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 1 of 2)[cr Empire].st",
-      "disques/tosec/Panza Kick Boxing (1990)(Loriciel)(FR)(Disk 2 of 2)[cr Empire].st"
+      "disques/tosec/panza-kick-boxing-1.st",
+      "disques/tosec/panza-kick-boxing-2.st"
      ]
     }
    ],
@@ -1526,7 +1531,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_363_lightcorridor.ST"
+      "disques/light-corridor.st"
      ]
     }
    ],
@@ -1553,7 +1558,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Robocop (1989)(Ocean)[cr Medway Boys][t Blue Brothers].st"
+      "disques/robocop.st"
      ],
      "auto": "A:\\ROBOCOP\\ROBOBOY.PRG"
     }
@@ -1582,7 +1587,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_095_hostage.ST"
+      "disques/hostage.st"
      ]
     }
    ],
@@ -1608,7 +1613,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/A_016_mousetrap.ST"
+      "disques/mouse-trap.st"
      ]
     }
    ],
@@ -1634,7 +1639,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/ssprint.st"
+      "disques/super-sprint.st"
      ]
     }
    ],
@@ -1659,7 +1664,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Lemmings (1990)(Psygnosis)[cr BBC].st"
+      "disques/tosec/lemmings.st"
      ]
     }
    ],
@@ -1690,7 +1695,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Speedball 2 - Brutal Deluxe (1990)(Image Works)[cr Replicants - ST Amigos].st"
+      "disques/tosec/speedball-2.st"
      ],
      "auto": "A:\\SPEED\\BALL.PRG"
     }
@@ -1722,8 +1727,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Another World (1991)(Delphine)(FR)(Disk 1 of 2)[cr Replicants].st",
-      "disques/tosec/Another World (1991)(Delphine)(FR)(Disk 2 of 2)[cr Replicants].st"
+      "disques/tosec/another-world-1.st",
+      "disques/tosec/another-world-2.st"
      ]
     }
    ],
@@ -1734,6 +1739,7 @@
     "espace"
    ],
    "actif": true,
+   "mhz16": "conseille",
    "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
   },
   {
@@ -1754,7 +1760,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Arkanoid II - Revenge of Doh (1988)(Imagine)[cr Replicants].st"
+      "disques/tosec/arkanoid-2.st"
      ]
     }
    ],
@@ -1783,7 +1789,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Strider (1989)(U.S. Gold)[cr Replicants][t].st"
+      "disques/tosec/strider.st"
      ]
     }
    ],
@@ -1810,7 +1816,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/Chambers of Shaolin (1989)(Grandslam).st"
+      "disques/chambers-of-shaolin.st"
      ]
     }
    ],
@@ -1834,7 +1840,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Xenon 2 - Megablast (1989)(Image Works)[cr Bitcrack Brothers][one disk].st"
+      "disques/tosec/xenon-2.st"
      ]
     }
    ],
@@ -1863,8 +1869,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Gods (1991)(Renegade)(Disk 1 of 2)[cr Elite][t +3].st",
-      "disques/tosec/Gods (1991)(Renegade)(Disk 2 of 2)[cr Elite][t +3].st"
+      "disques/tosec/gods-1.st",
+      "disques/tosec/gods-2.st"
      ]
     }
    ],
@@ -1895,7 +1901,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Magic Pocket (1991)(Renegade)[cr Elite][t].st"
+      "disques/tosec/magic-pockets.st"
      ]
     }
    ],
@@ -1923,8 +1929,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Shadow of the Beast (1990)(Psygnosis)(Disk 1 of 2)[cr Replicants][t].st",
-      "disques/tosec/Shadow of the Beast (1990)(Psygnosis)(Disk 2 of 2)[cr Replicants][t].st"
+      "disques/tosec/shadow-of-the-beast-1.st",
+      "disques/tosec/shadow-of-the-beast-2.st"
      ]
     }
    ],
@@ -1953,7 +1959,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Blood Money (1989)(Psygnosis)[cr Delight].st"
+      "disques/tosec/blood-money.st"
      ]
     }
    ],
@@ -1982,7 +1988,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Menace (1988)(Psyclapse)[cr Delight][one disk].st"
+      "disques/tosec/menace.st"
      ],
      "auto": "A:\\MENACE.TOS"
     }
@@ -2011,7 +2017,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Goldrunner (1987)(Microdeal)[cr 42-Crew].st"
+      "disques/tosec/goldrunner.st"
      ],
      "auto": "A:\\GOLDRUN.42C\\GOLDRUN.PRG"
     }
@@ -2040,7 +2046,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Starglider 2 (1988)(Rainbird)[cr Union].st"
+      "disques/tosec/starglider-2.st"
      ],
      "auto": "A:\\STARGL_2.TOS"
     }
@@ -2050,7 +2056,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "carrier-command",
@@ -2070,7 +2077,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Carrier Command (1988)(Rainbird)(M3)[cr Bladerunners].st"
+      "disques/tosec/carrier-command.st"
      ],
      "auto": "A:\\CARRIER.PRG"
     }
@@ -2082,7 +2089,8 @@
     "espace",
     "3"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "oids",
@@ -2102,7 +2110,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Oids (1987)(FTL)[cr Was -Not Was-].st"
+      "disques/tosec/oids.st"
      ]
     }
    ],
@@ -2130,7 +2138,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Llamatron v1.0 (1991-03-20)(Yak)(SW)[1MB].st"
+      "disques/tosec/llamatron.st"
      ],
      "auto": "A:\\TRON1MEG.PRG"
     }
@@ -2158,7 +2166,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Gauntlet II (1986)(Atari Corp.)[cr Medway Boys][t][one disk].st"
+      "disques/tosec/gauntlet-2.st"
      ]
     }
    ],
@@ -2186,7 +2194,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Bombjack (1988)(Elite).st"
+      "disques/tosec/bomb-jack.st"
      ],
      "auto": "A:\\BJ.PRG"
     }
@@ -2215,7 +2223,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Out Run (1987)(U.S. Gold)[cr Bladerunners].st"
+      "disques/tosec/out-run.st"
      ],
      "auto": "A:\\OUT_RUN\\OUT_RUN.PRG"
     }
@@ -2243,7 +2251,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Super Cars (1990)(Gremlin)[cr Replicants].st"
+      "disques/tosec/super-cars.st"
      ]
     }
    ],
@@ -2272,7 +2280,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Pang (1990)(Ocean)[cr Empire][t].st"
+      "disques/tosec/pang.st"
      ]
     }
    ],
@@ -2301,7 +2309,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Toki (1991)(Ocean)[cr Replicants - ST Amigos].st"
+      "disques/tosec/toki.st"
      ]
     }
    ],
@@ -2329,7 +2337,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Rodland (1991)(Sales Curve)[cr Elite][t].st"
+      "disques/tosec/rodland.st"
      ]
     }
    ],
@@ -2356,7 +2364,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Ghouls 'n' Ghosts (1988)(U.S. Gold)[cr Empire][one disk].st"
+      "disques/tosec/ghouls-n-ghosts.st"
      ]
     }
    ],
@@ -2383,7 +2391,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Silk Worm (1988)(Tecmo)[cr Replicants].st"
+      "disques/tosec/silkworm.st"
      ]
     }
    ],
@@ -2410,7 +2418,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Enchanted Land (1990)(Thalion)[cr Empire].st"
+      "disques/tosec/enchanted-land.st"
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img"
@@ -2439,8 +2447,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 1 of 2)(Disk A)[cr Elite][t].st",
-      "disques/tosec/Lethal Xcess - Wings of Death II (1991)(Eclipse)(Disk 2 of 2)(Disk B)[cr Elite][t].st"
+      "disques/tosec/lethal-xcess-1.st",
+      "disques/tosec/lethal-xcess-2.st"
      ]
     }
    ],
@@ -2469,7 +2477,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Turrican (1990)(Rainbow Arts)[cr Empire][t].st"
+      "disques/tosec/turrican.st"
      ]
     }
    ],
@@ -2497,7 +2505,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Rick Dangerous II (1989)(Core Design)[cr Replicants].st"
+      "disques/tosec/rick-dangerous-2.st"
      ]
     }
    ],
@@ -2526,7 +2534,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Nebulus (1988)(Hewson)[cr Atari Legend].st"
+      "disques/tosec/nebulus.st"
      ]
     }
    ],
@@ -2555,7 +2563,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Cybernoid (1988)(Hewson).st"
+      "disques/tosec/cybernoid.st"
      ]
     }
    ],
@@ -2583,7 +2591,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Pacmania (1988)(Grandslam).st"
+      "disques/tosec/pacmania.st"
      ]
     }
    ],
@@ -2610,7 +2618,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Arkanoid (1987)(Imagine)[cr Anit-Satanist].st"
+      "disques/tosec/arkanoid.st"
      ],
      "auto": "A:\\ARKANOID.PRG"
     }
@@ -2640,7 +2648,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Space Harrier (1988)(Elite)[cr MCA][one disk].st"
+      "disques/tosec/space-harrier.st"
      ],
      "auto": "A:\\SPACE_H.PRG"
     }
@@ -2668,7 +2676,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Double Dragon (1988)(Tradewest)[cr 42-Crew].st"
+      "disques/tosec/double-dragon.st"
      ],
      "auto": "A:\\DOUBLE.PRG"
     }
@@ -2697,7 +2705,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/James Pond - Underwater Agent (1990)(Vectordean)[cr Replicants].st"
+      "disques/tosec/james-pond.st"
      ]
     }
    ],
@@ -2724,7 +2732,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/James Pond II - Codename Robocod (1992)(Vectordean)[cr Vmax].st"
+      "disques/tosec/robocod.st"
      ]
     }
    ],
@@ -2751,7 +2759,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Wizball (1987)(Ocean)[cr Beng].st"
+      "disques/tosec/wizball.st"
      ],
      "auto": "A:\\WIZBALL\\WIZBALL.TOS"
     }
@@ -2780,7 +2788,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Fantasy World Dizzy (1991)(Codemasters)(GB).stx"
+      "disques/tosec/fantasy-world-dizzy.stx"
      ]
     }
    ],
@@ -2808,7 +2816,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Bubble Ghost (1987)(ERE).st"
+      "disques/tosec/bubble-ghost.st"
      ],
      "auto": "A:\\GHOST.PRG"
     }
@@ -2838,7 +2846,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Skweek (1989)(Loriciel)[cr Delight][f French Tos].st"
+      "disques/tosec/skweek.st"
      ]
     }
    ],
@@ -2865,7 +2873,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Tetris (1987)(MirrorSoft)[cr Lord].st"
+      "disques/tosec/tetris.st"
      ]
     }
    ],
@@ -2892,7 +2900,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Klax (1990)(Atari).stx"
+      "disques/tosec/klax.stx"
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img",
@@ -2925,7 +2933,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Puzznic (1990)(Ocean).stx"
+      "disques/tosec/puzznic.stx"
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img",
@@ -2958,7 +2966,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Bombuzal (1988)(Image Works)[cr Bladerunners].st"
+      "disques/tosec/bombuzal.st"
      ]
     }
    ],
@@ -2985,7 +2993,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Ballistix (1989)(Psyclapse)[cr Replicants].st"
+      "disques/tosec/ballistix.st"
      ]
     }
    ],
@@ -3012,7 +3020,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Bolo (1987)(Application Systems Heidelberg)(en-de).st"
+      "disques/tosec/bolo.st"
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img",
@@ -3044,7 +3052,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Oxyd (1990)(Digital Art).st"
+      "disques/tosec/oxyd.st"
      ],
      "auto": "A:\\OXYD.PRG"
     }
@@ -3074,7 +3082,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Archipelagos (1989)(Logotron)[cr Medway Boys][use pasti].st"
+      "disques/tosec/archipelagos.st"
      ]
     }
    ],
@@ -3082,7 +3090,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "sundog",
@@ -3102,7 +3111,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Sundog - Frozen Legacy v3.0 (1985)(FTL).st"
+      "disques/tosec/sundog.st"
      ],
      "auto": "A:\\SUNDOG.PRG"
     }
@@ -3131,7 +3140,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Crafton et Xunk - L'ange de Cristal (1988)(ERE)(M4).stx"
+      "disques/tosec/crafton-xunk.stx"
      ]
     }
    ],
@@ -3160,7 +3169,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Sapiens (1987)(Loriciel).st"
+      "disques/tosec/sapiens.st"
      ]
     }
    ],
@@ -3187,7 +3196,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Ikari Warriors (1987)(Elite).st"
+      "disques/tosec/ikari-warriors.st"
      ]
     }
    ],
@@ -3214,7 +3223,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Virus (1988)(Braben, D.J.)[cr BCS].st"
+      "disques/tosec/virus.st"
      ],
      "auto": "A:\\VIRUS\\VIRUS.PRG"
     }
@@ -3224,7 +3233,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "frontier",
@@ -3244,7 +3254,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Frontier - Elite II (1993)(Gametek - Konami)(fr).st"
+      "disques/tosec/frontier.st"
      ]
     }
    ],
@@ -3254,7 +3264,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "mercenary",
@@ -3274,7 +3285,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Mercenary - Escape From Targ (1986)(Novasoft)[cr BOSS].st"
+      "disques/tosec/mercenary.st"
      ]
     }
    ],
@@ -3282,7 +3293,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "damocles",
@@ -3302,7 +3314,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Mercenary 2 - Damocles (1990)(Novagen)[cr Medway Boys].st"
+      "disques/tosec/damocles.st"
      ]
     }
    ],
@@ -3310,7 +3322,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "hunter",
@@ -3330,14 +3343,15 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Hunter (1991)(Activision)[cr Paper Bag].st"
+      "disques/tosec/hunter.st"
      ]
     }
    ],
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "f29-retaliator",
@@ -3357,7 +3371,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/F-29 Retaliator (1989)(Ocean)[cr Empire].st"
+      "disques/tosec/f29-retaliator.st"
      ],
      "options": [
       "--memsize",
@@ -3371,7 +3385,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "falcon",
@@ -3391,8 +3406,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Falcon (1989)(Spectrum Holobyte)(Disk 1 of 2)[!].stx",
-      "disques/tosec/Falcon (1989)(Spectrum Holobyte)(Disk 2 of 2)[!].stx"
+      "disques/tosec/falcon-1.stx",
+      "disques/tosec/falcon-2.stx"
      ]
     }
    ],
@@ -3402,6 +3417,7 @@
     "espace"
    ],
    "actif": true,
+   "mhz16": "conseille",
    "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
   },
   {
@@ -3422,7 +3438,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Gunship (1987)(MicroProse)[cr Angels of Darkness][one disk].st"
+      "disques/tosec/gunship.st"
      ],
      "auto": "A:\\GUNSHIP.TOS"
     }
@@ -3431,7 +3447,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "hard-drivin",
@@ -3451,14 +3468,15 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Hard Drivin' (1989)(Domark)[cr Replicants].st"
+      "disques/tosec/hard-drivin.st"
      ]
     }
    ],
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "super-monaco-gp",
@@ -3478,7 +3496,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Super Monaco GP (1991)(U.S. Gold)[cr Hotline - MCA - Nokturnal].st"
+      "disques/tosec/super-monaco-gp.st"
      ]
     }
    ],
@@ -3505,8 +3523,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 1 of 2)[cr Bastards].st",
-      "disques/tosec/Formula One Grand Prix (1991)(MicroProse)(M3)(Disk 2 of 2)[cr Bastards].st"
+      "disques/tosec/f1-grand-prix-1.st",
+      "disques/tosec/f1-grand-prix-2.st"
      ]
     }
    ],
@@ -3516,6 +3534,7 @@
     "espace"
    ],
    "actif": true,
+   "mhz16": "conseille",
    "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
   },
   {
@@ -3536,7 +3555,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Indianapolis 500 (1989)(Electronic Arts)[cr Bladerunners].st"
+      "disques/tosec/indy-500.st"
      ],
      "auto": "A:\\INDY500.PRG"
     }
@@ -3545,7 +3564,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "powerdrome",
@@ -3565,7 +3585,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Powerdrome (1989)(Electronic Arts)[cr STCS].st"
+      "disques/tosec/powerdrome.st"
      ]
     }
    ],
@@ -3573,7 +3593,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "turbo-cup",
@@ -3593,7 +3614,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Turbo Cup (1988)(Loriciel)[cr Bladerunners][m Blue Soft][one disk].st"
+      "disques/tosec/turbo-cup.st"
      ],
      "auto": "A:\\TURBOCUP.SYS\\TURBOCUP.TOS"
     }
@@ -3621,7 +3642,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Sensible Soccer (1992)(Renegade)(M4)[cr Vmax][one disk].st"
+      "disques/tosec/sensible-soccer.st"
      ],
      "auto": "A:\\VMAX.PRG"
     }
@@ -3650,7 +3671,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Microprose Soccer (1989)(MicroProse).st"
+      "disques/tosec/microprose-soccer.st"
      ]
     }
    ],
@@ -3679,7 +3700,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Leader Board Pro Golf Simulator (1986)(Access)[cr BOSS].st"
+      "disques/tosec/leaderboard.st"
      ]
     }
    ],
@@ -3707,7 +3728,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/California Games (1989)(Epyx - U.S. Gold)[cr Bad Brew Crew].st"
+      "disques/tosec/california-games.st"
      ],
      "auto": "A:\\GAMES.PRG"
     }
@@ -3735,7 +3756,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Purple Saturn Day (1989)(Exxos)[cr Bladerunners].st"
+      "disques/tosec/purple-saturn-day.st"
      ],
      "auto": "A:\\PURPLE.PRG"
     }
@@ -3763,7 +3784,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Sim City (1989)(Maxis)[cr Empire].st"
+      "disques/tosec/sim-city.st"
      ],
      "auto": "A:\\SIMCITY.PRG"
     }
@@ -3773,7 +3794,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "civilization",
@@ -3793,10 +3815,10 @@
      "nom": "Original ST",
      "desc": "Hatari, 4 disquettes",
      "disques": [
-      "disques/tosec/Civilization (1993)(MicroProse)(Disk 1 of 4)(Disk 0)[cr ICS].st",
-      "disques/tosec/Civilization (1993)(MicroProse)(Disk 2 of 4)(Disk A)[cr ICS].st",
-      "disques/tosec/Civilization (1993)(MicroProse)(Disk 3 of 4)(Disk B)[cr ICS].st",
-      "disques/tosec/Civilization (1993)(MicroProse)(Disk 4 of 4)(Disk C)[cr ICS].st"
+      "disques/tosec/civilization-1.st",
+      "disques/tosec/civilization-2.st",
+      "disques/tosec/civilization-3.st",
+      "disques/tosec/civilization-4.st"
      ],
      "options": [
       "--memsize",
@@ -3811,6 +3833,7 @@
     "espace"
    ],
    "actif": true,
+   "mhz16": "conseille",
    "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
   },
   {
@@ -3831,7 +3854,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Railroad Tycoon v755.01 (1991)(MicroProse)[cr Medway Boys][m MCA][one disk].st"
+      "disques/tosec/railroad-tycoon.st"
      ],
      "auto": "A:\\GAME.PRG"
     }
@@ -3841,7 +3864,8 @@
    "sequence": [
     "pave2"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "populous-2",
@@ -3861,7 +3885,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Populous II (1991)(Bullfrog)[cr ICS][512 kB].st"
+      "disques/tosec/populous-2.st"
      ]
     }
    ],
@@ -3890,7 +3914,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Powermonger (1990)(Bullfrog)[cr Empire].st"
+      "disques/tosec/powermonger.st"
      ]
     }
    ],
@@ -3900,7 +3924,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "lemmings-2",
@@ -3920,7 +3945,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Lemmings 2 - Oh no, More Lemmings (1991)(Psygnosis)[cr Elite][t].st"
+      "disques/tosec/lemmings-2.st"
      ]
     }
    ],
@@ -3949,7 +3974,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Battle Chess (1989)(Interplay)[cr MCA].st"
+      "disques/tosec/battle-chess.st"
      ]
     }
    ],
@@ -3958,7 +3983,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "mhz16": "conseille"
   },
   {
    "id": "bloodwych",
@@ -3978,7 +4004,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Bloodwych (1989)(MirrorSoft)[cr Equinox].st"
+      "disques/tosec/bloodwych.st"
      ]
     }
    ],
@@ -4007,8 +4033,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 1 of 2)(Game Disk)[!].stx",
-      "disques/tosec/Chaos Strikes Back v2.1 (1989)(FTL)(Disk 2 of 2)(Game Disk)[!].stx"
+      "disques/tosec/chaos-strikes-back-1.stx",
+      "disques/tosec/chaos-strikes-back-2.stx"
      ]
     }
    ],
@@ -4037,8 +4063,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Captive (1990)(Mindscape)(Disk 1 of 2).stx",
-      "disques/tosec/Captive (1990)(Mindscape)(Disk 2 of 2).stx"
+      "disques/tosec/captive-1.stx",
+      "disques/tosec/captive-2.stx"
      ]
     }
    ],
@@ -4068,8 +4094,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 1 of 2)[cr Replicants][m Fuzion].st",
-      "disques/tosec/Ishar - Legend of the Fortress (1992)(Silmarils)(FR)(Disk 2 of 2)[cr Replicants][m Fuzion].st"
+      "disques/tosec/ishar-1.st",
+      "disques/tosec/ishar-2.st"
      ]
     }
    ],
@@ -4099,10 +4125,10 @@
      "nom": "Original ST",
      "desc": "Hatari, 4 disquettes",
      "disques": [
-      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 1 of 4).st",
-      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 2 of 4).st",
-      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 3 of 4).st",
-      "disques/tosec/Drakkhen (1989)(Infogrames)(Disk 4 of 4).st"
+      "disques/tosec/drakkhen-1.st",
+      "disques/tosec/drakkhen-2.st",
+      "disques/tosec/drakkhen-3.st",
+      "disques/tosec/drakkhen-4.st"
      ]
     }
    ],
@@ -4111,6 +4137,7 @@
     "espace"
    ],
    "actif": true,
+   "mhz16": "conseille",
    "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
   },
   {
@@ -4131,8 +4158,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Dragonflight (1990)(Thalion)(Disk 1 of 2)(Disk A)[cr Atari Legend][t].st",
-      "disques/tosec/Dragonflight (1990)(Thalion)(Disk 2 of 2)(Disk B - C)[cr Atari Legend][t].st"
+      "disques/tosec/dragonflight-1.st",
+      "disques/tosec/dragonflight-2.st"
      ],
      "options": [
       "--memsize",
@@ -4165,7 +4192,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Ultima IV - Quest of the Avatar (1988)(Origin)[cr TEX].st"
+      "disques/tosec/ultima-iv.st"
      ]
     }
    ],
@@ -4193,7 +4220,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Maniac Mansion (1988)(LucasFilm Games)(fr)[one disk].st"
+      "disques/tosec/maniac-mansion.st"
      ],
      "auto": "A:\\MANIAC.PRG"
     }
@@ -4223,9 +4250,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 1 of 3)[3 disks version].st",
-      "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 2 of 3)[3 disks version].st",
-      "disques/tosec/Indiana Jones et la Derniere Croisade (1989)(LucasFilm Games)(fr)(Disk 3 of 3)[3 disks version].st"
+      "disques/tosec/indy-croisade-1.st",
+      "disques/tosec/indy-croisade-2.st",
+      "disques/tosec/indy-croisade-3.st"
      ],
      "auto": "A:\\INDY.PRG"
     }
@@ -4252,9 +4279,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 1 of 3)[cr Replicants].st",
-      "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 2 of 3)[cr Replicants].st",
-      "disques/tosec/Operation Stealth (1990)(U.S. Gold)(fr)(Disk 3 of 3)[cr Replicants].st"
+      "disques/tosec/operation-stealth-1.st",
+      "disques/tosec/operation-stealth-2.st",
+      "disques/tosec/operation-stealth-3.st"
      ]
     }
    ],
@@ -4284,11 +4311,11 @@
      "nom": "Original ST",
      "desc": "Hatari, 5 disquettes",
      "disques": [
-      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 1 of 5)[cr Elite].st",
-      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 2 of 5)[cr Elite].st",
-      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 3 of 5)[cr Elite].st",
-      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 4 of 5)[cr Elite].st",
-      "disques/tosec/Cruise for a Corpse (1991)(U.S. Gold)(Disk 5 of 5)[cr Elite].st"
+      "disques/tosec/cruise-for-a-corpse-1.st",
+      "disques/tosec/cruise-for-a-corpse-2.st",
+      "disques/tosec/cruise-for-a-corpse-3.st",
+      "disques/tosec/cruise-for-a-corpse-4.st",
+      "disques/tosec/cruise-for-a-corpse-5.st"
      ]
     }
    ],
@@ -4319,9 +4346,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 1 of 3)[cr Elite].st",
-      "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 2 of 3)[cr Elite].st",
-      "disques/tosec/Gobliiins (1991)(CVS)(M5)(Disk 3 of 3)[cr Elite].st"
+      "disques/tosec/gobliiins-1.st",
+      "disques/tosec/gobliiins-2.st",
+      "disques/tosec/gobliiins-3.st"
      ]
     }
    ],
@@ -4352,7 +4379,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Passagers du Vent I, Les (1987)(Infogrames)(FR)[cr][m Atariforce].st"
+      "disques/tosec/passagers-du-vent.st"
      ],
      "auto": "A:\\VENT1.PRG"
     }
@@ -4381,7 +4408,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Kult (1989)(ERE)(M3)[cr Replicants][one disk].st"
+      "disques/tosec/kult.st"
      ]
     }
    ],
@@ -4410,9 +4437,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st",
-      "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st",
-      "disques/tosec/B.A.T. (1990)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st"
+      "disques/tosec/bat-1.st",
+      "disques/tosec/bat-2.st",
+      "disques/tosec/bat-3.st"
      ],
      "auto": "A:\\BAT.PRG"
     }
@@ -4442,8 +4469,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Maupiti Island (1990)(Lankhor)(Disk 1 of 2)[cr Medway Boys].st",
-      "disques/tosec/Maupiti Island (1990)(Lankhor)(Disk 2 of 2)[cr Medway Boys].st"
+      "disques/tosec/maupiti-island-1.st",
+      "disques/tosec/maupiti-island-2.st"
      ]
     }
    ],
@@ -4472,9 +4499,9 @@
      "nom": "Original ST",
      "desc": "Hatari, 3 disquettes",
      "disques": [
-      "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 1 of 3)[cr Replicants].st",
-      "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 2 of 3)[cr Replicants].st",
-      "disques/tosec/Iron Lord (1989)(UBI Soft)(FR)(Disk 3 of 3)[cr Replicants].st"
+      "disques/tosec/iron-lord-1.st",
+      "disques/tosec/iron-lord-2.st",
+      "disques/tosec/iron-lord-3.st"
      ],
      "auto": "A:\\IRONLORD.PRG"
     }
@@ -4503,7 +4530,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Prehistorik (1991)(Titus)[cr Replicants - ST Amigos].st"
+      "disques/tosec/prehistorik.st"
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img"
@@ -4532,7 +4559,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Titus the Fox - To Marrakech and Back (1992)(Titus)[cr Replicants].st"
+      "disques/tosec/titus-the-fox.st"
      ]
     }
    ],
@@ -4560,7 +4587,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Blues Brothers, The (1991)(Titus)[cr Empire][t].st"
+      "disques/tosec/blues-brothers.st"
      ]
     }
    ],
@@ -4589,7 +4616,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Parasol Stars (1992)(Ocean)[cr Cynix][t +11 Cynix].st"
+      "disques/tosec/parasol-stars.st"
      ]
     }
    ],
@@ -4616,7 +4643,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Wonderboy in Monsterland (1987)(Activision)[cr Vapour][one disk].st"
+      "disques/tosec/wonder-boy.st"
      ]
     }
    ],
@@ -4643,7 +4670,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Switchblade (1989)(Core Design)[cr MCA].st"
+      "disques/tosec/switchblade.st"
      ]
     }
    ],
@@ -4670,8 +4697,8 @@
      "nom": "Original ST",
      "desc": "Hatari, 2 disquettes",
      "disques": [
-      "disques/tosec/Final Fight (1991)(Capcom)(Disk 1 of 2)[cr Elite][t].st",
-      "disques/tosec/Final Fight (1991)(Capcom)(Disk 2 of 2)[cr Elite][t].st"
+      "disques/tosec/final-fight-1.st",
+      "disques/tosec/final-fight-2.st"
      ]
     }
    ],
@@ -4701,7 +4728,7 @@
      "nom": "Original ST",
      "desc": "Hatari",
      "disques": [
-      "disques/tosec/Shinobi (1989)(Sales Curve)[cr Rebels][t].st"
+      "disques/tosec/shinobi.st"
      ]
     }
    ],

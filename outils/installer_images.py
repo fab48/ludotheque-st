@@ -12,6 +12,11 @@ place (autre rangement, autre version de TOSEC), il est cherché par son nom, pu
 le CRC de son contenu dans tous les zips du dossier.
 Options : --pack <dossier> (installer ailleurs), --verifier (ne rien écrire).
 
+Noms courts (<id>.st, <id>-<n>.st) : un chemin complet de plus de 260 caractères bloque
+Windows et Hatari. Une image installée sous son ancien nom TOSEC (v1.0, noté « ancien »
+dans images_tosec.json) est renommée, pas recopiée, avec ses copies de runtime/disques :
+ses sauvegardes sont gardées. Sans la collection : python outils/installer_images.py --renommer
+
 Entretien (après avoir ajouté un jeu au catalogue) :
   python outils/installer_images.py --carte "<dossier TOSEC>"
 refait images_tosec.json : chaque image du catalogue présente dans le pack est
@@ -74,6 +79,8 @@ def carte(pack, rac):
     for p in sorted([q for v in locaux.values() for q in v] + sans_fichier):
         if p in trouves:
             images[p] = trouves[p]
+            if 'ancien' in ancien.get(p, {}):
+                images[p]['ancien'] = ancien[p]['ancien']
         elif p in ancien:
             images[p] = ancien[p]
         else:
@@ -88,10 +95,47 @@ def carte(pack, rac):
     return 0
 
 
+def renommer(pack, images, verifier=False):
+    """Images déjà installées sous leur ancien nom TOSEC : renommées (pas recopiées,
+    elles peuvent contenir des sauvegardes), ainsi que leurs copies nettoyées par le
+    lanceur (runtime/disques/<8 chiffres hexadécimaux>-<nom de l'image>)."""
+    copies = os.path.join(pack, 'runtime', 'disques')
+    n = 0
+    for dest, src in sorted(images.items()):
+        a = src.get('ancien')
+        fa, fd = os.path.join(pack, *a.split('/')) if a else '', os.path.join(pack, *dest.split('/'))
+        if not a or not os.path.exists(fa):
+            continue
+        if os.path.exists(fd):
+            # même fichier à la casse près (Windows) : seulement si le nom diffère encore
+            meme = os.path.normcase(os.path.abspath(fa)) == os.path.normcase(os.path.abspath(fd))
+            if not meme or os.path.basename(fd) in os.listdir(os.path.dirname(fd)):
+                continue
+        n += 1
+        if verifier:
+            continue
+        os.makedirs(os.path.dirname(fd), exist_ok=True)
+        os.rename(fa, fd)
+        ancien_nom, nouveau = os.path.basename(fa), os.path.basename(fd)
+        if os.path.isdir(copies):
+            for x in os.listdir(copies):
+                pre = x[:9]
+                if len(pre) == 9 and pre[8] == '-' and all(c in '0123456789abcdef' for c in pre[:8]) \
+                        and x[9:].lower() == ancien_nom.lower():
+                    os.rename(os.path.join(copies, x), os.path.join(copies, pre + nouveau))
+    if n:
+        print('%d images renommées (noms courts)%s.' % (n, ' (rien écrit : --verifier)' if verifier else ''))
+    return n
+
+
 def main():
     args = sys.argv[1:]
     if args[:1] == ['--carte'] and len(args) > 1 and os.path.isdir(args[1]):
         return carte(os.path.dirname(ICI), os.path.abspath(args[1]))
+    if args[:1] == ['--renommer']:
+        pack = os.path.abspath(args[2]) if args[1:2] == ['--pack'] and len(args) > 2 else os.path.dirname(ICI)
+        renommer(pack, json.load(open(os.path.join(ICI, 'images_tosec.json'), encoding='utf-8'))['images'])
+        return 0
     pack = os.path.dirname(ICI)
     verifier = '--verifier' in args
     if '--pack' in args:
@@ -105,6 +149,7 @@ def main():
         return 1
     rac = os.path.abspath(args[0])
     images = json.load(open(os.path.join(ICI, 'images_tosec.json'), encoding='utf-8'))['images']
+    renommer(pack, images, verifier)
 
     a_faire, deja, modifiees = {}, 0, []
     for dest, src in images.items():

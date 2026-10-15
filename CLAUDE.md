@@ -85,9 +85,15 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   `/api/admin` (F10), `/api/systeme` (quitter/éteindre), `/api/affichage` (écran des jeux),
   `/api/demos`, `/api/demo/*`, `/api/capture/retirer` ; fichiers `/ui/`, `/medias/`, `/reforged/`.
 - `jeux.go` : catalogue (variantes, mode vrac = toutes les images de disques/, regroupées),
-  `preparerHatari` (arguments + cfg générée + variables d'environnement), `disquePropre`
-  (copie dans runtime/disques/ : neutralise l'amorce « Little Green Desktop » en cassant la
-  somme $1234, applique les `correctifs` octets → ex. IK+ sur STE), `sequenceDemarrage`
+  `preparerHatari` (arguments + cfg générée + variables d'environnement ; **sous Windows,
+  Hatari tourne dans le dossier du pack et ne reçoit que des chemins relatifs** : SDL lui
+  passe ses arguments en UTF-8 mais il ouvre les fichiers en ANSI, un accent dans le dossier
+  du pack lui faisait perdre le TOS ; dossier hors ASCII → nom court 8.3, `cheminCourt`),
+  `disquePropre` (copie dans runtime/disques/ nommée `<empreinte du contenu>-<nom ≤ 40 car.>`,
+  indépendante de l'emplacement du pack, anciennes copies reprises avec leurs sauvegardes :
+  neutralise l'amorce « Little Green Desktop » en cassant la somme $1234, applique les
+  `correctifs` octets → ex. IK+ sur STE, et copie toute image dont le chemin complet dépasse
+  240 caractères : Hatari plafonne à 260), `sequenceDemarrage`
   (touche de menu de compil, encart des commandes), `Gestionnaire` (un jeu à la fois ;
   **arrêt = fermeture propre** WM_CLOSE / SIGTERM puis kill au bout de 4 s, sinon Hatari
   n'écrit pas les sauvegardes).
@@ -103,7 +109,11 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
 - `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari. En « lisse »,
   `--max-width 416 --max-height 276` : sinon Hatari double la basse résolution (832×552,
   blocs de 2×2) et le lissage linéaire ne se voit presque pas.
-- `navigateur.go` : Chrome/Chromium/Edge/Firefox en kiosque, profil dans runtime/.
+- `navigateur.go` : Chrome/Chromium/Edge/Firefox en kiosque, profil dans runtime/,
+  `--disable-extensions` (Windows installait Adobe Acrobat dans le profil : chemins de 175 car.).
+- **Le pack doit tourner de partout** (dossier profond, accents, `&`, crochets, `Łódź`) : tout
+  chemin est relatif au pack (`chemin()`), aucun nom de fichier du pack ne dépasse ~45 car.
+  Vérifié le 15/10/2026 en copiant le pack dans des dossiers piégeux (scratchpad).
 
 Entrées : sortie de jeu = Échap maintenu 2 s, ou Select+Start 1 s (surveillés par le lanceur).
 J1 = manette 1 ou flèches + Ctrl droit (Joystick1) ; J2 = manette 2 ou ZQSD + Ctrl gauche
@@ -127,7 +137,9 @@ Ubuntu 22.04 (glibc 2.35) pour tourner sur Mint/Manjaro, livrer libSDL2-2.0.so.0
 
 `C:\Atari_ST_TOSEC_2012_04_23\Atari ST [TOSEC]\` : la collection complète (32 737 zips, un par
 disquette ; Games/[ST], Games/[STX] (Pasti, protégés), Demos, Compilations, TOS…). Les jeux et
-démos retenus sont extraits dans `disques/tosec/` et `demos/` sous leur nom TOSEC. Choix d'une
+démos retenus sont rangés dans `disques/tosec/` et `demos/` sous un **nom court** : `<id>.st`, ou
+`<id>-<n>.st` à plusieurs disquettes (`nom_court` de gen_catalogue.py ; le nom TOSEC reste dans la
+liste J et dans images_tosec.json, champ « ancien »). Choix d'une
 édition : préférer `[cr Groupe]` sans `[b]` (mauvais dump), `(fr)` pour les jeux à texte, `[one
 disk]` ; éviter `[t]` (trainer : « Y/N ? » à passer avec "sequence": ["N"]). Une STX est l'original
 protégé (Hatari l'émule, mais `--fastfdc no` conseillé).
@@ -135,7 +147,8 @@ protégé (Hatari l'émule, mais `--fastfdc no` conseillé).
 Installation des images pour qui clone le dépôt : `outils/installer_images.py "<dossier TOSEC>"`
 (ou « Installer les images TOSEC.bat ») extrait les 216 images du catalogue (disques + TOS)
 d'après `outils/images_tosec.json` (zip, membre, CRC32, taille), sans jamais écraser une image
-présente. **Après tout ajout au catalogue** : `python outils/installer_images.py --carte "<TOSEC>"`
+présente ; une image installée sous son ancien nom TOSEC (v1.0) est renommée, avec ses copies
+de runtime/disques (`--renommer` : sans la collection). **Après tout ajout au catalogue** : `python outils/installer_images.py --carte "<TOSEC>"`
 refait le manifeste (recherche par CRC ; une image modifiée par des sauvegardes garde sa source
 notée). Le lanceur cache du bac les jeux dont une image ou le TOS manque (`completer` vérifie
 aussi le TOS ; l'interface compte les « absentes »).
@@ -149,7 +162,10 @@ GEM), `TOUCHES` (ancienne forme : touche du menu de compil, pavé par défaut, `
 chiffres, `esp` = Espace), `SEQ` (« sequence » : touches pressées à tour de rôle au démarrage —
 espace, entree, F1…F10, pave1…9, 1…0, lettres ; tout jeu TOSEC sans réglage reçoit ["espace"]),
 `DUREE` (« touche_duree », 5 s par défaut), `DELAI` (« touche_delai »), `SOURIS`, `AIDE`
-(« Touche : action · … », affiché en deux colonnes), `INACTIFS` (hors du bac), correctifs IK+.
+(« Touche : action · … », affiché en deux colonnes), `INACTIFS` (hors du bac), correctifs IK+,
+`MHZ16_CONSEILLE` (« mhz16 »: « conseille » : case « Processeur 16 MHz » de la fiche sans alerte ;
+les autres jeux affichent une alerte). La case (clic, F6, Select manette) est gardée par jeu dans
+le navigateur (ludo-prefs) ; `/api/lancer` {"mhz16": true} ajoute `--cpuclock 16` après `--machine`.
 `python outils/gen_catalogue.py --garder` reprend les cases cochées (F10) et le mode vrac de
 l'ancien catalogue.json ; sans `--garder`, tout est coché sauf `INACTIFS`.
 Après une modif : `python outils/valide_windows.py <id> …` (voir plus bas).
@@ -163,7 +179,9 @@ port, navigateur, kiosque, plein_ecran_jeux, sortie_echap_s, sortie_manette_s,
 boutons_manette, joystick (auto|manette|clavier), tir_clavier(_j2), touche_capture,
 touche_menu_auto, demos_apres_min, duree_demo_min, nettoyer_amorce, carte_au_chargement,
 turbo (disque|debut|non), turbo_chargement_s (mode debut), ecran_filtre, ecran_lignes,
-ecran_4_3.
+ecran_4_3, ecran_hz (50 par défaut : écran principal passé à 50 Hz, ou 100, pendant Hatari en plein
+écran, jeux et démos, puis remis 1,5 s après ; 0 = ne pas toucher ; menu Options › « Écran à 50 Hz » ;
+`frequence*.go`, ChangeDisplaySettingsEx CDS_FULLSCREEN ; pas encore sous Linux).
 
 ## Tester sans écran (Windows)
 
@@ -172,7 +190,9 @@ le lanceur le lancerait (arguments, turbo « disque », touches de démarrage), 
 hors écran sans prendre le focus (touches par PostMessage), 8 en parallèle, une capture toutes
 les 250 VBL via le débogueur (`b VBL = N :trace :quiet :once :file x.ini`, `screenshot f.bmp` —
 le PNG n'est pas compilé dans notre Hatari ; sans `:once`, capture à chaque instruction !).
-Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus loin.
+Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus loin, `MHZ=16`
+(résultats dans runtime/tests-16mhz). **Tout le catalogue = des centaines de Hatari : demander
+à Fab avant**, il utilise le PC pendant ce temps.
 
 ## Tester sans écran (Linux)
 
@@ -207,3 +227,9 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
 - medias/<id>/1.png des 135 jeux qui n'en avaient pas : capture automatique (la plus colorée
   de la validation) ; quelques-unes montrent une protection ou un texte → F8 en jeu les remplace.
 - IK+ Reforged à déposer. Idées évoquées : la même chose pour DOSBox plus tard.
+- 14-15/10/2026, v1.1 : case « Processeur 16 MHz » (F6, Select), écran à 50 Hz en jeu (testé :
+  60 → 50 → 60 Hz ; une fois, le Chrome de la ludothèque s'est fermé 4 s après le retour à
+  60 Hz sans explication, à surveiller), ascenseur du bac à glisser, délai de 30 s sur
+  /api/lancer (plus d'interface figée sur « Lecture piste 79 »), noms courts des disquettes et
+  des démos, chemins relatifs pour Hatari (accents), copies runtime/disques par contenu.
+  Retour d'Axel (v1.0 bloquée sur « piste 79 » sur C:, OK sur D:) : cause exacte inconnue.

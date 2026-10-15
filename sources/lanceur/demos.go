@@ -214,6 +214,7 @@ func tosDemos(f *FichierDemos, d Demo) string {
 func boucleDemos(f *FichierDemos, ds []Demo, stop chan struct{}) {
 	defer func() {
 		masquerBandeau()
+		ecranApresHatari()
 		muDemo.Lock()
 		demoActive, demoLecture = false, false
 		muDemo.Unlock()
@@ -239,6 +240,7 @@ func boucleDemos(f *FichierDemos, ds []Demo, stop chan struct{}) {
 			return
 		}
 		preparerProcessus(cmd)
+		ecranPourHatari(true) // sans effet entre deux démos : déjà fait
 		if err := cmd.Start(); err != nil {
 			log.Printf("démo %s : %v", d.Titre, err)
 			return

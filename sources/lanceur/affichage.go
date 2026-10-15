@@ -53,7 +53,7 @@ func argsAffichage(pleinEcran bool) []string {
 }
 
 func etatAffichage() map[string]any {
-	return map[string]any{"filtre": cfg.EcranFiltre, "lignes": cfg.EcranLignes, "format43": cfg.Ecran43}
+	return map[string]any{"filtre": cfg.EcranFiltre, "lignes": cfg.EcranLignes, "format43": cfg.Ecran43, "ecran50": cfg.EcranHz > 0}
 }
 
 // apiAffichage : réglages de l'écran des jeux, enregistrés dans config.json.
@@ -63,6 +63,7 @@ func apiAffichage(w http.ResponseWriter, r *http.Request) {
 			Filtre   *string `json:"filtre"`
 			Lignes   *int    `json:"lignes"`
 			Format43 *bool   `json:"format43"`
+			Ecran50  *bool   `json:"ecran50"` // écran à 50 Hz pendant les jeux
 		}
 		if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
 			erreur(w, 400, err.Error())
@@ -77,7 +78,13 @@ func apiAffichage(w http.ResponseWriter, r *http.Request) {
 		if q.Format43 != nil {
 			cfg.Ecran43 = *q.Format43
 		}
-		if err := majConfig(map[string]any{"ecran_filtre": cfg.EcranFiltre, "ecran_lignes": cfg.EcranLignes, "ecran_4_3": cfg.Ecran43}); err != nil {
+		if q.Ecran50 != nil {
+			cfg.EcranHz = 0
+			if *q.Ecran50 {
+				cfg.EcranHz = 50
+			}
+		}
+		if err := majConfig(map[string]any{"ecran_filtre": cfg.EcranFiltre, "ecran_lignes": cfg.EcranLignes, "ecran_4_3": cfg.Ecran43, "ecran_hz": cfg.EcranHz}); err != nil {
 			erreur(w, 500, err.Error())
 			return
 		}

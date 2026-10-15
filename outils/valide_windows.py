@@ -6,6 +6,7 @@ Résultat : runtime/tests/<id>/v*.bmp et des planches runtime/tests/planche-NN.p
 (6 jeux par planche, 8 images par jeu).
   python outils/valide_windows.py [id ...]        (sans id : tout le catalogue)
   VMAX=4500 : durée en VBL (50 par seconde).  PAR=8 : jeux testés en même temps.
+  MHZ=16 : processeur à 16 MHz (résultats dans runtime/tests-16mhz).
 Demande Pillow (pip install pillow).
 """
 import json, os, sys, glob, time, subprocess, ctypes
@@ -15,7 +16,8 @@ from PIL import Image, ImageDraw
 
 PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HATARI = os.path.join(PACK, 'emulateurs', 'hatari-windows', 'hatari.exe')
-SCR = os.path.join(PACK, 'runtime', 'tests')
+MHZ = int(os.environ.get('MHZ', '8'))
+SCR = os.path.join(PACK, 'runtime', 'tests' if MHZ == 8 else 'tests-%dmhz' % MHZ)
 
 u32 = ctypes.WinDLL('user32', use_last_error=True)
 EnumProc = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
@@ -143,6 +145,8 @@ def un(cat, j):
     if v.get('auto'):
         args += ['--auto', v['auto']]
     args += cat['hatari'].get('options', []) + v.get('options', [])
+    if MHZ != 8:
+        args += ['--cpuclock', str(MHZ)]
     env = dict(os.environ, SDL_AUDIODRIVER='dummy', SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN='1', HOME=d,
                HATARI_LUDO_TURBO='disque')
     t0 = time.time()

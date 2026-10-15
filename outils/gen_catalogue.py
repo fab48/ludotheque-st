@@ -342,6 +342,15 @@ AIDE = {
  'monkey-island': 'Question du pirate : n\'importe quel nombre puis Entrée (version crackée)',
 }
 
+# Processeur 16 MHz (case de la fiche, F6) : conseillé pour les jeux limités par le
+# processeur (3D, simulations, stratégie), plus fluides. Les autres affichent une
+# alerte : souvent calés sur l'écran (rien à gagner), ils peuvent aller trop vite ou planter.
+MHZ16_CONSEILLE = {'stunt-car-racer', 'starglider-2', 'carrier-command', 'damocles', 'mercenary', 'hunter',
+                   'f29-retaliator', 'falcon', 'gunship', 'hard-drivin', 'f1-grand-prix', 'indy-500', 'powerdrome',
+                   'virus', 'frontier', 'castle-master', 'midwinter', 'their-finest-hour', 'silent-service-2',
+                   'another-world', 'archipelagos', 'drakkhen', 'powermonger', 'sim-city', 'civilization',
+                   'railroad-tycoon', 'battle-chess'}
+
 ACTIFS_INITIAUX = {'stunt-car-racer', 'shufflepuck-cafe', 'lemmings', 'prince-of-persia', 'lotus-turbo', 'speedball-2',
           'populous', 'rick-dangerous', 'ik-plus', 'barbarian', 'mortevielle', 'hostage', 'mouse-trap',
           'another-world', 'arkanoid-2', 'bubble-bobble', 'strider', 'buggy-boy'}
@@ -355,10 +364,19 @@ def h(s, n):
     return int(hashlib.md5(s.encode()).hexdigest(), 16) % n
 
 
+# Noms courts sur le disque : <id>.st, ou <id>-<n>.st à plusieurs disquettes. Un chemin
+# complet de plus de 260 caractères bloque Windows (copie, décompression) et Hatari ;
+# les noms TOSEC de la liste J (jusqu'à 100 caractères) restent notés dans
+# outils/images_tosec.json (« ancien »), d'où l'installeur renomme une image déjà là.
+def nom_court(i, k, n, f):
+    d, ext = os.path.dirname(f), os.path.splitext(f)[1].lower()
+    return 'disques/' + (d + '/' if d else '') + i + ('-%d' % (k + 1) if n > 1 else '') + ext
+
+
 jeux = []
 for (i, t, e, a, g, p, d, x) in J:
     v0 = {'type': 'hatari', 'nom': 'Original ST', 'desc': 'Hatari' + (', %d disquettes' % len(d) if len(d) > 1 else ''),
-          'disques': ['disques/' + f for f in d]}
+          'disques': [nom_court(i, k, len(d), f) for k, f in enumerate(d)]}
     for k in ('machine', 'tos', 'correctifs', 'options'):
         if k in x:
             v0[k] = x[k]
@@ -392,6 +410,8 @@ for (i, t, e, a, g, p, d, x) in J:
             if t.startswith('c'):
                 j['touche_type'] = 'chiffre'
     j['actif'] = i in ACTIFS
+    if i in MHZ16_CONSEILLE:
+        j['mhz16'] = 'conseille'
     if 'note' in x:
         j['note'] = x['note']
     elif len(d) > 2:
