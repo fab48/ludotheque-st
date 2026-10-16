@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"regexp"
 	"runtime"
@@ -63,6 +64,7 @@ type Jeu struct {
 	Mhz16       string            `json:"mhz16,omitempty"`      // avis sur le 16 MHz : conseille | risque
 	Mhz16Note   string            `json:"mhz16_note,omitempty"` // précision affichée sur la fiche
 	Actif       *bool             `json:"actif,omitempty"`
+	Favori      *bool             `json:"favori,omitempty"` // ★ : montré par le filtre « favoris » du bac
 	Disquette   map[string]string `json:"disquette,omitempty"`
 	Variantes   []Variante        `json:"variantes"`
 	Captures    []string          `json:"captures,omitempty"` // calculé
@@ -119,6 +121,48 @@ var reDisque = regexp.MustCompile(`(?i)\s*\(disk\s*(\d+)\s*of\s*(\d+)\)`)
 var reEntre = regexp.MustCompile(`\s*[\(\[].*$`)
 var reCompil = regexp.MustCompile(`(?i)^a_(\d+)(?:(?:_[0-9a-z])*_(.+))?$`)
 
+// disquette d'une compil Automation : « A_483_B_monkeyisland », « A_069_5_kickoff2 »
+var reCompilDisque = regexp.MustCompile(`(?i)^(a_\d+)_([0-9a-z])_(.+)$`)
+
+// ecartesVrac : parmi les images du vrac au nom TOSEC, celles que le ménage effacerait :
+// autres éditions d'un même jeu (une seule reste, choisie comme au ménage), jeux déjà au
+// catalogue, titres écartés (démo jouable, données, [b] seulement…). Rien n'est effacé :
+// le bac ne les montre pas, c'est tout. Utile pour les images posées hors de disques/GAME
+// (racine de disques/…), que le ménage ne touche jamais.
+// memeJeu : disquettes de l'édition gardée → clé commune (« (Disk 1 of 2)[!] » et
+// « (Disk 2 of 2) », « (King1) » et « (King2) » : un seul jeu).
+func ecartesVrac(rels []string) (ecartees map[string]bool, memeJeu map[string]string) {
+	var images []*imageTosec
+	for _, rel := range rels {
+		if e := lireNomTosec(path.Base(rel)); e != nil {
+			e.Chemin, e.Source = rel, sourceTosec(path.Dir(rel), e.Nom)
+			images = append(images, e)
+		}
+	}
+	absolu := func(i *imageTosec) string { return filepath.Join(base, filepath.FromSlash(i.Chemin)) }
+	ecartees, memeJeu = map[string]bool{}, map[string]string{}
+	for _, t := range trierTosec(images, absolu, clesCatalogue().complets) {
+		garder := map[*imageTosec]bool{}
+		if t.Choisie != nil && !t.Catalogue {
+			im := t.Choisie.Images
+			premier := strings.TrimSuffix(im[0].Nom, filepath.Ext(im[0].Nom))
+			cle := filepath.Join(path.Dir(im[0].Chemin), reSansDisque.ReplaceAllString(premier, ""))
+			for _, i := range im {
+				garder[i] = true
+				if len(im) > 1 {
+					memeJeu[i.Chemin] = cle
+				}
+			}
+		}
+		for _, i := range t.Toutes {
+			if !garder[i] {
+				ecartees[i.Chemin] = true
+			}
+		}
+	}
+	return ecartees, memeJeu
+}
+
 // vrac : les images de disques/ que le catalogue ne cite pas, regroupées par jeu.
 func vrac(c *Catalogue) []Jeu {
 	cites := map[string]bool{}
@@ -129,7 +173,7 @@ func vrac(c *Catalogue) []Jeu {
 			}
 		}
 	}
-	groupes := map[string][]string{}
+	var rels []string
 	racine := filepath.Join(base, "disques")
 	_ = filepath.WalkDir(racine, func(p string, e fs.DirEntry, err error) error {
 		if err != nil || e.IsDir() || !extImages[strings.ToLower(filepath.Ext(p))] {
@@ -137,21 +181,39 @@ func vrac(c *Catalogue) []Jeu {
 		}
 		rel, _ := filepath.Rel(base, p)
 		rel = filepath.ToSlash(rel)
-		if cites[strings.ToLower(rel)] {
-			return nil
+		if !cites[strings.ToLower(rel)] {
+			rels = append(rels, rel)
 		}
-		nom := strings.TrimSuffix(filepath.Base(p), filepath.Ext(p))
-		cle := filepath.Join(filepath.Dir(rel), reDisque.ReplaceAllString(nom, ""))
-		if lireNomTosec(nom) != nil { // « (Disk 1 of 3)(Intro) », « (Disk B) »
-			cle = filepath.Join(filepath.Dir(rel), reSansDisque.ReplaceAllString(nom, ""))
-		}
-		groupes[cle] = append(groupes[cle], rel)
 		return nil
 	})
+	ecartees, memeJeu := ecartesVrac(rels)
+	groupes := map[string][]string{}
+	for _, rel := range rels {
+		if ecartees[rel] {
+			continue
+		}
+		nom := strings.TrimSuffix(path.Base(rel), path.Ext(rel))
+		cle := filepath.Join(filepath.Dir(rel), reDisque.ReplaceAllString(nom, ""))
+		if k, ok := memeJeu[rel]; ok {
+			cle = k
+		} else if lireNomTosec(nom) != nil { // « (Disk 1 of 3)(Intro) », « (Disk B) »
+			cle = filepath.Join(filepath.Dir(rel), reSansDisque.ReplaceAllString(nom, ""))
+		} else if m := reCompilDisque.FindStringSubmatch(nom); m != nil {
+			cle = filepath.Join(filepath.Dir(rel), m[1]+"_"+m[3])
+		}
+		groupes[cle] = append(groupes[cle], rel)
+	}
 	var out []Jeu
 	numero := func(d string) int { // « Disk 10 of 12 » après « Disk 2 of 12 »
+		nom := strings.TrimSuffix(filepath.Base(d), filepath.Ext(d))
 		if e := lireNomTosec(filepath.Base(d)); e != nil {
 			return e.Disque
+		}
+		if m := reCompilDisque.FindStringSubmatch(nom); m != nil { // A_483_B : 2 ; A_069_5 : 5
+			if n, err := strconv.Atoi(m[2]); err == nil {
+				return n
+			}
+			return int(strings.ToUpper(m[2])[0]-'A') + 1
 		}
 		return 0
 	}
@@ -335,15 +397,16 @@ func apiCatalogue(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// apiAdmin : panneau caché. {"actifs": {"id": true|false}, "vrac": bool}
+// apiAdmin : catalogue (F10). {"actifs": {"id": true|false}, "favoris": {"id": true|false}, "vrac": bool}
 func apiAdmin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		erreur(w, 405, "POST attendu")
 		return
 	}
 	var q struct {
-		Actifs map[string]bool `json:"actifs"`
-		Vrac   *bool           `json:"vrac"`
+		Actifs  map[string]bool `json:"actifs"`
+		Favoris map[string]bool `json:"favoris"`
+		Vrac    *bool           `json:"vrac"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
 		erreur(w, 400, err.Error())
@@ -361,6 +424,10 @@ func apiAdmin(w http.ResponseWriter, r *http.Request) {
 			v := a
 			c.Jeux[i].Actif = &v
 		}
+		if f, ok := q.Favoris[c.Jeux[i].ID]; ok {
+			v := f
+			c.Jeux[i].Favori = &v
+		}
 	}
 	if q.Vrac != nil {
 		c.Vrac = *q.Vrac
@@ -369,7 +436,7 @@ func apiAdmin(w http.ResponseWriter, r *http.Request) {
 		erreur(w, 500, err.Error())
 		return
 	}
-	log.Printf("panneau : catalogue enregistré")
+	log.Printf("catalogue (F10) : enregistré")
 	repondre(w, map[string]bool{"ok": true})
 }
 

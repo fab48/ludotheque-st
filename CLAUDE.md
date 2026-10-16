@@ -206,9 +206,9 @@ espace, entree, F1…F10, pave1…9, 1…0, lettres ; tout jeu TOSEC sans régla
 `DUREE` (« touche_duree », 5 s par défaut), `DELAI` (« touche_delai »), `SOURIS`, `AIDE`
 (« Touche : action · … », affiché en deux colonnes), `INACTIFS` (hors du bac), correctifs IK+,
 `MHZ16_CONSEILLE` (« mhz16 »: « conseille » : case « Processeur 16 MHz » de la fiche sans alerte ;
-les autres jeux affichent une alerte). La case (clic, F6, Select manette) est gardée par jeu dans
+les autres jeux affichent une alerte), `FAVORIS` (« favori »: true). La case (clic, F6, Select manette) est gardée par jeu dans
 le navigateur (ludo-prefs) ; `/api/lancer` {"mhz16": true} ajoute `--cpuclock 16` après `--machine`.
-`python outils/gen_catalogue.py --garder` reprend les cases cochées (F10) et le mode vrac de
+`python outils/gen_catalogue.py --garder` reprend les cases cochées (F10), les favoris et le mode vrac de
 l'ancien catalogue.json ; sans `--garder`, tout est coché sauf `INACTIFS`.
 Après une modif : `python outils/valide_windows.py <id> …` (voir plus bas).
 
@@ -285,3 +285,20 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   un nom filtre aussitôt (tous les mots, dans titre/éditeur/année/genre, sans accents), Échap
   efface ; boutons # A…Z pour sauter à une lettre. Les lettres tapées ne sautent plus à la
   lettre (elles cherchent). Tout/Rien du panneau = les jeux montrés. La veille vide la recherche.
+- 16/10/2026 : favoris. Le « panneau de contrôle » s'appelle **Catalogue** dans l'interface (F10,
+  menu Bureau). Étoile par jeu (clic, Espace/X) → « favori » dans catalogue.json (`/api/admin`
+  {"favoris": {id: bool}}). Filtre du bac « Favoris seulement » (F4, bouton ★ de la barre,
+  Affichage, manette LT = bouton 6), gardé dans ludo-prefs, mis par défaut ; la recherche
+  ignore le filtre (fouille tout le bac). 12 favoris de départ (`FAVORIS` de gen_catalogue.py).
+- 16/10/2026 : 15 jeux cultes ajoutés (177 au catalogue) : Starglider, The Sentinel, Elite, Head Over
+  Heels, Zool, Super Off Road, Lotus Turbo Challenge 2, Operation Wolf, Rocket Ranger, Batman The Movie,
+  Leisure Suit Larry, Gobliins 2 (v1.02 [cr ICS] : l'édition FR [cr ICS] a un répertoire illisible,
+  rangée dans runtime/_a_supprimer/), Ishar 2 ([cr Elite], anglais), Pro Tennis Tour (Great Courts),
+  Time Bandit. Réglages devinés d'après le contenu des disquettes (AUTO, STF pour les 1985-87,
+  trainers « N ») : **pas encore lancés dans Hatari** (valide_windows.py à passer sur ces 15 ids).
+- 16/10/2026 : le mode vrac trie comme le ménage (`ecartesVrac`, jeux.go) sans rien effacer :
+  une édition par jeu, rien de ce que le catalogue a déjà, titres écartés cachés. Visait les
+  images TOSEC posées à la racine de disques/ (5 Vroom…), que le ménage ne touche pas.
+  Disquettes de l'édition gardée regroupées même si leurs noms diffèrent ((King1)/(King2),
+  [!] sur une seule), compils Automation A_483_A…D = un jeu. Vrac : 2 251 → 2 196 fiches.
+  `imageLisible` garde ses réponses (zip inchangé) : /api/catalogue ~150 ms.

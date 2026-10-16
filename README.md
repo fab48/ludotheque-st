@@ -13,7 +13,7 @@ navigateur, une fiche par jeu (captures, commandes, versions), et l'émulateur
 une borne ou un salon : clavier, souris ou manette, sortie d'un jeu par Échap maintenu
 ou Select + Start.
 
-- **162 jeux au catalogue** (Xenon 2, Dungeon Master, Another World, Monkey Island,
+- **177 jeux au catalogue** (Xenon 2, Dungeon Master, Another World, Monkey Island,
   Lemmings, Kick Off 2, Populous, Turrican, Captain Blood…), réglés et testés un par un :
   bon TOS, bonne machine (STF ou STE), touches des menus de compil et des intros de crack
   pressées toutes seules.
@@ -68,7 +68,7 @@ dossier `Games`, rangée ou en vrac, zips compris. C'est tout.
 
 Au lancement suivant, la ludothèque fait le reste toute seule :
 
-1. elle installe les **216 images du catalogue** (disquettes dans `disques/` et
+1. elle installe les **236 images du catalogue** (disquettes dans `disques/` et
    `disques/tosec/`, TOS 1.02, 1.04, 1.62 et 2.06 français dans `tos/`), contrôlées
    d'après `outils/images_tosec.json`, sans jamais remplacer une disquette déjà là (elle
    peut contenir vos sauvegardes) ;
@@ -88,8 +88,13 @@ demande. Un fichier dont le nom n'est pas un nom TOSEC n'est jamais touché.
 > catalogue sans rien copier ni effacer.
 
 **Le bac s'adapte aux fichiers présents** : un jeu dont l'image ou le TOS manque n'y
-apparaît pas. La barre d'info indique combien attendent leurs fichiers, et le panneau
-de contrôle (F10) les liste comme « absent ».
+apparaît pas. La barre d'info indique combien attendent leurs fichiers, et le catalogue
+(F10) les liste comme « absent ».
+
+**Favoris** : au départ, le bac ne montre que les favoris (une douzaine de classiques).
+F4 (ou le bouton ★ Favoris) bascule entre les favoris et tout le bac ; le choix est
+gardé. Dans le catalogue (F10), l'étoile de chaque jeu (clic, Espace ou X) en fait un
+favori. Une recherche fouille toujours tout le bac.
 
 ### 4. Lancer
 
@@ -114,7 +119,7 @@ donner une fiche (titre, éditeur, commandes, TOS…), ajoutez une entrée dans
 python outils/gen_catalogue.py --garder
 ```
 
-(`--garder` conserve vos choix faits avec F10.) Un jeu tiré de TOSEC peut ensuite être
+(`--garder` conserve vos choix faits avec F10, favoris compris.) Un jeu tiré de TOSEC peut ensuite être
 noté pour l'installation automatique : `python outils/installer_images.py --carte
 "<dossier TOSEC>"`.
 
@@ -127,7 +132,8 @@ Démos : déposez-les dans `demos/` ; titre et texte du bandeau dans `demos.json
 | Choisir une disquette | ← → | croix, stick |
 | Charger | Entrée | A |
 | Menus | F9 ou Tab | Start |
-| Panneau de contrôle (bac, mode vrac) | F10 | Y |
+| Favoris seulement / tout le bac | F4 | LT |
+| Catalogue (bac, favoris, mode vrac) | F10 | Y |
 | Play Demo Random | F7 | |
 | **Quitter un jeu** | **Échap maintenu 2 s** | **Select + Start 1 s** |
 | Commandes du jeu / pause | Pause | Select |

@@ -70,13 +70,17 @@ button { font-family: inherit; color: inherit; }
 #facade .meta { position: absolute; left: 24px; right: 24px; top: 100px; font-size: 24px; color: rgba(255,255,255,.65); white-space: nowrap; overflow: hidden; }
 #facade .vers { position: absolute; left: 24px; right: 24px; top: 132px; font-size: 20px; color: rgba(255,255,255,.45); white-space: nowrap; overflow: hidden; }
 
-/* recherche et lettres (bac et panneau F10) */
+/* recherche, lettres et filtre des favoris (bac et catalogue F10) */
 #barre { height: 30px; border-bottom: 2px solid #000; padding: 0 6px 0 8px; display: flex; align-items: center; gap: 10px; background: #fff; }
 .cherche { flex: none; width: 196px; height: 24px; display: flex; align-items: center; gap: 4px; border: 2px solid #000; padding: 0 3px; background: #fff; cursor: text; }
 .cherche:focus-within { box-shadow: 2px 2px 0 #000; }
 .cherche input { flex: 1; min-width: 0; height: 20px; border: 0; outline: 0; padding: 0; background: transparent; font: inherit; font-size: 22px; line-height: 20px; color: #000; user-select: text; -webkit-user-select: text; }
 .cherche input::placeholder { color: #999; }
 .cherche .effacer { flex: none; width: 18px; height: 18px; border: 0; padding: 0; background: #000; color: #fff; font-size: 17px; line-height: 18px; cursor: pointer; }
+.etoile { display: block; flex: none; }
+#bt-favoris { flex: none; height: 24px; display: flex; align-items: center; gap: 5px; border: 2px solid #000; padding: 0 6px 0 4px; background: #fff; font: inherit; font-size: 21px; line-height: 20px; cursor: pointer; }
+#bt-favoris:hover { box-shadow: 2px 2px 0 #000; }
+#bt-favoris.actif { background: #000; color: #fff; }
 .lettres { flex: 1; display: flex; min-width: 0; }
 .lettres button { flex: 1; min-width: 0; height: 24px; border: 0; padding: 0; background: #fff; font-size: 21px; line-height: 24px; cursor: pointer; }
 .lettres button:hover { background: #000; color: #fff; }
@@ -169,6 +173,9 @@ button { font-family: inherit; color: inherit; }
 #panneau .ligne { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: #fff; font-size: 22px; padding: 1px 10px; cursor: pointer; text-align: left; }
 #panneau .ligne:hover, #panneau .ligne.focus { background: #000; color: #fff; }
 #panneau .ligne .cb { width: 18px; height: 18px; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; flex: none; }
+#panneau .ligne .fav { flex: none; display: flex; padding: 2px; margin: -2px; }
+#panneau .ligne .fav.non { opacity: .18; }
+#panneau .ligne .fav:hover { opacity: 1; outline: 2px solid currentColor; }
 #panneau .ligne .info { margin-left: auto; color: inherit; opacity: .6; font-size: 19px; }
 #panneau .barre { display: flex; align-items: center; gap: 10px; flex: none; }
 #panneau .lettres button { font-size: 20px; }
@@ -209,7 +216,7 @@ button { font-family: inherit; color: inherit; }
       <div class="deroulant">
         <button data-action="apropos">À propos de la ludothèque…</button>
         <div class="sep"></div>
-        <button data-action="panneau">Panneau de contrôle   F10</button>
+        <button data-action="panneau">Catalogue   F10</button>
       </div>
     </div>
     <div class="menu" data-menu="fichier"><button>Fichier</button>
@@ -232,6 +239,8 @@ button { font-family: inherit; color: inherit; }
         <button data-action="tri:annee"><span class="coche"></span>Trier par année</button>
         <button data-action="tri:genre"><span class="coche"></span>Trier par genre</button>
         <button data-action="tri:joueurs"><span class="coche"></span>Trier par joueurs</button>
+        <div class="sep"></div>
+        <button data-action="favoris"><span class="coche"></span>Favoris seulement   F4</button>
       </div>
     </div>
     <div class="menu" data-menu="options"><button>Options</button>
@@ -260,8 +269,9 @@ button { font-family: inherit; color: inherit; }
       <div class="texte"><span id="titre-fenetre">LUDOTHÈQUE ST — A:\JEUX\</span></div>
       <div class="case"><svg width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="none" stroke="#000" stroke-width="2"/><rect x="1" y="1" width="8" height="8" fill="none" stroke="#000" stroke-width="2"/></svg></div>
     </div>
-    <div id="infos"><span id="info-g"></span><span>◀ ▶ choisir · ⏎ charger · F10 panneau</span></div>
+    <div id="infos"><span id="info-g"></span><span>◀ ▶ choisir · ⏎ charger · F4 favoris · F10 catalogue</span></div>
     <div id="barre">
+      <button id="bt-favoris" data-action="favoris" title="Favoris seulement, ou tout le bac (F4 · manette : LT)"><span class="etoile-ici"></span>Favoris</button>
       <label class="cherche" title="Tapez un nom : la recherche commence d'elle-même"><svg width="18" height="18" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="4" height="1"/><rect x="0" y="1" width="1" height="4"/><rect x="5" y="1" width="1" height="4"/><rect x="1" y="5" width="4" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/></svg><input id="recherche" type="text" placeholder="tapez un nom…" spellcheck="false" autocomplete="off" aria-label="Chercher un jeu"><button class="effacer cache" data-action="chercher-effacer" aria-label="Effacer la recherche" title="Effacer (Échap)">×</button></label>
       <div class="lettres" id="lettres" role="toolbar" aria-label="Aller à la lettre"></div>
     </div>
@@ -323,12 +333,12 @@ button { font-family: inherit; color: inherit; }
     </div></div>
   </div>
 
-  <div id="panneau" class="calque cache" role="dialog" aria-label="Panneau de contrôle">
+  <div id="panneau" class="calque cache" role="dialog" aria-label="Catalogue">
     <div class="boite"><div class="interieur">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <span style="font-size:32px">PANNEAU DE CONTRÔLE</span><span id="pn-compte" style="font-size:22px"></span>
+        <span style="font-size:32px">CATALOGUE</span><span id="pn-compte" style="font-size:22px"></span>
       </div>
-      <div style="font-size:19px;color:#444">⏎ / A : cocher · tapez un nom pour chercher · F10 / Échap : fermer · cochés = dans le bac</div>
+      <div style="font-size:19px;color:#444">⏎ / A : dans le bac · Espace / X : favori · tapez un nom · F10 / Échap : fermer</div>
       <div class="barre">
         <label class="cherche"><svg width="18" height="18" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="4" height="1"/><rect x="0" y="1" width="1" height="4"/><rect x="5" y="1" width="1" height="4"/><rect x="1" y="5" width="4" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/></svg><input id="pn-recherche" type="text" placeholder="tapez un nom…" spellcheck="false" autocomplete="off" aria-label="Chercher un jeu"><button class="effacer cache" data-action="pn-chercher-effacer" aria-label="Effacer la recherche" title="Effacer (Échap)">×</button></label>
         <div class="lettres" id="pn-lettres" role="toolbar" aria-label="Aller à la lettre"></div>
@@ -387,6 +397,7 @@ const etat = {
   phase: 'demarrage',   // demarrage | bureau | insertion | lecture | jeu | web | ejection
   menu: null, menuIndex: -1, dialogue: null, dernierInput: Date.now(),
   recherche: '',        // texte du champ de recherche du bac
+  favoris: true,        // le bac ne montre que les favoris (★ du catalogue F10)
 };
 
 /* ---------- préférences (navigateur du pack) ---------- */
@@ -397,6 +408,7 @@ function lirePrefs() {
     if (typeof p.son === 'boolean') etat.son = p.son;
     if (typeof p.crt === 'boolean') etat.crt = p.crt;
     if (typeof p.veille === 'boolean') etat.veille = p.veille;
+    if (typeof p.favoris === 'boolean') etat.favoris = p.favoris;
     if (p.mhz16 && typeof p.mhz16 === 'object') etat.mhz16 = p.mhz16;
     etat.dernierId = p.dernierId;
   } catch (e) {}
@@ -404,7 +416,7 @@ function lirePrefs() {
 function ecrirePrefs() {
   try {
     const j = etat.liste[etat.sel];
-    localStorage.setItem('ludo-prefs', JSON.stringify({ tri: etat.tri, son: etat.son, crt: etat.crt, veille: etat.veille, mhz16: etat.mhz16, dernierId: j && j.id }));
+    localStorage.setItem('ludo-prefs', JSON.stringify({ tri: etat.tri, son: etat.son, crt: etat.crt, veille: etat.veille, favoris: etat.favoris, mhz16: etat.mhz16, dernierId: j && j.id }));
   } catch (e) {}
 }
 
@@ -501,6 +513,12 @@ function correspond(j, mots) {
   return mots.every(m => t.includes(m));
 }
 const LETTRES = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+// étoile des favoris, dessinée en pixels
+const ETOILE = (() => {
+  const m = ['....#....', '...###...', '#########', '.#######.', '..#####..', '..##.##..', '.##...##.', '.#.....#.'];
+  let r = ''; m.forEach((l, y) => [...l].forEach((c, x) => { if (c === '#') r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; }));
+  return '<svg class="etoile" width="18" height="16" viewBox="0 0 9 8" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true">' + r + '</svg>';
+})();
 function creerLettres(zone, action) {
   LETTRES.forEach(c => { const b = document.createElement('button'); b.textContent = c; b.dataset.action = action + c; b.dataset.lettre = c; b.title = c === '#' ? 'Chiffres et signes' : 'Lettre ' + c; zone.appendChild(b); });
 }
@@ -513,14 +531,16 @@ function construireListe(nouvelleRecherche) {
   const c = etat.cat; if (!c) return;
   const actuel = etat.liste[etat.sel];
   // le bac ne montre que les jeux dont une version est là (images, TOS, Hatari) ;
-  // les autres restent dans le panneau F10, marqués « absent »
+  // les autres restent dans le catalogue F10, marqués « absent »
   const coches = c.jeux.filter(j => j.actif !== false);
   let l = coches.filter(j => j.variantes.some(v => v.dispo));
   etat.absents = coches.length - l.length;
   if (c.vrac_actif) l = l.concat(c.vrac);
   etat.total = l.length;
   const mots = motsRecherche(etat.recherche);
+  // la recherche fouille tout le bac, favoris ou non ; sinon le filtre des favoris
   if (mots.length) l = l.filter(j => correspond(j, mots));
+  else if (etat.favoris) l = l.filter(j => j.favori);
   const t = etat.tri;
   l.sort((a, b) => {
     if (t === 'annee') return (a.annee || 9999) - (b.annee || 9999) || cleTri(a).localeCompare(cleTri(b));
@@ -537,6 +557,11 @@ function construireListe(nouvelleRecherche) {
   const j = l[etat.sel];
   if (!j || !actuel || j.id !== actuel.id) { etat.capture = 0; etat.variante = j ? Math.max(0, j.variantes.findIndex(v => v.dispo)) : 0; }
   construireBac();
+}
+
+function basculerFavoris() {
+  etat.favoris = !etat.favoris;
+  Son.touche(); ecrirePrefs(); majCoches(); construireListe();
 }
 
 function chercher(texte) {
@@ -619,7 +644,7 @@ function placer() {
   const j = etat.liste[sel];
   $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * courseCurseur()) : 0) + 'px';
   $('#fa-compteur').textContent = n ? (sel + 1) + ' / ' + n : '0 / 0';
-  $('#info-g').textContent = (etat.recherche ? n + ' trouvée' + (n > 1 ? 's' : '') + ' sur ' + etat.total : n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '')) + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
+  $('#info-g').textContent = (etat.recherche ? n + ' trouvée' + (n > 1 ? 's' : '') + ' sur ' + etat.total : etat.favoris ? n + ' favori' + (n > 1 ? 's' : '') : n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '')) + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
   majLettres($('#lettres'), etat.lettres || new Set(), j ? lettreDe(j) : '');
   if (!j && etat.recherche) {
     $('#fa-groupe').textContent = 'BAC À DISQUETTES · RECHERCHE';
@@ -627,9 +652,15 @@ function placer() {
     $('#fa-meta').textContent = 'pour « ' + etat.recherche.trim() + ' »';
     $('#fa-vers').textContent = 'Échap : effacer la recherche'; return;
   }
+  if (!j && etat.favoris && etat.total) {
+    $('#fa-groupe').textContent = 'BAC À DISQUETTES · FAVORIS';
+    $('#fa-titre').textContent = 'Aucun favori';
+    $('#fa-meta').textContent = 'F10 : catalogue, cliquez l\'étoile des jeux à garder';
+    $('#fa-vers').textContent = 'F4 : tout le bac'; return;
+  }
   if (!j) {
     $('#fa-titre').textContent = etat.absents ? 'Aucune disquette' : 'Bac vide';
-    $('#fa-meta').textContent = etat.absents ? etat.absents + ' jeux attendent leurs images : voir le README' : 'F10 : panneau de contrôle';
+    $('#fa-meta').textContent = etat.absents ? etat.absents + ' jeux attendent leurs images : voir le README' : 'F10 : catalogue';
     $('#fa-vers').textContent = etat.absents ? 'outils/installer_images.py' : ''; return;
   }
   $('#fa-groupe').textContent = 'BAC À DISQUETTES · ' + j._groupe;
@@ -931,7 +962,7 @@ function ecouter() {
 }
 
 /* =====================================================================
-   MENUS, ALERTES, PANNEAU
+   MENUS, ALERTES, CATALOGUE (F10)
    ===================================================================== */
 function ouvrirMenu(nom) {
   $$('.menu').forEach(m => m.classList.toggle('ouvert', m.dataset.menu === nom));
@@ -945,6 +976,8 @@ function surlignerMenu() { itemsMenu().forEach((b, i) => b.classList.toggle('act
 function majCoches() {
   const c = (a, on) => { const b = document.querySelector(`[data-action="${a}"] .coche`); if (b) b.textContent = on ? '✓' : ''; };
   ['titre', 'annee', 'genre', 'joueurs'].forEach(t => c('tri:' + t, etat.tri === t));
+  c('favoris', etat.favoris);
+  $('#bt-favoris').classList.toggle('actif', etat.favoris);
   c('opt:son', etat.son); c('opt:crt', etat.crt); c('opt:veille', etat.veille);
   const s = (etat.cat && etat.cat.systeme) || {};
   const af = s.affichage || {};
@@ -980,12 +1013,12 @@ function fermerAlerte(i) {
   const r = alerteResolve; alerteResolve = null; if (r) r(i);
 }
 
-/* ---------- panneau de contrôle (F10) ---------- */
-let pn = { coches: {}, vrac: false, focus: 0, lignes: [], recherche: '' };
+/* ---------- catalogue (F10) : cochés = dans le bac, étoile = favoris ---------- */
+let pn = { coches: {}, favoris: {}, vrac: false, focus: 0, lignes: [], recherche: '' };
 function ouvrirPanneau() {
   if (!etat.cat || etat.phase !== 'bureau') return;
   fermerMenu(); Son.cloche();
-  pn.coches = {}; etat.cat.jeux.forEach(j => { pn.coches[j.id] = j.actif !== false; });
+  pn.coches = {}; pn.favoris = {}; etat.cat.jeux.forEach(j => { pn.coches[j.id] = j.actif !== false; pn.favoris[j.id] = !!j.favori; });
   pn.vrac = !!etat.cat.vrac_actif; pn.focus = 0;
   pnChercher('');
   etat.dialogue = 'panneau';
@@ -1010,14 +1043,20 @@ function pnLettre(c) {
 // enHaut : la ligne choisie en haut de la liste (lettre, recherche)
 function dessinerPanneau(enHaut) {
   const L = $('#pn-liste'); L.textContent = ''; pn.lignes = [];
-  const ajouterLigne = (texte, info, coche, basculer, lettre) => {
+  // fav : { on, basculer } pour un jeu du catalogue (étoile cliquable)
+  const ajouterLigne = (texte, info, coche, basculer, lettre, fav) => {
     const b = document.createElement('button'); b.className = 'ligne';
-    b.innerHTML = '<span class="cb"></span><span class="t"></span><span class="info"></span>';
+    b.innerHTML = '<span class="cb"></span>' + (fav ? '<span class="fav"></span>' : '') + '<span class="t"></span><span class="info"></span>';
     b.querySelector('.cb').textContent = coche ? '✕' : '';
     b.querySelector('.t').textContent = texte; b.querySelector('.info').textContent = info || '';
     const idx = pn.lignes.length;
+    if (fav) {
+      const e = b.querySelector('.fav'); e.innerHTML = ETOILE; e.classList.toggle('non', !fav.on);
+      e.title = fav.on ? 'Favori (Espace : retirer)' : 'Ajouter aux favoris (Espace)';
+      e.addEventListener('click', (ev) => { ev.stopPropagation(); pn.focus = idx; fav.basculer(); Son.touche(); dessinerPanneau(); });
+    }
     b.addEventListener('click', () => { pn.focus = idx; basculer(); Son.touche(); dessinerPanneau(); });
-    pn.lignes.push({ el: b, basculer, lettre });
+    pn.lignes.push({ el: b, basculer, lettre, favori: fav && fav.basculer });
     L.appendChild(b);
   };
   const titre = (t) => { const d = document.createElement('div'); d.className = 'groupe'; d.textContent = t; L.appendChild(d); };
@@ -1026,10 +1065,11 @@ function dessinerPanneau(enHaut) {
     titre('Mode vrac');
     ajouterLigne('Afficher toutes les autres disquettes de disques/', (etat.cat.vrac || []).length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
   }
-  titre(q ? 'Recherche « ' + q + ' » : ' + js.length + ' jeu' + (js.length > 1 ? 'x' : '') : 'Catalogue');
+  titre(q ? 'Recherche « ' + q + ' » : ' + js.length + ' jeu' + (js.length > 1 ? 'x' : '') : 'Jeux');
   js.forEach(j => {
     const ok = j.variantes.some(v => v.dispo);
-    ajouterLigne(j.titre, (j.annee || '') + (ok ? '' : ' · absent'), pn.coches[j.id], () => { pn.coches[j.id] = !pn.coches[j.id]; }, lettreDe(j));
+    ajouterLigne(j.titre, (j.annee || '') + (ok ? '' : ' · absent'), pn.coches[j.id], () => { pn.coches[j.id] = !pn.coches[j.id]; }, lettreDe(j),
+      { on: pn.favoris[j.id], basculer: () => { pn.favoris[j.id] = !pn.favoris[j.id]; } });
   });
   if (!js.length) { const d = document.createElement('div'); d.className = 'rien'; d.textContent = q ? 'Aucun jeu. Échap : effacer la recherche.' : 'Catalogue vide.'; L.appendChild(d); }
   pn.focus = Math.max(0, Math.min(pn.lignes.length - 1, pn.focus));
@@ -1038,12 +1078,13 @@ function dessinerPanneau(enHaut) {
   if (f) { if (enHaut) L.scrollTop = pn.focus === 0 ? 0 : f.el.offsetTop - 4; else f.el.scrollIntoView({ block: 'nearest' }); }
   majLettres($('#pn-lettres'), new Set(js.map(lettreDe)), f && f.lettre);
   const n = Object.values(pn.coches).filter(Boolean).length;
-  $('#pn-compte').textContent = n + ' / ' + etat.cat.jeux.length + ' dans le bac';
+  const nf = Object.values(pn.favoris).filter(Boolean).length;
+  $('#pn-compte').textContent = nf + ' favori' + (nf > 1 ? 's' : '') + ' · ' + n + ' / ' + etat.cat.jeux.length + ' dans le bac';
 }
 function fermerPanneau() { $('#panneau').classList.add('cache'); etat.dialogue = null; }
 async function enregistrerPanneau() {
   try {
-    await api('/api/admin', { actifs: pn.coches, vrac: pn.vrac });
+    await api('/api/admin', { actifs: pn.coches, favoris: pn.favoris, vrac: pn.vrac });
     fermerPanneau(); Son.touche();
     await chargerCatalogue();
   } catch (e) { alerte('Enregistrement impossible.\n\n' + e.message, ['OK']); }
@@ -1152,6 +1193,7 @@ async function action(a) {
       break;
     }
     case 'panneau': ouvrirPanneau(); break;
+    case 'favoris': if (etat.phase === 'bureau') basculerFavoris(); break;
     case 'demos': lancerDemos(); break;
     case 'menage': menage(); break;
     case 'quitter': if (await alerte('Quitter la ludothèque ?', ['Annuler', 'Quitter'], '?') === 1) api('/api/systeme', { action: 'quitter' }).catch(() => {}); break;
@@ -1233,7 +1275,8 @@ function intention(t) {
     else if (t === 'bas') { pn.focus++; dessinerPanneau(); }
     else if (t === 'pgprec') { pn.focus -= 10; dessinerPanneau(); }
     else if (t === 'pgsuiv') { pn.focus += 10; dessinerPanneau(); }
-    else if (t === 'ok' || t === 'x') { const l = pn.lignes[pn.focus]; if (l) { l.basculer(); Son.touche(); dessinerPanneau(); } }
+    else if (t === 'ok') { const l = pn.lignes[pn.focus]; if (l) { l.basculer(); Son.touche(); dessinerPanneau(); } }
+    else if (t === 'x') { const l = pn.lignes[pn.focus]; if (l && l.favori) { l.favori(); Son.touche(); dessinerPanneau(); } }
     else if (t === 'menu' || t === 'admin') enregistrerPanneau();
     else if (t === 'retour') { if (pn.recherche) { Son.touche(); pnChercher(''); } else fermerPanneau(); }
     return;
@@ -1264,14 +1307,15 @@ function intention(t) {
     case 'suppr': retirerCapture(); break;
     case 'menu': ouvrirMenu('fichier'); etat.menuIndex = 0; surlignerMenu(); break;
     case 'admin': ouvrirPanneau(); break;
+    case 'favoris': basculerFavoris(); break;
     case 'demos': lancerDemos(); break;
     case 'retour': if (etat.recherche) { Son.touche(); chercher(''); } else action('annuler'); break;
   }
 }
 
 const TOUCHES = { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas', Enter: 'ok', ' ': 'x', Escape: 'retour',
-  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
-// champ de recherche du moment : celui du panneau F10, ou celui du bac
+  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F4: 'favoris', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
+// champ de recherche du moment : celui du catalogue F10, ou celui du bac
 function champRecherche() {
   if (etat.dialogue === 'panneau') return $('#pn-recherche');
   if (etat.phase === 'bureau' && !etat.dialogue && !etat.menu) return $('#recherche');
@@ -1295,11 +1339,12 @@ document.addEventListener('keydown', (e) => {
 $('#recherche').addEventListener('input', (e) => { if (etat.phase !== 'bureau') return; Son.touche(); chercher(e.target.value); });
 $('#pn-recherche').addEventListener('input', (e) => { Son.touche(); pnChercher(e.target.value); });
 creerLettres($('#lettres'), 'lettre:');
+$('#bt-favoris .etoile-ici').outerHTML = ETOILE;
 creerLettres($('#pn-lettres'), 'pn-lettre:');
 
 /* Manette (API Gamepad, disposition standard) */
 const pad = { avant: {}, repete: {} };
-const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 8: 'mhz', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
+const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 6: 'favoris', 8: 'mhz', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
 function lireManettes(t) {
   const ps = navigator.getGamepads ? navigator.getGamepads() : [];
   const actifs = {};
@@ -1419,7 +1464,7 @@ function dessinerVeille(t) {
     c.font = '34px VT323'; c.textAlign = 'center'; c.fillText('PLACE AUX DÉMOS : les chefs-d\'œuvre de la scène Atari ST', 640, 42);
     c.font = '26px VT323'; c.fillStyle = '#9cff9c'; c.fillText('Bougez la souris ou appuyez sur une touche pour rester dans la ludothèque', 640, 110);
   }
-  const msg = '     LUDOTHÈQUE ST  ***  ' + l.length + ' DISQUETTES DANS LE BAC  ***  APPUYEZ SUR UNE TOUCHE POUR REVENIR  ***  ÉCHAP MAINTENU OU SELECT + START POUR QUITTER UN JEU  ***  F10 : PANNEAU DE CONTRÔLE  ***  ';
+  const msg = '     LUDOTHÈQUE ST  ***  ' + l.length + ' DISQUETTES DANS LE BAC  ***  APPUYEZ SUR UNE TOUCHE POUR REVENIR  ***  ÉCHAP MAINTENU OU SELECT + START POUR QUITTER UN JEU  ***  F4 : FAVORIS OU TOUT LE BAC  ***  F10 : CATALOGUE  ***  ';
   c.font = '48px VT323'; c.textAlign = 'left';
   const w = 26, dec = (dt * 220) % (msg.length * w);
   for (let i = 0; i < msg.length; i++) {
@@ -1446,6 +1491,7 @@ function boucle(t) {
 /* ---------- c'est parti ---------- */
 lirePrefs();
 $('#crt').classList.toggle('cache', !etat.crt);
+$('#bt-favoris').classList.toggle('actif', etat.favoris);
 ajuster(); horloge(); setInterval(horloge, 10000);
 chargerCatalogue();
 ecouter();

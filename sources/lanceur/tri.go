@@ -27,6 +27,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 )
 
 // imageTosec : une image (zip ou disquette) de la collection, d'après son nom.
@@ -411,11 +412,35 @@ func contientImage(l []*imageTosec, e *imageTosec) bool {
 }
 
 // imageLisible : un zip contient bien une image .st/.msa/.stx non vide.
+// Réponse gardée tant que le zip ne change pas : le vrac retrie à chaque /api/catalogue.
 func imageLisible(p string) bool {
-	if !strings.EqualFold(filepath.Ext(p), ".zip") {
-		i, err := os.Stat(p)
-		return err == nil && i.Size() > 0
+	i, err := os.Stat(p)
+	if err != nil || i.Size() == 0 {
+		return false
 	}
+	if !strings.EqualFold(filepath.Ext(p), ".zip") {
+		return true
+	}
+	cle := fmt.Sprintf("%s|%d|%d", p, i.Size(), i.ModTime().UnixNano())
+	muLisibles.Lock()
+	ok, vu := lisibles[cle]
+	muLisibles.Unlock()
+	if vu {
+		return ok
+	}
+	ok = zipAvecImage(p)
+	muLisibles.Lock()
+	lisibles[cle] = ok
+	muLisibles.Unlock()
+	return ok
+}
+
+var (
+	muLisibles sync.Mutex
+	lisibles   = map[string]bool{}
+)
+
+func zipAvecImage(p string) bool {
 	z, err := zip.OpenReader(p)
 	if err != nil {
 		return false

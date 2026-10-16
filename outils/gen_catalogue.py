@@ -5,8 +5,8 @@ Chaque ligne : id, titre, éditeur, année, genre, joueurs, [disques...], option
 Les couleurs des disquettes et des étiquettes sont tirées de l'id (stables).
 
   python gen_catalogue.py [catalogue.json] [--garder]
---garder : reprend les cases cochées (F10) et le mode vrac de l'ancien catalogue
-pour les jeux qui y étaient déjà (sinon : ACTIFS ci-dessous).
+--garder : reprend les cases cochées (F10), les favoris et le mode vrac de l'ancien
+catalogue pour les jeux qui y étaient déjà (sinon : ACTIFS et FAVORIS ci-dessous).
 
 Les images « tosec/… » viennent de la collection TOSEC 2012 (disques/tosec/).
 """
@@ -208,6 +208,22 @@ J = [
  ('switchblade', 'Switchblade', 'Gremlin', 1989, 'Plates-formes', 1, ['tosec/Switchblade (1989)(Core Design)[cr MCA].st'], {}),
  ('final-fight', 'Final Fight', 'U.S. Gold', 1991, 'Combat', 2, ['tosec/Final Fight (1991)(Capcom)(Disk 1 of 2)[cr Elite][t].st', 'tosec/Final Fight (1991)(Capcom)(Disk 2 of 2)[cr Elite][t].st'], {}),
  ('shinobi', 'Shinobi', 'Virgin', 1989, 'Action', 1, ['tosec/Shinobi (1989)(Sales Curve)[cr Rebels][t].st'], {}),
+ # jeux cultes ajoutés le 16/10/2026
+ ('starglider', 'Starglider', 'Rainbird', 1986, 'Shoot them up', 1, ['tosec/Starglider (1987)(Rainbird).st'], {'auteur': 'Jez San'}),
+ ('sentinel', 'The Sentinel', 'Firebird', 1987, 'Réflexion', 1, ['tosec/Sentinel, The (1987)(Rainbird)[cr BOSS].st'], {'auteur': 'Geoff Crammond'}),
+ ('elite', 'Elite', 'Firebird', 1988, 'Simulation', 1, ['tosec/Elite (1988)(Firebird)[cr].st'], {'auteur': 'David Braben et Ian Bell'}),
+ ('head-over-heels', 'Head Over Heels', 'Ocean', 1987, 'Plates-formes', 1, ['tosec/Head Over Heels (1987)(Ocean).st'], {'auteur': 'Jon Ritman'}),
+ ('zool', 'Zool', 'Gremlin', 1993, 'Plates-formes', 1, ['tosec/Zool (1993)(Gremlin)[t].st'], {}),
+ ('super-off-road', 'Super Off Road', 'Virgin', 1990, 'Course', 2, ["tosec/Ironman Ivan Steward's Super Off Road (1990)(Virgin)[cr Empire].st"], {}),
+ ('lotus-turbo-2', 'Lotus Turbo Challenge 2', 'Gremlin', 1991, 'Course', 2, ['tosec/Lotus Turbo Challenge II (1991)(Gremlin)[cr Cynix].st'], {'auteur': 'Magnetic Fields'}),
+ ('operation-wolf', 'Operation Wolf', 'Ocean', 1988, 'Action', 1, ['tosec/Operation Wolf (1988)(Ocean)(Disk 1 of 2)[cr 42-Crew][t].st', 'tosec/Operation Wolf (1988)(Ocean)(Disk 2 of 2)[cr 42-Crew][t].st'], {}),
+ ('rocket-ranger', 'Rocket Ranger', 'Cinemaware', 1988, 'Action', 1, ['tosec/Rocket Ranger (1989)(Cinemaware)[cr 16-bit Crew].st'], {}),
+ ('batman-movie', 'Batman : The Movie', 'Ocean', 1989, 'Action', 1, ['tosec/Batman - The Movie (1989)(Ocean)[cr Replicants].st'], {}),
+ ('larry', 'Leisure Suit Larry', 'Sierra', 1987, 'Aventure', 1, ['tosec/Leisure Suit Larry in the Land of the Lounge Lizards (1987)(Sierra)[cr 42-Crew].st'], {'auteur': 'Al Lowe'}),
+ ('gobliins-2', 'Gobliins 2', 'Coktel Vision', 1992, 'Aventure', 1, ['tosec/Gobliiins II v1.02 (1992)(Coktel Vision)(Disk 1 of 3)[cr ICS].st', 'tosec/Gobliiins II v1.02 (1992)(Coktel Vision)(Disk 2 of 3)[cr ICS].st', 'tosec/Gobliiins II v1.02 (1992)(Coktel Vision)(Disk 3 of 3)[cr ICS].st'], {}),
+ ('ishar-2', 'Ishar 2', 'Silmarils', 1993, 'Jeu de rôle', 1, ['tosec/Ishar II - Messengers of Doom (1993)(Silmarils)(Disk 1 of 3)[cr Elite].st', 'tosec/Ishar II - Messengers of Doom (1993)(Silmarils)(Disk 2 of 3)[cr Elite].st', 'tosec/Ishar II - Messengers of Doom (1993)(Silmarils)(Disk 3 of 3)[cr Elite].st'], {}),
+ ('great-courts', 'Pro Tennis Tour', 'Ubi Soft', 1989, 'Sport', 2, ['tosec/Great Courts (1989)(UBI Soft).st'], {}),
+ ('time-bandit', 'Time Bandit', 'MichTron', 1985, 'Action', 2, ['tosec/Time Bandit v2.1 (1985)(MichTron).st'], {}),
 ]
 
 # réglages machine des jeux TOSEC (testés) : STF + TOS 1.04 pour les plus anciens
@@ -218,6 +234,8 @@ REGLAGES = {
  'f29-retaliator': {'options': ['--memsize', '1024', '--fastfdc', 'no']},
  'dragonflight': {'options': ['--memsize', '1024']}, 'civilization': {'options': ['--memsize', '1024']},
  'bolo': _ST, 'captain-blood': _ST,
+ 'starglider': _ST, 'sentinel': _ST, 'head-over-heels': _ST, 'time-bandit': _ST,
+ 'ishar-2': {'options': ['--memsize', '1024']}, 'gobliins-2': {'options': ['--memsize', '1024']},
 }
 for _j in J:
     _j[7].update(REGLAGES.get(_j[0], {}))
@@ -238,7 +256,9 @@ AUTO = {'monkey-island': r'A:\MONKEY.PRG', 'mortevielle': r'A:\MORT.PRG', 'their
         'railroad-tycoon': r'A:\GAME.PRG', 'maniac-mansion': r'A:\MANIAC.PRG', 'indy-croisade': r'A:\INDY.PRG',
         'passagers-du-vent': r'A:\VENT1.PRG', 'bat': r'A:\BAT.PRG', 'iron-lord': r'A:\IRONLORD.PRG',
         'speedball-2': r'A:\SPEED\BALL.PRG', 'silent-service-2': r'A:\SSII.PRG', 'carmen-sandiego': r'A:\CARMEN.PRG',
-        'new-zealand-story': r'A:\NEWZEAL.TOS', 'loom': r'A:\LOOM.TOS'}
+        'new-zealand-story': r'A:\NEWZEAL.TOS', 'loom': r'A:\LOOM.TOS',
+        'super-off-road': r'A:\SOR.PRG', 'rocket-ranger': r'A:\ROCKET.PRG', 'batman-movie': r'A:\BATMAN.TOS',
+        'larry': r'A:\SIERRA.PRG'}
 
 # menus de compil : touche du pavé numérique (ou « c » + chiffre de la rangée du haut)
 TOUCHES = {'xenon': '5', 'barbarian': '3', 'speedball': '2', 'populous': '1', 'dungeon-master': '1',
@@ -262,7 +282,7 @@ SEQ = {'pang': ['N', 'espace'], 'toki': ['espace', 'N'], 'turrican': ['N'], 'dra
        'mega-lo-mania': ['espace', 'N'], 'chaos-engine': ['espace'], 'cannon-fodder': ['espace'],
        'kick-off-2': ['espace'], 'llamatron': [], 'speedball-2': ['N', 'espace'], 'tortues-ninja': ['espace', 'N'],
        'wings-of-death': ['espace', 'N'], 'blues-brothers': ['espace', 'N'], 'final-fight': ['espace', 'N'],
-       'vroom': ['espace', 'N'],
+       'vroom': ['espace', 'N'], 'zool': ['espace', 'N'], 'operation-wolf': ['espace', 'N'],
        # jeux Lucasfilm (SCUMM) : Espace met le jeu en pause, rien à presser
        'indy-croisade': []}
 # intros de crack qui arrivent tard : touches pressées plus longtemps (secondes)
@@ -271,7 +291,7 @@ DUREE = {'lemmings': 15, 'another-world': 15, 'llamatron': 15, 'rick-dangerous-2
          'gods': 12, 'rainbow-islands': 30, 'speedball-2': 12, 'tortues-ninja': 12, 'wings-of-death': 12, 'zak-mckracken': 15,
          'monkey-island': 25, 'loom': 12, 'mega-lo-mania': 15, 'chaos-engine': 15, 'cannon-fodder': 15,
          'robocop': 10, 'midwinter': 15, 'kick-off-2': 15,
-         'castle-master': 25, 'barbarian-2': 15}
+         'castle-master': 25, 'barbarian-2': 15, 'zool': 15, 'operation-wolf': 15}
 # secondes à attendre avant de presser les touches (l'écran qui les attend arrive tard)
 DELAI = {'monkey-island': 40, 'barbarian-2': 8, 'zak-mckracken': 3, 'chaos-engine': 18, 'cannon-fodder': 18, 'midwinter': 15,
          'kick-off-2': 8}
@@ -289,7 +309,8 @@ SOURIS = {'shufflepuck-cafe', 'populous', 'mortevielle', 'dungeon-master', 'capt
           'sim-city', 'civilization', 'railroad-tycoon', 'populous-2', 'powermonger', 'lemmings-2',
           'battle-chess', 'bloodwych', 'chaos-strikes-back', 'captive', 'ishar', 'drakkhen', 'dragonflight',
           'maniac-mansion', 'indy-croisade', 'operation-stealth', 'cruise-for-a-corpse', 'gobliiins',
-          'passagers-du-vent', 'kult', 'bat', 'maupiti-island', 'falcon', 'crafton-xunk'}
+          'passagers-du-vent', 'kult', 'bat', 'maupiti-island', 'falcon', 'crafton-xunk',
+          'starglider', 'sentinel', 'gobliins-2', 'ishar-2'}
 
 # rappel des commandes du jeu, affiché sur la fiche
 AIDE = {
@@ -340,6 +361,13 @@ AIDE = {
  'carrier-command': 'Souris : tout se commande depuis le pont du porte-avions',
  'llamatron': 'Tir : passer l\'écran shareware · 2 joueurs : manette 2',
  'monkey-island': 'Question du pirate : n\'importe quel nombre puis Entrée (version crackée)',
+ 'starglider': 'Souris : piloter et viser · bouton gauche : tirer',
+ 'sentinel': 'Souris : viser · A : absorber · R : robot · B : rocher · T : arbre · Q : transfert · H : hyperespace',
+ 'larry': 'Alt+X : passer le quiz d\'âge · ordres en anglais au clavier · Échap : menus',
+ 'operation-wolf': 'Tir : mitrailleuse · Espace : grenade',
+ 'lotus-turbo-2': 'Tir : accélérer · Bas : freiner · jusqu\'à 2 joueurs en écran partagé',
+ 'super-off-road': 'Tir : accélérer · jusqu\'à 2 joueurs',
+ 'time-bandit': 'Tir : tirer · jusqu\'à 2 joueurs',
 }
 
 # Processeur 16 MHz (case de la fiche, F6) : conseillé pour les jeux limités par le
@@ -349,7 +377,7 @@ MHZ16_CONSEILLE = {'stunt-car-racer', 'starglider-2', 'carrier-command', 'damocl
                    'f29-retaliator', 'falcon', 'gunship', 'hard-drivin', 'f1-grand-prix', 'indy-500', 'powerdrome',
                    'virus', 'frontier', 'castle-master', 'midwinter', 'their-finest-hour', 'silent-service-2',
                    'another-world', 'archipelagos', 'drakkhen', 'powermonger', 'sim-city', 'civilization',
-                   'railroad-tycoon', 'battle-chess'}
+                   'railroad-tycoon', 'battle-chess', 'starglider', 'sentinel', 'elite'}
 
 ACTIFS_INITIAUX = {'stunt-car-racer', 'shufflepuck-cafe', 'lemmings', 'prince-of-persia', 'lotus-turbo', 'speedball-2',
           'populous', 'rick-dangerous', 'ik-plus', 'barbarian', 'mortevielle', 'hostage', 'mouse-trap',
@@ -359,11 +387,15 @@ ACTIFS_INITIAUX = {'stunt-car-racer', 'shufflepuck-cafe', 'lemmings', 'prince-of
 INACTIFS = set()
 ACTIFS = {j[0] for j in J} - INACTIFS
 
+# Favoris (★ du catalogue F10) : le bac ne montre qu'eux tant que le filtre est mis
+FAVORIS = {'stunt-car-racer', 'shufflepuck-cafe', 'lemmings', 'lotus-turbo', 'vroom', 'speedball-2',
+           'populous', 'rick-dangerous', 'ik-plus', 'barbarian', 'mortevielle', 'sim-city'}
+
 # Jeux à plusieurs disquettes au format maison (pas de fichiers TOS) ou en .stx : le
 # changement automatique de notre Hatari (il cherche dans chaque disquette le fichier
 # que le jeu ouvre) ne les voit pas, on change à la main.
 FORMAT_MAISON = {'wings-of-death', 'mega-lo-mania', 'cannon-fodder', 'super-ski-2', 'gods',
-                 'lethal-xcess', 'falcon', 'chaos-strikes-back', 'captive', 'drakkhen'}
+                 'lethal-xcess', 'falcon', 'chaos-strikes-back', 'captive', 'drakkhen', 'operation-wolf'}
 
 
 def h(s, n):
@@ -416,6 +448,8 @@ for (i, t, e, a, g, p, d, x) in J:
             if t.startswith('c'):
                 j['touche_type'] = 'chiffre'
     j['actif'] = i in ACTIFS
+    if i in FAVORIS:
+        j['favori'] = True
     if i in MHZ16_CONSEILLE:
         j['mhz16'] = 'conseille'
     if 'note' in x:
@@ -439,9 +473,12 @@ cat = {
 if '--garder' in sys.argv and os.path.exists(sortie):
     ancien = json.load(open(sortie, encoding='utf-8'))
     coches = {a['id']: a.get('actif', True) for a in ancien.get('jeux', [])}
+    favoris = {a['id']: a['favori'] for a in ancien.get('jeux', []) if 'favori' in a}
     for j in jeux:
         if j['id'] in coches:
             j['actif'] = coches[j['id']]
+        if j['id'] in favoris:
+            j['favori'] = favoris[j['id']]
     cat['vrac'] = ancien.get('vrac', False)
 json.dump(cat, open(sortie, 'w', encoding='utf-8', newline='\n'), ensure_ascii=False, indent=1)
-print(len(jeux), 'jeux,', sum(1 for j in jeux if j['actif']), 'dans le bac')
+print(len(jeux), 'jeux,', sum(1 for j in jeux if j['actif']), 'dans le bac,', sum(1 for j in jeux if j.get('favori')), 'favoris')
