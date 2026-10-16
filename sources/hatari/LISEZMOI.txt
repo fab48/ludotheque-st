@@ -34,5 +34,6 @@ zlib ni PNG, comme la version d'origine :
     -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static"
   ninja src/hatari.exe && strip src/hatari.exe
 hatari.exe ne dépend que de SDL2.dll (livrée à côté).
-Linux : compilé sur Ubuntu 22.04 (glibc 2.35), livré avec sa libSDL2. La version
-Linux du pack n'a pas encore ludotheque-disques.patch (à recompiler).
+Linux : compilé sur Ubuntu 22.04 (glibc 2.35), livré avec sa libSDL2, avec les
+4 patchs. Recette exacte : .github/workflows/hatari-linux.yml (GitHub Actions,
+lancé à la main ; l'artefact « hatari-linux » contient hatari et libSDL2).

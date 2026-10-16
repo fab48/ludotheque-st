@@ -158,7 +158,9 @@ Variables d'environnement posées par le lanceur :
 Recompiler : sources officielles https://github.com/hatari/hatari tag v2.6.1, appliquer les
 patchs, CMake (recette exacte dans sources/hatari/LISEZMOI.txt). Windows : MSYS2 mingw64 (gcc,
 cmake, ninja installés le 16/10) + SDL 2.30.9 officielle, sans zlib ni PNG. Linux : compiler sur
-Ubuntu 22.04 (glibc 2.35) pour tourner sur Mint/Manjaro, livrer libSDL2-2.0.so.0 à côté.
+Ubuntu 22.04 (glibc 2.35) pour tourner sur Mint/Manjaro, livrer libSDL2-2.0.so.0 à côté : sans
+machine Ubuntu, lancer le workflow « Hatari Linux » du dépôt (onglet Actions, `gh workflow run
+hatari-linux.yml`) et récupérer l'artefact (`gh run download <id> -n hatari-linux`).
 
 ## Collection TOSEC
 
@@ -275,8 +277,8 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   Retour d'Axel (v1.0 bloquée sur « piste 79 » sur C:, OK sur D:) : cause exacte inconnue.
 - 16/10/2026 : changement automatique de disquette (patch ludotheque-disques, disquettes.go),
   Hatari Windows recompilé ; 23 jeux concernés, note de fiche « Disquettes changées
-  automatiquement ». **À faire : recompiler Hatari Linux** avec ce patch (sans lui, la version
-  Linux ignore HATARI_LUDO_DISQUES). Formats maison (10 jeux) : encore F12, piste possible =
+  automatiquement ». Hatari Linux recompilé avec ce patch le même jour (GitHub Actions,
+  `.github/workflows/hatari-linux.yml`, pas testé sur un vrai Linux). Formats maison (10 jeux) : encore F12, piste possible =
   rotation quand le jeu relit en boucle les mêmes secteurs (fdc.c). valide_windows.py : captures
   rétablies (le débogueur coupait les chemins à l'espace de « Hatari Loader »).
 - 16/10/2026 : recherche dans le bac et le panneau F10 (ui/index.html, barre sous #infos) : taper
