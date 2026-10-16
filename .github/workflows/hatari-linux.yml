@@ -1,0 +1,54 @@
+# Compile notre Hatari 2.6.1 pour Linux (sources/hatari/*.patch) sur Ubuntu 22.04 :
+# glibc 2.35, pour tourner sur Mint et Manjaro. Lancer à la main (onglet Actions),
+# puis déposer hatari et libSDL2-2.0.so.0 de l'artefact dans emulateurs/hatari-linux/.
+name: Hatari Linux
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compiler:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dépendances
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libsdl2-dev zlib1g-dev \
+            libpng-dev libreadline-dev libx11-dev libudev-dev
+
+      - name: Sources Hatari 2.6.1 et nos patchs
+        run: |
+          git clone --depth 1 --branch v2.6.1 https://github.com/hatari/hatari.git hatari
+          cd hatari/src
+          for p in ../../sources/hatari/*.patch; do
+            echo "== $p"
+            patch -p0 --forward --batch -i "$p"
+          done
+
+      - name: Compilation
+        run: |
+          cmake -S hatari -B construction -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON \
+            -DCMAKE_DISABLE_FIND_PACKAGE_PortMidi=ON -DCMAKE_DISABLE_FIND_PACKAGE_CapsImage=ON \
+            -DCMAKE_DISABLE_FIND_PACKAGE_Capstone=ON
+          cmake --build construction --target hatari -j "$(nproc)"
+          mkdir livraison
+          cp construction/src/hatari livraison/
+          strip livraison/hatari
+          cp -L /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 livraison/
+
+      - name: Vérifications
+        run: |
+          cd livraison
+          ldd hatari
+          objdump -T hatari | grep -o 'GLIBC_[0-9.]*' | sort -uV | tail -1
+          for v in HATARI_LUDO_DISQUES HATARI_LUDO_TURBO HATARI_LUDO_FILTRE; do
+            grep -q "$v" hatari || { echo "$v absent : patch non appliqué"; exit 1; }
+          done
+          SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy LD_LIBRARY_PATH=. ./hatari --version
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hatari-linux
+          path: livraison/
