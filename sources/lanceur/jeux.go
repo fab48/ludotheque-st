@@ -122,7 +122,7 @@ var reCompil = regexp.MustCompile(`(?i)^a_(\d+)(?:(?:_[0-9a-z])*_(.+))?$`)
 
 // jeux pour adultes de la collection TOSEC : gardés, mais l'interface ne les montre
 // qu'après le Konami code (↑ ↑ ↓ ↓ ← → ← → B A)
-var reAdulte = regexp.MustCompile(`(?i)\bstrip\b|\bsex|\blust\b|\bporn|\berot|playboy|centerfold|emmanuelle|teenage queen|blue angel 69|bride of the robot|^fascination$`)
+var reAdulte = regexp.MustCompile(`(?i)\bstrip\b|\bsex|fuck|\blust\b|\bporn|\berot|playboy|centerfold|emmanuelle|teenage queen|blue angel 69|bride of the robot|^fascination$`)
 var reEditeurAdulte = regexp.MustCompile(`(?i)free spirit|sexy technologies`)
 
 func estAdulte(titre, editeur string) bool {
