@@ -398,6 +398,7 @@ const etat = {
   menu: null, menuIndex: -1, dialogue: null, dernierInput: Date.now(),
   recherche: '',        // texte du champ de recherche du bac
   favoris: true,        // le bac ne montre que les favoris (★ du catalogue F10)
+  coquin: false,        // Konami code tapé : jeux pour adultes dans le bac (jusqu'à la veille)
 };
 
 /* ---------- préférences (navigateur du pack) ---------- */
@@ -536,11 +537,12 @@ function construireListe(nouvelleRecherche) {
   let l = coches.filter(j => j.variantes.some(v => v.dispo));
   etat.absents = coches.length - l.length;
   if (c.vrac_actif) l = l.concat(c.vrac);
+  if (!etat.coquin) l = l.filter(j => !j.adulte);
   etat.total = l.length;
   const mots = motsRecherche(etat.recherche);
   // la recherche fouille tout le bac, favoris ou non ; sinon le filtre des favoris
   if (mots.length) l = l.filter(j => correspond(j, mots));
-  else if (etat.favoris) l = l.filter(j => j.favori);
+  else if (etat.favoris) l = l.filter(j => j.favori || (etat.coquin && j.adulte));   // Konami : coquines montrées aussi
   const t = etat.tri;
   l.sort((a, b) => {
     if (t === 'annee') return (a.annee || 9999) - (b.annee || 9999) || cleTri(a).localeCompare(cleTri(b));
@@ -563,6 +565,9 @@ function basculerFavoris() {
   etat.favoris = !etat.favoris;
   Son.touche(); ecrirePrefs(); majCoches(); construireListe();
 }
+
+// disquettes du vrac montrées (les jeux pour adultes restent cachés sans le Konami code)
+function vracMontre() { return (etat.cat.vrac || []).filter(j => etat.coquin || !j.adulte); }
 
 function chercher(texte) {
   etat.recherche = texte;
@@ -1027,7 +1032,7 @@ function ouvrirPanneau() {
 // jeux du catalogue montrés (recherche), par titre
 function jeuxPanneau() {
   const mots = motsRecherche(pn.recherche);
-  return etat.cat.jeux.filter(j => correspond(j, mots)).sort((a, b) => cleTri(a).localeCompare(cleTri(b)));
+  return etat.cat.jeux.filter(j => (etat.coquin || !j.adulte) && correspond(j, mots)).sort((a, b) => cleTri(a).localeCompare(cleTri(b)));
 }
 function pnChercher(texte) {
   pn.recherche = texte; pn.focus = 0;
@@ -1063,7 +1068,7 @@ function dessinerPanneau(enHaut) {
   const q = pn.recherche.trim(), js = jeuxPanneau();
   if (!q) {
     titre('Mode vrac');
-    ajouterLigne('Afficher toutes les autres disquettes de disques/', (etat.cat.vrac || []).length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
+    ajouterLigne('Afficher toutes les autres disquettes de disques/', vracMontre().length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
   }
   titre(q ? 'Recherche « ' + q + ' » : ' + js.length + ' jeu' + (js.length > 1 ? 'x' : '') : 'Jeux');
   js.forEach(j => {
@@ -1189,7 +1194,7 @@ async function action(a) {
     case 'apropos': {
       const s = (etat.cat && etat.cat.systeme) || {};
       Son.cloche();
-      alerte('LUDOTHÈQUE ST  v' + (s.version || '?') + '\n\nHatari : ' + (s.hatari ? s.hatari.split(/[\\/]/).slice(-3).join('/') : 'introuvable') + (s.hatari2 ? '  (2.x)' : '  (1.x)') + '\n' + (etat.cat ? etat.cat.jeux.length : 0) + ' jeux au catalogue, ' + ((etat.cat && etat.cat.vrac) || []).length + ' en vrac.\n\nFab, 2026.', ['OK']);
+      alerte('LUDOTHÈQUE ST  v' + (s.version || '?') + '\n\nHatari : ' + (s.hatari ? s.hatari.split(/[\\/]/).slice(-3).join('/') : 'introuvable') + (s.hatari2 ? '  (2.x)' : '  (1.x)') + '\n' + (etat.cat ? etat.cat.jeux.length : 0) + ' jeux au catalogue, ' + (etat.cat ? vracMontre().length : 0) + ' en vrac.\n\nFab, 2026.', ['OK']);
       break;
     }
     case 'panneau': ouvrirPanneau(); break;
@@ -1322,8 +1327,37 @@ function champRecherche() {
   return null;
 }
 const caractere = (e) => e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey;
+
+/* Konami code au clavier (↑ ↑ ↓ ↓ ← → ← → B A) : montre ou recache les jeux pour adultes */
+const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konami = 0, konamiRecherche = '';
+// vrai quand le code est complet (la touche A est alors avalée)
+function suivreKonami(e) {
+  if (e.repeat || ['Shift', 'CapsLock'].includes(e.key)) return false;
+  if (etat.phase !== 'bureau' || etat.dialogue || etat.menu) { konami = 0; return false; }
+  const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  if (k === KONAMI[konami]) {
+    if (konami === 8) konamiRecherche = etat.recherche;   // le B va s'écrire dans la recherche : on l'effacera
+    if (++konami < KONAMI.length) return false;
+    konami = 0; return true;
+  }
+  konami = k !== 'ArrowUp' ? 0 : konami === 2 ? 2 : 1;   // ↑ ↑ ↑ ↓… compte encore
+  return false;
+}
+function basculerCoquin() {
+  etat.coquin = !etat.coquin;
+  chercher(konamiRecherche);
+  const n = etat.liste.filter(j => j.adulte).length;
+  if (etat.coquin && n) choisir(etat.liste.findIndex(j => j.adulte));
+  Son.cloche();
+  if (!etat.coquin) alerte('Disquettes coquines rangées\nsous le bureau.', ['OK']);
+  else if (n) alerte('DISQUETTES COQUINES\n\n' + n + ' jeu' + (n > 1 ? 'x' : '') + ' pour adultes dans le bac.\nLe même code les recache ;\nla veille aussi.', ['OK'], '♥');
+  else alerte('Aucune disquette coquine dans le bac.' + (etat.cat.vrac_actif ? '' : '\n\nElles sont en vrac : activez\nle mode vrac (F10).'), ['OK']);
+}
+
 document.addEventListener('keydown', (e) => {
   if (etat.phase === 'web') return;
+  if (suivreKonami(e)) { e.preventDefault(); basculerCoquin(); return; }
   const c = champRecherche();
   // dans le champ de recherche : il garde les caractères et l'édition ; flèches, ⏎, Échap restent au bac
   if (c && e.target === c && (caractere(e) || ['Backspace', 'Delete', 'Home', 'End'].includes(e.key))) return;
@@ -1407,6 +1441,7 @@ function demarrage() {
 let veille = { t0: 0, etoiles: [] };
 function entrerVeille() {
   if (etat.recherche) chercher('');   // le visiteur suivant retrouve tout le bac
+  if (etat.coquin) { etat.coquin = false; construireListe(); }   // et sans les disquettes coquines
   $('#recherche').blur();
   etat.phase = 'veille'; veille.t0 = performance.now(); veille.demos = false;
   if (etat.demos && etat.demos.disponibles > 0) {
