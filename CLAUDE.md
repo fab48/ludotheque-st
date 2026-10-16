@@ -285,3 +285,8 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   un nom filtre aussitôt (tous les mots, dans titre/éditeur/année/genre, sans accents), Échap
   efface ; boutons # A…Z pour sauter à une lettre. Les lettres tapées ne sautent plus à la
   lettre (elles cherchent). Tout/Rien du panneau = les jeux montrés. La veille vide la recherche.
+- 16/10/2026 : jeux pour adultes du vrac cachés. `estAdulte` (jeux.go : titres « strip », « sex »,
+  Emmanuelle, Teenage Queen, Blue Angel 69…, éditeurs Free Spirit et Sexy Technologies) pose
+  `adulte` ; un jeu du catalogue peut aussi porter `"adulte": true`. L'interface ne les montre
+  qu'après le Konami code tapé au clavier sur le bureau (↑ ↑ ↓ ↓ ← → ← → B A, `suivreKonami`) ;
+  le même code les recache, la veille aussi. 13 titres de TOSEC concernés.

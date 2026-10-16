@@ -67,6 +67,7 @@ type Jeu struct {
 	Variantes   []Variante        `json:"variantes"`
 	Captures    []string          `json:"captures,omitempty"` // calculé
 	Vrac        bool              `json:"vrac,omitempty"`     // calculé
+	Adulte      bool              `json:"adulte,omitempty"`   // caché du bac sauf Konami code (vrac : calculé, estAdulte)
 }
 
 type Catalogue struct {
@@ -118,6 +119,16 @@ var extImages = map[string]bool{".st": true, ".msa": true, ".stx": true, ".dim":
 var reDisque = regexp.MustCompile(`(?i)\s*\(disk\s*(\d+)\s*of\s*(\d+)\)`)
 var reEntre = regexp.MustCompile(`\s*[\(\[].*$`)
 var reCompil = regexp.MustCompile(`(?i)^a_(\d+)(?:(?:_[0-9a-z])*_(.+))?$`)
+
+// jeux pour adultes de la collection TOSEC : gardés, mais l'interface ne les montre
+// qu'après le Konami code (↑ ↑ ↓ ↓ ← → ← → B A)
+var reAdulte = regexp.MustCompile(`(?i)\bstrip\b|\bsex|\blust\b|\bporn|\berot|playboy|centerfold|emmanuelle|teenage queen|blue angel 69|bride of the robot|^fascination$`)
+var reEditeurAdulte = regexp.MustCompile(`(?i)free spirit|sexy technologies`)
+
+func estAdulte(titre, editeur string) bool {
+	titre = strings.ReplaceAll(titre, "_", " ") // nom de fichier hors TOSEC : « Strip_Poker.st »
+	return reAdulte.MatchString(titre) || reEditeurAdulte.MatchString(editeur)
+}
 
 // vrac : les images de disques/ que le catalogue ne cite pas, regroupées par jeu.
 func vrac(c *Catalogue) []Jeu {
@@ -195,7 +206,7 @@ func vrac(c *Catalogue) []Jeu {
 		if len(ds) > 1 {
 			desc = fmt.Sprintf("Hatari, %d disquettes", len(ds))
 		}
-		out = append(out, Jeu{ID: "vrac:" + ds[0], Titre: titre, Editeur: editeur, Annee: annee, Genre: genre, Vrac: true, Sequence: sequence,
+		out = append(out, Jeu{ID: "vrac:" + ds[0], Titre: titre, Editeur: editeur, Annee: annee, Genre: genre, Vrac: true, Adulte: estAdulte(titre, editeur), Sequence: sequence,
 			Variantes: []Variante{{Type: "hatari", Nom: "Original ST", Desc: desc, Disques: ds, Machine: machine}}})
 	}
 	sort.Slice(out, func(a, b int) bool { return strings.ToLower(out[a].Titre) < strings.ToLower(out[b].Titre) })
