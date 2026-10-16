@@ -46,7 +46,7 @@ jobs:
           for v in HATARI_LUDO_DISQUES HATARI_LUDO_TURBO HATARI_LUDO_FILTRE; do
             grep -q "$v" hatari || { echo "$v absent : patch non appliqué"; exit 1; }
           done
-          SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy LD_LIBRARY_PATH=. ./hatari --version
+          SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy { LD_LIBRARY_PATH=. ./hatari --version || true; } | grep "Hatari v2.6.1"
 
       - uses: actions/upload-artifact@v4
         with:
