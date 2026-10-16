@@ -59,26 +59,33 @@ build.bat
 Cela produit `Ludotheque.exe` (Windows) et `ludotheque` (Linux) à la racine. Hatari
 (Windows et Linux) est déjà dans `emulateurs/`.
 
-### 3. Installer les images de disquettes et les TOS
+### 3. Déposer la collection TOSEC dans `disques/GAME`
 
-Les jeux du catalogue viennent tous de la collection **TOSEC Atari ST 2012-04-23**
-(dossier « Atari ST [TOSEC] », environ 32 700 zips, un par disquette). Une fois cette
-collection décompressée quelque part sur votre disque :
+Les jeux viennent de la collection **TOSEC Atari ST 2012-04-23** (dossier
+« Atari ST [TOSEC] », environ 32 700 zips, un par disquette). Téléchargez-la, puis
+mettez-la **telle quelle dans `disques/GAME`** : toute la collection ou seulement son
+dossier `Games`, rangée ou en vrac, zips compris. C'est tout.
 
-- **Windows** : glissez le dossier de la collection sur
-  **`Installer les images TOSEC.bat`** (ou lancez-le et tapez le chemin).
-- **Linux** :
+Au lancement suivant, la ludothèque fait le reste toute seule :
 
-  ```bash
-  python3 outils/installer_images.py "/chemin/vers/Atari ST [TOSEC]"
-  ```
+1. elle installe les **216 images du catalogue** (disquettes dans `disques/` et
+   `disques/tosec/`, TOS 1.02, 1.04, 1.62 et 2.06 français dans `tos/`), contrôlées
+   d'après `outils/images_tosec.json`, sans jamais remplacer une disquette déjà là (elle
+   peut contenir vos sauvegardes) ;
+2. elle fait le **ménage dans `disques/GAME`** : une seule édition de chaque jeu, de
+   préférence crackée, sans mauvais dump et en français quand il y en a une. Le reste est
+   effacé : autres éditions, jeux déjà au catalogue, démos, compilations, applications,
+   TOS, démos jouables, disques de données, jeux Falcon ou pour écran monochrome, dumps
+   incomplets ou non identifiés ;
+3. les jeux gardés arrivent dans le bac (mode vrac), à côté du catalogue.
 
-Le script (Python 3, rien d'autre) extrait **216 images** : les disquettes dans
-`disques/` et `disques/tosec/`, les TOS 1.02, 1.04, 1.62 et 2.06 français dans `tos/`.
-Chaque fichier est contrôlé (CRC32 et taille) d'après `outils/images_tosec.json`. Il ne
-remplace jamais une disquette déjà présente : elle peut contenir vos sauvegardes. Si
-votre collection est rangée autrement, les zips sont retrouvés par leur nom, puis par
-leur contenu. Relancer le script ne fait que compléter ce qui manque.
+Ce qui a été fait, fichier par fichier, et pourquoi : `runtime/menage-<date>.txt`. La
+première fois, comptez quelques minutes. Ensuite rien n'est refait tant que le contenu de
+`disques/GAME` ne change pas ; **Fichier › Ménage des disquettes** relance tout à la
+demande. Un fichier dont le nom n'est pas un nom TOSEC n'est jamais touché.
+
+> Avec Python, `outils/installer_images.py "<dossier TOSEC>"` installe aussi le seul
+> catalogue sans rien copier ni effacer.
 
 **Le bac s'adapte aux fichiers présents** : un jeu dont l'image ou le TOS manque n'y
 apparaît pas. La barre d'info indique combien attendent leurs fichiers, et le panneau

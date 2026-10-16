@@ -1,0 +1,316 @@
+diff --git bios.c bios.c
+index 2a4a20a..2b6b7e2 100644
+--- bios.c
++++ bios.c
+@@ -138,6 +138,13 @@ bool Bios(void)
+ 	BiosCall = STMemory_ReadWord(Params);
+ 	Params += SIZE_WORD;
+ 
++	/* Ludothèque ST : disquette changée par le changement automatique */
++	if (BiosCall == 0x9 && Floppy_LudoMediach(STMemory_ReadWord(Params)))
++	{
++		Regs[REG_D0] = 2;	/* « disquette changée » */
++		return true;
++	}
++
+ 	/* Intercept? */
+ 	switch(BiosCall)
+ 	{
+diff --git cpu/newcpu.c cpu/newcpu.c
+index ef301b4..ad4b30d 100644
+--- cpu/newcpu.c
++++ cpu/newcpu.c
+@@ -53,6 +53,7 @@
+ #include "dialog.h"
+ #include "bios.h"
+ #include "xbios.h"
++#include "floppy.h"
+ #include "video.h"
+ #include "options.h"
+ #include "dsp.h"
+@@ -3804,6 +3805,10 @@ static void ExceptionX (int nr, uaecptr address, uaecptr oldpc)
+ 			m68k_setpc(CART_VDI_OPCODE_ADDR);
+ 		}
+ 	}
++	else if (nr == 0x21) {
++		/* Ludothèque ST : changement automatique de disquette (GEMDOS) */
++		Floppy_LudoGemdos();
++	}
+ 	else if (nr == 0x2d) {
+ 		/* Intercept BIOS (Trap #13) calls */
+ 		if (Bios()) {
+diff --git floppy.c floppy.c
+index 5e4404b..3c1520d 100644
+--- floppy.c
++++ floppy.c
+@@ -25,6 +25,7 @@ const char Floppy_fileid[] = "Hatari floppy.c";
+ 
+ #include <sys/stat.h>
+ #include <assert.h>
++#include <ctype.h>
+ 
+ #include "main.h"
+ #include "configuration.h"
+@@ -44,6 +45,8 @@ const char Floppy_fileid[] = "Hatari floppy.c";
+ #include "str.h"
+ #include "video.h"
+ #include "fdc.h"
++#include "m68000.h"
++#include "stMemory.h"
+ 
+ 
+ /* Emulation drive details, eg FileName, Inserted, Changed etc... */
+@@ -69,6 +72,7 @@ static const char * const pszDiskImageNameExts[] =
+ /* local functions */
+ static bool	Floppy_EjectBothDrives(void);
+ static void	Floppy_DriveTransitionSetState ( int Drive , int State );
++static void	Floppy_LudoReset(void);
+ 
+ 
+ /*-----------------------------------------------------------------------*/
+@@ -114,6 +118,7 @@ void Floppy_Reset(void)
+ 		EmulationDrives[i].TransitionState1 = 0;
+ 		EmulationDrives[i].TransitionState2 = 0;
+ 	}
++	Floppy_LudoReset();
+ }
+ 
+ 
+@@ -977,3 +982,224 @@ bool Floppy_WriteSectors(int Drive, uint8_t *pBuffer, uint16_t Sector,
+ 
+ 	return false;
+ }
++
++
++/*-----------------------------------------------------------------------*/
++/* Ludothèque ST : changement automatique de disquette.
++ * Le lanceur écrit la liste des disquettes du jeu, chacune suivie de ses
++ * fichiers et dossiers (HATARI_LUDO_DISQUES = chemin de cette liste) :
++ *   disque <image, comme pour --disk-a>
++ *   AUTO
++ *   AUTO\A.PRG          (en majuscules, depuis la racine)
++ * Quand le programme cherche un fichier (GEMDOS Fopen, Fsfirst, Pexec,
++ * Dsetpath) qui manque sur la disquette du lecteur visé mais se trouve sur
++ * une autre disquette du jeu, celle-ci est insérée aussitôt (échangée avec
++ * l'autre lecteur si elle s'y trouve) et le Mediach suivant du BIOS répond
++ * « disquette changée » : le GEMDOS relit la disquette au lieu de se fier
++ * à ses tampons. Un fichier inconnu de toutes les disquettes (sauvegarde,
++ * configuration…) ne change rien, une disquette mise à la main (F12) non plus.
++ */
++#define LUDO_MAX_DISQUES 16
++
++typedef struct
++{
++	char chemin[FILENAME_MAX];
++	char **noms;
++	int nb;
++} LUDO_DISQUE;
++
++static LUDO_DISQUE LudoDisques[LUDO_MAX_DISQUES];
++static int nLudoDisques = -1;			/* -1 : liste pas encore lue */
++static int nLudoLecteurCourant = -1;		/* Dsetdrv ; -1 : lecteur de démarrage */
++static bool bLudoChangee[MAX_FLOPPYDRIVES];	/* Mediach à répondre « changée » */
++
++static void Floppy_LudoLireListe(void)
++{
++	const char *liste = getenv("HATARI_LUDO_DISQUES");
++	char ligne[FILENAME_MAX + 16];
++	LUDO_DISQUE *d = NULL;
++	FILE *f;
++
++	nLudoDisques = 0;
++	if (!liste || !*liste)
++		return;
++	f = fopen(liste, "r");
++	if (!f)
++	{
++		Log_Printf(LOG_WARN, "Ludotheque : liste des disquettes illisible : %s\n", liste);
++		return;
++	}
++	while (fgets(ligne, sizeof(ligne), f))
++	{
++		ligne[strcspn(ligne, "\r\n")] = '\0';
++		if (!strncmp(ligne, "disque ", 7))
++		{
++			if (nLudoDisques == LUDO_MAX_DISQUES)
++				break;
++			d = &LudoDisques[nLudoDisques++];
++			Str_Copy(d->chemin, ligne + 7, sizeof(d->chemin));
++		}
++		else if (d && ligne[0] && ligne[0] != '#')
++		{
++			char **noms = realloc(d->noms, (d->nb + 1) * sizeof(char *));
++			if (!noms)
++				break;
++			d->noms = noms;
++			d->noms[d->nb] = strdup(ligne);
++			if (d->noms[d->nb])
++				d->nb++;
++		}
++	}
++	fclose(f);
++	Log_Printf(LOG_INFO, "Ludotheque : changement automatique entre %d disquettes.\n", nLudoDisques);
++}
++
++/* Dernier élément d'un chemin (après « \ » ou « / ») */
++static const char *Floppy_LudoBase(const char *p)
++{
++	const char *b = p;
++	for (; *p; p++)
++		if (*p == '\\' || *p == '/')
++			b = p + 1;
++	return b;
++}
++
++/* Disquette de la liste qui est dans ce lecteur ; -1 : vide, -2 : inconnue */
++static int Floppy_LudoDisqueDuLecteur(int Drive)
++{
++	const char *nom = EmulationDrives[Drive].sFileName;
++	int i;
++
++	if (!EmulationDrives[Drive].bDiskInserted)
++		return -1;
++	for (i = 0; i < nLudoDisques; i++)
++		if (!strcasecmp(nom, LudoDisques[i].chemin))
++			return i;
++	for (i = 0; i < nLudoDisques; i++)
++		if (!strcasecmp(Floppy_LudoBase(nom), Floppy_LudoBase(LudoDisques[i].chemin)))
++			return i;
++	return -2;
++}
++
++/* La disquette a-t-elle ce fichier ? Chemin depuis la racine ; un chemin
++ * relatif (dossier courant inconnu) se contente du même nom de fichier. */
++static bool Floppy_LudoContient(int Disque, const char *chemin, bool relatif)
++{
++	const LUDO_DISQUE *d = &LudoDisques[Disque];
++	const char *base = Floppy_LudoBase(chemin);
++	int i;
++
++	for (i = 0; i < d->nb; i++)
++		if (!strcmp(d->noms[i], chemin) || (relatif && !strcmp(Floppy_LudoBase(d->noms[i]), base)))
++			return true;
++	return false;
++}
++
++static void Floppy_LudoMettre(int Drive, int Disque)
++{
++	if (Floppy_SetDiskFileName(Drive, LudoDisques[Disque].chemin, NULL))
++		Floppy_InsertDiskIntoDrive(Drive);
++	bLudoChangee[Drive] = true;
++	Log_Printf(LOG_INFO, "Ludotheque : disquette %d dans le lecteur %c:\n", Disque + 1, 'A' + Drive);
++}
++
++/* Appelée sur chaque trap #1 (GEMDOS), avant le TOS */
++void Floppy_LudoGemdos(void)
++{
++	uint32_t pile = Regs[REG_A7], adresse;
++	char chemin[128], *c;
++	const char *s;
++	int i, lecteur, autre, actuel, dansAutre, cible;
++	bool relatif, autoB;
++
++	if (nLudoDisques < 0)
++		Floppy_LudoLireListe();
++	if (nLudoDisques < 2)
++		return;
++
++	switch (STMemory_ReadWord(pile))
++	{
++	case 0x0E:	/* Dsetdrv */
++		nLudoLecteurCourant = STMemory_ReadWord(pile + 2);
++		return;
++	case 0x3B:	/* Dsetpath */
++	case 0x3D:	/* Fopen */
++	case 0x4E:	/* Fsfirst */
++		adresse = STMemory_ReadLong(pile + 2);
++		break;
++	case 0x4B:	/* Pexec : seulement les modes qui chargent un fichier */
++		i = STMemory_ReadWord(pile + 2);
++		if (i != 0 && i != 3)
++			return;
++		adresse = STMemory_ReadLong(pile + 4);
++		break;
++	default:
++		return;
++	}
++	s = STMemory_GetStringPointer(adresse);
++	if (!s)
++		return;
++	for (i = 0; s[i] && i < (int)sizeof(chemin) - 1; i++)
++		chemin[i] = toupper((unsigned char)s[i]);
++	chemin[i] = '\0';
++
++	c = chemin;
++	lecteur = nLudoLecteurCourant >= 0 ? nLudoLecteurCourant : nBootDrive;
++	if (c[0] && c[1] == ':')
++	{
++		lecteur = c[0] - 'A';
++		c += 2;
++	}
++	relatif = *c != '\\';
++	while (*c == '\\' || (c[0] == '.' && c[1] == '\\'))
++		c += *c == '\\' ? 1 : 2;
++	while (relatif && c[0] == '.' && c[1] == '.' && c[2] == '\\')
++		c += 3;
++	if (lecteur < 0 || lecteur >= MAX_FLOPPYDRIVES || !*c || strpbrk(c, "*?"))
++		return;
++
++	actuel = Floppy_LudoDisqueDuLecteur(lecteur);
++	if (actuel == -2 || (actuel >= 0 && Floppy_LudoContient(actuel, c, relatif)))
++		return;
++	autre = 1 - lecteur;
++	dansAutre = Floppy_LudoDisqueDuLecteur(autre);
++	cible = -1;
++	if (dansAutre >= 0 && Floppy_LudoContient(dansAutre, c, relatif))
++		cible = dansAutre;
++	for (i = 0; cible < 0 && i < nLudoDisques; i++)
++		if (i != actuel && Floppy_LudoContient(i, c, relatif))
++			cible = i;
++	if (cible < 0)
++		return;
++
++	Log_Printf(LOG_INFO, "Ludotheque : %s est sur la disquette %d\n", s, cible + 1);
++	autoB = ConfigureParams.DiskImage.bAutoInsertDiskB;
++	ConfigureParams.DiskImage.bAutoInsertDiskB = false;
++	if (cible == dansAutre)
++	{
++		/* échange : la disquette de ce lecteur passe dans l'autre */
++		Floppy_SetDiskFileNameNone(autre);
++		Floppy_InsertDiskIntoDrive(autre);
++		Floppy_LudoMettre(lecteur, cible);
++		if (actuel >= 0)
++			Floppy_LudoMettre(autre, actuel);
++	}
++	else
++		Floppy_LudoMettre(lecteur, cible);
++	ConfigureParams.DiskImage.bAutoInsertDiskB = autoB;
++}
++
++/* BIOS Mediach : true si le lecteur vient d'être changé par Floppy_LudoGemdos */
++bool Floppy_LudoMediach(int Drive)
++{
++	if (Drive < 0 || Drive >= MAX_FLOPPYDRIVES || !bLudoChangee[Drive])
++		return false;
++	bLudoChangee[Drive] = false;
++	return true;
++}
++
++static void Floppy_LudoReset(void)
++{
++	nLudoLecteurCourant = -1;
++	bLudoChangee[0] = bLudoChangee[1] = false;
++}
+diff --git includes/floppy.h includes/floppy.h
+index c3933fa..434075d 100644
+--- includes/floppy.h
++++ includes/floppy.h
+@@ -64,6 +64,8 @@ extern bool Floppy_InsertDiskIntoDrive(int Drive);
+ extern bool Floppy_EjectDiskFromDrive(int Drive);
+ extern void Floppy_FindDiskDetails(const uint8_t *pBuffer, int nImageBytes, uint16_t *pnSectorsPerTrack, uint16_t *pnSides);
+ extern bool Floppy_ReadSectors(int Drive, uint8_t **pBuffer, uint16_t Sector, uint16_t Track, uint16_t Side, short Count, int *pnSectorsPerTrack, int *pSectorSize);
++extern void Floppy_LudoGemdos(void);
++extern bool Floppy_LudoMediach(int Drive);
+ extern bool Floppy_WriteSectors(int Drive, uint8_t *pBuffer, uint16_t Sector, uint16_t Track, uint16_t Side, short Count, int *pnSectorsPerTrack, int *pSectorSize);
+ 
+ #endif

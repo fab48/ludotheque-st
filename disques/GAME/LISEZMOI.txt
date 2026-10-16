@@ -1,0 +1,19 @@
+GAME
+====
+Déposez ici la collection TOSEC Atari ST 2012-04-23 (« Atari ST [TOSEC] ») :
+tout, ou seulement son dossier Games, telle quelle ou en vrac, zips compris.
+https://archive.org/details/Atari_ST_TOSEC_2012_04_23
+
+Puis lancez la ludothèque. Elle fait le reste toute seule :
+  1. elle installe les images des jeux du catalogue et les TOS ;
+  2. elle garde une seule édition de chaque jeu (crackée, sans mauvais
+     dump, en français quand il y en a une) et efface le reste de ce
+     dossier : autres éditions, démos, compilations, applications, jeux
+     Falcon ou pour écran monochrome, disques de données… ;
+  3. les jeux gardés arrivent dans le bac (mode vrac).
+
+Ce qui a été fait, fichier par fichier, et pourquoi :
+runtime/menage-<date>.txt
+
+Les fichiers au nom inconnu (pas un nom TOSEC) ne sont jamais touchés.
+Pour refaire le ménage : Fichier › Ménage des disquettes.

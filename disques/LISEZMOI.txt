@@ -1,9 +1,9 @@
 DISQUES
 =======
 Les images de disquettes des jeux (.st, .msa, .stx, .zip). Elles ne sont pas
-dans le dépôt (droits d'auteur) : installez-les depuis la collection TOSEC
-Atari ST 2012-04-23 avec « Installer les images TOSEC.bat » (Windows) ou
-python3 outils/installer_images.py "<dossier TOSEC>" (Linux).
+dans le dépôt (droits d'auteur) : déposez la collection TOSEC Atari ST
+2012-04-23 dans disques/GAME (voir GAME/LISEZMOI.txt), la ludothèque installe
+le catalogue et fait le ménage au démarrage.
 
 disques/tosec/   les jeux tirés de TOSEC. Les autres images, à la racine,
 sont celles du catalogue d'origine (compils Automation, etc.), elles aussi

@@ -16,6 +16,7 @@
   "duree_demo_min": 4,
   "ecran_4_3": true,
   "ecran_filtre": "net",
+  "ecran_hz": 50,
   "ecran_lignes": 0,
   "hatari_linux": "emulateurs/hatari-linux/hatari",
   "hatari_options": [],

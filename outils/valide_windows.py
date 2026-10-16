@@ -9,7 +9,7 @@ Résultat : runtime/tests/<id>/v*.bmp et des planches runtime/tests/planche-NN.p
   MHZ=16 : processeur à 16 MHz (résultats dans runtime/tests-16mhz).
 Demande Pillow (pip install pillow).
 """
-import json, os, sys, glob, time, subprocess, ctypes
+import json, os, sys, glob, time, struct, subprocess, ctypes
 from ctypes import wintypes
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image, ImageDraw
@@ -108,6 +108,91 @@ def disque_propre(p, cor, d):
     return out
 
 
+def fichiers_disquette(p):
+    """Fichiers et dossiers d'une image .st/.msa (FAT12), comme fichiersDisquette du lanceur."""
+    d = open(p, 'rb').read()
+    if p.lower().endswith('.msa'):
+        if len(d) < 10 or d[:2] != b'\x0e\x0f':
+            return []
+        spt, faces, deb, fin = struct.unpack_from('>HHHH', d, 2)
+        out, o = bytearray(), 10
+        for _ in range((fin - deb + 1) * (faces + 1)):
+            n = struct.unpack_from('>H', d, o)[0]
+            blk, o = d[o + 2:o + 2 + n], o + 2 + n
+            if n == spt * 512:
+                out += blk
+                continue
+            i = 0
+            while i < len(blk):
+                if blk[i] == 0xe5 and i + 3 < len(blk):
+                    out += bytes([blk[i + 1]]) * struct.unpack_from('>H', blk, i + 2)[0]
+                    i += 4
+                else:
+                    out.append(blk[i])
+                    i += 1
+        d = bytes(out)
+    elif not p.lower().endswith('.st'):
+        return []
+    bps, spc, res, nfat, nroot = struct.unpack_from('<HBHBH', d, 11)
+    spf = struct.unpack_from('<H', d, 22)[0]
+    if bps != 512 or not spc or not res or not 1 <= nfat <= 2 or not 0 < nroot <= 1024 or not 0 < spf <= 16:
+        return []
+    fat, racine = d[res * 512:(res + spf) * 512], (res + nfat * spf) * 512
+    donnees = racine + nroot * 32
+
+    def lire(c):
+        out, n = b'', 0
+        while 2 <= c < 0xff0 and n < 64:
+            out += d[donnees + (c - 2) * spc * 512:donnees + (c - 1) * spc * 512]
+            v = fat[c * 3 // 2] | fat[c * 3 // 2 + 1] << 8
+            c, n = (v >> 4) if c & 1 else (v & 0xfff), n + 1
+        return out
+
+    def valide(e):
+        for k, part in ((0, e[:8]), (1, e[8:11])):
+            s = part.decode('latin1')
+            if (k == 0 and s[0] == ' ') or s.rstrip(' ') != s.rstrip(' ').replace(' ', '') \
+                    or any(not 0x21 <= ord(c) <= 0x7e or c in '"*+,/:;<=>?[\\]|' for c in s.rstrip(' ')) \
+                    or ('.' in s and s.rstrip(' ') not in ('.', '..')):
+                return False
+        return True
+
+    def parcourir(raw, pre, prof):
+        noms = []
+        for i in range(0, len(raw) - 31, 32):
+            e = raw[i:i + 32]
+            if e[0] == 0:
+                break
+            if e[0] == 0xe5 or e[11] & 8:
+                continue
+            if not valide(e[:11]) or e[11] & 0xc0:
+                return None
+            n = e[:8].decode('latin1').rstrip() + ('.' + e[8:11].decode('latin1').rstrip() if e[8:11].strip() else '')
+            if n in ('.', '..', ''):
+                continue
+            noms.append(pre + n.upper())
+            if e[11] & 0x10 and prof < 8:
+                noms += parcourir(lire(struct.unpack_from('<H', e, 26)[0]), pre + n.upper() + '\\', prof + 1) or []
+        return noms
+    return parcourir(d[racine:donnees], '', 0) or []
+
+
+def liste_disquettes(images, d):
+    """runtime/tests/<id>/disques.txt pour HATARI_LUDO_DISQUES (changement automatique), ou None."""
+    if len(images) < 2:
+        return None
+    lignes, lisibles = ['# disquettes du jeu'], 0
+    for p in images:
+        noms = fichiers_disquette(p)
+        lisibles += bool(noms)
+        lignes += ['disque ' + p] + noms
+    if not lisibles:
+        return None
+    sortie = os.path.join(d, 'disques.txt')
+    open(sortie, 'w', encoding='latin1').write('\n'.join(lignes) + '\n')
+    return sortie
+
+
 def un(cat, j):
     v = j['variantes'][0]
     if v['type'] != 'hatari':
@@ -119,8 +204,9 @@ def un(cat, j):
     cmds = []
     for k in range(PAS, VMAX, PAS):
         fi = os.path.join(d, 'c%05d.ini' % k)
-        open(fi, 'w').write('screenshot %s\n' % os.path.join(d, 'v%05d.bmp' % k))
-        cmds.append('b VBL = %d :trace :quiet :once :file %s' % (k, fi))
+        # noms relatifs (Hatari tourne dans d) : le débogueur coupe les chemins aux espaces
+        open(fi, 'w').write('screenshot v%05d.bmp\n' % k)
+        cmds.append('b VBL = %d :trace :quiet :once :file %s' % (k, os.path.basename(fi)))
     parse = os.path.join(d, 'debug.ini')
     open(parse, 'w').write('\n'.join(cmds) + '\n')
     cfg = os.path.join(d, 'test.cfg')
@@ -133,8 +219,9 @@ def un(cat, j):
         machine = 'ste'
     args = [HATARI, '--configfile', cfg, '--machine', machine, '--alert-level', 'fatal',
             '--tos', os.path.join(PACK, tos)]
-    for i, x in enumerate(v.get('disques', [])[:2]):
-        args += ['--disk-a' if i == 0 else '--disk-b', disque_propre(os.path.join(PACK, x), v.get('correctifs'), d)]
+    images = [disque_propre(os.path.join(PACK, x), v.get('correctifs'), d) for x in v.get('disques', [])]
+    for i, x in enumerate(images[:2]):
+        args += ['--disk-a' if i == 0 else '--disk-b', x]
     args += ['--confirm-quit', 'no', '--statusbar', 'no', '--joy1', 'keys']
     if j.get('commandes') != 'souris':
         args += ['--joy0', 'keys']
@@ -149,6 +236,9 @@ def un(cat, j):
         args += ['--cpuclock', str(MHZ)]
     env = dict(os.environ, SDL_AUDIODRIVER='dummy', SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN='1', HOME=d,
                HATARI_LUDO_TURBO='disque')
+    liste = liste_disquettes(images, d)
+    if liste:
+        env['HATARI_LUDO_DISQUES'] = liste
     t0 = time.time()
     p = subprocess.Popen(args, cwd=d, env=env, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                          stderr=subprocess.DEVNULL)

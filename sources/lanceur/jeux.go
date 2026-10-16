@@ -142,12 +142,22 @@ func vrac(c *Catalogue) []Jeu {
 		}
 		nom := strings.TrimSuffix(filepath.Base(p), filepath.Ext(p))
 		cle := filepath.Join(filepath.Dir(rel), reDisque.ReplaceAllString(nom, ""))
+		if lireNomTosec(nom) != nil { // « (Disk 1 of 3)(Intro) », « (Disk B) »
+			cle = filepath.Join(filepath.Dir(rel), reSansDisque.ReplaceAllString(nom, ""))
+		}
 		groupes[cle] = append(groupes[cle], rel)
 		return nil
 	})
 	var out []Jeu
+	numero := func(d string) int { // « Disk 10 of 12 » après « Disk 2 of 12 »
+		if e := lireNomTosec(filepath.Base(d)); e != nil {
+			return e.Disque
+		}
+		return 0
+	}
 	for cle, ds := range groupes {
 		sort.Strings(ds)
+		sort.SliceStable(ds, func(a, b int) bool { return numero(ds[a]) < numero(ds[b]) })
 		nom := filepath.Base(cle)
 		titre := strings.TrimSpace(reEntre.ReplaceAllString(nom, ""))
 		annee := 0
@@ -163,6 +173,21 @@ func vrac(c *Catalogue) []Jeu {
 			titre = strings.Title(t) + " (Automation " + m[1] + ")"
 			genre = "Compil"
 		}
+		editeur, machine := "", ""
+		var sequence []string
+		if e := lireNomTosec(filepath.Base(ds[0])); e != nil { // nom TOSEC : « Bard's Tale, The (1987)(Electronic Arts)… »
+			titre, editeur = titreLisible(e.Titre), e.Editeur
+			annee, _ = strconv.Atoi(e.Annee)
+			if e.Machine == "ste" {
+				machine = "ste"
+			}
+			// comme les jeux TOSEC du catalogue : Espace passe l'écran du crack ;
+			// « Trainer Y/N ? » : N
+			sequence = []string{"espace"}
+			if drapeau(e, "t") {
+				sequence = []string{"N", "espace"}
+			}
+		}
 		if titre == "" {
 			titre = nom
 		}
@@ -170,8 +195,8 @@ func vrac(c *Catalogue) []Jeu {
 		if len(ds) > 1 {
 			desc = fmt.Sprintf("Hatari, %d disquettes", len(ds))
 		}
-		out = append(out, Jeu{ID: "vrac:" + ds[0], Titre: titre, Annee: annee, Genre: genre, Vrac: true,
-			Variantes: []Variante{{Type: "hatari", Nom: "Original ST", Desc: desc, Disques: ds}}})
+		out = append(out, Jeu{ID: "vrac:" + ds[0], Titre: titre, Editeur: editeur, Annee: annee, Genre: genre, Vrac: true, Sequence: sequence,
+			Variantes: []Variante{{Type: "hatari", Nom: "Original ST", Desc: desc, Disques: ds, Machine: machine}}})
 	}
 	sort.Slice(out, func(a, b int) bool { return strings.ToLower(out[a].Titre) < strings.ToLower(out[b].Titre) })
 	return out
@@ -305,7 +330,8 @@ func apiCatalogue(w http.ResponseWriter, r *http.Request) {
 		"systeme": map[string]any{"os": runtime.GOOS, "manettes": nombreManettes(), "version": version, "hatari": exe, "hatari2": v2,
 			"sortie_echap_s": cfg.SortieEchap, "sortie_manette_s": cfg.SortieManette,
 			"extinction": cfg.AutoriserSysteme, "affichage": etatAffichage()},
-		"etat": jeux.Etat(),
+		"rangement": etatRangement(),
+		"etat":      jeux.Etat(),
 	})
 }
 
@@ -480,16 +506,27 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 		}
 		args = append(args, "--tos", rel(p))
 	}
+	// Disquettes 1 et 2 dans A et B ; toutes vont dans la liste du changement
+	// automatique (notre Hatari met la bonne quand le jeu cherche un fichier).
+	var images, vrais []string
 	for i, d := range l.disques {
-		if i > 1 {
-			break
-		}
 		p, err := chemin(d)
 		if err != nil || !existe(p) {
+			if i > 1 {
+				log.Printf("disquette %d absente, pas de changement automatique vers elle : %s", i+1, d)
+				continue
+			}
 			return nil, "", fmt.Errorf("image absente : %s", d)
 		}
 		p = disquePropre(p, l.correctifs)
-		args = append(args, map[int]string{0: "--disk-a", 1: "--disk-b"}[i], rel(p))
+		images, vrais = append(images, rel(p)), append(vrais, p)
+		if i < 2 {
+			args = append(args, map[int]string{0: "--disk-a", 1: "--disk-b"}[i], rel(p))
+		}
+	}
+	liste := ""
+	if v2 {
+		liste = listeDisquettes(images, vrais)
 	}
 	if l.pleinEcran {
 		args = append(args, "--fullscreen")
@@ -519,6 +556,7 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 	fifo := ""
 	if v2 {
 		args = append(args, "--drive-led", "no", "--screenshot-dir", rel(l.medias))
+		args = append(args, "--log-file", rel(filepath.Join(home, "hatari.log")))
 		args = append(args, argsAffichage(l.pleinEcran)...)
 		if l.dossier != "" {
 			d, err := chemin(l.dossier)
@@ -550,6 +588,10 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 		// lecteur, décompactage), les intros restent à vitesse normale
 		cmd.Env = append(cmd.Env, "HATARI_LUDO_TURBO=disque")
 	}
+	if liste != "" {
+		cmd.Env = append(cmd.Env, "HATARI_LUDO_DISQUES="+rel(liste))
+		log.Printf("changement de disquette automatique entre %d disquettes", len(images))
+	}
 	return cmd, fifo, nil
 }
 
@@ -568,12 +610,26 @@ type Correctif struct {
 const cheminMaxHatari = 240
 
 func disquePropre(p string, correctifs []Correctif) string {
-	ext := strings.ToLower(filepath.Ext(p))
+	ext, nomImage := strings.ToLower(filepath.Ext(p)), filepath.Base(p)
 	trop := len(p) > cheminMaxHatari
-	if ext != ".st" && ext != ".msa" && !trop {
+	// Zip (dossier Games de TOSEC copié tel quel) : notre Hatari Windows est compilé
+	// sans zlib ; l'image est extraite ici, et les sauvegardes du jeu vont dans la copie.
+	dezip := ext == ".zip"
+	if !dezip && ext != ".st" && ext != ".msa" && !trop {
 		return p
 	}
-	d, err := os.ReadFile(p)
+	var d []byte
+	var err error
+	if dezip {
+		d, nomImage, err = imageDuZip(p)
+		if err != nil {
+			log.Printf("zip illisible (%v) : %s", err, filepath.Base(p))
+			return p
+		}
+		ext = strings.ToLower(filepath.Ext(nomImage))
+	} else {
+		d, err = os.ReadFile(p)
+	}
 	if err != nil || len(d) < 512 {
 		return p
 	}
@@ -582,7 +638,7 @@ func disquePropre(p string, correctifs []Correctif) string {
 	if ext == ".st" {
 		cor = correctifs
 	}
-	if !lgd && len(cor) == 0 && !trop {
+	if !lgd && len(cor) == 0 && !trop && !dezip {
 		return p
 	}
 	// Nom de la copie : empreinte du contenu d'origine et des correctifs, pas du
@@ -596,11 +652,11 @@ func disquePropre(p string, correctifs []Correctif) string {
 	dir := filepath.Join(base, "runtime", "disques")
 	_ = os.MkdirAll(dir, 0o755)
 	prefixe := hex.EncodeToString(h[:4]) + "-"
-	copie := filepath.Join(dir, prefixe+nomCourt(filepath.Base(p), 40))
+	copie := filepath.Join(dir, prefixe+nomCourt(nomImage, 40))
 	if existe(copie) {
 		return copie
 	}
-	if a := ancienneCopie(dir, prefixe, filepath.Base(p)); a != "" {
+	if a := ancienneCopie(dir, prefixe, nomImage); a != "" {
 		if err := os.Rename(a, copie); err == nil {
 			log.Printf("copie reprise avec ses sauvegardes : %s → %s", filepath.Base(a), filepath.Base(copie))
 			return copie
@@ -1005,6 +1061,10 @@ func apiLancer(w http.ResponseWriter, r *http.Request) {
 	}
 	if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
 		erreur(w, 400, err.Error())
+		return
+	}
+	if rangementEnCours() {
+		erreur(w, 409, "rangement des disquettes en cours : patientez")
 		return
 	}
 	debut := time.Now()

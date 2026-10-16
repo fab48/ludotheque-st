@@ -359,6 +359,12 @@ ACTIFS_INITIAUX = {'stunt-car-racer', 'shufflepuck-cafe', 'lemmings', 'prince-of
 INACTIFS = set()
 ACTIFS = {j[0] for j in J} - INACTIFS
 
+# Jeux à plusieurs disquettes au format maison (pas de fichiers TOS) ou en .stx : le
+# changement automatique de notre Hatari (il cherche dans chaque disquette le fichier
+# que le jeu ouvre) ne les voit pas, on change à la main.
+FORMAT_MAISON = {'wings-of-death', 'mega-lo-mania', 'cannon-fodder', 'super-ski-2', 'gods',
+                 'lethal-xcess', 'falcon', 'chaos-strikes-back', 'captive', 'drakkhen'}
+
 
 def h(s, n):
     return int(hashlib.md5(s.encode()).hexdigest(), 16) % n
@@ -414,6 +420,8 @@ for (i, t, e, a, g, p, d, x) in J:
         j['mhz16'] = 'conseille'
     if 'note' in x:
         j['note'] = x['note']
+    elif len(d) > 1 and i not in FORMAT_MAISON:
+        j['note'] = 'Disquettes changées automatiquement (sinon F12 › Floppy disks).'
     elif len(d) > 2:
         j['note'] = 'Disquettes 3 et suivantes : F12 › Floppy disks pour changer.'
     elif len(d) == 2:

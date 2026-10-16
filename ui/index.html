@@ -46,10 +46,10 @@ button { font-family: inherit; color: inherit; }
 .titre-fen .texte span { background: #fff; padding: 0 12px; font-size: 24px; line-height: 28px; }
 #infos { height: 26px; border-bottom: 2px solid #000; padding: 0 12px; font-size: 20px; line-height: 25px; display: flex; justify-content: space-between; }
 
-#bac { position: relative; height: 470px; perspective: 1100px; perspective-origin: 50% 30%; overflow: hidden;
+#bac { position: relative; height: 440px; perspective: 1100px; perspective-origin: 50% 111px; overflow: hidden;
   background: radial-gradient(120% 80% at 50% 0%, #fff 0%, #e9e6df 70%, #d8d4ca 100%); }
-#bac .fond { position: absolute; left: 40px; top: 122px; width: 724px; height: 190px; background: linear-gradient(#2a2b30, #3b3c42); border-radius: 10px 10px 0 0; box-shadow: inset 0 10px 30px rgba(0,0,0,.6); }
-.disq { position: absolute; left: 329px; top: 180px; width: 150px; height: 156px; padding: 0; border: 0; cursor: pointer; border-radius: 3px;
+#bac .fond { position: absolute; left: 40px; top: 92px; width: 724px; height: 190px; background: linear-gradient(#2a2b30, #3b3c42); border-radius: 10px 10px 0 0; box-shadow: inset 0 10px 30px rgba(0,0,0,.6); }
+.disq { position: absolute; left: 329px; top: 150px; width: 150px; height: 156px; padding: 0; border: 0; cursor: pointer; border-radius: 3px;
   clip-path: polygon(0 0, 92% 0, 100% 6%, 100% 100%, 0 100%);
   transition: transform .38s cubic-bezier(.2,.9,.3,1.25), opacity .4s ease;
   box-shadow: inset 0 2px 0 rgba(255,255,255,.18), inset 0 -6px 10px rgba(0,0,0,.35); will-change: transform; }
@@ -64,11 +64,24 @@ button { font-family: inherit; color: inherit; }
 .onglet { position: absolute; top: -34px; left: 6px; width: 64px; height: 30px; background: #f2d36b; border: 2px solid #8a7330; border-bottom: 0; border-radius: 6px 6px 0 0;
   font-size: 22px; line-height: 26px; text-align: center; color: #3a2e0a; overflow: hidden; white-space: nowrap; }
 
-#facade { position: absolute; left: 24px; top: 292px; width: 756px; height: 178px; z-index: 400; background: linear-gradient(180deg, rgba(58,60,68,.92) 0%, rgba(22,23,27,.97) 100%); border-top: 3px solid rgba(255,255,255,.35); border-radius: 6px 6px 0 0; box-shadow: 0 -8px 24px rgba(0,0,0,.35); color: #fff; }
+#facade { position: absolute; left: 24px; top: 262px; width: 756px; height: 178px; z-index: 400; background: linear-gradient(180deg, rgba(58,60,68,.92) 0%, rgba(22,23,27,.97) 100%); border-top: 3px solid rgba(255,255,255,.35); border-radius: 6px 6px 0 0; box-shadow: 0 -8px 24px rgba(0,0,0,.35); color: #fff; }
 #facade .haut { position: absolute; left: 24px; right: 24px; top: 14px; display: flex; justify-content: space-between; font-size: 22px; letter-spacing: 2px; color: rgba(255,255,255,.55); }
 #facade .titre { position: absolute; left: 24px; right: 24px; top: 52px; font-size: 44px; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #facade .meta { position: absolute; left: 24px; right: 24px; top: 100px; font-size: 24px; color: rgba(255,255,255,.65); white-space: nowrap; overflow: hidden; }
 #facade .vers { position: absolute; left: 24px; right: 24px; top: 132px; font-size: 20px; color: rgba(255,255,255,.45); white-space: nowrap; overflow: hidden; }
+
+/* recherche et lettres (bac et panneau F10) */
+#barre { height: 30px; border-bottom: 2px solid #000; padding: 0 6px 0 8px; display: flex; align-items: center; gap: 10px; background: #fff; }
+.cherche { flex: none; width: 196px; height: 24px; display: flex; align-items: center; gap: 4px; border: 2px solid #000; padding: 0 3px; background: #fff; cursor: text; }
+.cherche:focus-within { box-shadow: 2px 2px 0 #000; }
+.cherche input { flex: 1; min-width: 0; height: 20px; border: 0; outline: 0; padding: 0; background: transparent; font: inherit; font-size: 22px; line-height: 20px; color: #000; user-select: text; -webkit-user-select: text; }
+.cherche input::placeholder { color: #999; }
+.cherche .effacer { flex: none; width: 18px; height: 18px; border: 0; padding: 0; background: #000; color: #fff; font-size: 17px; line-height: 18px; cursor: pointer; }
+.lettres { flex: 1; display: flex; min-width: 0; }
+.lettres button { flex: 1; min-width: 0; height: 24px; border: 0; padding: 0; background: #fff; font-size: 21px; line-height: 24px; cursor: pointer; }
+.lettres button:hover { background: #000; color: #fff; }
+.lettres button.actuelle { box-shadow: inset 0 0 0 2px #000; }
+.lettres button:disabled, .lettres button:disabled:hover { color: #bbb; background: #fff; cursor: default; box-shadow: none; }
 
 #ascenseur { position: absolute; left: 0; bottom: 0; width: 804px; height: 28px; border-top: 2px solid #000; display: flex; background: #fff; }
 #ascenseur button { width: 30px; height: 26px; border: 0; background: #fff; font-size: 20px; cursor: pointer; }
@@ -152,11 +165,14 @@ button { font-family: inherit; color: inherit; }
 #alerte .texte { font-size: 22px; line-height: 24px; white-space: pre-line; flex: 1; }
 
 #panneau .boite { width: 760px; height: 600px; }
-#panneau .liste { flex: 1; overflow-y: auto; border: 2px solid #000; padding: 4px 0; scrollbar-width: thin; scrollbar-color: #000 #fff; }
+#panneau .liste { position: relative; flex: 1; overflow-y: auto; border: 2px solid #000; padding: 4px 0; scrollbar-width: thin; scrollbar-color: #000 #fff; }
 #panneau .ligne { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: #fff; font-size: 22px; padding: 1px 10px; cursor: pointer; text-align: left; }
 #panneau .ligne:hover, #panneau .ligne.focus { background: #000; color: #fff; }
 #panneau .ligne .cb { width: 18px; height: 18px; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; flex: none; }
 #panneau .ligne .info { margin-left: auto; color: inherit; opacity: .6; font-size: 19px; }
+#panneau .barre { display: flex; align-items: center; gap: 10px; flex: none; }
+#panneau .lettres button { font-size: 20px; }
+#panneau .rien { font-size: 22px; padding: 6px 10px; color: #555; }
 #panneau .groupe { font-size: 20px; padding: 6px 10px 2px; border-bottom: 2px dotted #000; margin-bottom: 2px; }
 
 #enjeu { background: #000; color: #9cff9c; flex-direction: column; gap: 14px; z-index: 1500; animation: fondu .5s ease; }
@@ -203,6 +219,8 @@ button { font-family: inherit; color: inherit; }
         <div class="sep"></div>
         <button data-action="demos">Play Demo Random   F7</button>
         <div class="sep"></div>
+        <button data-action="menage">Ménage des disquettes…</button>
+        <div class="sep"></div>
         <button data-action="quitter">Quitter la ludothèque</button>
         <button data-action="eteindre">Éteindre l'ordinateur</button>
         <button data-action="redemarrer">Redémarrer</button>
@@ -243,6 +261,10 @@ button { font-family: inherit; color: inherit; }
       <div class="case"><svg width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="none" stroke="#000" stroke-width="2"/><rect x="1" y="1" width="8" height="8" fill="none" stroke="#000" stroke-width="2"/></svg></div>
     </div>
     <div id="infos"><span id="info-g"></span><span>◀ ▶ choisir · ⏎ charger · F10 panneau</span></div>
+    <div id="barre">
+      <label class="cherche" title="Tapez un nom : la recherche commence d'elle-même"><svg width="18" height="18" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="4" height="1"/><rect x="0" y="1" width="1" height="4"/><rect x="5" y="1" width="1" height="4"/><rect x="1" y="5" width="4" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/></svg><input id="recherche" type="text" placeholder="tapez un nom…" spellcheck="false" autocomplete="off" aria-label="Chercher un jeu"><button class="effacer cache" data-action="chercher-effacer" aria-label="Effacer la recherche" title="Effacer (Échap)">×</button></label>
+      <div class="lettres" id="lettres" role="toolbar" aria-label="Aller à la lettre"></div>
+    </div>
     <div id="bac">
       <div class="fond"></div>
       <div id="disques"></div>
@@ -306,11 +328,16 @@ button { font-family: inherit; color: inherit; }
       <div style="display:flex;justify-content:space-between;align-items:baseline">
         <span style="font-size:32px">PANNEAU DE CONTRÔLE</span><span id="pn-compte" style="font-size:22px"></span>
       </div>
-      <div style="font-size:19px;color:#444">⏎ / A : cocher · F10 / Échap : fermer · les disquettes cochées vont dans le bac</div>
+      <div style="font-size:19px;color:#444">⏎ / A : cocher · tapez un nom pour chercher · F10 / Échap : fermer · cochés = dans le bac</div>
+      <div class="barre">
+        <label class="cherche"><svg width="18" height="18" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="4" height="1"/><rect x="0" y="1" width="1" height="4"/><rect x="5" y="1" width="1" height="4"/><rect x="1" y="5" width="4" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/></svg><input id="pn-recherche" type="text" placeholder="tapez un nom…" spellcheck="false" autocomplete="off" aria-label="Chercher un jeu"><button class="effacer cache" data-action="pn-chercher-effacer" aria-label="Effacer la recherche" title="Effacer (Échap)">×</button></label>
+        <div class="lettres" id="pn-lettres" role="toolbar" aria-label="Aller à la lettre"></div>
+      </div>
       <div class="liste" id="pn-liste"></div>
       <div class="boutons">
         <button class="bouton" data-action="pn-tout">Tout</button>
         <button class="bouton" data-action="pn-rien">Rien</button>
+        <button class="bouton" data-action="pn-menage">Ménage…</button>
         <span style="flex:1"></span>
         <button class="bouton" data-action="pn-annuler">Annuler</button>
         <button class="bouton defaut" data-action="pn-ok">ENREGISTRER</button>
@@ -359,6 +386,7 @@ const etat = {
   mhz16: {},            // jeux lancés à 16 MHz (id → true), choix gardé par jeu
   phase: 'demarrage',   // demarrage | bureau | insertion | lecture | jeu | web | ejection
   menu: null, menuIndex: -1, dialogue: null, dernierInput: Date.now(),
+  recherche: '',        // texte du champ de recherche du bac
 };
 
 /* ---------- préférences (navigateur du pack) ---------- */
@@ -457,15 +485,31 @@ function groupeDe(j) {
     case 'annee': return j.annee ? String(j.annee) : '?';
     case 'genre': return j.genre || '?';
     case 'joueurs': return (j.joueurs || 1) > 1 ? (j.joueurs + ' JOUEURS') : '1 JOUEUR';
-    default: {
-      const c = (j.titre || '?').replace(/^(the|le|la|les|l')\s+/i, '').charAt(0).toUpperCase();
-      return /[A-Z]/.test(c) ? c : '#';
-    }
+    default: return lettreDe(j);
   }
 }
 function cleTri(j) { return (j.titre || '').replace(/^(the|le|la|les)\s+/i, '').toLowerCase(); }
+function sansAccents(t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+// lettre du jeu (onglets, boutons lettres) : « The », « Le »… ne comptent pas, « É » = E
+function lettreDe(j) { const c = sansAccents(cleTri(j)).charAt(0).toUpperCase(); return /[A-Z]/.test(c) ? c : '#'; }
 
-function construireListe() {
+/* ---------- recherche : tous les mots tapés, dans le titre, l'éditeur, l'année ou le genre ---------- */
+function motsRecherche(t) { return sansAccents(t).split(/\s+/).filter(Boolean); }
+function correspond(j, mots) {
+  if (!mots.length) return true;
+  const t = sansAccents([j.titre, j.editeur, j.annee, j.genre].join(' '));
+  return mots.every(m => t.includes(m));
+}
+const LETTRES = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+function creerLettres(zone, action) {
+  LETTRES.forEach(c => { const b = document.createElement('button'); b.textContent = c; b.dataset.action = action + c; b.dataset.lettre = c; b.title = c === '#' ? 'Chiffres et signes' : 'Lettre ' + c; zone.appendChild(b); });
+}
+function majLettres(zone, presentes, actuelle) {
+  zone.querySelectorAll('button').forEach(b => { b.disabled = !presentes.has(b.dataset.lettre); b.classList.toggle('actuelle', b.dataset.lettre === actuelle); });
+}
+
+// nouvelleRecherche : le texte vient de changer → on se place sur le premier titre qui commence par lui
+function construireListe(nouvelleRecherche) {
   const c = etat.cat; if (!c) return;
   const actuel = etat.liste[etat.sel];
   // le bac ne montre que les jeux dont une version est là (images, TOS, Hatari) ;
@@ -474,6 +518,9 @@ function construireListe() {
   let l = coches.filter(j => j.variantes.some(v => v.dispo));
   etat.absents = coches.length - l.length;
   if (c.vrac_actif) l = l.concat(c.vrac);
+  etat.total = l.length;
+  const mots = motsRecherche(etat.recherche);
+  if (mots.length) l = l.filter(j => correspond(j, mots));
   const t = etat.tri;
   l.sort((a, b) => {
     if (t === 'annee') return (a.annee || 9999) - (b.annee || 9999) || cleTri(a).localeCompare(cleTri(b));
@@ -483,9 +530,21 @@ function construireListe() {
   });
   etat.liste = l;
   const viseId = actuel ? actuel.id : etat.dernierId;
-  const i = l.findIndex(j => j.id === viseId);
+  let i = -1;
+  if (nouvelleRecherche && mots.length) { const q = mots.join(' '); i = l.findIndex(j => sansAccents(cleTri(j)).startsWith(q) || sansAccents(j.titre).startsWith(q)); }
+  if (i < 0) i = l.findIndex(j => j.id === viseId);
   etat.sel = i >= 0 ? i : 0;
+  const j = l[etat.sel];
+  if (!j || !actuel || j.id !== actuel.id) { etat.capture = 0; etat.variante = j ? Math.max(0, j.variantes.findIndex(v => v.dispo)) : 0; }
   construireBac();
+}
+
+function chercher(texte) {
+  etat.recherche = texte;
+  const champ = $('#recherche');
+  if (champ.value !== texte) champ.value = texte;
+  $('[data-action="chercher-effacer"]').classList.toggle('cache', !texte);
+  construireListe(true);
 }
 
 async function chargerCatalogue() {
@@ -498,6 +557,7 @@ async function chargerCatalogue() {
   const s = etat.cat.systeme || {};
   etat.sortie = 'Échap maintenu ' + (s.sortie_echap_s || 2) + ' s  ·  Select + Start';
   construireListe();
+  verifierRangement();
   try { etat.demos = await api('/api/demos'); } catch (e) { etat.demos = { disponibles: 0 }; }
 }
 
@@ -537,6 +597,7 @@ function construireBac() {
     b.addEventListener('dblclick', () => { if (i === etat.sel) charger(); });
     zone.appendChild(b);
   });
+  etat.lettres = new Set(etat.liste.map(lettreDe));
   placer();
   dessinerFiche();
 }
@@ -558,7 +619,14 @@ function placer() {
   const j = etat.liste[sel];
   $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * courseCurseur()) : 0) + 'px';
   $('#fa-compteur').textContent = n ? (sel + 1) + ' / ' + n : '0 / 0';
-  $('#info-g').textContent = n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '') + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
+  $('#info-g').textContent = (etat.recherche ? n + ' trouvée' + (n > 1 ? 's' : '') + ' sur ' + etat.total : n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '')) + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
+  majLettres($('#lettres'), etat.lettres || new Set(), j ? lettreDe(j) : '');
+  if (!j && etat.recherche) {
+    $('#fa-groupe').textContent = 'BAC À DISQUETTES · RECHERCHE';
+    $('#fa-titre').textContent = 'Rien trouvé';
+    $('#fa-meta').textContent = 'pour « ' + etat.recherche.trim() + ' »';
+    $('#fa-vers').textContent = 'Échap : effacer la recherche'; return;
+  }
   if (!j) {
     $('#fa-titre').textContent = etat.absents ? 'Aucune disquette' : 'Bac vide';
     $('#fa-meta').textContent = etat.absents ? etat.absents + ' jeux attendent leurs images : voir le README' : 'F10 : panneau de contrôle';
@@ -591,11 +659,13 @@ function sauterGroupe(sens) {
   choisir(i);
 }
 
+// tri par titre : la première disquette de la lettre ; autres tris : la suivante qui commence par elle
 function sauterLettre(c) {
-  const l = etat.liste, n = l.length;
+  const l = etat.liste, n = l.length; if (!n) return;
+  const depart = etat.tri === 'titre' ? n - 1 : etat.sel;
   for (let k = 1; k <= n; k++) {
-    const i = (etat.sel + k) % n;
-    if (cleTri(l[i]).charAt(0) === c.toLowerCase()) { choisir(i); return; }
+    const i = (depart + k) % n;
+    if (lettreDe(l[i]) === c) { if (i === etat.sel) Son.touche(); else choisir(i); return; }
   }
 }
 
@@ -603,7 +673,11 @@ function sauterLettre(c) {
 function dessinerFiche() {
   const j = etat.liste[etat.sel];
   const cap = $('#f-capture');
-  if (!j) { $('#f-titre').textContent = '—'; $('#f-lignes').textContent = ''; $('#f-variantes').textContent = ''; cap.innerHTML = ''; return; }
+  if (!j) {
+    $('#f-titre').textContent = '—'; ['#f-lignes', '#f-variantes', '#f-commandes'].forEach(s => { $(s).textContent = ''; });
+    $('#f-astuce').classList.add('cache'); $('#f-mhz').classList.add('cache');
+    cap.innerHTML = ''; cap.style.background = '#000'; placer(); return;
+  }
   $('#f-titre').textContent = j.titre;
   const l1 = [j.editeur, j.annee].filter(Boolean).join(', ');
   const l2 = [j.genre, j.joueurs ? (j.joueurs + (j.joueurs > 1 ? ' joueurs' : ' joueur')) : ''].filter(Boolean).join(' · ');
@@ -737,6 +811,7 @@ async function charger() {
   if (etat.phase !== 'bureau') return;
   const j = etat.liste[etat.sel]; if (!j) return;
   const v = j.variantes[etat.variante];
+  $('#recherche').blur();
   if (!v || !v.dispo) { Son.cloche(); alerte('Cette version n\'est pas disponible.\n\n' + ((v && v.absent) || ''), ['OK']); return; }
   Son.touche();
   etat.phase = 'insertion'; placer(); etatLecteur('Insertion…');
@@ -848,6 +923,10 @@ function ecouter() {
     }
     if (ev.type === 'quitter' && etat.phase === 'web') fermerWeb(false);
     if (ev.type === 'fin-demo' && (etat.phase === 'demo' || etat.phase === 'veille')) quitterVeille();
+    if (ev.type === 'rangement' && ev.donnees) {
+      if (ev.donnees.en_cours) afficherRangement(ev.donnees.texte);
+      else finRangement(ev.donnees.dernier);
+    }
   };
 }
 
@@ -878,7 +957,7 @@ function majCoches() {
 }
 
 let alerteResolve = null, alerteFocus = 0;
-function alerte(texte, boutons, signe) {
+function alerte(texte, boutons, signe, focus) {
   return new Promise((ok) => {
     $('#al-texte').textContent = texte;
     $('#al-signe').textContent = signe || '!';
@@ -890,7 +969,7 @@ function alerte(texte, boutons, signe) {
       b.addEventListener('click', () => fermerAlerte(i));
       zb.appendChild(b);
     });
-    alerteFocus = boutons.length - 1; marquerAlerte();
+    alerteFocus = focus === undefined ? boutons.length - 1 : focus; marquerAlerte();
     alerteResolve = ok; etat.dialogue = 'alerte';
     $('#alerte').classList.remove('cache');
   });
@@ -902,40 +981,62 @@ function fermerAlerte(i) {
 }
 
 /* ---------- panneau de contrôle (F10) ---------- */
-let pn = { coches: {}, vrac: false, focus: 0, lignes: [] };
+let pn = { coches: {}, vrac: false, focus: 0, lignes: [], recherche: '' };
 function ouvrirPanneau() {
   if (!etat.cat || etat.phase !== 'bureau') return;
   fermerMenu(); Son.cloche();
   pn.coches = {}; etat.cat.jeux.forEach(j => { pn.coches[j.id] = j.actif !== false; });
   pn.vrac = !!etat.cat.vrac_actif; pn.focus = 0;
-  dessinerPanneau();
+  pnChercher('');
   etat.dialogue = 'panneau';
   $('#panneau').classList.remove('cache');
 }
-function dessinerPanneau() {
+// jeux du catalogue montrés (recherche), par titre
+function jeuxPanneau() {
+  const mots = motsRecherche(pn.recherche);
+  return etat.cat.jeux.filter(j => correspond(j, mots)).sort((a, b) => cleTri(a).localeCompare(cleTri(b)));
+}
+function pnChercher(texte) {
+  pn.recherche = texte; pn.focus = 0;
+  const champ = $('#pn-recherche');
+  if (champ.value !== texte) champ.value = texte;
+  $('[data-action="pn-chercher-effacer"]').classList.toggle('cache', !texte);
+  dessinerPanneau(true);
+}
+function pnLettre(c) {
+  const i = pn.lignes.findIndex(l => l.lettre === c);
+  if (i >= 0) { pn.focus = i; Son.touche(); dessinerPanneau(true); }
+}
+// enHaut : la ligne choisie en haut de la liste (lettre, recherche)
+function dessinerPanneau(enHaut) {
   const L = $('#pn-liste'); L.textContent = ''; pn.lignes = [];
-  const ajouterLigne = (texte, info, coche, basculer) => {
+  const ajouterLigne = (texte, info, coche, basculer, lettre) => {
     const b = document.createElement('button'); b.className = 'ligne';
     b.innerHTML = '<span class="cb"></span><span class="t"></span><span class="info"></span>';
     b.querySelector('.cb').textContent = coche ? '✕' : '';
     b.querySelector('.t').textContent = texte; b.querySelector('.info').textContent = info || '';
     const idx = pn.lignes.length;
     b.addEventListener('click', () => { pn.focus = idx; basculer(); Son.touche(); dessinerPanneau(); });
-    pn.lignes.push({ el: b, basculer });
+    pn.lignes.push({ el: b, basculer, lettre });
     L.appendChild(b);
   };
   const titre = (t) => { const d = document.createElement('div'); d.className = 'groupe'; d.textContent = t; L.appendChild(d); };
-  titre('Mode vrac');
-  ajouterLigne('Afficher toutes les autres disquettes de disques/', (etat.cat.vrac || []).length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
-  titre('Catalogue');
-  const js = etat.cat.jeux.slice().sort((a, b) => cleTri(a).localeCompare(cleTri(b)));
+  const q = pn.recherche.trim(), js = jeuxPanneau();
+  if (!q) {
+    titre('Mode vrac');
+    ajouterLigne('Afficher toutes les autres disquettes de disques/', (etat.cat.vrac || []).length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
+  }
+  titre(q ? 'Recherche « ' + q + ' » : ' + js.length + ' jeu' + (js.length > 1 ? 'x' : '') : 'Catalogue');
   js.forEach(j => {
     const ok = j.variantes.some(v => v.dispo);
-    ajouterLigne(j.titre, (j.annee || '') + (ok ? '' : ' · absent'), pn.coches[j.id], () => { pn.coches[j.id] = !pn.coches[j.id]; });
+    ajouterLigne(j.titre, (j.annee || '') + (ok ? '' : ' · absent'), pn.coches[j.id], () => { pn.coches[j.id] = !pn.coches[j.id]; }, lettreDe(j));
   });
+  if (!js.length) { const d = document.createElement('div'); d.className = 'rien'; d.textContent = q ? 'Aucun jeu. Échap : effacer la recherche.' : 'Catalogue vide.'; L.appendChild(d); }
   pn.focus = Math.max(0, Math.min(pn.lignes.length - 1, pn.focus));
   pn.lignes.forEach((l, i) => l.el.classList.toggle('focus', i === pn.focus));
-  const f = pn.lignes[pn.focus]; if (f) f.el.scrollIntoView({ block: 'nearest' });
+  const f = pn.lignes[pn.focus];
+  if (f) { if (enHaut) L.scrollTop = pn.focus === 0 ? 0 : f.el.offsetTop - 4; else f.el.scrollIntoView({ block: 'nearest' }); }
+  majLettres($('#pn-lettres'), new Set(js.map(lettreDe)), f && f.lettre);
   const n = Object.values(pn.coches).filter(Boolean).length;
   $('#pn-compte').textContent = n + ' / ' + etat.cat.jeux.length + ' dans le bac';
 }
@@ -971,10 +1072,71 @@ async function retirerCapture() {
   catch (e) { alerte(e.message, ['OK']); }
 }
 
+/* ---------- rangement de disques/GAME (collection TOSEC déposée telle quelle ou en vrac) ---------- */
+// Le lanceur le fait seul au démarrage quand le dépôt a changé (catalogue installé, une
+// édition gardée par jeu, le reste effacé, journal dans runtime/) ; on affiche l'étape
+// en cours puis le compte rendu. Fichier › Ménage des disquettes le refait à la demande.
+function taille(o) { return o >= 1e9 ? (o / 1e9).toFixed(1).replace('.', ',') + ' Go' : Math.max(1, Math.round(o / 1e6)) + ' Mo'; }
+function nombre(n) { return String(n || 0).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+let rangementAffiche = false;
+function afficherRangement(texte) {
+  const t = 'Rangement des disquettes de disques/GAME…\n\n' + (texte || 'Un instant.') + '\n\nLe catalogue s\'installe et les doublons partent.\nLa première fois, quelques minutes.';
+  if (rangementAffiche && etat.dialogue === 'alerte') { $('#al-texte').textContent = t; return; }
+  if (etat.phase !== 'bureau') return;
+  rangementAffiche = true;
+  alerte(t, [], '…');
+}
+function resumeRangement(d) {
+  if (d.vide) return d.depot + ' est vide.\n\nDéposez-y la collection TOSEC Atari ST (tout, ou le dossier Games), telle quelle ou en vrac : la ludothèque installe le catalogue et fait le ménage toute seule.';
+  // espaces insécables : la boîte d'alerte fusionne les espaces ordinaires
+  const lignes = (d.raisons || []).map(l => nombre(l.fichiers).padStart(7, ' ') + '  ' + l.raison).join('\n');
+  let t = 'Rangement de ' + d.depot + ' terminé.\n\n';
+  if (d.installees) t += nombre(d.installees) + ' images du catalogue installées.\n';
+  t += nombre(d.jeux) + ' jeux gardés, une édition chacun (dans le bac).\n';
+  t += nombre(d.effaces) + ' fichiers effacés' + (d.effaces ? ' (' + taille(d.octets) + ') :\n' + lignes : '.');
+  if (d.absentes) t += '\n\n' + d.absentes + ' images du catalogue introuvables dans le dépôt.';
+  if (d.echecs) t += '\n' + d.echecs + ' fichiers n\'ont pas pu être effacés.';
+  return t + '\n\nCe qui a été fait et pourquoi :\n' + d.journal;
+}
+// Rangement fait avant l'ouverture de la page (au démarrage du lanceur) : son compte
+// rendu une fois, à l'arrivée sur le bureau.
+function rangementVu(journal) {
+  try { if (journal) localStorage.setItem('ludo-rangement-vu', journal); return localStorage.getItem('ludo-rangement-vu'); } catch (e) { return journal; }
+}
+function verifierRangement() {
+  const rg = etat.cat && etat.cat.rangement;
+  if (!rg || etat.phase !== 'bureau') return;
+  if (rg.en_cours) { afficherRangement(rg.texte); return; }
+  const d = rg.dernier;
+  if (d && d.journal && !rangementAffiche && etat.dialogue !== 'alerte' && rangementVu() !== d.journal) {
+    rangementVu(d.journal); Son.cloche(); alerte(resumeRangement(d), ['OK']);
+  }
+}
+async function finRangement(d) {
+  const ouvert = rangementAffiche;
+  if (rangementAffiche) { rangementAffiche = false; if (etat.dialogue === 'alerte') fermerAlerte(-1); }
+  if (!d) { if (ouvert) await chargerCatalogue(); return; }
+  if (d.journal) rangementVu(d.journal);
+  await chargerCatalogue();
+  if (etat.phase === 'bureau') { Son.cloche(); alerte(resumeRangement(d), ['OK']); }
+}
+async function menage() {
+  if (!etat.cat || etat.phase !== 'bureau') return;
+  Son.cloche();
+  afficherRangement('');
+  try { await api('/api/menage', {}); }
+  catch (e) {
+    rangementAffiche = false;
+    alerte(/404/.test(e.message) ? 'Ménage impossible : le lanceur en mémoire est une ancienne version.\n\nQuittez la ludothèque (Fichier › Quitter) et relancez-la.' : 'Ménage impossible.\n\n' + e.message, ['OK']);
+  }
+}
+
 /* ---------- actions ---------- */
 async function action(a) {
   if (/^(jeu|lignes):/.test(a)) { reglerAffichage(a); return; }
   fermerMenu();
+  if (a.startsWith('lettre:')) { if (etat.phase === 'bureau' && !etat.dialogue) sauterLettre(a.slice(7)); return; }
+  if (a.startsWith('pn-lettre:')) { pnLettre(a.slice(10)); return; }
   if (a.startsWith('tri:')) { etat.tri = a.slice(4); Son.touche(); ecrirePrefs(); construireListe(); return; }
   switch (a) {
     case 'prec': choisir(etat.sel - 1); break;
@@ -991,15 +1153,20 @@ async function action(a) {
     }
     case 'panneau': ouvrirPanneau(); break;
     case 'demos': lancerDemos(); break;
+    case 'menage': menage(); break;
     case 'quitter': if (await alerte('Quitter la ludothèque ?', ['Annuler', 'Quitter'], '?') === 1) api('/api/systeme', { action: 'quitter' }).catch(() => {}); break;
     case 'eteindre': if (await alerte('Éteindre l\'ordinateur ?', ['Annuler', 'Éteindre'], '?') === 1) api('/api/systeme', { action: 'eteindre' }).catch(e => alerte(e.message, ['OK'])); break;
     case 'redemarrer': if (await alerte('Redémarrer l\'ordinateur ?', ['Annuler', 'Redémarrer'], '?') === 1) api('/api/systeme', { action: 'redemarrer' }).catch(e => alerte(e.message, ['OK'])); break;
     case 'opt:son': etat.son = !etat.son; ecrirePrefs(); Son.touche(); break;
     case 'opt:crt': etat.crt = !etat.crt; $('#crt').classList.toggle('cache', !etat.crt); ecrirePrefs(); Son.touche(); break;
     case 'opt:veille': etat.veille = !etat.veille; ecrirePrefs(); Son.touche(); break;
-    case 'pn-tout': Object.keys(pn.coches).forEach(k => pn.coches[k] = true); dessinerPanneau(); break;
-    case 'pn-rien': Object.keys(pn.coches).forEach(k => pn.coches[k] = false); dessinerPanneau(); break;
+    // Tout / Rien : les jeux montrés (tous, ou ceux de la recherche)
+    case 'pn-tout': jeuxPanneau().forEach(j => pn.coches[j.id] = true); dessinerPanneau(); break;
+    case 'pn-rien': jeuxPanneau().forEach(j => pn.coches[j.id] = false); dessinerPanneau(); break;
+    case 'chercher-effacer': Son.touche(); chercher(''); $('#recherche').focus(); break;
+    case 'pn-chercher-effacer': Son.touche(); pnChercher(''); $('#pn-recherche').focus(); break;
     case 'pn-annuler': fermerPanneau(); Son.touche(); break;
+    case 'pn-menage': fermerPanneau(); menage(); break;
     case 'pn-ok': enregistrerPanneau(); break;
   }
 }
@@ -1054,6 +1221,7 @@ function intention(t) {
   if (etat.phase === 'demarrage') { if (t === 'ok' || t === 'retour') allumer(); return; }
   if (etat.dialogue === 'alerte') {
     const n = $$('#al-boutons .bouton').length;
+    if (!n) return; // message d'attente
     if (t === 'gauche' || t === 'haut') { alerteFocus = (alerteFocus + n - 1) % n; marquerAlerte(); }
     else if (t === 'droite' || t === 'bas') { alerteFocus = (alerteFocus + 1) % n; marquerAlerte(); }
     else if (t === 'ok') fermerAlerte(alerteFocus);
@@ -1067,7 +1235,7 @@ function intention(t) {
     else if (t === 'pgsuiv') { pn.focus += 10; dessinerPanneau(); }
     else if (t === 'ok' || t === 'x') { const l = pn.lignes[pn.focus]; if (l) { l.basculer(); Son.touche(); dessinerPanneau(); } }
     else if (t === 'menu' || t === 'admin') enregistrerPanneau();
-    else if (t === 'retour') fermerPanneau();
+    else if (t === 'retour') { if (pn.recherche) { Son.touche(); pnChercher(''); } else fermerPanneau(); }
     return;
   }
   if (etat.phase !== 'bureau') return;
@@ -1097,18 +1265,37 @@ function intention(t) {
     case 'menu': ouvrirMenu('fichier'); etat.menuIndex = 0; surlignerMenu(); break;
     case 'admin': ouvrirPanneau(); break;
     case 'demos': lancerDemos(); break;
-    case 'retour': action('annuler'); break;
+    case 'retour': if (etat.recherche) { Son.touche(); chercher(''); } else action('annuler'); break;
   }
 }
 
 const TOUCHES = { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas', Enter: 'ok', ' ': 'x', Escape: 'retour',
   Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
+// champ de recherche du moment : celui du panneau F10, ou celui du bac
+function champRecherche() {
+  if (etat.dialogue === 'panneau') return $('#pn-recherche');
+  if (etat.phase === 'bureau' && !etat.dialogue && !etat.menu) return $('#recherche');
+  return null;
+}
+const caractere = (e) => e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey;
 document.addEventListener('keydown', (e) => {
   if (etat.phase === 'web') return;
+  const c = champRecherche();
+  // dans le champ de recherche : il garde les caractères et l'édition ; flèches, ⏎, Échap restent au bac
+  if (c && e.target === c && (caractere(e) || ['Backspace', 'Delete', 'Home', 'End'].includes(e.key))) return;
   const t = TOUCHES[e.key];
   if (t) { e.preventDefault(); intention(t); return; }
-  if (/^[a-z0-9]$/i.test(e.key) && etat.phase === 'bureau' && !etat.dialogue && !etat.menu) { sauterLettre(e.key); etat.dernierInput = Date.now(); }
+  // une lettre tapée ailleurs : la recherche commence (Retour arrière la corrige)
+  if (c && ((caractere(e) && e.key !== ' ') || (e.key === 'Backspace' && c.value))) {
+    e.preventDefault(); etat.dernierInput = Date.now();
+    c.focus(); c.value = e.key === 'Backspace' ? c.value.slice(0, -1) : c.value + e.key;
+    c.dispatchEvent(new Event('input'));
+  } else if (e.target.matches && e.target.matches('.cherche input')) e.preventDefault(); // champ hors de propos (alerte, menu…)
 });
+$('#recherche').addEventListener('input', (e) => { if (etat.phase !== 'bureau') return; Son.touche(); chercher(e.target.value); });
+$('#pn-recherche').addEventListener('input', (e) => { Son.touche(); pnChercher(e.target.value); });
+creerLettres($('#lettres'), 'lettre:');
+creerLettres($('#pn-lettres'), 'pn-lettre:');
 
 /* Manette (API Gamepad, disposition standard) */
 const pad = { avant: {}, repete: {} };
@@ -1156,6 +1343,7 @@ async function allumer() {
   await attendre(700);
   ab.classList.add('cache');
   etat.phase = 'bureau'; etat.dernierInput = Date.now();
+  verifierRangement();
 }
 
 function demarrage() {
@@ -1173,6 +1361,8 @@ function demarrage() {
 /* écran de veille : défilement façon démo */
 let veille = { t0: 0, etoiles: [] };
 function entrerVeille() {
+  if (etat.recherche) chercher('');   // le visiteur suivant retrouve tout le bac
+  $('#recherche').blur();
   etat.phase = 'veille'; veille.t0 = performance.now(); veille.demos = false;
   if (etat.demos && etat.demos.disponibles > 0) {
     veille.demos = true;

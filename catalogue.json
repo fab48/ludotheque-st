@@ -5,7 +5,7 @@
   "tos": "tos/tos162fr.img",
   "options": []
  },
- "vrac": false,
+ "vrac": true,
  "jeux": [
   {
    "id": "stunt-car-racer",
@@ -14,9 +14,13 @@
    "annee": 1989,
    "genre": "Course",
    "joueurs": 1,
+   "auteur": "Geoff Crammond",
+   "aide": "Haut : accélérer · bas : freiner · tir : boost",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#3c9a3c",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -26,7 +30,8 @@
      "desc": "Hatari",
      "disques": [
       "disques/stunt-car-racer.st"
-     ]
+     ],
+     "dispo": false
     },
     {
      "type": "natif",
@@ -44,19 +49,17 @@
       "--fullscreen",
       "--hd"
      ],
-     "disque": "disques/Stunt_Car_Racer.st"
+     "disque": "disques/Stunt_Car_Racer.st",
+     "dispo": false
     },
     {
      "type": "web",
      "nom": "Réplique web",
      "desc": "navigateur",
-     "url": "reforged/stuntcar-web/index.html"
+     "url": "reforged/stuntcar-web/index.html",
+     "dispo": false
     }
-   ],
-   "auteur": "Geoff Crammond",
-   "aide": "Haut : accélérer · bas : freiner · tir : boost",
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "shufflepuck-cafe",
@@ -65,9 +68,14 @@
    "annee": 1989,
    "genre": "Bar",
    "joueurs": 1,
+   "auteur": "Christopher Gross",
+   "commandes": "souris",
+   "aide": "Souris : la raquette · bouton : frappe forte · Espace : menu",
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#c0392b",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -77,20 +85,17 @@
      "desc": "Hatari",
      "disques": [
       "disques/shufflepuck-cafe.st"
-     ]
+     ],
+     "dispo": false
     },
     {
      "type": "web",
      "nom": "Reforged",
      "desc": "fichier unique",
-     "url": "reforged/shufflepuck/shufflepuck.html"
+     "url": "reforged/shufflepuck/shufflepuck.html",
+     "dispo": false
     }
-   ],
-   "auteur": "Christopher Gross",
-   "commandes": "souris",
-   "aide": "Souris : la raquette · bouton : frappe forte · Espace : menu",
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "xenon",
@@ -99,9 +104,13 @@
    "annee": 1988,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "The Bitmap Brothers",
+   "touche": "5",
+   "aide": "Tir : tirer (et se transformer entre deux vagues)",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#27ae60",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -111,13 +120,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/xenon.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "aide": "Tir : tirer (et se transformer entre deux vagues)",
-   "touche": "5",
-   "actif": true
+   ]
   },
   {
    "id": "barbarian",
@@ -126,9 +132,12 @@
    "annee": 1987,
    "genre": "Combat",
    "joueurs": 2,
+   "touche": "3",
+   "aide": "F1 : partie à 1 joueur · F2 : partie à 2 joueurs · Tir + direction : coups d'épée",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#e84393",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -138,12 +147,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/barbarian.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "F1 : partie à 1 joueur · F2 : partie à 2 joueurs · Tir + direction : coups d'épée",
-   "touche": "3",
-   "actif": true
+   ]
   },
   {
    "id": "barbarian-2",
@@ -152,9 +159,16 @@
    "annee": 1988,
    "genre": "Combat",
    "joueurs": 2,
+   "touche_delai": 8,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": false,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#d35400",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -165,16 +179,10 @@
      "disques": [
       "disques/tosec/barbarian-2-1.st",
       "disques/tosec/barbarian-2-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 15,
-   "touche_delai": 8,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "speedball",
@@ -183,9 +191,13 @@
    "annee": 1988,
    "genre": "Sport",
    "joueurs": 2,
+   "auteur": "The Bitmap Brothers",
+   "touche": "2",
+   "aide": "Tir : passe ou tacle · tir maintenu : tir puissant",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#3c9a3c",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -195,13 +207,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/speedball.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "aide": "Tir : passe ou tacle · tir maintenu : tir puissant",
-   "touche": "2",
-   "actif": true
+   ]
   },
   {
    "id": "bubble-bobble",
@@ -210,9 +219,11 @@
    "annee": 1987,
    "genre": "Plates-formes",
    "joueurs": 2,
+   "aide": "1 ou 2 : commencer à 1 ou 2 joueurs · Tir : bulle · Haut : saut",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#d35400",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -222,11 +233,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/bubble-bobble.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "1 ou 2 : commencer à 1 ou 2 joueurs · Tir : bulle · Haut : saut",
-   "actif": true
+   ]
   },
   {
    "id": "r-type",
@@ -235,9 +245,11 @@
    "annee": 1988,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "touche": "2",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#e8b230",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -247,11 +259,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/r-type.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche": "2",
-   "actif": true
+   ]
   },
   {
    "id": "crazy-cars-2",
@@ -260,9 +271,11 @@
    "annee": 1990,
    "genre": "Course",
    "joueurs": 1,
+   "touche": "1",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#3c9a3c",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -272,11 +285,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/crazy-cars-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche": "1",
-   "actif": true
+   ]
   },
   {
    "id": "buggy-boy",
@@ -285,9 +297,13 @@
    "annee": 1988,
    "genre": "Course",
    "joueurs": 1,
+   "touche": "1",
+   "aide": "Haut : accélérer · tir : changer de vitesse",
+   "touche_type": "chiffre",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -297,13 +313,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/buggy-boy.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Haut : accélérer · tir : changer de vitesse",
-   "touche": "1",
-   "touche_type": "chiffre",
-   "actif": true
+   ]
   },
   {
    "id": "ik-plus",
@@ -312,9 +325,12 @@
    "annee": 1988,
    "genre": "Combat",
    "joueurs": 3,
+   "auteur": "Archer Maclean",
+   "aide": "Coups : directions avec ou sans tir (8 + 8 mouvements)",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e84393",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -325,6 +341,7 @@
      "disques": [
       "disques/ik-plus.st"
      ],
+     "auto": "A:\\IK+.PRG",
      "correctifs": [
       {
        "cherche": "41f900fc0000",
@@ -332,26 +349,24 @@
        "note": "IK+ lit la ROM du TOS 1.x en $FC0000 (absente sur STE) : lecture déplacée en RAM, comme IK+ Reforged"
       }
      ],
-     "auto": "A:\\IK+.PRG"
+     "dispo": false
     },
     {
      "type": "hatari",
      "nom": "IK+ Reforged",
      "desc": "3 joueurs, STE",
-     "dossier": "reforged/ikplus/IK_PLUS",
-     "auto": "C:\\IK_PLUS.TOS",
      "machine": "ste",
+     "auto": "C:\\IK_PLUS.TOS",
+     "dossier": "reforged/ikplus/IK_PLUS",
      "options": [
       "--memsize",
       "1024",
       "--joy0",
       "real"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Archer Maclean",
-   "aide": "Coups : directions avec ou sans tir (8 + 8 mouvements)",
-   "actif": true
+   ]
   },
   {
    "id": "captain-blood",
@@ -360,9 +375,12 @@
    "annee": 1988,
    "genre": "Aventure",
    "joueurs": 1,
+   "touche": "1",
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#2f9e8f",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -374,12 +392,10 @@
       "disques/captain-blood.st"
      ],
      "machine": "st",
-     "tos": "tos/tos104fr.img"
+     "tos": "tos/tos104fr.img",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche": "1",
-   "actif": true
+   ]
   },
   {
    "id": "populous",
@@ -388,9 +404,13 @@
    "annee": 1989,
    "genre": "Stratégie",
    "joueurs": 1,
+   "touche": "1",
+   "commandes": "souris",
+   "aide": "Souris : bouton gauche aplanit, droit creuse",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#27ae60",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -402,13 +422,10 @@
       "disques/populous.st"
      ],
      "machine": "st",
-     "tos": "tos/tos206fr.img"
+     "tos": "tos/tos206fr.img",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : bouton gauche aplanit, droit creuse",
-   "touche": "1",
-   "actif": true
+   ]
   },
   {
    "id": "dungeon-master",
@@ -417,9 +434,12 @@
    "annee": 1987,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "touche": "1",
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#d35400",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -429,12 +449,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/dungeon-master.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche": "1",
-   "actif": true
+   ]
   },
   {
    "id": "kick-off-2",
@@ -443,9 +461,15 @@
    "annee": 1990,
    "genre": "Football",
    "joueurs": 2,
+   "touche_delai": 8,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e84393",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -455,15 +479,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/kick-off-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 15,
-   "touche_delai": 8,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "afterburner",
@@ -472,9 +491,12 @@
    "annee": 1988,
    "genre": "Action",
    "joueurs": 1,
+   "touche": "1",
+   "touche_type": "chiffre",
+   "actif": false,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#2f9e8f",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -484,12 +506,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/afterburner.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche": "1",
-   "touche_type": "chiffre",
-   "actif": true
+   ]
   },
   {
    "id": "winter-games",
@@ -498,9 +518,10 @@
    "annee": 1986,
    "genre": "Sport",
    "joueurs": 4,
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -510,10 +531,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/winter-games.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "prince-of-persia",
@@ -522,9 +543,12 @@
    "annee": 1990,
    "genre": "Action",
    "joueurs": 1,
+   "aide": "Tir maintenu : s'agripper, dégainer, frapper",
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#27ae60",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -534,12 +558,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/prince-of-persia.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Tir maintenu : s'agripper, dégainer, frapper",
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "rick-dangerous",
@@ -548,9 +570,13 @@
    "annee": 1989,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "auteur": "Core Design",
+   "aide": "Tir + gauche/droite : tirer · tir + bas : bombe · tir + haut : bâton",
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#8e44ad",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -560,13 +586,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/rick-dangerous.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Core Design",
-   "aide": "Tir + gauche/droite : tirer · tir + bas : bombe · tir + haut : bâton",
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "rainbow-islands",
@@ -575,9 +598,15 @@
    "annee": 1990,
    "genre": "Plates-formes",
    "joueurs": 2,
+   "touche_duree": 30,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#f39c12",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -587,15 +616,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/rainbow-islands.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 30,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "turrican-2",
@@ -604,9 +628,14 @@
    "annee": 1991,
    "genre": "Action",
    "joueurs": 1,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#16a085",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -616,14 +645,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/turrican-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "chase-hq",
@@ -632,9 +657,13 @@
    "annee": 1989,
    "genre": "Course",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#27ae60",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -644,13 +673,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/chase-hq.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "lotus-turbo",
@@ -659,9 +685,12 @@
    "annee": 1990,
    "genre": "Course",
    "joueurs": 2,
+   "touche": "2",
+   "aide": "Tir : accélérer · Bas : freiner · jusqu'à 2 joueurs en écran partagé",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#95a5a6",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -672,23 +701,23 @@
      "disques": [
       "disques/lotus-turbo.st"
      ],
-     "tos": "tos/tos206fr.img"
+     "tos": "tos/tos206fr.img",
+     "dispo": false
     }
-   ],
-   "aide": "Tir : accélérer · Bas : freiner · jusqu'à 2 joueurs en écran partagé",
-   "touche": "2",
-   "actif": true
+   ]
   },
   {
    "id": "north-and-south",
-   "titre": "North & South",
+   "titre": "North \u0026 South",
    "editeur": "Infogrames",
    "annee": 1989,
    "genre": "Stratégie",
    "joueurs": 2,
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#e8b230",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -698,11 +727,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/north-and-south.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "actif": true
+   ]
   },
   {
    "id": "defender-of-the-crown",
@@ -711,9 +739,11 @@
    "annee": 1987,
    "genre": "Stratégie",
    "joueurs": 1,
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#c0392b",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -724,11 +754,10 @@
      "disques": [
       "disques/defender-of-the-crown.st"
      ],
-     "auto": "A:\\ALESTART.TOS"
+     "auto": "A:\\ALESTART.TOS",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "actif": true
+   ]
   },
   {
    "id": "mortevielle",
@@ -737,9 +766,13 @@
    "annee": 1987,
    "genre": "Aventure",
    "joueurs": 1,
+   "commandes": "souris",
+   "aide": "Souris : menus en haut de l'écran",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#95a5a6",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -751,13 +784,10 @@
       "disques/mortevielle-1.st",
       "disques/mortevielle-2.st"
      ],
-     "auto": "A:\\MORT.PRG"
+     "auto": "A:\\MORT.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : menus en haut de l'écran",
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "super-hang-on",
@@ -766,9 +796,10 @@
    "annee": 1988,
    "genre": "Course",
    "joueurs": 1,
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#2f9e8f",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -779,10 +810,10 @@
      "disques": [
       "disques/super-hang-on.st"
      ],
-     "auto": "A:\\HANG_ON.PRG"
+     "auto": "A:\\HANG_ON.PRG",
+     "dispo": false
     }
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "paperboy",
@@ -791,9 +822,10 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2e86de",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -803,10 +835,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/paperboy.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "vroom",
@@ -815,9 +847,16 @@
    "annee": 1991,
    "genre": "Course",
    "joueurs": 1,
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#d35400",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -827,16 +866,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/vroom.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 15,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "wings-of-death",
@@ -845,9 +878,16 @@
    "annee": 1990,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "touche_duree": 12,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#e84393",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -858,16 +898,10 @@
      "disques": [
       "disques/wings-of-death-1.st",
       "disques/wings-of-death-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 12,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "mega-lo-mania",
@@ -876,9 +910,18 @@
    "annee": 1991,
    "genre": "Stratégie",
    "joueurs": 1,
+   "auteur": "Sensible Software",
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "commandes": "souris",
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#2e86de",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -889,18 +932,10 @@
      "disques": [
       "disques/mega-lo-mania-1.st",
       "disques/mega-lo-mania-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Sensible Software",
-   "commandes": "souris",
-   "touche_duree": 15,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "chaos-engine",
@@ -909,9 +944,17 @@
    "annee": 1993,
    "genre": "Action",
    "joueurs": 2,
+   "auteur": "The Bitmap Brothers",
+   "touche_delai": 18,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#27ae60",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -922,17 +965,10 @@
      "disques": [
       "disques/chaos-engine-1.st",
       "disques/chaos-engine-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "touche_duree": 15,
-   "touche_delai": 18,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "new-zealand-story",
@@ -941,9 +977,13 @@
    "annee": 1989,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -954,13 +994,10 @@
      "disques": [
       "disques/tosec/new-zealand-story.st"
      ],
-     "auto": "A:\\NEWZEAL.TOS"
+     "auto": "A:\\NEWZEAL.TOS",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "midwinter",
@@ -969,9 +1006,17 @@
    "annee": 1989,
    "genre": "Stratégie",
    "joueurs": 1,
+   "touche_delai": 15,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#2e86de",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -981,17 +1026,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/midwinter.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 15,
-   "touche_delai": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "pirates",
@@ -1000,9 +1038,13 @@
    "annee": 1989,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e8b230",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1012,13 +1054,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/pirates.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "castle-master",
@@ -1027,9 +1066,17 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "touche_duree": 25,
+   "sequence": [
+    "F",
+    "espace"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#27ae60",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -1039,17 +1086,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/castle-master.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 25,
-   "sequence": [
-    "F",
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "golden-axe",
@@ -1058,9 +1098,11 @@
    "annee": 1990,
    "genre": "Action",
    "joueurs": 2,
+   "touche": "1",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#3c9a3c",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1070,11 +1112,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/golden-axe.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche": "1",
-   "actif": true
+   ]
   },
   {
    "id": "cadaver",
@@ -1083,9 +1124,13 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "auteur": "The Bitmap Brothers",
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": false,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#3c9a3c",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1095,13 +1140,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/cadaver.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "commandes": "souris",
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "tortues-ninja",
@@ -1110,9 +1152,15 @@
    "annee": 1990,
    "genre": "Action",
    "joueurs": 1,
+   "touche_duree": 12,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#c0392b",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -1122,15 +1170,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tortues-ninja.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 12,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "dynablaster",
@@ -1139,9 +1182,11 @@
    "annee": 1991,
    "genre": "Action",
    "joueurs": 2,
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#2f9e8f",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1151,11 +1196,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/dynablaster.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "monkey-island",
@@ -1164,9 +1208,20 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "auteur": "Ron Gilbert",
+   "touche_delai": 40,
+   "touche_duree": 25,
+   "sequence": [
+    "1",
+    "entree"
+   ],
+   "commandes": "souris",
+   "aide": "Question du pirate : n'importe quel nombre puis Entrée (version crackée)",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#2f9e8f",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -1180,20 +1235,10 @@
       "disques/tosec/monkey-island-3.st",
       "disques/tosec/monkey-island-4.st"
      ],
-     "auto": "A:\\MONKEY.PRG"
+     "auto": "A:\\MONKEY.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Ron Gilbert",
-   "commandes": "souris",
-   "aide": "Question du pirate : n'importe quel nombre puis Entrée (version crackée)",
-   "touche_duree": 25,
-   "touche_delai": 40,
-   "sequence": [
-    "1",
-    "entree"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "loom",
@@ -1202,9 +1247,16 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "touche_duree": 12,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#c0392b",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1216,16 +1268,10 @@
       "disques/loom-1.st",
       "disques/loom-2.st"
      ],
-     "auto": "A:\\LOOM.TOS"
+     "auto": "A:\\LOOM.TOS",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 12,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "zak-mckracken",
@@ -1234,9 +1280,17 @@
    "annee": 1988,
    "genre": "Aventure",
    "joueurs": 1,
+   "touche_delai": 3,
+   "touche_duree": 15,
+   "sequence": [
+    "entree"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1248,17 +1302,10 @@
       "disques/zak-mckracken-1.st",
       "disques/zak-mckracken-2.st"
      ],
-     "auto": "A:\\ZAK.PRG"
+     "auto": "A:\\ZAK.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 15,
-   "touche_delai": 3,
-   "sequence": [
-    "entree"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "their-finest-hour",
@@ -1267,9 +1314,12 @@
    "annee": 1991,
    "genre": "Simulation",
    "joueurs": 1,
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#c0392b",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -1281,12 +1331,10 @@
       "disques/their-finest-hour-1.st",
       "disques/their-finest-hour-2.st"
      ],
-     "auto": "A:\\BOB.PRG"
+     "auto": "A:\\BOB.PRG",
+     "dispo": false
     }
-   ],
-   "actif": true,
-   "mhz16": "conseille",
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "tintin-lune",
@@ -1295,9 +1343,11 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#d35400",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -1307,11 +1357,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tintin-lune.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "iznogoud",
@@ -1320,9 +1369,12 @@
    "annee": 1987,
    "genre": "Aventure",
    "joueurs": 1,
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#d35400",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -1332,12 +1384,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/iznogoud.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "cannon-fodder",
@@ -1346,9 +1396,18 @@
    "annee": 1994,
    "genre": "Action",
    "joueurs": 1,
+   "auteur": "Sensible Software",
+   "touche_delai": 18,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer.",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#27ae60",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1360,18 +1419,10 @@
       "disques/cannon fodder/cannon-fodder-1.st",
       "disques/cannon fodder/cannon-fodder-2.st",
       "disques/cannon fodder/cannon-fodder-3.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Sensible Software",
-   "commandes": "souris",
-   "touche_duree": 15,
-   "touche_delai": 18,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "voyageurs-du-temps",
@@ -1380,9 +1431,12 @@
    "annee": 1989,
    "genre": "Aventure",
    "joueurs": 1,
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#c0392b",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1395,12 +1449,10 @@
       "disques/voyageurs-du-temps-2.st",
       "disques/voyageurs-du-temps-3.st"
      ],
-     "auto": "A:\\DELPHINE.PRG"
+     "auto": "A:\\DELPHINE.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "silent-service-2",
@@ -1409,9 +1461,13 @@
    "annee": 1991,
    "genre": "Simulation",
    "joueurs": 1,
+   "commandes": "souris",
+   "touche_type": "espace",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#2f9e8f",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -1422,13 +1478,10 @@
      "disques": [
       "disques/silent-service-2.st"
      ],
-     "auto": "A:\\SSII.PRG"
+     "auto": "A:\\SSII.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_type": "espace",
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "super-ski-2",
@@ -1437,9 +1490,12 @@
    "annee": 1990,
    "genre": "Sport",
    "joueurs": 4,
+   "touche_type": "espace",
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#c0392b",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -1450,12 +1506,10 @@
      "disques": [
       "disques/super-ski-2-1.st",
       "disques/super-ski-2-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_type": "espace",
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "carmen-sandiego",
@@ -1464,9 +1518,12 @@
    "annee": 1991,
    "genre": "Éducatif",
    "joueurs": 1,
+   "commandes": "souris",
+   "touche_type": "espace",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#16a085",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -1477,12 +1534,10 @@
      "disques": [
       "disques/carmen-sandiego.st"
      ],
-     "auto": "A:\\CARMEN.PRG"
+     "auto": "A:\\CARMEN.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_type": "espace",
-   "actif": true
+   ]
   },
   {
    "id": "panza-kick-boxing",
@@ -1491,9 +1546,14 @@
    "annee": 1990,
    "genre": "Combat",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#f39c12",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -1504,14 +1564,10 @@
      "disques": [
       "disques/tosec/panza-kick-boxing-1.st",
       "disques/tosec/panza-kick-boxing-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "light-corridor",
@@ -1520,9 +1576,13 @@
    "annee": 1990,
    "genre": "Réflexion",
    "joueurs": 1,
+   "touche": "2",
+   "commandes": "souris",
+   "touche_type": "chiffre",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2e86de",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1532,13 +1592,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/light-corridor.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche": "2",
-   "touche_type": "chiffre",
-   "actif": true
+   ]
   },
   {
    "id": "robocop",
@@ -1547,9 +1604,14 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "touche_duree": 10,
+   "sequence": [
+    "F1"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#e8b230",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -1560,14 +1622,10 @@
      "disques": [
       "disques/robocop.st"
      ],
-     "auto": "A:\\ROBOCOP\\ROBOBOY.PRG"
+     "auto": "A:\\ROBOCOP\\ROBOBOY.PRG",
+     "dispo": false
     }
-   ],
-   "touche_duree": 10,
-   "sequence": [
-    "F1"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "hostage",
@@ -1576,9 +1634,12 @@
    "annee": 1988,
    "genre": "Action",
    "joueurs": 1,
+   "touche": "2",
+   "touche_type": "chiffre",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#16a085",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1588,12 +1649,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/hostage.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche": "2",
-   "touche_type": "chiffre",
-   "actif": true
+   ]
   },
   {
    "id": "mouse-trap",
@@ -1602,9 +1661,12 @@
    "annee": 1987,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "touche": "4",
+   "aide": "Tir : sauter",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#c0392b",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1614,12 +1676,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/mouse-trap.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Tir : sauter",
-   "touche": "4",
-   "actif": true
+   ]
   },
   {
    "id": "super-sprint",
@@ -1628,9 +1688,11 @@
    "annee": 1988,
    "genre": "Course",
    "joueurs": 2,
+   "aide": "Tir : accélérer · jusqu'à 2 joueurs",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#3c9a3c",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -1640,11 +1702,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/super-sprint.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Tir : accélérer · jusqu'à 2 joueurs",
-   "actif": true
+   ]
   },
   {
    "id": "lemmings",
@@ -1653,9 +1714,17 @@
    "annee": 1991,
    "genre": "Réflexion",
    "joueurs": 1,
+   "auteur": "DMA Design",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : choisir une capacité, cliquer sur un lemming",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#2f9e8f",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1665,17 +1734,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/lemmings.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "DMA Design",
-   "commandes": "souris",
-   "aide": "Souris : choisir une capacité, cliquer sur un lemming",
-   "touche_duree": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "speedball-2",
@@ -1684,9 +1746,17 @@
    "annee": 1990,
    "genre": "Sport",
    "joueurs": 2,
+   "auteur": "The Bitmap Brothers",
+   "touche_duree": 12,
+   "sequence": [
+    "N",
+    "espace"
+   ],
+   "aide": "Tir : passe ou tacle · tir maintenu : tir puissant",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#e84393",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -1697,17 +1767,10 @@
      "disques": [
       "disques/tosec/speedball-2.st"
      ],
-     "auto": "A:\\SPEED\\BALL.PRG"
+     "auto": "A:\\SPEED\\BALL.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "aide": "Tir : passe ou tacle · tir maintenu : tir puissant",
-   "touche_duree": 12,
-   "sequence": [
-    "N",
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "another-world",
@@ -1716,9 +1779,18 @@
    "annee": 1991,
    "genre": "Action",
    "joueurs": 1,
+   "auteur": "Éric Chahi",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Tir : action, tir maintenu : charger le pistolet",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2f9e8f",
+    "corps": "#26573a",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1729,18 +1801,10 @@
      "disques": [
       "disques/tosec/another-world-1.st",
       "disques/tosec/another-world-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Éric Chahi",
-   "aide": "Tir : action, tir maintenu : charger le pistolet",
-   "touche_duree": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille",
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "arkanoid-2",
@@ -1749,9 +1813,15 @@
    "annee": 1988,
    "genre": "Casse-briques",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : la raquette · bouton : tirer",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#c0392b",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1761,15 +1831,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/arkanoid-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : la raquette · bouton : tirer",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "strider",
@@ -1778,9 +1843,13 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#27ae60",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -1790,13 +1859,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/strider.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "chambers-of-shaolin",
@@ -1805,9 +1871,10 @@
    "annee": 1989,
    "genre": "Combat",
    "joueurs": 1,
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#16a085",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1817,10 +1884,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/chambers-of-shaolin.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "xenon-2",
@@ -1829,9 +1896,15 @@
    "annee": 1989,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "The Bitmap Brothers",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Tir : tirer · tir maintenu : tir continu",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#8e44ad",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -1841,15 +1914,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/xenon-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "aide": "Tir : tirer · tir maintenu : tir continu",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "gods",
@@ -1858,9 +1926,17 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "auteur": "The Bitmap Brothers",
+   "touche_duree": 12,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2f9e8f",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -1871,17 +1947,10 @@
      "disques": [
       "disques/tosec/gods-1.st",
       "disques/tosec/gods-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "touche_duree": 12,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "magic-pockets",
@@ -1890,9 +1959,14 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "auteur": "The Bitmap Brothers",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#f39c12",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -1902,14 +1976,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/magic-pockets.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Bitmap Brothers",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "shadow-of-the-beast",
@@ -1918,9 +1988,15 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "auteur": "Reflections",
+   "sequence": [
+    "espace"
+   ],
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#2e86de",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -1931,15 +2007,10 @@
      "disques": [
       "disques/tosec/shadow-of-the-beast-1.st",
       "disques/tosec/shadow-of-the-beast-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Reflections",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "blood-money",
@@ -1948,9 +2019,15 @@
    "annee": 1989,
    "genre": "Shoot them up",
    "joueurs": 2,
+   "auteur": "DMA Design",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "F1 : 1 joueur · F2 : 2 joueurs · Tir : tirer",
+   "actif": false,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#3c9a3c",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -1960,15 +2037,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/blood-money.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "DMA Design",
-   "aide": "F1 : 1 joueur · F2 : 2 joueurs · Tir : tirer",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "menace",
@@ -1977,9 +2049,14 @@
    "annee": 1988,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "DMA Design",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#27ae60",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -1990,14 +2067,10 @@
      "disques": [
       "disques/tosec/menace.st"
      ],
-     "auto": "A:\\MENACE.TOS"
+     "auto": "A:\\MENACE.TOS",
+     "dispo": false
     }
-   ],
-   "auteur": "DMA Design",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "goldrunner",
@@ -2006,9 +2079,14 @@
    "annee": 1987,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "Steve Bak",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#2e86de",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2019,14 +2097,10 @@
      "disques": [
       "disques/tosec/goldrunner.st"
      ],
-     "auto": "A:\\GOLDRUN.42C\\GOLDRUN.PRG"
+     "auto": "A:\\GOLDRUN.42C\\GOLDRUN.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Steve Bak",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "starglider-2",
@@ -2035,9 +2109,16 @@
    "annee": 1988,
    "genre": "Action",
    "joueurs": 1,
+   "auteur": "Argonaut (Jez San)",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Mot de passe demandé : SPREAD",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2e86de",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -2048,16 +2129,10 @@
      "disques": [
       "disques/tosec/starglider-2.st"
      ],
-     "auto": "A:\\STARGL_2.TOS"
+     "auto": "A:\\STARGL_2.TOS",
+     "dispo": false
     }
-   ],
-   "auteur": "Argonaut (Jez San)",
-   "aide": "Mot de passe demandé : SPREAD",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "carrier-command",
@@ -2066,9 +2141,18 @@
    "annee": 1988,
    "genre": "Stratégie",
    "joueurs": 1,
+   "auteur": "Realtime Games",
+   "sequence": [
+    "espace",
+    "3"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : tout se commande depuis le pont du porte-avions",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#16a085",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -2079,18 +2163,10 @@
      "disques": [
       "disques/tosec/carrier-command.st"
      ],
-     "auto": "A:\\CARRIER.PRG"
+     "auto": "A:\\CARRIER.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Realtime Games",
-   "commandes": "souris",
-   "aide": "Souris : tout se commande depuis le pont du porte-avions",
-   "sequence": [
-    "espace",
-    "3"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "oids",
@@ -2099,9 +2175,14 @@
    "annee": 1987,
    "genre": "Action",
    "joueurs": 1,
+   "auteur": "Dan Hewitt",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#95a5a6",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2111,14 +2192,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/oids.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Dan Hewitt",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "llamatron",
@@ -2127,9 +2204,13 @@
    "annee": 1991,
    "genre": "Shoot them up",
    "joueurs": 2,
+   "auteur": "Jeff Minter",
+   "touche_duree": 15,
+   "aide": "Tir : passer l'écran shareware · 2 joueurs : manette 2",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#f39c12",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -2140,13 +2221,10 @@
      "disques": [
       "disques/tosec/llamatron.st"
      ],
-     "auto": "A:\\TRON1MEG.PRG"
+     "auto": "A:\\TRON1MEG.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Jeff Minter",
-   "aide": "Tir : passer l'écran shareware · 2 joueurs : manette 2",
-   "touche_duree": 15,
-   "actif": true
+   ]
   },
   {
    "id": "gauntlet-2",
@@ -2155,9 +2233,14 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Tir : choisir son héros · jusqu'à 2 joueurs",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#27ae60",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -2167,14 +2250,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/gauntlet-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Tir : choisir son héros · jusqu'à 2 joueurs",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "bomb-jack",
@@ -2183,9 +2262,14 @@
    "annee": 1987,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "F1 ou tir : commencer · Tir : sauter",
+   "actif": false,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2e86de",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2196,14 +2280,10 @@
      "disques": [
       "disques/tosec/bomb-jack.st"
      ],
-     "auto": "A:\\BJ.PRG"
+     "auto": "A:\\BJ.PRG",
+     "dispo": false
     }
-   ],
-   "aide": "F1 ou tir : commencer · Tir : sauter",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "out-run",
@@ -2212,9 +2292,13 @@
    "annee": 1988,
    "genre": "Course",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#c0392b",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2225,13 +2309,10 @@
      "disques": [
       "disques/tosec/out-run.st"
      ],
-     "auto": "A:\\OUT_RUN\\OUT_RUN.PRG"
+     "auto": "A:\\OUT_RUN\\OUT_RUN.PRG",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "super-cars",
@@ -2240,9 +2321,15 @@
    "annee": 1990,
    "genre": "Course",
    "joueurs": 1,
+   "auteur": "Magnetic Fields",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Clavier : votre nom, puis Entrée · Tir : accélérer",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2e86de",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2252,15 +2339,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/super-cars.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Magnetic Fields",
-   "aide": "Clavier : votre nom, puis Entrée · Tir : accélérer",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "pang",
@@ -2269,9 +2351,15 @@
    "annee": 1990,
    "genre": "Action",
    "joueurs": 2,
+   "sequence": [
+    "N",
+    "espace"
+   ],
+   "aide": "Tir : harpon · jusqu'à 2 joueurs",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#e8b230",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -2281,15 +2369,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/pang.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Tir : harpon · jusqu'à 2 joueurs",
-   "sequence": [
-    "N",
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "toki",
@@ -2298,9 +2381,14 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e8b230",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -2310,14 +2398,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/toki.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "rodland",
@@ -2326,9 +2410,13 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#16a085",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2338,13 +2426,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/rodland.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "ghouls-n-ghosts",
@@ -2353,9 +2438,13 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2365,13 +2454,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/ghouls-n-ghosts.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "silkworm",
@@ -2380,9 +2466,13 @@
    "annee": 1989,
    "genre": "Shoot them up",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#27ae60",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -2392,13 +2482,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/silkworm.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "enchanted-land",
@@ -2407,9 +2494,13 @@
    "annee": 1990,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#8e44ad",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -2421,13 +2512,10 @@
       "disques/tosec/enchanted-land.st"
      ],
      "machine": "st",
-     "tos": "tos/tos104fr.img"
+     "tos": "tos/tos104fr.img",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "lethal-xcess",
@@ -2436,9 +2524,15 @@
    "annee": 1991,
    "genre": "Shoot them up",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Tir : commencer · jusqu'à 2 joueurs",
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#3c9a3c",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -2449,15 +2543,10 @@
      "disques": [
       "disques/tosec/lethal-xcess-1.st",
       "disques/tosec/lethal-xcess-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Tir : commencer · jusqu'à 2 joueurs",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "turrican",
@@ -2466,9 +2555,14 @@
    "annee": 1990,
    "genre": "Action",
    "joueurs": 1,
+   "auteur": "Manfred Trenz",
+   "sequence": [
+    "N"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -2478,14 +2572,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/turrican.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Manfred Trenz",
-   "sequence": [
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "rick-dangerous-2",
@@ -2494,9 +2584,15 @@
    "annee": 1990,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "auteur": "Core Design",
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#e84393",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -2506,15 +2602,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/rick-dangerous-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Core Design",
-   "touche_duree": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "nebulus",
@@ -2523,9 +2614,15 @@
    "annee": 1988,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "auteur": "John Phillips",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "F1 / F2 : 1 ou 2 joueurs · Tir : commencer",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#e84393",
+    "corps": "#26573a",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2535,15 +2632,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/nebulus.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "John Phillips",
-   "aide": "F1 / F2 : 1 ou 2 joueurs · Tir : commencer",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "cybernoid",
@@ -2552,9 +2644,14 @@
    "annee": 1988,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "Raffaele Cecco",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2564,14 +2661,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/cybernoid.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Raffaele Cecco",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "pacmania",
@@ -2580,9 +2673,13 @@
    "annee": 1988,
    "genre": "Arcade",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#c0392b",
+    "corps": "#26573a",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2592,13 +2689,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/pacmania.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "arkanoid",
@@ -2607,9 +2701,15 @@
    "annee": 1987,
    "genre": "Casse-briques",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : la raquette · clic : commencer",
+   "actif": false,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#e8b230",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -2620,15 +2720,10 @@
      "disques": [
       "disques/tosec/arkanoid.st"
      ],
-     "auto": "A:\\ARKANOID.PRG"
+     "auto": "A:\\ARKANOID.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : la raquette · clic : commencer",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "space-harrier",
@@ -2637,9 +2732,13 @@
    "annee": 1987,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#27ae60",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -2650,13 +2749,10 @@
      "disques": [
       "disques/tosec/space-harrier.st"
      ],
-     "auto": "A:\\SPACE_H.PRG"
+     "auto": "A:\\SPACE_H.PRG",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "double-dragon",
@@ -2665,9 +2761,14 @@
    "annee": 1988,
    "genre": "Combat",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "1 ou 2 : commencer à 1 ou 2 joueurs",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#16a085",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -2678,14 +2779,10 @@
      "disques": [
       "disques/tosec/double-dragon.st"
      ],
-     "auto": "A:\\DOUBLE.PRG"
+     "auto": "A:\\DOUBLE.PRG",
+     "dispo": false
     }
-   ],
-   "aide": "1 ou 2 : commencer à 1 ou 2 joueurs",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "james-pond",
@@ -2694,9 +2791,13 @@
    "annee": 1990,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#8e44ad",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -2706,13 +2807,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/james-pond.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "robocod",
@@ -2721,9 +2819,13 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#e8b230",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2733,13 +2835,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/robocod.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "wizball",
@@ -2748,9 +2847,14 @@
    "annee": 1988,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "Sensible Software",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#3c9a3c",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -2761,14 +2865,10 @@
      "disques": [
       "disques/tosec/wizball.st"
      ],
-     "auto": "A:\\WIZBALL\\WIZBALL.TOS"
+     "auto": "A:\\WIZBALL\\WIZBALL.TOS",
+     "dispo": false
     }
-   ],
-   "auteur": "Sensible Software",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "fantasy-world-dizzy",
@@ -2777,9 +2877,14 @@
    "annee": 1989,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "auteur": "The Oliver Twins",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2e86de",
+    "corps": "#26573a",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2789,14 +2894,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/fantasy-world-dizzy.stx"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "The Oliver Twins",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "bubble-ghost",
@@ -2805,9 +2906,15 @@
    "annee": 1987,
    "genre": "Réflexion",
    "joueurs": 1,
+   "auteur": "Christophe Andréani",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "actif": false,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#95a5a6",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -2818,15 +2925,10 @@
      "disques": [
       "disques/tosec/bubble-ghost.st"
      ],
-     "auto": "A:\\GHOST.PRG"
+     "auto": "A:\\GHOST.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Christophe Andréani",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "skweek",
@@ -2835,9 +2937,13 @@
    "annee": 1989,
    "genre": "Arcade",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#16a085",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2847,13 +2953,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/skweek.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "tetris",
@@ -2862,9 +2965,13 @@
    "annee": 1988,
    "genre": "Réflexion",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#16a085",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2874,13 +2981,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/tetris.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "klax",
@@ -2889,9 +2993,13 @@
    "annee": 1990,
    "genre": "Réflexion",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2f9e8f",
+    "corps": "#26573a",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2907,13 +3015,10 @@
      "options": [
       "--fastfdc",
       "no"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "puzznic",
@@ -2922,9 +3027,13 @@
    "annee": 1990,
    "genre": "Réflexion",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#c0392b",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -2940,13 +3049,10 @@
      "options": [
       "--fastfdc",
       "no"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "bombuzal",
@@ -2955,9 +3061,13 @@
    "annee": 1988,
    "genre": "Réflexion",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": false,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e84393",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -2967,13 +3077,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/bombuzal.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "ballistix",
@@ -2982,9 +3089,13 @@
    "annee": 1989,
    "genre": "Sport",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "actif": false,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e84393",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -2994,13 +3105,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/ballistix.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "bolo",
@@ -3009,9 +3117,15 @@
    "annee": 1987,
    "genre": "Casse-briques",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : la raquette",
+   "actif": false,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#d35400",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3024,15 +3138,10 @@
      ],
      "machine": "st",
      "tos": "tos/tos104fr.img",
-     "auto": "A:\\BOLO.TOS"
+     "auto": "A:\\BOLO.TOS",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : la raquette",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "oxyd",
@@ -3041,9 +3150,15 @@
    "annee": 1990,
    "genre": "Réflexion",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : guider la bille · F1 : commencer",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3054,15 +3169,10 @@
      "disques": [
       "disques/tosec/oxyd.st"
      ],
-     "auto": "A:\\OXYD.PRG"
+     "auto": "A:\\OXYD.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : guider la bille · F1 : commencer",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "archipelagos",
@@ -3071,9 +3181,15 @@
    "annee": 1989,
    "genre": "Réflexion",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": false,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -3083,15 +3199,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/archipelagos.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "sundog",
@@ -3100,9 +3211,14 @@
    "annee": 1985,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#2e86de",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -3113,25 +3229,27 @@
      "disques": [
       "disques/tosec/sundog.st"
      ],
-     "auto": "A:\\SUNDOG.PRG"
+     "auto": "A:\\SUNDOG.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "crafton-xunk",
-   "titre": "Crafton & Xunk",
+   "titre": "Crafton \u0026 Xunk",
    "editeur": "ERE Informatique",
    "annee": 1986,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : cliquer le drapeau de la langue",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#95a5a6",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -3141,15 +3259,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/crafton-xunk.stx"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : cliquer le drapeau de la langue",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "sapiens",
@@ -3158,9 +3271,13 @@
    "annee": 1986,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#f39c12",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3170,13 +3287,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/sapiens.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "ikari-warriors",
@@ -3185,9 +3299,13 @@
    "annee": 1988,
    "genre": "Action",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#95a5a6",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -3197,13 +3315,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/ikari-warriors.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "virus",
@@ -3212,9 +3327,16 @@
    "annee": 1988,
    "genre": "Shoot them up",
    "joueurs": 1,
+   "auteur": "David Braben",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#d35400",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -3225,16 +3347,10 @@
      "disques": [
       "disques/tosec/virus.st"
      ],
-     "auto": "A:\\VIRUS\\VIRUS.PRG"
+     "auto": "A:\\VIRUS\\VIRUS.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "David Braben",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "frontier",
@@ -3243,9 +3359,17 @@
    "annee": 1993,
    "genre": "Simulation",
    "joueurs": 1,
+   "auteur": "David Braben",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : commandes du vaisseau en bas de l'écran",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#8e44ad",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3255,17 +3379,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/frontier.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "David Braben",
-   "commandes": "souris",
-   "aide": "Souris : commandes du vaisseau en bas de l'écran",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "mercenary",
@@ -3274,9 +3391,15 @@
    "annee": 1987,
    "genre": "Aventure",
    "joueurs": 1,
+   "auteur": "Paul Woakes",
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e84393",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -3286,15 +3409,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/mercenary.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Paul Woakes",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "damocles",
@@ -3303,9 +3421,15 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "auteur": "Paul Woakes",
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2f9e8f",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -3315,15 +3439,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/damocles.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Paul Woakes",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "hunter",
@@ -3332,9 +3451,14 @@
    "annee": 1991,
    "genre": "Action",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#2f9e8f",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3344,14 +3468,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/hunter.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "f29-retaliator",
@@ -3360,9 +3480,15 @@
    "annee": 1989,
    "genre": "Simulation",
    "joueurs": 1,
+   "auteur": "Digital Image Design",
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#f39c12",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -3378,15 +3504,10 @@
       "1024",
       "--fastfdc",
       "no"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Digital Image Design",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "falcon",
@@ -3395,9 +3516,17 @@
    "annee": 1988,
    "genre": "Simulation",
    "joueurs": 1,
+   "auteur": "Spectrum HoloByte",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#2f9e8f",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3408,17 +3537,10 @@
      "disques": [
       "disques/tosec/falcon-1.stx",
       "disques/tosec/falcon-2.stx"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Spectrum HoloByte",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille",
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "gunship",
@@ -3427,9 +3549,15 @@
    "annee": 1987,
    "genre": "Simulation",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Protection : choisir le véhicule montré (souris ou joystick, puis tir)",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#16a085",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3440,15 +3568,10 @@
      "disques": [
       "disques/tosec/gunship.st"
      ],
-     "auto": "A:\\GUNSHIP.TOS"
+     "auto": "A:\\GUNSHIP.TOS",
+     "dispo": false
     }
-   ],
-   "aide": "Protection : choisir le véhicule montré (souris ou joystick, puis tir)",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "hard-drivin",
@@ -3457,9 +3580,14 @@
    "annee": 1989,
    "genre": "Course",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2e86de",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3469,14 +3597,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/hard-drivin.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "super-monaco-gp",
@@ -3485,9 +3609,13 @@
    "annee": 1991,
    "genre": "Course",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#2f9e8f",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -3497,13 +3625,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/super-monaco-gp.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "f1-grand-prix",
@@ -3512,9 +3637,17 @@
    "annee": 1992,
    "genre": "Course",
    "joueurs": 1,
+   "auteur": "Geoff Crammond",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Souris : choisir la langue, puis OK",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#27ae60",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3525,17 +3658,10 @@
      "disques": [
       "disques/tosec/f1-grand-prix-1.st",
       "disques/tosec/f1-grand-prix-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Geoff Crammond",
-   "aide": "Souris : choisir la langue, puis OK",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille",
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "indy-500",
@@ -3544,9 +3670,15 @@
    "annee": 1990,
    "genre": "Course",
    "joueurs": 1,
+   "auteur": "Papyrus",
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e84393",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -3557,15 +3689,10 @@
      "disques": [
       "disques/tosec/indy-500.st"
      ],
-     "auto": "A:\\INDY500.PRG"
+     "auto": "A:\\INDY500.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Papyrus",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "powerdrome",
@@ -3574,9 +3701,15 @@
    "annee": 1988,
    "genre": "Course",
    "joueurs": 1,
+   "auteur": "Michael Powell",
+   "sequence": [
+    "espace"
+   ],
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#2e86de",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -3586,15 +3719,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/powerdrome.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Michael Powell",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "turbo-cup",
@@ -3603,9 +3731,13 @@
    "annee": 1988,
    "genre": "Course",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#95a5a6",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -3616,13 +3748,10 @@
      "disques": [
       "disques/tosec/turbo-cup.st"
      ],
-     "auto": "A:\\TURBOCUP.SYS\\TURBOCUP.TOS"
+     "auto": "A:\\TURBOCUP.SYS\\TURBOCUP.TOS",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "sensible-soccer",
@@ -3631,9 +3760,14 @@
    "annee": 1992,
    "genre": "Football",
    "joueurs": 2,
+   "auteur": "Sensible Software",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e8b230",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -3644,14 +3778,10 @@
      "disques": [
       "disques/tosec/sensible-soccer.st"
      ],
-     "auto": "A:\\VMAX.PRG"
+     "auto": "A:\\VMAX.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Sensible Software",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "microprose-soccer",
@@ -3660,9 +3790,15 @@
    "annee": 1989,
    "genre": "Football",
    "joueurs": 2,
+   "auteur": "Sensible Software",
+   "sequence": [
+    "espace"
+   ],
+   "aide": "F1 : football en plein air · F2 : football en salle",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#d35400",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3672,15 +3808,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/microprose-soccer.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Sensible Software",
-   "aide": "F1 : football en plein air · F2 : football en salle",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "leaderboard",
@@ -3689,9 +3820,14 @@
    "annee": 1986,
    "genre": "Sport",
    "joueurs": 4,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "Clavier : nombre de joueurs puis les noms, Entrée",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#d35400",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -3701,14 +3837,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/leaderboard.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "Clavier : nombre de joueurs puis les noms, Entrée",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "california-games",
@@ -3717,9 +3849,13 @@
    "annee": 1988,
    "genre": "Sport",
    "joueurs": 4,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#3c9a3c",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3730,13 +3866,10 @@
      "disques": [
       "disques/tosec/california-games.st"
      ],
-     "auto": "A:\\GAMES.PRG"
+     "auto": "A:\\GAMES.PRG",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "purple-saturn-day",
@@ -3745,9 +3878,13 @@
    "annee": 1989,
    "genre": "Sport",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#8e44ad",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -3758,13 +3895,10 @@
      "disques": [
       "disques/tosec/purple-saturn-day.st"
      ],
-     "auto": "A:\\PURPLE.PRG"
+     "auto": "A:\\PURPLE.PRG",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "sim-city",
@@ -3773,9 +3907,16 @@
    "annee": 1989,
    "genre": "Simulation",
    "joueurs": 1,
+   "auteur": "Will Wright",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#e84393",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3786,16 +3927,10 @@
      "disques": [
       "disques/tosec/sim-city.st"
      ],
-     "auto": "A:\\SIMCITY.PRG"
+     "auto": "A:\\SIMCITY.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Will Wright",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "civilization",
@@ -3804,9 +3939,17 @@
    "annee": 1992,
    "genre": "Stratégie",
    "joueurs": 1,
+   "auteur": "Sid Meier",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#e84393",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -3820,21 +3963,14 @@
       "disques/tosec/civilization-3.st",
       "disques/tosec/civilization-4.st"
      ],
+     "auto": "A:\\ICS.PRG",
      "options": [
       "--memsize",
       "1024"
      ],
-     "auto": "A:\\ICS.PRG"
+     "dispo": false
     }
-   ],
-   "auteur": "Sid Meier",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille",
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "railroad-tycoon",
@@ -3843,9 +3979,16 @@
    "annee": 1991,
    "genre": "Stratégie",
    "joueurs": 1,
+   "auteur": "Sid Meier",
+   "sequence": [
+    "pave2"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#d35400",
+    "corps": "#2b4f8c",
     "police": "machine"
    },
    "variantes": [
@@ -3856,16 +3999,10 @@
      "disques": [
       "disques/tosec/railroad-tycoon.st"
      ],
-     "auto": "A:\\GAME.PRG"
+     "auto": "A:\\GAME.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Sid Meier",
-   "commandes": "souris",
-   "sequence": [
-    "pave2"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "populous-2",
@@ -3874,9 +4011,15 @@
    "annee": 1991,
    "genre": "Stratégie",
    "joueurs": 1,
+   "auteur": "Bullfrog",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -3886,15 +4029,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/populous-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Bullfrog",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "powermonger",
@@ -3903,9 +4041,17 @@
    "annee": 1990,
    "genre": "Stratégie",
    "joueurs": 1,
+   "auteur": "Bullfrog",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Clavier : votre nom, puis Entrée",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#2e86de",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3915,17 +4061,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/powermonger.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Bullfrog",
-   "commandes": "souris",
-   "aide": "Clavier : votre nom, puis Entrée",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "lemmings-2",
@@ -3934,9 +4073,15 @@
    "annee": 1991,
    "genre": "Réflexion",
    "joueurs": 1,
+   "auteur": "DMA Design",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#e8b230",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -3946,15 +4091,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/lemmings-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "DMA Design",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "battle-chess",
@@ -3963,9 +4103,16 @@
    "annee": 1988,
    "genre": "Réflexion",
    "joueurs": 2,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#27ae60",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -3975,16 +4122,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/battle-chess.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille"
+   ]
   },
   {
    "id": "bloodwych",
@@ -3993,9 +4134,15 @@
    "annee": 1989,
    "genre": "Jeu de rôle",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "F1 : partie à 1 joueur · F2 : partie à 2 joueurs (écran partagé)",
+   "actif": false,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4005,15 +4152,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/bloodwych.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "F1 : partie à 1 joueur · F2 : partie à 2 joueurs (écran partagé)",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "chaos-strikes-back",
@@ -4022,9 +4164,15 @@
    "annee": 1989,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#f39c12",
+    "corps": "#9c2b25",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4035,15 +4183,10 @@
      "disques": [
       "disques/tosec/chaos-strikes-back-1.stx",
       "disques/tosec/chaos-strikes-back-2.stx"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "captive",
@@ -4052,9 +4195,16 @@
    "annee": 1990,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "auteur": "Tony Crowther",
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks.",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#16a085",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -4065,16 +4215,10 @@
      "disques": [
       "disques/tosec/captive-1.stx",
       "disques/tosec/captive-2.stx"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Tony Crowther",
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "ishar",
@@ -4083,9 +4227,16 @@
    "annee": 1992,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#f39c12",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4096,16 +4247,10 @@
      "disques": [
       "disques/tosec/ishar-1.st",
       "disques/tosec/ishar-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "touche_duree": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "drakkhen",
@@ -4114,9 +4259,16 @@
    "annee": 1989,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer.",
+   "mhz16": "conseille",
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2e86de",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -4129,16 +4281,10 @@
       "disques/tosec/drakkhen-2.st",
       "disques/tosec/drakkhen-3.st",
       "disques/tosec/drakkhen-4.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "mhz16": "conseille",
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "dragonflight",
@@ -4147,9 +4293,15 @@
    "annee": 1990,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "sequence": [
+    "N"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#95a5a6",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4164,15 +4316,10 @@
      "options": [
       "--memsize",
       "1024"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "N"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "ultima-iv",
@@ -4181,9 +4328,14 @@
    "annee": 1987,
    "genre": "Jeu de rôle",
    "joueurs": 1,
+   "auteur": "Richard Garriott",
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#16a085",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -4193,14 +4345,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/ultima-iv.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "auteur": "Richard Garriott",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "maniac-mansion",
@@ -4209,9 +4357,15 @@
    "annee": 1988,
    "genre": "Aventure",
    "joueurs": 1,
+   "auteur": "Ron Gilbert",
+   "sequence": [
+    "entree"
+   ],
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#95a5a6",
+    "corps": "#3b3f8f",
     "police": "machine"
    },
    "variantes": [
@@ -4222,15 +4376,10 @@
      "disques": [
       "disques/tosec/maniac-mansion.st"
      ],
-     "auto": "A:\\MANIAC.PRG"
+     "auto": "A:\\MANIAC.PRG",
+     "dispo": false
     }
-   ],
-   "auteur": "Ron Gilbert",
-   "commandes": "souris",
-   "sequence": [
-    "entree"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "indy-croisade",
@@ -4239,9 +4388,12 @@
    "annee": 1989,
    "genre": "Aventure",
    "joueurs": 1,
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#c0392b",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4254,12 +4406,10 @@
       "disques/tosec/indy-croisade-2.st",
       "disques/tosec/indy-croisade-3.st"
      ],
-     "auto": "A:\\INDY.PRG"
+     "auto": "A:\\INDY.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "operation-stealth",
@@ -4268,9 +4418,16 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Protection : cliquer la pièce qui clignote, puis la bonne couleur",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#e8b230",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -4282,16 +4439,10 @@
       "disques/tosec/operation-stealth-1.st",
       "disques/tosec/operation-stealth-2.st",
       "disques/tosec/operation-stealth-3.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Protection : cliquer la pièce qui clignote, puis la bonne couleur",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "cruise-for-a-corpse",
@@ -4300,9 +4451,17 @@
    "annee": 1991,
    "genre": "Aventure",
    "joueurs": 1,
+   "touche_duree": 15,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Protection : régler le code avec les flèches jaunes, puis OK",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#d35400",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4316,17 +4475,10 @@
       "disques/tosec/cruise-for-a-corpse-3.st",
       "disques/tosec/cruise-for-a-corpse-4.st",
       "disques/tosec/cruise-for-a-corpse-5.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Protection : régler le code avec les flèches jaunes, puis OK",
-   "touche_duree": 15,
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "gobliiins",
@@ -4335,9 +4487,17 @@
    "annee": 1991,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace",
+    "pave5",
+    "entree"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#8e44ad",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4349,17 +4509,10 @@
       "disques/tosec/gobliiins-1.st",
       "disques/tosec/gobliiins-2.st",
       "disques/tosec/gobliiins-3.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace",
-    "pave5",
-    "entree"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "passagers-du-vent",
@@ -4368,9 +4521,14 @@
    "annee": 1986,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "actif": true,
    "disquette": {
-    "corps": "#9c2b25",
     "bande": "#16a085",
+    "corps": "#9c2b25",
     "police": "machine"
    },
    "variantes": [
@@ -4381,14 +4539,10 @@
      "disques": [
       "disques/tosec/passagers-du-vent.st"
      ],
-     "auto": "A:\\VENT1.PRG"
+     "auto": "A:\\VENT1.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "kult",
@@ -4397,9 +4551,15 @@
    "annee": 1989,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "aide": "Souris : cliquer le drapeau de la langue",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#3c9a3c",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -4409,15 +4569,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/kult.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "aide": "Souris : cliquer le drapeau de la langue",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "bat",
@@ -4426,9 +4581,15 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": false,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#8e44ad",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4441,15 +4602,10 @@
       "disques/tosec/bat-2.st",
       "disques/tosec/bat-3.st"
      ],
-     "auto": "A:\\BAT.PRG"
+     "auto": "A:\\BAT.PRG",
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "maupiti-island",
@@ -4458,9 +4614,15 @@
    "annee": 1990,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "commandes": "souris",
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#e8b230",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4471,15 +4633,10 @@
      "disques": [
       "disques/tosec/maupiti-island-1.st",
       "disques/tosec/maupiti-island-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "commandes": "souris",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "iron-lord",
@@ -4488,9 +4645,14 @@
    "annee": 1989,
    "genre": "Aventure",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#95a5a6",
+    "corps": "#6b6e73",
     "police": "machine"
    },
    "variantes": [
@@ -4503,14 +4665,10 @@
       "disques/tosec/iron-lord-2.st",
       "disques/tosec/iron-lord-3.st"
      ],
-     "auto": "A:\\IRONLORD.PRG"
+     "auto": "A:\\IRONLORD.PRG",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true,
-   "note": "Disquettes 3 et suivantes : F12 › Floppy disks pour changer."
+   ]
   },
   {
    "id": "prehistorik",
@@ -4519,9 +4677,13 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#26573a",
     "bande": "#2f9e8f",
+    "corps": "#26573a",
     "police": "machine"
    },
    "variantes": [
@@ -4533,13 +4695,10 @@
       "disques/tosec/prehistorik.st"
      ],
      "machine": "st",
-     "tos": "tos/tos104fr.img"
+     "tos": "tos/tos104fr.img",
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "titus-the-fox",
@@ -4548,9 +4707,14 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "aide": "1 : commencer · 2 : mot de passe",
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#f39c12",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4560,14 +4724,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/titus-the-fox.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "aide": "1 : commencer · 2 : mot de passe",
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "blues-brothers",
@@ -4576,9 +4736,15 @@
    "annee": 1991,
    "genre": "Plates-formes",
    "joueurs": 2,
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "actif": false,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4588,15 +4754,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/blues-brothers.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 15,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "parasol-stars",
@@ -4605,9 +4766,13 @@
    "annee": 1992,
    "genre": "Plates-formes",
    "joueurs": 2,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#2b4f8c",
     "bande": "#16a085",
+    "corps": "#2b4f8c",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4617,13 +4782,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/parasol-stars.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "wonder-boy",
@@ -4632,9 +4794,13 @@
    "annee": 1989,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#1c1c1f",
     "bande": "#2f9e8f",
+    "corps": "#1c1c1f",
     "police": "machine"
    },
    "variantes": [
@@ -4644,13 +4810,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/wonder-boy.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "switchblade",
@@ -4659,9 +4822,13 @@
    "annee": 1989,
    "genre": "Plates-formes",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#8e44ad",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4671,13 +4838,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/switchblade.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   },
   {
    "id": "final-fight",
@@ -4686,9 +4850,16 @@
    "annee": 1991,
    "genre": "Combat",
    "joueurs": 2,
+   "touche_duree": 15,
+   "sequence": [
+    "espace",
+    "N"
+   ],
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "actif": true,
    "disquette": {
-    "corps": "#6b6e73",
     "bande": "#e8b230",
+    "corps": "#6b6e73",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4699,16 +4870,10 @@
      "disques": [
       "disques/tosec/final-fight-1.st",
       "disques/tosec/final-fight-2.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "touche_duree": 15,
-   "sequence": [
-    "espace",
-    "N"
-   ],
-   "actif": true,
-   "note": "Disquette 2 en B. Si le jeu la veut en A : F12 › Floppy disks."
+   ]
   },
   {
    "id": "shinobi",
@@ -4717,9 +4882,13 @@
    "annee": 1989,
    "genre": "Action",
    "joueurs": 1,
+   "sequence": [
+    "espace"
+   ],
+   "actif": true,
    "disquette": {
-    "corps": "#3b3f8f",
     "bande": "#f39c12",
+    "corps": "#3b3f8f",
     "police": "manuscrit"
    },
    "variantes": [
@@ -4729,13 +4898,10 @@
      "desc": "Hatari",
      "disques": [
       "disques/tosec/shinobi.st"
-     ]
+     ],
+     "dispo": false
     }
-   ],
-   "sequence": [
-    "espace"
-   ],
-   "actif": true
+   ]
   }
  ]
 }

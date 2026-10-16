@@ -1,4 +1,4 @@
-Hatari 2.6.1 du pack : version officielle + deux petits correctifs.
+Hatari 2.6.1 du pack : version officielle + nos correctifs.
 
 ludotheque-ecran.patch (src/screen.c) : filtres d'affichage, réglés par le
 lanceur avec des variables d'environnement (menu Options de la ludothèque) :
@@ -10,7 +10,29 @@ ludotheque-turbo.patch (main.c, fdc.c, video.c, psg.c) : HATARI_LUDO_TURBO=disqu
 accéléré seulement pendant les chargements (moteur du lecteur allumé sans
 musique, ou décompactage : couleur 0 qui clignote sans musique). Les intros,
 menus et jeux restent à vitesse normale.
+ludotheque-disques.patch (floppy.c, bios.c, cpu/newcpu.c) : changement
+automatique de disquette. HATARI_LUDO_DISQUES = liste écrite par le lanceur
+(runtime/hatari/disques.txt : « disque <image> » puis les fichiers et dossiers
+de cette disquette, en majuscules depuis la racine). Quand le jeu cherche un
+fichier (GEMDOS Fopen, Fsfirst, Pexec, Dsetpath, vus au trap #1) absent de la
+disquette du lecteur mais présent sur une autre, celle-ci est insérée (échangée
+avec l'autre lecteur si elle y est) et le Mediach suivant du BIOS répond
+« changée » : le TOS relit la disquette. Journal : runtime/hatari/hatari.log.
+Ne voit pas les jeux qui lisent leurs disquettes sans fichiers (format maison).
 
 Sources : https://github.com/hatari/hatari (tag v2.6.1), sous licence GPL v2.
-Windows : compilé avec mingw-w64 et SDL 2.30.9. Linux : compilé sur Ubuntu 22.04
-(glibc 2.35), livré avec sa libSDL2.
+Appliquer les patchs depuis src/ : patch -p0 -i ludotheque-xxx.patch
+
+Windows (16/10/2026) : MSYS2, paquets mingw-w64-x86_64-gcc, -cmake, -ninja,
+SDL2 2.30.9 officielle (SDL2-devel-2.30.9-mingw.tar.gz de libsdl-org/SDL), sans
+zlib ni PNG, comme la version d'origine :
+  cmake -G Ninja <sources> -DCMAKE_BUILD_TYPE=Release
+    -DSDL2_DIR=<SDL2-2.30.9>/x86_64-w64-mingw32/lib/cmake/SDL2
+    -DCMAKE_DISABLE_FIND_PACKAGE_ZLIB=ON -DCMAKE_DISABLE_FIND_PACKAGE_PNG=ON
+    -DCMAKE_DISABLE_FIND_PACKAGE_Readline=ON -DCMAKE_DISABLE_FIND_PACKAGE_PortMidi=ON
+    -DCMAKE_DISABLE_FIND_PACKAGE_CapsImage=ON -DCMAKE_DISABLE_FIND_PACKAGE_Capstone=ON
+    -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static"
+  ninja src/hatari.exe && strip src/hatari.exe
+hatari.exe ne dépend que de SDL2.dll (livrée à côté).
+Linux : compilé sur Ubuntu 22.04 (glibc 2.35), livré avec sa libSDL2. La version
+Linux du pack n'a pas encore ludotheque-disques.patch (à recompiler).

@@ -56,8 +56,9 @@ runtime/                        journal ludotheque.log, profil navigateur, cfg H
                                 runtime/disques/ (copies nettoyées/patchées des disquettes —
                                 LES SAUVEGARDES DES JEUX SONT ICI), _a_supprimer/
 sources/lanceur/                code Go du lanceur (module « ludotheque », purego vendoré)
-sources/hatari/                 nos 3 patchs de Hatari 2.6.1 + LISEZMOI
-outils/                         gen_catalogue.py, installer_images.py (+ images_tosec.json), valide_windows.py,
+sources/hatari/                 nos 4 patchs de Hatari 2.6.1 + LISEZMOI (recette de compilation)
+outils/                         gen_catalogue.py, installer_images.py (+ images_tosec.json), tosec_tri.json
+                                (Ludotheque.exe --trier), valide_windows.py,
                                 captures.sh, test_ui.py, plan_captures.py
 README.md                       page GitHub (installation depuis TOSEC) ; dépôt public fab48/ludotheque-st
 ```
@@ -93,7 +94,8 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   indépendante de l'emplacement du pack, anciennes copies reprises avec leurs sauvegardes :
   neutralise l'amorce « Little Green Desktop » en cassant la somme $1234, applique les
   `correctifs` octets → ex. IK+ sur STE, et copie toute image dont le chemin complet dépasse
-  240 caractères : Hatari plafonne à 260), `sequenceDemarrage`
+  240 caractères : Hatari plafonne à 260 ; un .zip est extrait là, notre Hatari Windows n'a pas
+  zlib), `sequenceDemarrage`
   (touche de menu de compil, encart des commandes), `Gestionnaire` (un jeu à la fois ;
   **arrêt = fermeture propre** WM_CLOSE / SIGTERM puis kill au bout de 4 s, sinon Hatari
   n'écrit pas les sauvegardes).
@@ -106,6 +108,24 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   Random (`/api/demo/demarrer` {"mode":"lecture"} : l'activité n'arrête pas ; Échap ou
   Select+Start reviennent, Espace ou tir → `/api/demo/suivante`, surveillés par
   `surveillerEntrees`).
+- `disquettes.go` : jeu à plusieurs disquettes → runtime/hatari/disques.txt (fichiers de chaque
+  disquette, lecture FAT12 des .st/.msa/.dim) pour le changement automatique de notre Hatari ;
+  disquettes 1 et 2 toujours dans A et B au départ. Journal Hatari : runtime/hatari/hatari.log.
+- `tri.go` : tri des noms TOSEC (une édition par jeu, incompatibles écartés, voir « Collection
+  TOSEC ») ; sert au ménage, au mode vrac (titre, éditeur, année, disquettes « (Disk 1 of 3)(Intro) »
+  regroupées, séquence ["espace"] ou ["N","espace"] si [t]) et à `Ludotheque.exe --trier`.
+- `menage.go` : rangement de **disques/GAME** (et tout dossier game/games de disques/), où
+  l'utilisateur dépose la collection TOSEC telle quelle ou en vrac. Au démarrage, si le contenu
+  a changé (signature dans runtime/rangement.json), et par Fichier › Ménage des disquettes
+  (`POST /api/menage` ; `GET` = état), **sans confirmation** : 1. installe les images absentes
+  du catalogue d'après images_tosec.json (par nom de zip ou d'image, sinon par CRC dans tous
+  les zips) ; 2. trie (tri.go) et efface tout le reste du dépôt : autres éditions, « déjà au
+  catalogue », dossiers non-jeux de la collection (`autresTosec`, « Atari ST - Demos… »),
+  zips sans disquette ; 3. active le mode vrac. Journal : runtime/menage-<date>.txt
+  (INSTALLÉ / GARDÉ / EFFACÉ / ABSENT + raison). Jamais touché : hors du dépôt, nom non TOSEC,
+  source d'une image du catalogue pas installée. À plat, démos et compils ne se distinguent
+  pas des jeux (gardées comme jeux). L'interface affiche l'étape (évènement SSE « rangement »)
+  puis le compte rendu, une fois (localStorage ludo-rangement-vu) ; /api/lancer refusé pendant.
 - `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari. En « lisse »,
   `--max-width 416 --max-height 276` : sinon Hatari double la basse résolution (832×552,
   blocs de 2×2) et le lissage linéaire ne se voit presque pas.
@@ -128,9 +148,16 @@ Variables d'environnement posées par le lanceur :
   chargements = moteur du lecteur allumé sans musique, ou décompactage (couleur 0 qui clignote
   sans écriture YM). `HATARI_LUDO_DEBUG=1` trace l'état par VBL.
 - audio.c : silence pendant l'accéléré.
+- `HATARI_LUDO_DISQUES=<liste>` (floppy.c/bios.c/cpu/newcpu.c) : changement automatique de
+  disquette. Au trap #1 (Fopen, Fsfirst, Pexec, Dsetpath), un fichier absent de la disquette du
+  lecteur mais présent sur une autre de la liste → celle-ci est insérée (échange A↔B si elle est
+  dans l'autre lecteur), puis BIOS Mediach répond 2 (« changée ») : le TOS relit. Vérifié sur
+  Gobliiins (DISK1.STK → disquette 2 en A, niveau 1 chargé). Sans effet sur les formats maison
+  (`FORMAT_MAISON` de gen_catalogue.py : Cannon Fodder, Drakkhen, Gods, .stx…).
 
 Recompiler : sources officielles https://github.com/hatari/hatari tag v2.6.1, appliquer les
-patchs, CMake. Windows : mingw-w64 + SDL 2.30.9 (zlib/libpng statiques). Linux : compiler sur
+patchs, CMake (recette exacte dans sources/hatari/LISEZMOI.txt). Windows : MSYS2 mingw64 (gcc,
+cmake, ninja installés le 16/10) + SDL 2.30.9 officielle, sans zlib ni PNG. Linux : compiler sur
 Ubuntu 22.04 (glibc 2.35) pour tourner sur Mint/Manjaro, livrer libSDL2-2.0.so.0 à côté.
 
 ## Collection TOSEC
@@ -144,7 +171,20 @@ liste J et dans images_tosec.json, champ « ancien »). Choix d'une
 disk]` ; éviter `[t]` (trainer : « Y/N ? » à passer avec "sequence": ["N"]). Une STX est l'original
 protégé (Hatari l'émule, mais `--fastfdc no` conseillé).
 
-Installation des images pour qui clone le dépôt : `outils/installer_images.py "<dossier TOSEC>"`
+Candidats à ajouter : `Ludotheque.exe --trier "<dossier TOSEC>" [--tout] [--pd] [--sortie f.json]`
+(tri.go, lecture seule, quelques secondes ; même résultat que l'ancien script Python, rangé dans
+runtime/_a_supprimer/) écrit `outils/tosec_tri.json` : une édition par jeu (doublons [a]/cracks/langues/[ST]-[STX] écartés,
+titres voisins même éditeur+année fusionnés, `aliasTitres` pour les fautes de TOSEC), hors jeux déjà
+au catalogue (`--tout` pour les garder), et la liste des titres écartés avec leur raison
+(Falcon/TT, monochrome, démo jouable, données/éditeur, extension (`reExtension`), incomplet, [b]
+seulement, ZZZ-UNK). Le 16/10/2026 : 1 927 titres, 160 au catalogue, 1 595 candidats, 172 écartés.
+Rangement testé le 16/10 sur des packs vides (scratchpad, LUDO_DIR) avec 1 130 zips de TOSEC
+(Games, Compilations, TOS, Demos, Applications), rangés ou à plat dans disques/GAME : les 216 images
+du catalogue installées, ~200 jeux gardés, le reste effacé, fichier perso gardé ; Operation Wolf
+lancé depuis son zip.
+
+Installation des images : déposer la collection dans disques/GAME (menage.go s'en charge), ou
+`outils/installer_images.py "<dossier TOSEC>"`
 (ou « Installer les images TOSEC.bat ») extrait les 216 images du catalogue (disques + TOS)
 d'après `outils/images_tosec.json` (zip, membre, CRC32, taille), sans jamais écraser une image
 présente ; une image installée sous son ancien nom TOSEC (v1.0) est renommée, avec ses copies
@@ -233,3 +273,13 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   /api/lancer (plus d'interface figée sur « Lecture piste 79 »), noms courts des disquettes et
   des démos, chemins relatifs pour Hatari (accents), copies runtime/disques par contenu.
   Retour d'Axel (v1.0 bloquée sur « piste 79 » sur C:, OK sur D:) : cause exacte inconnue.
+- 16/10/2026 : changement automatique de disquette (patch ludotheque-disques, disquettes.go),
+  Hatari Windows recompilé ; 23 jeux concernés, note de fiche « Disquettes changées
+  automatiquement ». **À faire : recompiler Hatari Linux** avec ce patch (sans lui, la version
+  Linux ignore HATARI_LUDO_DISQUES). Formats maison (10 jeux) : encore F12, piste possible =
+  rotation quand le jeu relit en boucle les mêmes secteurs (fdc.c). valide_windows.py : captures
+  rétablies (le débogueur coupait les chemins à l'espace de « Hatari Loader »).
+- 16/10/2026 : recherche dans le bac et le panneau F10 (ui/index.html, barre sous #infos) : taper
+  un nom filtre aussitôt (tous les mots, dans titre/éditeur/année/genre, sans accents), Échap
+  efface ; boutons # A…Z pour sauter à une lettre. Les lettres tapées ne sautent plus à la
+  lettre (elles cherchent). Tout/Rien du panneau = les jeux montrés. La veille vide la recherche.

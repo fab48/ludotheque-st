@@ -25,7 +25,7 @@ import (
 	"time"
 )
 
-const version = "1.1"
+const version = "1.2"
 
 // Config : réglages du pack (config.json à la racine).
 type Config struct {
@@ -84,6 +84,13 @@ var (
 )
 
 func main() {
+	if len(os.Args) > 2 && os.Args[1] == "--trier" { // outil : liste des jeux TOSEC à ajouter (tri.go)
+		base = dossierPack()
+		if err := trierCollection(os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 	flag.Parse()
 	base = dossierPack()
 	_ = os.MkdirAll(filepath.Join(base, "runtime"), 0o755)
@@ -125,12 +132,14 @@ func main() {
 	http.HandleFunc("/api/demo/demarrer", apiDemoDemarrer)
 	http.HandleFunc("/api/demo/arreter", apiDemoArreter)
 	http.HandleFunc("/api/demo/suivante", apiDemoSuivante)
+	http.HandleFunc("/api/menage", apiMenage)
 	http.HandleFunc("/", fichiers)
 	srv := &http.Server{Handler: http.DefaultServeMux}
 	go func() { _ = srv.Serve(ln) }()
 	log.Printf("interface : %s", url)
 
 	go surveillerEntrees() // Échap maintenu, Select+Start (selon le système)
+	lancerRangement(false) // disques/GAME : catalogue installé et ménage, si son contenu a changé
 
 	if *sansNav {
 		select {}
