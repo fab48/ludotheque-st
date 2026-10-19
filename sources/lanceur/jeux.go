@@ -722,14 +722,9 @@ func disquePropre(p string, correctifs []Correctif) string {
 	// Nom de la copie : empreinte du contenu d'origine et des correctifs, pas du
 	// chemin (le pack peut changer de dossier sans perdre les sauvegardes faites
 	// dans la copie), puis le nom de l'image, raccourci.
-	empreinte := fmt.Sprintf("%08x|%d", crc32.ChecksumIEEE(d), len(d))
-	for _, c := range cor {
-		empreinte += "|" + c.Cherche + ">" + c.Remplace
-	}
-	h := sha1.Sum([]byte(empreinte))
 	dir := filepath.Join(base, "runtime", "disques")
 	_ = os.MkdirAll(dir, 0o755)
-	prefixe := hex.EncodeToString(h[:4]) + "-"
+	prefixe := prefixeCopie(crc32.ChecksumIEEE(d), int64(len(d)), cor)
 	copie := filepath.Join(dir, prefixe+nomCourt(nomImage, 40))
 	if existe(copie) {
 		return copie
@@ -760,6 +755,18 @@ func disquePropre(p string, correctifs []Correctif) string {
 		return p
 	}
 	return copie
+}
+
+// prefixeCopie : début du nom des copies de runtime/disques (« 1a2b3c4d- »), d'après le
+// CRC et la taille de l'image d'origine et les correctifs appliqués. Sert aussi à
+// l'export, pour retrouver les copies (et donc les sauvegardes) d'un jeu.
+func prefixeCopie(crc uint32, taille int64, cor []Correctif) string {
+	empreinte := fmt.Sprintf("%08x|%d", crc, taille)
+	for _, c := range cor {
+		empreinte += "|" + c.Cherche + ">" + c.Remplace
+	}
+	h := sha1.Sum([]byte(empreinte))
+	return hex.EncodeToString(h[:4]) + "-"
 }
 
 // nomCourt : nom de fichier ramené à n caractères au plus, extension gardée.

@@ -19,3 +19,5 @@ emulateurs/**/stdout.txt
 __pycache__/
 *.tmp
 medias/_vrac/
+# packs exportés (Fichier › Exporter en zip)
+exports/

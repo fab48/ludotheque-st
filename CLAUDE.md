@@ -60,6 +60,7 @@ sources/hatari/                 nos 4 patchs de Hatari 2.6.1 + LISEZMOI (recette
 outils/                         gen_catalogue.py, installer_images.py (+ images_tosec.json), tosec_tri.json
                                 (Ludotheque.exe --trier), valide_windows.py,
                                 captures.sh, test_ui.py, plan_captures.py
+exports/                        zips exportés (Fichier › Exporter en zip, export.go)
 README.md                       page GitHub (installation depuis TOSEC) ; dépôt public fab48/ludotheque-st
 ```
 
@@ -84,7 +85,7 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
 - `main.go` : Config (config.json), routes HTTP sur 127.0.0.1:8480 :
   `/api/catalogue`, `/api/lancer`, `/api/arreter`, `/api/fin-web`, `/api/evenements` (SSE),
   `/api/admin` (F10), `/api/systeme` (quitter/éteindre), `/api/affichage` (écran des jeux),
-  `/api/demos`, `/api/demo/*`, `/api/capture/retirer` ; fichiers `/ui/`, `/medias/`, `/reforged/`.
+  `/api/demos`, `/api/demo/*`, `/api/capture/retirer`, `/api/menage`, `/api/exporter` ; fichiers `/ui/`, `/medias/`, `/reforged/`.
 - `jeux.go` : catalogue (variantes, mode vrac = toutes les images de disques/, regroupées),
   `preparerHatari` (arguments + cfg générée + variables d'environnement ; **sous Windows,
   Hatari tourne dans le dossier du pack et ne reçoit que des chemins relatifs** : SDL lui
@@ -126,6 +127,17 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   source d'une image du catalogue pas installée. À plat, démos et compils ne se distinguent
   pas des jeux (gardées comme jeux). L'interface affiche l'étape (évènement SSE « rangement »)
   puis le compte rendu, une fois (localStorage ludo-rangement-vu) ; /api/lancer refusé pendant.
+- `export.go` : Fichier › Exporter en zip (`POST /api/exporter` {"mode": "favoris"|"bac",
+  "adultes"}, évènements SSE « export ») ou `Ludotheque.exe --exporter favoris|bac [--adultes]
+  [--sortie f.zip]` : zip prêt à l'emploi Windows + Linux dans **exports/** (ignoré par git),
+  dossier `ludotheque-st/` : les 2 lanceurs, ui, emulateurs, tos, demos, config.json, catalogue.json
+  réduit aux jeux choisis (favoris = cochés et ★ ; bac = cochés + vrac s'il est affiché ; jeux
+  jouables seulement), leurs images, medias, dossiers Reforged et sauvegardes (copie de
+  runtime/disques retrouvée par `prefixeCopie`/`ancienneCopie`, comme `disquePropre`). Vrac de
+  disques/GAME → disques/vrac/ (le ménage du nouveau pack n'y touche pas). Mode 755 pour les
+  fichiers sans extension et les .sh. Testé le 18/10 : favoris 12 jeux 73 Mo en 2 s ; bac
+  163 + 2 157 jeux, 960 Mo en 28 s ; les deux dézippés et relancés (dossier avec accent) : tous
+  les jeux retrouvés.
 - `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari. En « lisse »,
   `--max-width 416 --max-height 276` : sinon Hatari double la basse résolution (832×552,
   blocs de 2×2) et le lissage linéaire ne se voit presque pas.

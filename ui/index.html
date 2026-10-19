@@ -227,6 +227,7 @@ button { font-family: inherit; color: inherit; }
         <button data-action="demos">Play Demo Random   F7</button>
         <div class="sep"></div>
         <button data-action="menage">Ménage des disquettes…</button>
+        <button data-action="exporter">Exporter en zip…</button>
         <div class="sep"></div>
         <button data-action="quitter">Quitter la ludothèque</button>
         <button data-action="eteindre">Éteindre l'ordinateur</button>
@@ -959,6 +960,10 @@ function ecouter() {
     }
     if (ev.type === 'quitter' && etat.phase === 'web') fermerWeb(false);
     if (ev.type === 'fin-demo' && (etat.phase === 'demo' || etat.phase === 'veille')) quitterVeille();
+    if (ev.type === 'export' && ev.donnees) {
+      if (ev.donnees.en_cours) afficherExport(ev.donnees.texte);
+      else finExport(ev.donnees.dernier);
+    }
     if (ev.type === 'rangement' && ev.donnees) {
       if (ev.donnees.en_cours) afficherRangement(ev.donnees.texte);
       else finRangement(ev.donnees.dernier);
@@ -1177,6 +1182,50 @@ async function menage() {
   }
 }
 
+/* ---------- export : un zip prêt à l'emploi (Windows et Linux) avec les favoris ou tout le bac ---------- */
+// Le lanceur copie lanceurs, Hatari, TOS, démos, réglages, et pour les jeux choisis leurs
+// images, captures, versions Reforged et sauvegardes ; le zip va dans exports/.
+let exportAffiche = false;
+function aExporter() {
+  const c = etat.cat, montre = j => j.variantes.some(v => v.dispo) && (etat.coquin || !j.adulte);
+  const coches = c.jeux.filter(j => j.actif !== false && montre(j));
+  return { favoris: coches.filter(j => j.favori).length,
+           bac: coches.length + (c.vrac_actif ? vracMontre().filter(montre).length : 0) };
+}
+function afficherExport(texte) {
+  const t = 'Export en cours…\n\n' + (texte || 'Un instant.') + '\n\nTout le bac : quelques minutes.';
+  if (exportAffiche && etat.dialogue === 'alerte') { $('#al-texte').textContent = t; return; }
+  if (etat.phase !== 'bureau' || etat.dialogue) return;
+  exportAffiche = true;
+  alerte(t, [], '…');
+}
+async function finExport(d) {
+  if (exportAffiche) { exportAffiche = false; if (etat.dialogue === 'alerte') fermerAlerte(-1); }
+  if (!d || etat.phase !== 'bureau') return;
+  Son.cloche();
+  if (d.erreur) { alerte('Export impossible.\n\n' + d.erreur, ['OK']); return; }
+  const n = (d.jeux || 0) + (d.vrac || 0);
+  alerte('PACK EXPORTÉ\n\n' + d.zip + '\n' + nombre(n) + ' jeu' + (n > 1 ? 'x' : '') + ', ' + taille(d.octets) + '.\n\n' +
+    'Dézippez-le où vous voulez (clé USB, autre PC), puis :\nWindows : Ludotheque.exe\nLinux : ./ludotheque.sh\n\nSauvegardes et réglages sont dedans.', ['OK']);
+}
+async function exporterZip() {
+  if (!etat.cat || etat.phase !== 'bureau') return;
+  const n = aExporter();
+  Son.cloche();
+  const choix = n.favoris ? ['Annuler', 'Favoris', 'Tout le bac'] : ['Annuler', 'Tout le bac'];
+  const r = await alerte('EXPORTER EN ZIP\n\nUn pack prêt à l\'emploi, Windows et Linux : lanceurs, Hatari, TOS, démos, réglages, et les jeux choisis avec leurs sauvegardes.\n\n' +
+    (n.favoris ? '★ Favoris : ' + nombre(n.favoris) + ' jeu' + (n.favoris > 1 ? 'x' : '') + '\n' : 'Aucun favori (★ dans le Catalogue, F10).\n') +
+    'Tout le bac : ' + nombre(n.bac) + ' jeux\n\nLe zip est rangé dans exports/.', choix, '?', n.favoris ? 1 : choix.length - 1);
+  if (r < 1) return;
+  const mode = choix[r] === 'Favoris' ? 'favoris' : 'bac';
+  afficherExport('');
+  try { await api('/api/exporter', { mode, adultes: etat.coquin }); }
+  catch (e) {
+    if (exportAffiche) { exportAffiche = false; fermerAlerte(-1); }
+    alerte(/404/.test(e.message) ? 'Export impossible : le lanceur en mémoire est une ancienne version.\n\nQuittez la ludothèque (Fichier › Quitter) et relancez-la.' : 'Export impossible.\n\n' + e.message, ['OK']);
+  }
+}
+
 /* ---------- actions ---------- */
 async function action(a) {
   if (/^(jeu|lignes):/.test(a)) { reglerAffichage(a); return; }
@@ -1201,6 +1250,7 @@ async function action(a) {
     case 'favoris': if (etat.phase === 'bureau') basculerFavoris(); break;
     case 'demos': lancerDemos(); break;
     case 'menage': menage(); break;
+    case 'exporter': exporterZip(); break;
     case 'quitter': if (await alerte('Quitter la ludothèque ?', ['Annuler', 'Quitter'], '?') === 1) api('/api/systeme', { action: 'quitter' }).catch(() => {}); break;
     case 'eteindre': if (await alerte('Éteindre l\'ordinateur ?', ['Annuler', 'Éteindre'], '?') === 1) api('/api/systeme', { action: 'eteindre' }).catch(e => alerte(e.message, ['OK'])); break;
     case 'redemarrer': if (await alerte('Redémarrer l\'ordinateur ?', ['Annuler', 'Redémarrer'], '?') === 1) api('/api/systeme', { action: 'redemarrer' }).catch(e => alerte(e.message, ['OK'])); break;

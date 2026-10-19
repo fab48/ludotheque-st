@@ -91,6 +91,13 @@ func main() {
 		}
 		return
 	}
+	if len(os.Args) > 2 && os.Args[1] == "--exporter" { // zip prêt à l'emploi : favoris ou bac (export.go)
+		base = dossierPack()
+		if err := exporterLigneDeCommande(os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 	flag.Parse()
 	base = dossierPack()
 	_ = os.MkdirAll(filepath.Join(base, "runtime"), 0o755)
@@ -133,6 +140,7 @@ func main() {
 	http.HandleFunc("/api/demo/arreter", apiDemoArreter)
 	http.HandleFunc("/api/demo/suivante", apiDemoSuivante)
 	http.HandleFunc("/api/menage", apiMenage)
+	http.HandleFunc("/api/exporter", apiExporter)
 	http.HandleFunc("/", fichiers)
 	srv := &http.Server{Handler: http.DefaultServeMux}
 	go func() { _ = srv.Serve(ln) }()
