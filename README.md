@@ -76,7 +76,10 @@ Au lancement suivant, la ludothèque fait le reste toute seule :
    préférence crackée, sans mauvais dump et en français quand il y en a une. Le reste est
    effacé : autres éditions, jeux déjà au catalogue, démos, compilations, applications,
    TOS, démos jouables, disques de données, jeux Falcon ou pour écran monochrome, dumps
-   incomplets ou non identifiés ;
+   marqués incomplets ou non identifiés. Deux jeux du même nom chez deux éditeurs, ou à
+   des années différentes (War Zone de 1986 et celui de 1991), sont gardés tous les deux ;
+   dans le doute (un jeu à plusieurs disquettes dont il semble en manquer une), rien n'est
+   effacé ;
 3. les jeux gardés arrivent dans le bac (mode vrac), à côté du catalogue.
 
 Ce qui a été fait, fichier par fichier, et pourquoi : `runtime/menage-<date>.txt`. La

@@ -25,7 +25,7 @@ import (
 	"time"
 )
 
-const version = "1.2"
+const version = "1.3"
 
 // Config : réglages du pack (config.json à la racine).
 type Config struct {
@@ -142,7 +142,7 @@ func main() {
 	http.HandleFunc("/api/menage", apiMenage)
 	http.HandleFunc("/api/exporter", apiExporter)
 	http.HandleFunc("/", fichiers)
-	srv := &http.Server{Handler: http.DefaultServeMux}
+	srv := &http.Server{Handler: gardien(http.DefaultServeMux)}
 	go func() { _ = srv.Serve(ln) }()
 	log.Printf("interface : %s", url)
 
@@ -223,6 +223,28 @@ func chemin(rel string) (string, error) {
 }
 
 func existe(p string) bool { _, err := os.Stat(p); return err == nil }
+
+// gardien : seule l'interface de la ludothèque parle au lanceur. Une page web ouverte
+// dans un autre navigateur pouvait poster vers 127.0.0.1 (éteindre le PC, ménage…) ;
+// un nom de domaine qui pointerait sur 127.0.0.1 est refusé aussi.
+func gardien(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hote := r.Host
+		if hh, _, err := net.SplitHostPort(hote); err == nil {
+			hote = hh
+		}
+		if hote != "127.0.0.1" && hote != "localhost" {
+			http.Error(w, "hôte refusé", http.StatusForbidden)
+			return
+		}
+		if o := r.Header.Get("Origin"); o != "" && o != "http://"+r.Host {
+			log.Printf("requête refusée : %s %s depuis %s", r.Method, r.URL.Path, o)
+			http.Error(w, "origine refusée", http.StatusForbidden)
+			return
+		}
+		h.ServeHTTP(w, r)
+	})
+}
 
 // ---------- fichiers statiques ----------
 

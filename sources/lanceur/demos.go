@@ -152,12 +152,13 @@ func apiDemoDemarrer(w http.ResponseWriter, r *http.Request) {
 		erreur(w, 404, "aucune démo dans demos/")
 		return
 	}
-	if jeux.EnJeu() != "libre" {
+	muDemo.Lock()
+	if e := jeux.EnJeu(); e != "libre" && !(e == "demo" && demoActive) {
+		muDemo.Unlock()
 		erreur(w, 409, "un jeu tourne")
 		return
 	}
-	muDemo.Lock()
-	if demoActive {
+	if demoActive { // veille en cours : Play Demo Random la prend en main
 		if lecture {
 			demoLecture = true
 		}

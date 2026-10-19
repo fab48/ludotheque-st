@@ -105,7 +105,7 @@ func sourceFichier(p string) string {
 	switch strings.ToLower(filepath.Ext(p)) {
 	case ".stx":
 		return "STX"
-	case ".st", ".msa":
+	case ".st", ".msa", ".dim":
 		return "ST"
 	}
 	z, err := zip.OpenReader(p)
@@ -117,7 +117,7 @@ func sourceFichier(p string) string {
 		switch strings.ToLower(filepath.Ext(f.Name)) {
 		case ".stx":
 			return "STX"
-		case ".st", ".msa":
+		case ".st", ".msa", ".dim":
 			return "ST"
 		}
 	}
@@ -125,20 +125,19 @@ func sourceFichier(p string) string {
 }
 
 type etatCatalogue struct {
-	tous     map[string]bool // titres de la ludothèque (catalogue + sources TOSEC)
-	complets map[string]bool // … dont les images sont installées
+	tous     clesTitres      // titres de la ludothèque (catalogue + sources TOSEC), avec leurs éditeurs
+	complets clesTitres      // … dont les images sont installées
 	proteges map[string]bool // zips (nom en minuscules) d'images encore absentes
 	absents  int             // jeux du catalogue sans leurs images
 }
 
-// clesCatalogue : les jeux de la ludothèque, vus par leur titre TOSEC.
+// clesCatalogue : les jeux de la ludothèque, vus par leur titre TOSEC et leur éditeur.
 func clesCatalogue() etatCatalogue {
-	e := etatCatalogue{tous: map[string]bool{}, complets: map[string]bool{}, proteges: map[string]bool{}}
+	e := etatCatalogue{tous: clesTitres{}, complets: clesTitres{}, proteges: map[string]bool{}}
 	present := func(rel string) bool { p, err := chemin(rel); return err == nil && existe(p) }
 	if c, err := lireCatalogue(); err == nil {
-		for _, j := range c.Jeux {
-			k := cleTitre(j.Titre)
-			e.tous[k] = true
+		for i, j := range c.Jeux {
+			e.tous.ajouterJeu(&c.Jeux[i])
 			complet := false
 			for _, v := range j.Variantes {
 				if v.Type != "hatari" || len(v.Disques) == 0 {
@@ -151,13 +150,14 @@ func clesCatalogue() etatCatalogue {
 				complet = complet || ok
 			}
 			if complet {
-				e.complets[k] = true
+				e.complets.ajouterJeu(&c.Jeux[i])
 			} else if j.Actif == nil || *j.Actif {
 				e.absents++
 			}
 		}
 	}
-	parCle := map[string]bool{} // clé → toutes ses images installées
+	parCle := map[string]bool{} // titre → toutes ses images installées
+	sources := map[string][]*imageTosec{}
 	for dest, src := range lireImagesTosec() {
 		nom := filepath.Base(filepath.FromSlash(src.Zip))
 		ok := present(dest)
@@ -168,8 +168,10 @@ func clesCatalogue() etatCatalogue {
 			continue
 		}
 		if x := lireNomTosec(nom); x != nil {
+			x.Source = sourceTosec(filepath.ToSlash(filepath.Dir(src.Zip)), nom)
 			k := cleTitre(x.Titre)
-			e.tous[k] = true
+			e.tous.ajouter(x.Titre, jetonsTosec(x))
+			sources[k] = append(sources[k], x)
 			if v, vu := parCle[k]; vu {
 				parCle[k] = v && ok
 			} else {
@@ -178,10 +180,12 @@ func clesCatalogue() etatCatalogue {
 		}
 	}
 	for k, ok := range parCle {
-		if ok {
-			e.complets[k] = true
-		} else {
+		if !ok { // une source pas encore installée : ses autres éditions restent
 			delete(e.complets, k)
+			continue
+		}
+		for _, x := range sources[k] {
+			e.complets.ajouter(x.Titre, jetonsTosec(x))
 		}
 	}
 	return e
@@ -239,7 +243,11 @@ func installerCatalogue(depot string, fichiers []string, jr *journalRangement) (
 			return false
 		}
 		_ = os.MkdirAll(filepath.Dir(p), 0o755)
-		if os.WriteFile(p, d, 0o644) != nil {
+		// fichier temporaire puis renommage : un disque plein laissait une image tronquée,
+		// vue ensuite comme installée (et sa source effacée)
+		tmp := p + ".part"
+		if os.WriteFile(tmp, d, 0o644) != nil || os.Rename(tmp, p) != nil {
+			_ = os.Remove(tmp)
 			return false
 		}
 		r, _ := filepath.Rel(base, filepath.Join(depot, depuis))
@@ -384,12 +392,8 @@ func trierDepot(depot string, fichiers []string, jr *journalRangement) (int, []f
 		}
 		dt, categorie := categorieTosec(f)
 		e := lireNomTosec(nom)
-		if e == nil {
-			if categorie != "" && categorie != "jeux" {
-				ajouter(f, "pas un jeu ("+categorie+")")
-			} else {
-				jr.noter("GARDÉ", "nom inconnu (pas un nom TOSEC)", f)
-			}
+		if e == nil { // même dans un dossier « Docs » ou « TOS » : peut-être un fichier à soi
+			jr.noter("GARDÉ", "nom inconnu (pas un nom TOSEC)", f)
 			continue
 		}
 		x := strings.ToLower(filepath.Ext(nom))
@@ -397,7 +401,7 @@ func trierDepot(depot string, fichiers []string, jr *journalRangement) (int, []f
 			ajouter(f, "pas un jeu ("+categorie+")")
 			continue
 		}
-		if x != ".zip" && x != ".st" && x != ".msa" && x != ".stx" {
+		if x != ".zip" && x != ".st" && x != ".msa" && x != ".stx" && x != ".dim" {
 			ajouter(f, "pas une disquette")
 			continue
 		}
@@ -431,6 +435,11 @@ func trierDepot(depot string, fichiers []string, jr *journalRangement) (int, []f
 			r := rejetImage(i)
 			switch {
 			case r != "":
+			case t.Choisie == nil && t.Raison == "disquettes manquantes":
+				// un jeu complet dont les disquettes portent des notes différentes, ou une
+				// numérotation que le tri ne comprend pas : dans le doute, rien n'est effacé
+				jr.noter("GARDÉ", "disquettes manquantes ? rien d'effacé", i.Chemin)
+				continue
 			case t.Choisie == nil:
 				r = t.Raison
 			case t.Catalogue:
@@ -609,6 +618,13 @@ func apiMenage(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		if jeux.EnJeu() != "libre" {
 			erreur(w, 409, "un jeu tourne : quittez-le d'abord")
+			return
+		}
+		exportation.mu.Lock()
+		export := exportation.enCours
+		exportation.mu.Unlock()
+		if export { // l'export lit les disquettes que le ménage effacerait
+			erreur(w, 409, "un export est en cours : patientez")
 			return
 		}
 		lancerRangement(true)

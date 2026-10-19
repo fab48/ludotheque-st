@@ -537,7 +537,7 @@ function construireListe(nouvelleRecherche) {
   const coches = c.jeux.filter(j => j.actif !== false);
   let l = coches.filter(j => j.variantes.some(v => v.dispo));
   etat.absents = coches.length - l.length;
-  if (c.vrac_actif) l = l.concat(c.vrac);
+  if (c.vrac_actif) l = l.concat(c.vrac || []);
   if (!etat.coquin) l = l.filter(j => !j.adulte);
   etat.total = l.length;
   const mots = motsRecherche(etat.recherche);
@@ -871,7 +871,9 @@ async function charger() {
     return;
   }
   await attendre(Math.max(900, duree * 1000 - 150));
-  clearInterval(tp); led(false); etatLecteur('En service');
+  clearInterval(tp);
+  if (etat.phase !== 'lecture') return;   // le jeu s'est déjà arrêté (évènement « fin ») : le bac est revenu
+  led(false); etatLecteur('En service');
   if (rep.type === 'web') ouvrirWeb(rep.url, j);
   else afficherEnJeu(j, rep);
   etat.capturesAvant = (j.captures || []).length; etat.idEnJeu = j.id;
@@ -958,6 +960,7 @@ function ecouter() {
         ejecter(true).then(() => { Son.cloche(); alerte('Le jeu s\'est arrêté tout de suite.\n\n' + ev.donnees.erreur + '\n\nDétails : runtime/ludotheque.log', ['OK']); });
       } else ejecter(true);
     }
+    if (ev.type === 'etat' && ev.donnees && ev.donnees.etat === 'libre' && etat.phase === 'jeu') ejecter(true);   // « fin » manquée
     if (ev.type === 'quitter' && etat.phase === 'web') fermerWeb(false);
     if (ev.type === 'fin-demo' && (etat.phase === 'demo' || etat.phase === 'veille')) quitterVeille();
     if (ev.type === 'export' && ev.donnees) {
@@ -999,8 +1002,9 @@ function majCoches() {
   ['eteindre', 'redemarrer'].forEach(a => { const b = document.querySelector(`[data-action="${a}"]`); if (b) b.disabled = s.extinction === false; });
 }
 
-let alerteResolve = null, alerteFocus = 0;
+let alerteResolve = null, alerteFocus = 0, alerteAvant = null;
 function alerte(texte, boutons, signe, focus) {
+  if (etat.dialogue !== 'alerte') alerteAvant = etat.dialogue;   // ex. 'panneau' : rendu à la fermeture
   return new Promise((ok) => {
     $('#al-texte').textContent = texte;
     $('#al-signe').textContent = signe || '!';
@@ -1019,7 +1023,7 @@ function alerte(texte, boutons, signe, focus) {
 }
 function marquerAlerte() { $$('#al-boutons .bouton').forEach((b, i) => b.classList.toggle('focus', i === alerteFocus)); }
 function fermerAlerte(i) {
-  $('#alerte').classList.add('cache'); etat.dialogue = null; Son.touche();
+  $('#alerte').classList.add('cache'); etat.dialogue = alerteAvant; alerteAvant = null; Son.touche();
   const r = alerteResolve; alerteResolve = null; if (r) r(i);
 }
 
@@ -1091,7 +1095,7 @@ function dessinerPanneau(enHaut) {
   const nf = Object.values(pn.favoris).filter(Boolean).length;
   $('#pn-compte').textContent = nf + ' favori' + (nf > 1 ? 's' : '') + ' · ' + n + ' / ' + etat.cat.jeux.length + ' dans le bac';
 }
-function fermerPanneau() { $('#panneau').classList.add('cache'); etat.dialogue = null; }
+function fermerPanneau() { $('#panneau').classList.add('cache'); etat.dialogue = null; $('#pn-recherche').blur(); }
 async function enregistrerPanneau() {
   try {
     await api('/api/admin', { actifs: pn.coches, favoris: pn.favoris, vrac: pn.vrac });
@@ -1151,8 +1155,10 @@ function resumeRangement(d) {
 }
 // Rangement fait avant l'ouverture de la page (au démarrage du lanceur) : son compte
 // rendu une fois, à l'arrivée sur le bureau.
+let rangementVuIci = null;   // si localStorage est refusé
 function rangementVu(journal) {
-  try { if (journal) localStorage.setItem('ludo-rangement-vu', journal); return localStorage.getItem('ludo-rangement-vu'); } catch (e) { return journal; }
+  if (journal) rangementVuIci = journal;
+  try { if (journal) localStorage.setItem('ludo-rangement-vu', journal); return localStorage.getItem('ludo-rangement-vu') || rangementVuIci; } catch (e) { return rangementVuIci; }
 }
 function verifierRangement() {
   const rg = etat.cat && etat.cat.rangement;
@@ -1166,10 +1172,15 @@ function verifierRangement() {
 async function finRangement(d) {
   const ouvert = rangementAffiche;
   if (rangementAffiche) { rangementAffiche = false; if (etat.dialogue === 'alerte') fermerAlerte(-1); }
+  // tout de suite : allumer() pendant chargerCatalogue() ne doit plus voir « en cours »
+  if (etat.cat) etat.cat.rangement = { en_cours: false, dernier: d || (etat.cat.rangement || {}).dernier };
   if (!d) { if (ouvert) await chargerCatalogue(); return; }
-  if (d.journal) rangementVu(d.journal);
   await chargerCatalogue();
-  if (etat.phase === 'bureau') { Son.cloche(); alerte(resumeRangement(d), ['OK']); }
+  // pas encore sur le bureau (écran d'allumage) : verifierRangement() le montrera en arrivant
+  if (etat.phase === 'bureau' && etat.dialogue !== 'alerte' && rangementVu() !== d.journal) {
+    if (d.journal) rangementVu(d.journal);
+    Son.cloche(); alerte(resumeRangement(d), ['OK']);
+  }
 }
 async function menage() {
   if (!etat.cat || etat.phase !== 'bureau') return;
@@ -1407,12 +1418,14 @@ function basculerCoquin() {
 
 document.addEventListener('keydown', (e) => {
   if (etat.phase === 'web') return;
+  if (etat.phase === 'demarrage') { if (!['Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) { e.preventDefault(); allumer(); } return; }
   if (suivreKonami(e)) { e.preventDefault(); basculerCoquin(); return; }
   const c = champRecherche();
   // dans le champ de recherche : il garde les caractères et l'édition ; flèches, ⏎, Échap restent au bac
   if (c && e.target === c && (caractere(e) || ['Backspace', 'Delete', 'Home', 'End'].includes(e.key))) return;
   const t = TOUCHES[e.key];
-  if (t) { e.preventDefault(); intention(t); return; }
+  // on ne tape plus : Espace (favori, capture), Suppr, Début et Fin redeviennent des commandes
+  if (t) { e.preventDefault(); if (c && e.target === c) c.blur(); intention(t); return; }
   // une lettre tapée ailleurs : la recherche commence (Retour arrière la corrige)
   if (c && ((caractere(e) && e.key !== ' ') || (e.key === 'Backspace' && c.value))) {
     e.preventDefault(); etat.dernierInput = Date.now();
@@ -1441,7 +1454,10 @@ function lireManettes(t) {
     if (ay < -0.6) actifs.haut = true; if (ay > 0.6) actifs.bas = true;
     if (p.buttons[8] && p.buttons[8].pressed && p.buttons[9] && p.buttons[9].pressed) selStart = true;
   }
-  if (selStart) { delete actifs.menu; delete actifs.mhz; }
+  // la combinaison vue : Select et Start ne comptent plus seuls jusqu'à ce que les deux soient relâchés
+  if (selStart) pad.combo = true;
+  else if (!actifs.menu && !actifs.mhz) pad.combo = false;
+  if (pad.combo) { delete actifs.menu; delete actifs.mhz; }
   for (const k in actifs) {
     if (!pad.avant[k]) { intention(k); pad.repete[k] = t + 380; }
     else if (['gauche', 'droite', 'haut', 'bas'].includes(k) && t > pad.repete[k]) { intention(k); pad.repete[k] = t + 95; }
@@ -1483,7 +1499,7 @@ function demarrage() {
   else {
     $('#d-allumer').classList.remove('cache'); $('#d-texte').classList.remove('cache');
     $('#d-ligne').textContent = 'Appuyez sur une touche ou cliquez pour allumer.';
-    $('#d-allumer').addEventListener('click', allumer);
+    $('#demarrage').addEventListener('click', allumer);
   }
 }
 
@@ -1494,11 +1510,15 @@ function entrerVeille() {
   if (etat.coquin) { etat.coquin = false; construireListe(); }   // et sans les disquettes coquines
   $('#recherche').blur();
   etat.phase = 'veille'; veille.t0 = performance.now(); veille.demos = false;
-  if (etat.demos && etat.demos.disponibles > 0) {
+  if (etat.demos && etat.demos.disponibles > 0 && !(etat.demos.apres_min <= 0)) {   // config.json : 0 = jamais
     veille.demos = true;
     veille.minuteur = setTimeout(async () => {
       if (etat.phase !== 'veille') return;
-      try { await api('/api/demo/demarrer', {}); etat.phase = 'demo'; $('#veille').classList.add('cache'); $('#demo').classList.remove('cache'); }
+      try {
+        await api('/api/demo/demarrer', {});
+        if (etat.phase !== 'veille') { api('/api/demo/arreter', {}).catch(() => {}); return; }   // réveil entre-temps
+        etat.phase = 'demo'; $('#veille').classList.add('cache'); $('#demo').classList.remove('cache');
+      }
       catch (e) { veille.demos = false; }
     }, 6000);
   }
@@ -1558,7 +1578,13 @@ function dessinerVeille(t) {
     c.fillStyle = `hsl(${(x / 4 + dt * 60) % 360},90%,60%)`; c.fillText(msg[i], x, y);
   }
 }
-['mousemove', 'mousedown', 'keydown', 'wheel'].forEach(ev => addEventListener(ev, () => { etat.dernierInput = Date.now(); if ((etat.phase === 'veille' || etat.phase === 'demo') && !etat.demoLecture) quitterVeille(); }, true));
+['mousemove', 'mousedown', 'keydown', 'wheel'].forEach(ev => addEventListener(ev, (e) => {
+  etat.dernierInput = Date.now();
+  if ((etat.phase === 'veille' || etat.phase === 'demo') && !etat.demoLecture) {
+    quitterVeille();
+    if (ev === 'keydown') { e.preventDefault(); e.stopPropagation(); }   // ⏎ aurait lancé le jeu, F10 ouvert le catalogue…
+  }
+}, true));
 
 function horloge() {
   const d = new Date();

@@ -109,7 +109,7 @@ func copieSauvegardes(p string, cor []Correctif) string {
 		trouve := false
 		for _, f := range z.File {
 			x := strings.ToLower(filepath.Ext(f.Name))
-			if x == ".st" || x == ".msa" || x == ".stx" {
+			if x == ".st" || x == ".msa" || x == ".stx" || x == ".dim" {
 				crc, taille, ext, nom, trouve = f.CRC32, int64(f.UncompressedSize64), x, path.Base(f.Name), true
 				break
 			}
@@ -138,7 +138,14 @@ func copieSauvegardes(p string, cor []Correctif) string {
 	if c := filepath.Join(dir, prefixe+nomCourt(nom, 40)); existe(c) {
 		return c
 	}
-	return ancienneCopie(dir, prefixe, nom)
+	return ancienneCopie(dir, prefixe, nom, func() []byte {
+		if strings.EqualFold(filepath.Ext(p), ".zip") {
+			d, _, _ := imageDuZip(p)
+			return d
+		}
+		d, _ := os.ReadFile(p)
+		return d
+	})
 }
 
 type listeExport struct {
@@ -407,6 +414,10 @@ func apiExporter(w http.ResponseWriter, r *http.Request) {
 	}
 	if q.Mode != "favoris" && q.Mode != "bac" {
 		erreur(w, 400, "mode : favoris ou bac")
+		return
+	}
+	if rangementEnCours() { // le ménage efface des disquettes que l'export lirait
+		erreur(w, 409, "rangement des disquettes en cours : patientez")
 		return
 	}
 	exportation.mu.Lock()

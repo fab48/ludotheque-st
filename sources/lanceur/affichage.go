@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -97,7 +98,9 @@ func majConfig(cles map[string]any) error {
 	p := filepath.Join(base, "config.json")
 	m := map[string]any{}
 	if b, err := os.ReadFile(p); err == nil {
-		_ = json.Unmarshal(b, &m)
+		if err := json.Unmarshal(b, &m); err != nil { // ne pas réécrire config.json avec ces 4 clés seulement
+			return fmt.Errorf("config.json illisible : %w", err)
+		}
 	}
 	for k, v := range cles {
 		m[k] = v

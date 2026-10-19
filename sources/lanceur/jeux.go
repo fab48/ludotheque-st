@@ -214,7 +214,8 @@ func vrac(c *Catalogue) []Jeu {
 		}
 		groupes[cle] = append(groupes[cle], rel)
 	}
-	var out []Jeu
+	// « vrac »: [] et non null pour l'interface, même sans disquette
+	out := []Jeu{}
 	numero := func(d string) int { // « Disk 10 of 12 » après « Disk 2 of 12 »
 		nom := strings.TrimSuffix(filepath.Base(d), filepath.Ext(d))
 		if e := lireNomTosec(filepath.Base(d)); e != nil {
@@ -485,10 +486,15 @@ func hatariExe() (string, bool) {
 
 type infoVersion struct{ ok, v2 bool }
 
-var cacheVersion = map[string]infoVersion{}
+var (
+	muVersion    sync.Mutex // /api/catalogue, /api/lancer et les démos peuvent demander en même temps
+	cacheVersion = map[string]infoVersion{}
+)
 
 // versionHatari : le binaire démarre-t-il ici, et est-ce une version 2.x ?
 func versionHatari(exe string) (bool, bool) {
+	muVersion.Lock()
+	defer muVersion.Unlock()
 	if v, ok := cacheVersion[exe]; ok {
 		return v.ok, v.v2
 	}
@@ -729,7 +735,7 @@ func disquePropre(p string, correctifs []Correctif) string {
 	if existe(copie) {
 		return copie
 	}
-	if a := ancienneCopie(dir, prefixe, nomImage); a != "" {
+	if a := ancienneCopie(dir, prefixe, nomImage, func() []byte { return d }); a != "" {
 		if err := os.Rename(a, copie); err == nil {
 			log.Printf("copie reprise avec ses sauvegardes : %s → %s", filepath.Base(a), filepath.Base(copie))
 			return copie
@@ -781,23 +787,59 @@ func nomCourt(nom string, n int) string {
 // ancienneCopie : copie déjà faite pour cette disquette sous un autre nom (image
 // renommée : même préfixe ; ancien nommage du lanceur : 8 chiffres hexadécimaux
 // calculés sur le chemin complet, puis le nom de l'image). La plus récente.
-func ancienneCopie(dir, prefixe, nom string) string {
+// Le nom seul ne suffit pas pour l'ancien nommage (il ressemble au nouveau, et deux
+// jeux ont parfois une image du même nom, « disk1.st ») : la copie doit avoir le
+// contenu de la disquette d'origine, sauvegardes mises à part. original : chargé
+// seulement s'il faut comparer.
+func ancienneCopie(dir, prefixe, nom string, original func() []byte) string {
 	es, err := os.ReadDir(dir)
 	if err != nil {
 		return ""
 	}
+	var d []byte
+	charge := false
 	meilleure, date := "", time.Time{}
 	for _, e := range es {
 		n := e.Name()
-		ancien := len(n) == 9+len(nom) && n[8] == '-' && estHex(n[:8]) && strings.EqualFold(n[9:], nom)
-		if e.IsDir() || !(strings.HasPrefix(n, prefixe) || ancien) {
+		memePrefixe := strings.HasPrefix(n, prefixe)
+		ancien := !memePrefixe && len(n) == 9+len(nom) && n[8] == '-' && estHex(n[:8]) && strings.EqualFold(n[9:], nom)
+		if e.IsDir() || !(memePrefixe || ancien) {
 			continue
+		}
+		if ancien {
+			if !charge {
+				d, charge = original(), true
+			}
+			if !memeDisquette(filepath.Join(dir, n), d) {
+				continue
+			}
 		}
 		if i, err := e.Info(); err == nil && i.ModTime().After(date) {
 			meilleure, date = filepath.Join(dir, n), i.ModTime()
 		}
 	}
 	return meilleure
+}
+
+// memeDisquette : même taille, et au moins 80 % des secteurs non vides de l'original
+// à l'identique (un jeu n'écrit ses sauvegardes que sur quelques secteurs).
+func memeDisquette(p string, original []byte) bool {
+	c, err := os.ReadFile(p)
+	if err != nil || len(original) == 0 || len(c) != len(original) {
+		return false
+	}
+	pleins, egaux := 0, 0
+	for o := 0; o+512 <= len(original); o += 512 {
+		s := original[o : o+512]
+		if bytes.Count(s, s[:1]) == 512 { // secteur vide (0, $E5…) : pareil sur toutes les disquettes
+			continue
+		}
+		pleins++
+		if bytes.Equal(s, c[o:o+512]) {
+			egaux++
+		}
+	}
+	return pleins > 0 && egaux*10 >= pleins*8
 }
 
 func estHex(s string) bool { _, err := hex.DecodeString(s); return err == nil }
@@ -829,11 +871,12 @@ func apiRetirerCapture(w http.ResponseWriter, r *http.Request) {
 	var q struct {
 		Chemin string `json:"chemin"`
 	}
-	if err := json.NewDecoder(r.Body).Decode(&q); err != nil || !strings.HasPrefix(q.Chemin, "medias/") {
+	// chemin nettoyé avant le contrôle : « medias/../config.json » rangeait config.json
+	if err := json.NewDecoder(r.Body).Decode(&q); err != nil || !strings.HasPrefix(path.Clean(q.Chemin), "medias/") {
 		erreur(w, 400, "chemin invalide")
 		return
 	}
-	p, err := chemin(q.Chemin)
+	p, err := chemin(path.Clean(q.Chemin))
 	if err != nil || !existe(p) {
 		erreur(w, 404, "capture introuvable")
 		return
@@ -1090,25 +1133,37 @@ func (g *Gestionnaire) Arreter() {
 }
 
 func (g *Gestionnaire) lancerProcessus(id, titre string, cmd *exec.Cmd) error {
+	// place réservée avant cmd.Start : deux demandes rapprochées (double appui)
+	// lançaient deux Hatari ; pas de jeu non plus par-dessus une démo
 	g.mu.Lock()
-	if g.etat == "jeu" {
+	switch g.etat {
+	case "jeu", "lancement":
 		g.mu.Unlock()
 		return errors.New("un jeu tourne déjà")
+	case "demo":
+		g.mu.Unlock()
+		return errors.New("une démo tourne : réessayez dans un instant")
 	}
+	avant := g.etat
+	g.etat = "lancement"
 	g.mu.Unlock()
 	preparerProcessus(cmd)
 	log.Printf("lancement : %s %q", cmd.Path, cmd.Args[1:])
 	if err := cmd.Start(); err != nil {
+		g.mu.Lock()
+		g.etat = avant
+		g.mu.Unlock()
 		return err
 	}
+	debut := time.Now()
 	g.mu.Lock()
-	g.cmd, g.etat, g.id, g.titre, g.debut, g.demande = cmd, "jeu", id, titre, time.Now(), false
+	g.cmd, g.etat, g.id, g.titre, g.debut, g.demande = cmd, "jeu", id, titre, debut, false
 	g.mu.Unlock()
 	diff.Envoyer("etat", g.Etat())
 	go premierPlan(cmd.Process.Pid)
 	go func() {
 		err := cmd.Wait()
-		d := time.Since(g.debut).Round(time.Second)
+		d := time.Since(debut).Round(time.Second)
 		log.Printf("fin du jeu %s après %s (%v)", id, d, err)
 		g.mu.Lock()
 		demande := g.demande
@@ -1152,6 +1207,16 @@ func apiLancer(w http.ResponseWriter, r *http.Request) {
 		erreur(w, 409, "rangement des disquettes en cours : patientez")
 		return
 	}
+	// avant de préparer quoi que ce soit : commandeHatari réécrit la config de Hatari
+	// et (Linux) efface le tube de commandes du jeu en cours
+	switch jeux.EnJeu() {
+	case "jeu", "lancement":
+		erreur(w, 409, "un jeu tourne déjà")
+		return
+	case "demo":
+		erreur(w, 409, "une démo tourne : réessayez dans un instant")
+		return
+	}
 	debut := time.Now()
 	log.Printf("demande de lancement : %s (version %d)", q.ID, q.Variante)
 	defer func() { log.Printf("demande de lancement traitée en %s", time.Since(debut).Round(time.Millisecond)) }()
@@ -1172,7 +1237,8 @@ func apiLancer(w http.ResponseWriter, r *http.Request) {
 	case "hatari":
 		cmd, fifo, err := commandeHatari(c, j, v, q.Mhz16)
 		if err == nil {
-			libre := jeux.EnJeu() != "jeu" // sinon lancerProcessus refuse
+			e := jeux.EnJeu()
+			libre := e == "libre" || e == "web" // sinon lancerProcessus refuse (et l'écran est déjà à 50 Hz)
 			if libre {
 				ecranPourHatari(cfg.PleinEcranJeux)
 			}
@@ -1220,7 +1286,7 @@ func apiLancer(w http.ResponseWriter, r *http.Request) {
 		repondre(w, map[string]any{"ok": true, "type": "processus"})
 	case "web":
 		jeux.mu.Lock()
-		if jeux.etat == "jeu" {
+		if jeux.etat == "jeu" || jeux.etat == "lancement" || jeux.etat == "demo" {
 			jeux.mu.Unlock()
 			erreur(w, 409, "un jeu tourne déjà")
 			return

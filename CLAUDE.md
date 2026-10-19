@@ -188,7 +188,8 @@ protégé (Hatari l'émule, mais `--fastfdc no` conseillé).
 Candidats à ajouter : `Ludotheque.exe --trier "<dossier TOSEC>" [--tout] [--pd] [--sortie f.json]`
 (tri.go, lecture seule, quelques secondes ; même résultat que l'ancien script Python, rangé dans
 runtime/_a_supprimer/) écrit `outils/tosec_tri.json` : une édition par jeu (doublons [a]/cracks/langues/[ST]-[STX] écartés,
-titres voisins même éditeur+année fusionnés, `aliasTitres` pour les fautes de TOSEC), hors jeux déjà
+un jeu = un titre (`cleTitre`, « + » compte) et ses images qui ont un jeton en commun (`jetonsTosec` :
+éditeur, ou année d'un jeu du commerce), `aliasTitres` pour les fautes de TOSEC), hors jeux déjà
 au catalogue (`--tout` pour les garder), et la liste des titres écartés avec leur raison
 (Falcon/TT, monochrome, démo jouable, données/éditeur, extension (`reExtension`), incomplet, [b]
 seulement, ZZZ-UNK). Le 16/10/2026 : 1 927 titres, 160 au catalogue, 1 595 candidats, 172 écartés.
@@ -322,3 +323,25 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   locaux scannés le 16/10 : 24 titres (Geisha, Hollywood Poker Pro, Piss Flaps 1-2 ajoutés à la
   main) ; laissés visibles faute de titre explicite : Leisure Suit Larry, Bootiful Babe, Datequest,
   Manga Paradise, La Belle Zohra.
+- 19/10/2026, v1.3 : passe de relecture (lanceur, interface, ménage). **Le ménage effaçait des jeux
+  distincts** (journal du 16/10 : War Zone 1986, Barbarian II de Psygnosis, International Karate 1986,
+  Indiana Jones l'aventure, Night Breed, Spaceball 1988…, et des jeux à plusieurs disquettes complets
+  comme Garfield Winter's Tail) : clé = titre seul, fusion « Titre - sous-titre ». Désormais
+  (tri.go) : jetons éditeur/année, plus de fusion des sous-titres, 3e passe pour regrouper les
+  disquettes (titre, année, éditeur, crack), « disquettes manquantes » gardées, nom non TOSEC
+  toujours gardé, .dim accepté, image installée via un .part. Rejoué sur les 7 081 noms du
+  journal : 117 fichiers de plus gardés, 7 de plus effacés (meilleure édition reconnue complète).
+  Reste : deux jeux du commerce de même titre et même année (Barbarian de Palace et de Psygnosis,
+  1987) sont confondus ; quelques doublons de jeux du catalogue restent dans le vrac quand TOSEC
+  écrit le studio au lieu de l'éditeur (Rick Dangerous II Micro Style / Core Design). Les jeux
+  décochés (F10) comptent toujours « au catalogue » (leurs éditions TOSEC sont effacées).
+  Aussi : routes /api refusées aux autres pages web (Origin/Host, `gardien`), deux Hatari possibles
+  sur double lancement (état « lancement »), pas de jeu par-dessus une démo, `medias/../` refusé,
+  cache de version Hatari protégé (Linux), config.json pas réécrit s'il est illisible,
+  `ancienneCopie` compare le contenu (une copie d'un autre jeu au même nom était reprise),
+  ménage et export exclusifs. Interface : jeu arrêté pendant « Lecture piste » (écran « en jeu »
+  bloqué), touche de réveil de la veille exécutée (⏎ lançait un jeu), vrac vide (`null`) qui
+  cassait le bac, compte rendu du rangement perdu pendant l'allumage, Espace/Suppr gardés par le
+  champ de recherche, alerte par-dessus F10, demos_apres_min 0, Select+Start relâchés un à un.
+  La collection TOSEC n'est plus dans C:\Atari_ST_TOSEC_2012_04_23 (seul reste disques/Games,
+  déjà passé au ménage du 16/10).

@@ -37,6 +37,7 @@ type imageTosec struct {
 	Disque, Total                       int
 	Couvre                              []int // « Disk B and C » : une image, deux disquettes
 	Langue, Machine, Statut             string
+	Libre                               bool // (PD), (SW), (FW)… : pas un jeu du commerce
 	Notes                               []string
 	Chemin                              string // relatif (au pack ou à la collection), en « / »
 	Source                              string // ST | STX | PD
@@ -118,11 +119,80 @@ func titreLisible(t string) string {
 }
 
 // cleTitre : clé de regroupement, sans article, accents, ponctuation ni version.
+// « + » compte : International Karate et International Karate + sont deux jeux.
 func cleTitre(t string) string {
 	t = accents.Replace(strings.ToLower(titreLisible(t)))
 	t = reArticle.ReplaceAllString(t, "")
 	t = strings.ReplaceAll(t, "&", "and")
+	t = strings.ReplaceAll(t, "+", "plus")
 	return reNonAlnum.ReplaceAllString(t, "")
+}
+
+// editeursTosec : « Domark - Incentive » → domark, incentive ; « - » (inconnu) → aucun.
+func editeursTosec(ed string) []string {
+	var l []string
+	for _, x := range strings.Split(ed, " - ") {
+		if k := reNonAlnum.ReplaceAllString(accents.Replace(strings.ToLower(x)), ""); k != "" {
+			l = append(l, k)
+		}
+	}
+	return l
+}
+
+// jetonsTosec : ce qui fait de deux images d'un même titre un même jeu : un éditeur en
+// commun (TOSEC écrit tantôt l'éditeur, tantôt le studio : Image Works ou Bitmap
+// Brothers), ou la même année pour un jeu du commerce. Deux jeux libres du même nom
+// la même année (Tetris…) restent distincts.
+func jetonsTosec(e *imageTosec) []string {
+	l := editeursTosec(e.Editeur)
+	if !e.Libre && e.Source != "PD" && len(e.Annee) == 4 && !strings.ContainsAny(e.Annee, "x?") {
+		l = append(l, "annee:"+e.Annee)
+	}
+	return l
+}
+
+// clesTitres : titres de la ludothèque (cleTitre) → leurs jetons (jetonsTosec) ;
+// "*" : éditeur inconnu, n'importe quel jeu de ce titre convient.
+type clesTitres map[string]map[string]bool
+
+func (c clesTitres) ajouter(titre string, jetons []string) {
+	k := cleTitre(titre)
+	if c[k] == nil {
+		c[k] = map[string]bool{}
+	}
+	if len(jetons) == 0 {
+		c[k]["*"] = true
+	}
+	for _, j := range jetons {
+		c[k][j] = true
+	}
+}
+
+// ajouterJeu : un jeu de catalogue.json (éditeur et année écrits à la main).
+func (c clesTitres) ajouterJeu(j *Jeu) {
+	l := editeursTosec(j.Editeur)
+	if len(l) > 0 && j.Annee > 0 {
+		l = append(l, "annee:"+strconv.Itoa(j.Annee))
+	}
+	c.ajouter(j.Titre, l)
+}
+
+// contient : même titre et un jeton en commun (Barbarian de Psygnosis n'est pas
+// celui de Palace ; War Zone de 1986 n'est pas celui de 1991).
+func (c clesTitres) contient(cle string, editeurs map[string]bool) bool {
+	m := c[cle]
+	if m == nil {
+		return false
+	}
+	if m["*"] {
+		return true
+	}
+	for e := range editeurs {
+		if m[e] {
+			return true
+		}
+	}
+	return false
 }
 
 // lireNomTosec : « Titre vX (date)(éditeur)(drapeaux)…(Disk 1 of 2)[notes].zip ».
@@ -166,7 +236,8 @@ func lireNomTosec(nom string) *imageTosec {
 		switch {
 		case pl == "ste" || pl == "stf" || pl == "st" || pl == "mega ste" || pl == "falcon" || pl == "falcon030" || pl == "tt":
 			e.Machine = pl
-		case pl == "pd" || pl == "sw" || pl == "fw" || pl == "sw-r" || pl == "cw" || pl == "gw":
+		case pl == "pd" || pl == "sw" || pl == "fw" || pl == "sw-r" || pl == "cw" || pl == "gw" || pl == "lw":
+			e.Libre = true
 		case statutsDev[pl] || strings.HasPrefix(pl, "demo"):
 			e.Statut = pl
 			e.Demo = e.Demo || strings.HasPrefix(pl, "demo")
@@ -326,9 +397,22 @@ func contient(l []string, x string) bool {
 // editionsTosec : regroupe les images d'un même titre en éditions (jeux de
 // disquettes complets) ; rend aussi les disquettes de jeux incomplets.
 func editionsTosec(images []*imageTosec, source string) ([]*editionTosec, []*imageTosec) {
-	sansDisque := func(e *imageTosec, fort bool) string {
+	// passe 0 : le nom sans « (Disk x of y) » ; 1 : sans [a], [t], [!], [m], parfois sur
+	// une seule disquette ; 2 : titre, année, éditeur et crack seulement (une note ou une
+	// version sur une seule disquette : « v1.2 », « [don't work with TOS 1.06] »)
+	cleDisques := func(e *imageTosec, passe int) string {
+		if passe == 2 {
+			cr := ""
+			for _, n := range e.Notes {
+				if drapeau(&imageTosec{Notes: []string{n}}, "cr") {
+					cr = n
+					break
+				}
+			}
+			return cleTitre(e.Titre) + "|" + e.Annee + "|" + e.Editeur + "|" + cr
+		}
 		n := reSansDisque.ReplaceAllString(e.Nom, "")
-		if fort { // [t] ou [a] parfois sur une seule disquette
+		if passe == 1 {
 			n = reSansVar.ReplaceAllString(n, "")
 		}
 		return n
@@ -342,11 +426,11 @@ func editionsTosec(images []*imageTosec, source string) ([]*editionTosec, []*ima
 			multi = append(multi, e)
 		}
 	}
-	for _, fort := range []bool{false, true} {
+	for passe := 0; passe < 3; passe++ {
 		var ordre []string
 		groupes := map[string][]*imageTosec{}
 		for _, e := range multi {
-			k := sansDisque(e, fort)
+			k := cleDisques(e, passe)
 			if _, ok := groupes[k]; !ok {
 				ordre = append(ordre, k)
 			}
@@ -356,7 +440,12 @@ func editionsTosec(images []*imageTosec, source string) ([]*editionTosec, []*ima
 		for _, k := range ordre {
 			g := groupes[k]
 			tri := append([]*imageTosec(nil), g...)
-			sort.SliceStable(tri, func(a, b int) bool { return len(tri[a].Couvre) < len(tri[b].Couvre) })
+			sort.SliceStable(tri, func(a, b int) bool { // un mauvais dump [b] seulement s'il n'y a rien d'autre
+				if ba, bb := drapeau(tri[a], "b"), drapeau(tri[b], "b"); ba != bb {
+					return bb
+				}
+				return len(tri[a].Couvre) < len(tri[b].Couvre)
+			})
 			parN, total := map[int]*imageTosec{}, 0
 			for _, e := range tri {
 				for _, n := range e.Couvre {
@@ -448,7 +537,7 @@ func zipAvecImage(p string) bool {
 	defer z.Close()
 	for _, f := range z.File {
 		x := strings.ToLower(filepath.Ext(f.Name))
-		if (x == ".st" || x == ".msa" || x == ".stx") && f.UncompressedSize64 > 0 {
+		if (x == ".st" || x == ".msa" || x == ".stx" || x == ".dim") && f.UncompressedSize64 > 0 {
 			return true
 		}
 	}
@@ -464,7 +553,7 @@ func imageDuZip(p string) ([]byte, string, error) {
 	defer z.Close()
 	for _, f := range z.File {
 		x := strings.ToLower(filepath.Ext(f.Name))
-		if x != ".st" && x != ".msa" && x != ".stx" {
+		if x != ".st" && x != ".msa" && x != ".stx" && x != ".dim" {
 			continue
 		}
 		r, err := f.Open()
@@ -475,13 +564,18 @@ func imageDuZip(p string) ([]byte, string, error) {
 		r.Close()
 		return d, filepath.Base(filepath.FromSlash(f.Name)), err
 	}
-	return nil, "", fmt.Errorf("pas d'image .st/.msa/.stx")
+	return nil, "", fmt.Errorf("pas d'image .st/.msa/.stx/.dim")
 }
 
 // trierTosec : images (dans l'ordre des dossiers, puis des noms) → un titre trié
-// par jeu. absolu : chemin d'une image sur le disque ; catalogue : clés des titres
-// déjà dans la ludothèque.
-func trierTosec(images []*imageTosec, absolu func(*imageTosec) string, catalogue map[string]bool) []*titreTrie {
+// par jeu. absolu : chemin d'une image sur le disque ; catalogue : titres (et
+// éditeurs) déjà dans la ludothèque.
+//
+// Un jeu = un titre et ses éditeurs : War Zone de Paradox (1986) et celui de Core
+// Design (1991) sont deux jeux. Les titres voisins (« Indiana Jones and the Last
+// Crusade » et « … - Arcade Game ») restent séparés : au pire un doublon reste,
+// jamais un jeu distinct n'est effacé.
+func trierTosec(images []*imageTosec, absolu func(*imageTosec) string, catalogue clesTitres) []*titreTrie {
 	type parSource struct {
 		ordre []string
 		imgs  map[string][]*imageTosec
@@ -514,44 +608,68 @@ func trierTosec(images []*imageTosec, absolu func(*imageTosec) string, catalogue
 		}
 		ajouter(c, e)
 	}
-	// « Midwinter II - Flames of Freedom » et « Midwinter II », même éditeur, même année : un seul jeu
-	parLongueur := append([]string(nil), ordre...)
-	sort.SliceStable(parLongueur, func(a, b int) bool { return len(parLongueur[a]) > len(parLongueur[b]) })
-	for _, cle := range parLongueur {
-		p := parTitre[cle]
-		imgs := toutes(p)
-		baseCle := cleTitre(strings.SplitN(imgs[0].Titre, " - ", 2)[0])
-		pb := parTitre[baseCle]
-		if baseCle == cle || pb == nil {
-			continue
+	// dans chaque titre, un jeu par groupe d'images qui ont un jeton en commun
+	// (jetonsTosec : éditeur, ou année d'un jeu du commerce)
+	type jeuTitre struct {
+		cle      string
+		p        *parSource
+		editeurs map[string]bool
+	}
+	var jeuxTitres []jeuTitre
+	sort.Strings(ordre)
+	for _, cle := range ordre {
+		imgs := toutes(parTitre[cle])
+		groupe := make([]int, len(imgs))
+		for i := range groupe {
+			groupe[i] = i
 		}
-		ea := map[string]bool{}
-		for _, e := range toutes(pb) {
-			ea[e.Editeur+"|"+e.Annee] = true
+		var racine func(int) int
+		racine = func(i int) int {
+			for groupe[i] != i {
+				i = groupe[i]
+			}
+			return i
 		}
-		commun := false
-		for _, e := range imgs {
-			commun = commun || ea[e.Editeur+"|"+e.Annee]
+		premier := map[string]int{}
+		for i, e := range imgs {
+			eds := jetonsTosec(e)
+			if len(eds) == 0 { // éditeur inconnu, jeu libre ou année « 19xx » : ensemble
+				eds = []string{""}
+			}
+			for _, ed := range eds {
+				if j, ok := premier[ed]; ok {
+					groupe[racine(i)] = racine(j)
+				} else {
+					premier[ed] = i
+				}
+			}
 		}
-		if !commun {
-			continue
+		parGroupe := map[int]*jeuTitre{}
+		var ordreGroupes []int
+		for i, e := range imgs {
+			g := racine(i)
+			jt := parGroupe[g]
+			if jt == nil {
+				jt = &jeuTitre{cle: cle, p: &parSource{imgs: map[string][]*imageTosec{}}, editeurs: map[string]bool{}}
+				parGroupe[g] = jt
+				ordreGroupes = append(ordreGroupes, g)
+			}
+			if _, ok := jt.p.imgs[e.Source]; !ok {
+				jt.p.ordre = append(jt.p.ordre, e.Source)
+			}
+			jt.p.imgs[e.Source] = append(jt.p.imgs[e.Source], e)
+			for _, ed := range jetonsTosec(e) {
+				jt.editeurs[ed] = true
+			}
 		}
-		delete(parTitre, cle)
-		for _, e := range imgs {
-			ajouter(baseCle, e)
+		for _, g := range ordreGroupes {
+			jeuxTitres = append(jeuxTitres, *parGroupe[g])
 		}
 	}
-	var cles []string
-	for _, c := range ordre {
-		if parTitre[c] != nil {
-			cles = append(cles, c)
-		}
-	}
-	sort.Strings(cles)
 
 	var out []*titreTrie
-	for _, cle := range cles {
-		p := parTitre[cle]
+	for _, jt := range jeuxTitres {
+		cle, p := jt.cle, jt.p
 		tout := toutes(p)
 		tn := append([]*imageTosec(nil), tout...)
 		sort.SliceStable(tn, func(a, b int) bool {
@@ -561,7 +679,7 @@ func trierTosec(images []*imageTosec, absolu func(*imageTosec) string, catalogue
 			}
 			return tn[a].Nom < tn[b].Nom
 		})
-		t := &titreTrie{Cle: cle, Nom: titreLisible(tn[0].Titre), Toutes: tout, Catalogue: catalogue[cle]}
+		t := &titreTrie{Cle: cle, Nom: titreLisible(tn[0].Titre), Toutes: tout, Catalogue: catalogue.contient(cle, jt.editeurs)}
 		var raisons []string
 		compte := map[string]int{}
 		noter := func(r string, n int, remplacer bool) {
