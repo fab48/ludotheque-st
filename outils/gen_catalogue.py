@@ -266,7 +266,7 @@ TOUCHES = {'xenon': '5', 'barbarian': '3', 'speedball': '2', 'populous': '1', 'd
            'crazy-cars-2': '1', 'golden-axe': '1', 'light-corridor': 'c2',
            'r-type': '2', 'hostage': 'c2', 'mouse-trap': '4'}
 # écrans d'intro qui attendent Espace (pressée pendant le turbo)
-for _i in ['rick-dangerous', 'shufflepuck-cafe', 'cadaver', 'chaos-engine', 'cannon-fodder',
+for _i in ['rick-dangerous', 'cadaver', 'chaos-engine', 'cannon-fodder',
            'tintin-lune', 'tortues-ninja', 'wings-of-death', 'super-ski-2', 'vroom', 'silent-service-2',
            'carmen-sandiego', 'dynablaster', 'iznogoud', 'prince-of-persia']:
     TOUCHES[_i] = 'esp'
@@ -276,6 +276,9 @@ for _i in ['rick-dangerous', 'shufflepuck-cafe', 'cadaver', 'chaos-engine', 'can
 SEQ = {'pang': ['N', 'espace'], 'toki': ['espace', 'N'], 'turrican': ['N'], 'dragonflight': ['N'],
        'gobliiins': ['espace', 'pave5', 'entree'], 'maniac-mansion': ['entree'], 'railroad-tycoon': ['pave2'],
        'carrier-command': ['espace', '3'],
+       # Entrée : intro du crack, puis « Insérer le disque shufflepuck1 » (la disquette est déjà là) ;
+       # Espace ouvrirait le menu du jeu
+       'shufflepuck-cafe': ['entree'],
        # « Trainer Y/N ? » des cracks : N
        'gods': ['espace', 'N'], 'rainbow-islands': ['espace', 'N'], 'turrican-2': ['espace', 'N'], 'castle-master': ['F', 'espace'], 'midwinter': ['espace'], 'barbarian-2': ['espace'],
        'robocop': ['F1'], 'zak-mckracken': ['entree'], 'monkey-island': ['1', 'entree'], 'loom': ['espace'],
@@ -292,6 +295,9 @@ DUREE = {'lemmings': 15, 'another-world': 15, 'llamatron': 15, 'rick-dangerous-2
          'monkey-island': 25, 'loom': 12, 'mega-lo-mania': 15, 'chaos-engine': 15, 'cannon-fodder': 15,
          'robocop': 10, 'midwinter': 15, 'kick-off-2': 15,
          'castle-master': 25, 'barbarian-2': 15, 'zool': 15, 'operation-wolf': 15}
+# Pas d'appuis répétés jusqu'à un écran lointain (une touche toutes les 250 ms pendant 30 ou 60 s
+# gêne le joueur) : Shufflepuck (« Insérer le disque » vers 16 s) et Super Off Road (« Please
+# insert DATA disk… press FIRE » vers 45 s), le joueur passe l'écran lui-même, la fiche le dit.
 # secondes à attendre avant de presser les touches (l'écran qui les attend arrive tard)
 DELAI = {'monkey-island': 40, 'barbarian-2': 8, 'zak-mckracken': 3, 'chaos-engine': 18, 'cannon-fodder': 18, 'midwinter': 15,
          'kick-off-2': 8}
@@ -315,7 +321,7 @@ SOURIS = {'shufflepuck-cafe', 'populous', 'mortevielle', 'dungeon-master', 'capt
 # rappel des commandes du jeu, affiché sur la fiche
 AIDE = {
  'stunt-car-racer': 'Haut : accélérer · bas : freiner · tir : boost',
- 'shufflepuck-cafe': 'Souris : la raquette · bouton : frappe forte · Espace : menu',
+ 'shufflepuck-cafe': 'Entrée : passer « Insérer le disque » · Souris : la raquette · bouton : frappe forte · Espace : menu',
  'prince-of-persia': 'Tir maintenu : s\'agripper, dégainer, frapper',
  'rick-dangerous': 'Tir + gauche/droite : tirer · tir + bas : bombe · tir + haut : bâton',
  'ik-plus': 'Coups : directions avec ou sans tir (8 + 8 mouvements)',
@@ -366,7 +372,7 @@ AIDE = {
  'larry': 'Alt+X : passer le quiz d\'âge · ordres en anglais au clavier · Échap : menus',
  'operation-wolf': 'Tir : mitrailleuse · Espace : grenade',
  'lotus-turbo-2': 'Tir : accélérer · Bas : freiner · jusqu\'à 2 joueurs en écran partagé',
- 'super-off-road': 'Tir : accélérer · jusqu\'à 2 joueurs',
+ 'super-off-road': 'Tir : passer « insert DATA disk » · Tir : accélérer · jusqu\'à 2 joueurs',
  'time-bandit': 'Tir : tirer · jusqu\'à 2 joueurs',
 }
 
@@ -389,7 +395,8 @@ ACTIFS = {j[0] for j in J} - INACTIFS
 
 # Favoris (★ du catalogue F10) : le bac ne montre qu'eux tant que le filtre est mis
 FAVORIS = {'stunt-car-racer', 'shufflepuck-cafe', 'lemmings', 'lotus-turbo', 'vroom', 'speedball-2',
-           'populous', 'rick-dangerous', 'ik-plus', 'barbarian', 'mortevielle', 'sim-city'}
+           'populous', 'rick-dangerous', 'ik-plus', 'barbarian', 'mortevielle', 'sim-city',
+           'arkanoid-2', 'bubble-bobble', 'battle-chess', 'super-off-road'}
 
 # Jeux à plusieurs disquettes au format maison (pas de fichiers TOS) ou en .stx : le
 # changement automatique de notre Hatari (il cherche dans chaque disquette le fichier

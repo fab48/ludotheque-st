@@ -89,8 +89,10 @@
    ],
    "auteur": "Christopher Gross",
    "commandes": "souris",
-   "aide": "Souris : la raquette · bouton : frappe forte · Espace : menu",
-   "touche_type": "espace",
+   "aide": "Entrée : passer « Insérer le disque » · Souris : la raquette · bouton : frappe forte · Espace : menu",
+   "sequence": [
+    "entree"
+   ],
    "actif": true,
    "favori": true
   },
@@ -229,7 +231,8 @@
     }
    ],
    "aide": "1 ou 2 : commencer à 1 ou 2 joueurs · Tir : bulle · Haut : saut",
-   "actif": true
+   "actif": true,
+   "favori": true
   },
   {
    "id": "r-type",
@@ -1780,7 +1783,8 @@
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "favori": true
   },
   {
    "id": "strider",
@@ -3996,6 +4000,7 @@
     "espace"
    ],
    "actif": true,
+   "favori": true,
    "mhz16": "conseille"
   },
   {
@@ -4926,11 +4931,12 @@
      "auto": "A:\\SOR.PRG"
     }
    ],
-   "aide": "Tir : accélérer · jusqu'à 2 joueurs",
+   "aide": "Tir : passer « insert DATA disk » · Tir : accélérer · jusqu'à 2 joueurs",
    "sequence": [
     "espace"
    ],
-   "actif": true
+   "actif": true,
+   "favori": true
   },
   {
    "id": "lotus-turbo-2",
