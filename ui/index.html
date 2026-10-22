@@ -60,6 +60,8 @@ button { font-family: inherit; color: inherit; }
 .disq .volet { position: absolute; left: 36px; bottom: 0; width: 78px; height: 46px; background: linear-gradient(90deg, #9da1a6, #e4e6e8 45%, #a9adb2); border-radius: 2px 2px 0 0; }
 .disq .volet::after { content: ''; position: absolute; left: 28px; bottom: 6px; width: 20px; height: 28px; background: #2a2a2a; border-radius: 1px; }
 .disq .prot { position: absolute; right: 8px; bottom: 8px; width: 10px; height: 10px; background: rgba(0,0,0,.55); }
+.disq .marque { position: absolute; left: 9px; bottom: 11px; display: none; color: #ffd23f; filter: drop-shadow(1px 1px 0 #000); }
+.disq.favori .marque { display: flex; }
 .disq .elastique { position: absolute; left: -2px; right: -2px; top: 60px; height: 5px; background: #b5651d; opacity: .85; }
 .onglet { position: absolute; top: -34px; left: 6px; width: 64px; height: 30px; background: #f2d36b; border: 2px solid #8a7330; border-bottom: 0; border-radius: 6px 6px 0 0;
   font-size: 22px; line-height: 26px; text-align: center; color: #3a2e0a; overflow: hidden; white-space: nowrap; }
@@ -104,7 +106,14 @@ button { font-family: inherit; color: inherit; }
 
 #fiche { position: absolute; left: 852px; top: 52px; width: 404px; height: 652px; z-index: 5; }
 #fiche .interieur { overflow: hidden; gap: 8px; }
-#f-titre { font-size: 36px; line-height: 1; }
+#f-titre { font-size: 36px; line-height: 1; padding-right: 74px; }
+#f-favori { position: absolute; right: 0; top: 0; height: 36px; display: flex; align-items: center; gap: 4px; padding: 0 6px; border: 2px solid #000; background: #fff; color: #000; font: inherit; cursor: pointer; }
+#f-favori .etoile { width: 27px; height: 24px; opacity: .2; }
+#f-favori .touche { font-size: 17px; color: #777; }
+#f-favori:hover { box-shadow: 2px 2px 0 #000; }
+#f-favori.on { background: #000; color: #ffd23f; }
+#f-favori.on .etoile { opacity: 1; }
+#f-favori.on .touche { color: #bbb; }
 #f-lignes { font-size: 21px; line-height: 22px; }
 #f-capture { position: relative; flex: 1 1 200px; min-height: 110px; max-height: 250px; border: 2px solid #000; background: #000; overflow: hidden; }
 #f-capture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
@@ -295,7 +304,8 @@ button { font-family: inherit; color: inherit; }
 
   <section id="fiche" class="boite" aria-label="Fiche du jeu">
     <div class="interieur">
-      <div style="flex:none">
+      <div style="flex:none; position:relative">
+        <button id="f-favori" data-action="etoile" title="Favori (F2 · manette : RT)" aria-label="Favori"><span class="etoile-ici"></span><span class="touche">F2</span></button>
         <div id="f-titre"></div>
         <div id="f-lignes"></div>
       </div>
@@ -398,7 +408,8 @@ const etat = {
   phase: 'demarrage',   // demarrage | bureau | insertion | lecture | jeu | web | ejection
   menu: null, menuIndex: -1, dialogue: null, dernierInput: Date.now(),
   recherche: '',        // texte du champ de recherche du bac
-  favoris: true,        // le bac ne montre que les favoris (★ du catalogue F10)
+  favoris: true,        // le bac ne montre que les favoris (★ de la fiche ou du catalogue F10)
+  favLocaux: {},        // ★ posées depuis le démarrage (id → bool), gardées si une réponse en route les ignore
   coquin: false,        // Konami code tapé : jeux pour adultes dans le bac (jusqu'à la veille)
 };
 
@@ -578,18 +589,65 @@ function chercher(texte) {
   construireListe(true);
 }
 
-async function chargerCatalogue() {
+// Le bac s'affiche avec le catalogue et les favoris du vrac ; le tri de tout le vrac
+// (2 000 disquettes avec un export « tout le bac ») suit en arrière-plan, et n'est
+// redemandé qu'après un ménage (nouvelles disquettes). vracAussi : le redemander.
+async function chargerCatalogue(vracAussi) {
+  const vracAvant = !vracAussi && etat.cat && etat.cat.vrac_complet ? etat.cat.vrac : null;
   try {
-    etat.cat = await api('/api/catalogue');
+    if (vracAussi) vracGen++;
+    etat.cat = await api('/api/catalogue?vrac=favoris');
+    if (etat.cat.vrac_complet === undefined) etat.cat.vrac_complet = true;   // ancien lanceur : tout le vrac d'un coup
+    if (vracAvant) { etat.cat.vrac = vracAvant; etat.cat.vrac_complet = true; }
+    garderFavoris(etat.cat.jeux); garderFavoris(etat.cat.vrac);
   } catch (e) {
-    etat.cat = { jeux: [], vrac: [], systeme: {} };
+    etat.cat = { jeux: [], vrac: [], vrac_complet: true, systeme: {} };
     alerte('Le lanceur ne répond pas.\n\nOuvrez la ludothèque avec\nLudotheque.exe (Windows) ou\nludotheque.sh (Linux).', ['OK']);
   }
   const s = etat.cat.systeme || {};
   etat.sortie = 'Échap maintenu ' + (s.sortie_echap_s || 2) + ' s  ·  Select + Start';
   construireListe();
   verifierRangement();
+  if (!etat.cat.vrac_complet) chargerVrac();
   try { etat.demos = await api('/api/demos'); } catch (e) { etat.demos = { disponibles: 0 }; }
+}
+let vracEnCours = null, vracGen = 0;   // vracGen : change après un ménage (réponse en route périmée)
+function chargerVrac() {
+  if (vracEnCours && vracEnCours.gen === vracGen) return vracEnCours;
+  const gen = vracGen;
+  const p = api('/api/vrac').then(r => {
+    if (gen !== vracGen || !etat.cat) return;
+    etat.cat.vrac = r.vrac || []; etat.cat.vrac_complet = true;
+    garderFavoris(etat.cat.vrac);
+    construireListe();
+  }).catch(() => {}).finally(() => { if (vracEnCours === p) vracEnCours = null; placer(); });
+  p.gen = gen; vracEnCours = p;
+  placer();
+  return p;
+}
+// ★ posées pendant qu'une réponse du lanceur était en route : elles gagnent
+function garderFavoris(l) { (l || []).forEach(j => { if (j.id in etat.favLocaux) j.favori = etat.favLocaux[j.id]; }); }
+
+// ★ de la disquette choisie (bouton de la fiche, F2, manette : RT), enregistrée aussitôt
+async function basculerFavori() {
+  const j = etat.liste[etat.sel];
+  if (!j || etat.phase !== 'bureau') return;
+  const on = !j.favori;
+  j.favori = on; etat.favLocaux[j.id] = on;
+  Son.touche();
+  if (etat.favoris && !on && !etat.recherche) {
+    // bac des favoris : la disquette retirée s'en va, on se place sur sa voisine
+    etat.sel = etat.sel + 1 < etat.liste.length ? etat.sel + 1 : Math.max(0, etat.sel - 1);
+    construireListe();
+  } else {
+    const b = boutonsBac.get(etat.sel); if (b) b.classList.toggle('favori', on);
+    dessinerFiche();
+  }
+  try { await api('/api/admin', { favoris: { [j.id]: on } }); }
+  catch (e) {
+    j.favori = !on; delete etat.favLocaux[j.id]; construireListe();
+    alerte(/404/.test(e.message) ? 'Favori non enregistré : le lanceur en mémoire est une ancienne version.\n\nQuittez la ludothèque (Fichier › Quitter) et relancez-la.' : 'Favori non enregistré.\n\n' + e.message, ['OK']);
+  }
 }
 
 /* =====================================================================
@@ -619,7 +677,7 @@ function construireBac() {
 function creerDisquette(j, i) {
   const d = j.disquette || {};
   const b = document.createElement('button');
-  b.className = 'disq' + (j.variantes.some(v => v.dispo) ? '' : ' absente'); b.dataset.i = i;
+  b.className = 'disq' + (j.variantes.some(v => v.dispo) ? '' : ' absente') + (j.favori ? ' favori' : ''); b.dataset.i = i;
   b.setAttribute('aria-label', j.titre);
   b.style.background = d.corps || (j.vrac ? '#55585e' : '#1c1c1f');
   const manuscrit = d.police === 'manuscrit';
@@ -627,7 +685,7 @@ function creerDisquette(j, i) {
   const sous = [j.annee, (j.editeur || '').split(/[\/,]/)[0]].filter(Boolean).join(' · ') || (j.vrac ? 'vrac' : '');
   b.innerHTML =
     '<span class="etiq"><span class="bande"></span><span class="nom"></span><span class="sous"></span></span>' +
-    '<span class="volet"></span><span class="prot"></span>' + (nbD > 1 ? '<span class="elastique"></span>' : '');
+    '<span class="volet"></span><span class="prot"></span><span class="marque">' + ETOILE + '</span>' + (nbD > 1 ? '<span class="elastique"></span>' : '');
   b.querySelector('.bande').style.background = d.bande || '#bbb';
   const nom = b.querySelector('.nom');
   nom.textContent = j.titre;
@@ -660,7 +718,9 @@ function placer() {
   const j = etat.liste[sel];
   $('#curseur').style.left = (n > 1 ? Math.round(sel / (n - 1) * courseCurseur()) : 0) + 'px';
   $('#fa-compteur').textContent = n ? (sel + 1) + ' / ' + n : '0 / 0';
-  $('#info-g').textContent = (etat.recherche ? n + ' trouvée' + (n > 1 ? 's' : '') + ' sur ' + etat.total : etat.favoris ? n + ' favori' + (n > 1 ? 's' : '') : n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '')) + ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri];
+  const triVrac = etat.cat && etat.cat.vrac_actif && !etat.cat.vrac_complet && !etat.favoris;   // tout le bac demandé, vrac encore en tri
+  $('#info-g').textContent = (etat.recherche ? n + ' trouvée' + (n > 1 ? 's' : '') + ' sur ' + etat.total : etat.favoris ? n + ' favori' + (n > 1 ? 's' : '') : n + ' disquettes' + (etat.absents ? ' (' + etat.absents + ' absentes)' : '')) +
+    (triVrac || (etat.recherche && etat.cat.vrac_actif && !etat.cat.vrac_complet) ? ' · vrac : tri en cours…' : ' · tri : ' + ({ titre: 'titre', annee: 'année', genre: 'genre', joueurs: 'joueurs' })[etat.tri]);
   majLettres($('#lettres'), etat.lettres || new Set(), j ? lettreDe(j) : '');
   if (!j && etat.recherche) {
     $('#fa-groupe').textContent = 'BAC À DISQUETTES · RECHERCHE';
@@ -720,12 +780,15 @@ function sauterLettre(c) {
 function dessinerFiche() {
   const j = etat.liste[etat.sel];
   const cap = $('#f-capture');
+  $('#f-favori').classList.toggle('cache', !j);
   if (!j) {
     $('#f-titre').textContent = '—'; ['#f-lignes', '#f-variantes', '#f-commandes'].forEach(s => { $(s).textContent = ''; });
     $('#f-astuce').classList.add('cache'); $('#f-mhz').classList.add('cache');
     cap.innerHTML = ''; cap.style.background = '#000'; placer(); return;
   }
   $('#f-titre').textContent = j.titre;
+  const fv = $('#f-favori'); fv.classList.toggle('on', !!j.favori);
+  fv.title = (j.favori ? 'Favori : F2 pour le retirer' : 'Ajouter aux favoris : F2') + ' · manette : RT';
   const l1 = [j.editeur, j.annee].filter(Boolean).join(', ');
   const l2 = [j.genre, j.joueurs ? (j.joueurs + (j.joueurs > 1 ? ' joueurs' : ' joueur')) : ''].filter(Boolean).join(' · ');
   $('#f-lignes').innerHTML = '';
@@ -945,7 +1008,10 @@ function ouvrirWeb(url, j) {
   setTimeout(() => { try { f.focus(); } catch (e) {} }, 100);
 }
 let echapDebut = 0;
-function toucheWeb(e) { if (e.key === 'Escape' && !e.repeat) echapDebut = Date.now(); }
+function toucheWeb(e) {
+  if (e.key === 'Escape' && !e.repeat) echapDebut = Date.now();
+  if (e.key === 'F5' && !e.ctrlKey && !e.shiftKey) e.preventDefault();   // rechargerait toute la ludothèque
+}
 function toucheWebFin(e) { if (e.key === 'Escape') echapDebut = 0; }
 function fermerWeb(silencieux) {
   const w = $('#web'); const f = w.querySelector('iframe');
@@ -1087,7 +1153,7 @@ function dessinerPanneau(enHaut) {
   const q = pn.recherche.trim(), js = jeuxPanneau();
   if (!q) {
     titre('Mode vrac');
-    ajouterLigne('Afficher toutes les autres disquettes de disques/', vracMontre().length + ' disquettes', pn.vrac, () => { pn.vrac = !pn.vrac; });
+    ajouterLigne('Afficher toutes les autres disquettes de disques/', etat.cat.vrac_complet ? vracMontre().length + ' disquettes' : 'tri en cours…', pn.vrac, () => { pn.vrac = !pn.vrac; });
   }
   titre(q ? 'Recherche « ' + q + ' » : ' + js.length + ' jeu' + (js.length > 1 ? 'x' : '') : 'Jeux');
   js.forEach(j => {
@@ -1109,6 +1175,7 @@ function fermerPanneau() { $('#panneau').classList.add('cache'); etat.dialogue =
 async function enregistrerPanneau() {
   try {
     await api('/api/admin', { actifs: pn.coches, favoris: pn.favoris, vrac: pn.vrac });
+    for (const id in pn.favoris) delete etat.favLocaux[id];
     fermerPanneau(); Son.touche();
     await chargerCatalogue();
   } catch (e) { alerte('Enregistrement impossible.\n\n' + e.message, ['OK']); }
@@ -1185,7 +1252,7 @@ async function finRangement(d) {
   // tout de suite : allumer() pendant chargerCatalogue() ne doit plus voir « en cours »
   if (etat.cat) etat.cat.rangement = { en_cours: false, dernier: d || (etat.cat.rangement || {}).dernier };
   if (!d) { if (ouvert) await chargerCatalogue(); return; }
-  await chargerCatalogue();
+  await chargerCatalogue(true);
   // pas encore sur le bureau (écran d'allumage) : verifierRangement() le montrera en arrivant
   if (etat.phase === 'bureau' && etat.dialogue !== 'alerte' && rangementVu() !== d.journal) {
     if (d.journal) rangementVu(d.journal);
@@ -1210,8 +1277,9 @@ let exportAffiche = false;
 function aExporter() {
   const c = etat.cat, montre = j => j.variantes.some(v => v.dispo) && (etat.coquin || !j.adulte);
   const coches = c.jeux.filter(j => j.actif !== false && montre(j));
-  return { favoris: coches.filter(j => j.favori).length,
-           bac: coches.length + (c.vrac_actif ? vracMontre().filter(montre).length : 0) };
+  const vr = c.vrac_actif ? vracMontre().filter(montre) : [];
+  return { favoris: coches.filter(j => j.favori).length + vr.filter(j => j.favori).length,
+           bac: coches.length + vr.length };
 }
 function afficherExport(texte) {
   const t = 'Export en cours…\n\n' + (texte || 'Un instant.') + '\n\nTout le bac : quelques minutes.';
@@ -1231,11 +1299,12 @@ async function finExport(d) {
 }
 async function exporterZip() {
   if (!etat.cat || etat.phase !== 'bureau') return;
+  if (!etat.cat.vrac_complet) await chargerVrac();
   const n = aExporter();
   Son.cloche();
   const choix = n.favoris ? ['Annuler', 'Favoris', 'Tout le bac'] : ['Annuler', 'Tout le bac'];
   const r = await alerte('EXPORTER EN ZIP\n\nUn pack prêt à l\'emploi, Windows et Linux : lanceurs, Hatari, TOS, démos, réglages, et les jeux choisis avec leurs sauvegardes.\n\n' +
-    (n.favoris ? '★ Favoris : ' + nombre(n.favoris) + ' jeu' + (n.favoris > 1 ? 'x' : '') + '\n' : 'Aucun favori (★ dans le Catalogue, F10).\n') +
+    (n.favoris ? '★ Favoris : ' + nombre(n.favoris) + ' jeu' + (n.favoris > 1 ? 'x' : '') + '\n' : 'Aucun favori (★ sur la fiche : F2).\n') +
     'Tout le bac : ' + nombre(n.bac) + ' jeux\n\nLe zip est rangé dans exports/.', choix, '?', n.favoris ? 1 : choix.length - 1);
   if (r < 1) return;
   const mode = choix[r] === 'Favoris' ? 'favoris' : 'bac';
@@ -1258,6 +1327,7 @@ async function action(a) {
     case 'prec': choisir(etat.sel - 1); break;
     case 'suiv': choisir(etat.sel + 1); break;
     case 'charger': charger(); break;
+    case 'etoile': if (etat.phase === 'bureau' && !etat.dialogue) basculerFavori(); break;
     case 'mhz': basculerMhz(); break;
     case 'annuler': Son.touche(); etat.variante = Math.max(0, (etat.liste[etat.sel] || { variantes: [] }).variantes.findIndex(v => v.dispo)); dessinerFiche(); break;
     case 'ejecter': if (etat.phase === 'jeu') api('/api/arreter', {}).catch(() => {}); else if (etat.phase === 'web') fermerWeb(false); break;
@@ -1352,7 +1422,7 @@ function intention(t) {
     else if (t === 'pgprec') { pn.focus -= 10; dessinerPanneau(); }
     else if (t === 'pgsuiv') { pn.focus += 10; dessinerPanneau(); }
     else if (t === 'ok') { const l = pn.lignes[pn.focus]; if (l) { l.basculer(); Son.touche(); dessinerPanneau(); } }
-    else if (t === 'x') { const l = pn.lignes[pn.focus]; if (l && l.favori) { l.favori(); Son.touche(); dessinerPanneau(); } }
+    else if (t === 'x' || t === 'etoile') { const l = pn.lignes[pn.focus]; if (l && l.favori) { l.favori(); Son.touche(); dessinerPanneau(); } }
     else if (t === 'menu' || t === 'admin') enregistrerPanneau();
     else if (t === 'retour') { if (pn.recherche) { Son.touche(); pnChercher(''); } else fermerPanneau(); }
     return;
@@ -1384,13 +1454,14 @@ function intention(t) {
     case 'menu': ouvrirMenu('fichier'); etat.menuIndex = 0; surlignerMenu(); break;
     case 'admin': ouvrirPanneau(); break;
     case 'favoris': basculerFavoris(); break;
+    case 'etoile': basculerFavori(); break;
     case 'demos': lancerDemos(); break;
     case 'retour': if (etat.recherche) { Son.touche(); chercher(''); } else action('annuler'); break;
   }
 }
 
 const TOUCHES = { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas', Enter: 'ok', ' ': 'x', Escape: 'retour',
-  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F4: 'favoris', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
+  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F2: 'etoile', F4: 'favoris', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
 // champ de recherche du moment : celui du catalogue F10, ou celui du bac
 function champRecherche() {
   if (etat.dialogue === 'panneau') return $('#pn-recherche');
@@ -1427,6 +1498,8 @@ function basculerCoquin() {
 }
 
 document.addEventListener('keydown', (e) => {
+  // F5 ou Ctrl+R rechargeraient la page (retour à l'écran d'allumage) : Ctrl+F5 reste possible
+  if ((e.key === 'F5' && !e.ctrlKey && !e.shiftKey) || (e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === 'r')) { e.preventDefault(); return; }
   if (etat.phase === 'web') return;
   if (etat.phase === 'demarrage') { if (!['Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) { e.preventDefault(); allumer(); } return; }
   if (suivreKonami(e)) { e.preventDefault(); basculerCoquin(); return; }
@@ -1447,11 +1520,12 @@ $('#recherche').addEventListener('input', (e) => { if (etat.phase !== 'bureau') 
 $('#pn-recherche').addEventListener('input', (e) => { Son.touche(); pnChercher(e.target.value); });
 creerLettres($('#lettres'), 'lettre:');
 $('#bt-favoris .etoile-ici').outerHTML = ETOILE;
+$('#f-favori .etoile-ici').outerHTML = ETOILE;
 creerLettres($('#pn-lettres'), 'pn-lettre:');
 
 /* Manette (API Gamepad, disposition standard) */
 const pad = { avant: {}, repete: {} };
-const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 6: 'favoris', 8: 'mhz', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
+const BOUTONS = { 0: 'ok', 1: 'retour', 2: 'x', 3: 'admin', 4: 'pgprec', 5: 'pgsuiv', 6: 'favoris', 7: 'etoile', 8: 'mhz', 9: 'menu', 12: 'haut', 13: 'bas', 14: 'gauche', 15: 'droite' };
 function lireManettes(t) {
   const ps = navigator.getGamepads ? navigator.getGamepads() : [];
   const actifs = {};

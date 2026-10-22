@@ -79,8 +79,11 @@ type Catalogue struct {
 		Tos     string   `json:"tos"`
 		Options []string `json:"options"`
 	} `json:"hatari"`
-	Vrac bool  `json:"vrac"` // afficher les disquettes hors catalogue
-	Jeux []Jeu `json:"jeux"`
+	Vrac bool `json:"vrac"` // afficher les disquettes hors catalogue
+	// jeux du vrac marqués ★ (bouton de la fiche) : 1re disquette → toutes ses disquettes,
+	// de quoi les montrer au démarrage sans attendre le tri de tout le vrac
+	FavorisVrac map[string][]string `json:"favoris_vrac,omitempty"`
+	Jeux        []Jeu               `json:"jeux"`
 }
 
 var muCatalogue sync.Mutex
@@ -182,6 +185,9 @@ func vrac(c *Catalogue) []Jeu {
 			for _, d := range v.Disques {
 				cites[strings.ToLower(filepath.ToSlash(d))] = true
 			}
+			if v.Disque != "" { // image originale d'une version native (Stunt Car Racer Reforged)
+				cites[strings.ToLower(filepath.ToSlash(v.Disque))] = true
+			}
 		}
 	}
 	var rels []string
@@ -203,14 +209,9 @@ func vrac(c *Catalogue) []Jeu {
 		if ecartees[rel] {
 			continue
 		}
-		nom := strings.TrimSuffix(path.Base(rel), path.Ext(rel))
-		cle := filepath.Join(filepath.Dir(rel), reDisque.ReplaceAllString(nom, ""))
+		cle := cleVrac(rel)
 		if k, ok := memeJeu[rel]; ok {
 			cle = k
-		} else if lireNomTosec(nom) != nil { // « (Disk 1 of 3)(Intro) », « (Disk B) »
-			cle = filepath.Join(filepath.Dir(rel), reSansDisque.ReplaceAllString(nom, ""))
-		} else if m := reCompilDisque.FindStringSubmatch(nom); m != nil {
-			cle = filepath.Join(filepath.Dir(rel), m[1]+"_"+m[3])
 		}
 		groupes[cle] = append(groupes[cle], rel)
 	}
@@ -232,47 +233,88 @@ func vrac(c *Catalogue) []Jeu {
 	for cle, ds := range groupes {
 		sort.Strings(ds)
 		sort.SliceStable(ds, func(a, b int) bool { return numero(ds[a]) < numero(ds[b]) })
-		nom := filepath.Base(cle)
-		titre := strings.TrimSpace(reEntre.ReplaceAllString(nom, ""))
-		annee := 0
-		if m := regexp.MustCompile(`\((19\d\d)\)`).FindStringSubmatch(nom); m != nil {
-			fmt.Sscan(m[1], &annee)
+		j := jeuVrac(cle, ds)
+		if _, ok := c.FavorisVrac[ds[0]]; ok {
+			j.Favori = oui()
 		}
-		genre := "Vrac"
-		if m := reCompil.FindStringSubmatch(nom); m != nil {
-			t := strings.ReplaceAll(m[2], "_", " ")
-			if t == "" {
-				t = "compil " + m[1]
-			}
-			titre = strings.Title(t) + " (Automation " + m[1] + ")"
-			genre = "Compil"
-		}
-		editeur, machine := "", ""
-		var sequence []string
-		if e := lireNomTosec(filepath.Base(ds[0])); e != nil { // nom TOSEC : « Bard's Tale, The (1987)(Electronic Arts)… »
-			titre, editeur = titreLisible(e.Titre), e.Editeur
-			annee, _ = strconv.Atoi(e.Annee)
-			if e.Machine == "ste" {
-				machine = "ste"
-			}
-			// comme les jeux TOSEC du catalogue : Espace passe l'écran du crack ;
-			// « Trainer Y/N ? » : N
-			sequence = []string{"espace"}
-			if drapeau(e, "t") {
-				sequence = []string{"N", "espace"}
-			}
-		}
-		if titre == "" {
-			titre = nom
-		}
-		desc := "Hatari"
-		if len(ds) > 1 {
-			desc = fmt.Sprintf("Hatari, %d disquettes", len(ds))
-		}
-		out = append(out, Jeu{ID: "vrac:" + ds[0], Titre: titre, Editeur: editeur, Annee: annee, Genre: genre, Vrac: true, Adulte: estAdulte(titre, editeur), Sequence: sequence,
-			Variantes: []Variante{{Type: "hatari", Nom: "Original ST", Desc: desc, Disques: ds, Machine: machine}}})
+		out = append(out, j)
 	}
 	sort.Slice(out, func(a, b int) bool { return strings.ToLower(out[a].Titre) < strings.ToLower(out[b].Titre) })
+	return out
+}
+
+func oui() *bool { v := true; return &v }
+
+// cleVrac : clé de regroupement des disquettes d'un même jeu du vrac (rel : chemin dans le pack).
+func cleVrac(rel string) string {
+	nom := strings.TrimSuffix(path.Base(rel), path.Ext(rel))
+	if lireNomTosec(nom) != nil { // « (Disk 1 of 3)(Intro) », « (Disk B) »
+		return filepath.Join(filepath.Dir(rel), reSansDisque.ReplaceAllString(nom, ""))
+	}
+	if m := reCompilDisque.FindStringSubmatch(nom); m != nil {
+		return filepath.Join(filepath.Dir(rel), m[1]+"_"+m[3])
+	}
+	return filepath.Join(filepath.Dir(rel), reDisque.ReplaceAllString(nom, ""))
+}
+
+// jeuVrac : la fiche d'un jeu du vrac, d'après ses disquettes (dans l'ordre) et leur clé.
+func jeuVrac(cle string, ds []string) Jeu {
+	nom := filepath.Base(cle)
+	titre := strings.TrimSpace(reEntre.ReplaceAllString(nom, ""))
+	annee := 0
+	if m := regexp.MustCompile(`\((19\d\d)\)`).FindStringSubmatch(nom); m != nil {
+		fmt.Sscan(m[1], &annee)
+	}
+	genre := "Vrac"
+	if m := reCompil.FindStringSubmatch(nom); m != nil {
+		t := strings.ReplaceAll(m[2], "_", " ")
+		if t == "" {
+			t = "compil " + m[1]
+		}
+		titre = strings.Title(t) + " (Automation " + m[1] + ")"
+		genre = "Compil"
+	}
+	editeur, machine := "", ""
+	var sequence []string
+	if e := lireNomTosec(filepath.Base(ds[0])); e != nil { // nom TOSEC : « Bard's Tale, The (1987)(Electronic Arts)… »
+		titre, editeur = titreLisible(e.Titre), e.Editeur
+		annee, _ = strconv.Atoi(e.Annee)
+		if e.Machine == "ste" {
+			machine = "ste"
+		}
+		// comme les jeux TOSEC du catalogue : Espace passe l'écran du crack ;
+		// « Trainer Y/N ? » : N
+		sequence = []string{"espace"}
+		if drapeau(e, "t") {
+			sequence = []string{"N", "espace"}
+		}
+	}
+	if titre == "" {
+		titre = nom
+	}
+	desc := "Hatari"
+	if len(ds) > 1 {
+		desc = fmt.Sprintf("Hatari, %d disquettes", len(ds))
+	}
+	return Jeu{ID: "vrac:" + ds[0], Titre: titre, Editeur: editeur, Annee: annee, Genre: genre, Vrac: true, Adulte: estAdulte(titre, editeur), Sequence: sequence,
+		Variantes: []Variante{{Type: "hatari", Nom: "Original ST", Desc: desc, Disques: ds, Machine: machine}}}
+}
+
+// favorisVrac : les jeux du vrac marqués ★, sans trier tout le vrac (premier affichage du
+// bac : le tri des 2 000 disquettes du vrac arrive ensuite, par /api/vrac).
+func favorisVrac(c *Catalogue) []Jeu {
+	out := []Jeu{}
+	for id, ds := range c.FavorisVrac {
+		if len(ds) == 0 || ds[0] != id {
+			continue
+		}
+		if p, err := chemin(id); err != nil || !existe(p) {
+			continue
+		}
+		j := jeuVrac(cleVrac(id), ds)
+		j.Favori = oui()
+		out = append(out, j)
+	}
 	return out
 }
 
@@ -395,12 +437,20 @@ func apiCatalogue(w http.ResponseWriter, r *http.Request) {
 	for i := range c.Jeux {
 		completer(&c.Jeux[i], hOK, c.Hatari.Tos)
 	}
-	vr := vrac(c)
+	// ?vrac=favoris : seulement les favoris du vrac, le bac s'affiche sans attendre le tri
+	// de tout le vrac (l'interface le demande ensuite à /api/vrac)
+	partiel := r.URL.Query().Get("vrac") == "favoris"
+	var vr []Jeu
+	if partiel {
+		vr = favorisVrac(c)
+	} else {
+		vr = vrac(c)
+	}
 	for i := range vr {
 		completer(&vr[i], hOK, c.Hatari.Tos)
 	}
 	repondre(w, map[string]any{
-		"titre": c.Titre, "vrac_actif": c.Vrac, "jeux": c.Jeux, "vrac": vr,
+		"titre": c.Titre, "vrac_actif": c.Vrac, "jeux": c.Jeux, "vrac": vr, "vrac_complet": !partiel,
 		"systeme": map[string]any{"os": runtime.GOOS, "manettes": nombreManettes(), "version": version, "hatari": exe, "hatari2": v2,
 			"sortie_echap_s": cfg.SortieEchap, "sortie_manette_s": cfg.SortieManette,
 			"extinction": cfg.AutoriserSysteme, "affichage": etatAffichage()},
@@ -409,7 +459,25 @@ func apiCatalogue(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// apiAdmin : catalogue (F10). {"actifs": {"id": true|false}, "favoris": {"id": true|false}, "vrac": bool}
+// apiVrac : tout le vrac, trié et complété (après /api/catalogue?vrac=favoris).
+func apiVrac(w http.ResponseWriter, r *http.Request) {
+	muCatalogue.Lock()
+	c, err := lireCatalogue()
+	muCatalogue.Unlock()
+	if err != nil {
+		erreur(w, 500, err.Error())
+		return
+	}
+	exe, _ := hatariExe()
+	vr := vrac(c)
+	for i := range vr {
+		completer(&vr[i], exe != "", c.Hatari.Tos)
+	}
+	repondre(w, map[string]any{"vrac": vr})
+}
+
+// apiAdmin : catalogue (F10) et ★ de la fiche. {"actifs": {"id": true|false},
+// "favoris": {"id": true|false}, "vrac": bool} ; un id « vrac:… » est un jeu du vrac.
 func apiAdmin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		erreur(w, 405, "POST attendu")
@@ -439,6 +507,21 @@ func apiAdmin(w http.ResponseWriter, r *http.Request) {
 		if f, ok := q.Favoris[c.Jeux[i].ID]; ok {
 			v := f
 			c.Jeux[i].Favori = &v
+		}
+	}
+	for id, f := range q.Favoris {
+		rel, duVrac := strings.CutPrefix(id, "vrac:")
+		switch {
+		case !duVrac:
+		case !f:
+			delete(c.FavorisVrac, rel)
+		default: // ses disquettes, pour le montrer au démarrage sans trier le vrac
+			if j, ok := trouverJeu(c, id); ok && len(j.Variantes) > 0 {
+				if c.FavorisVrac == nil {
+					c.FavorisVrac = map[string][]string{}
+				}
+				c.FavorisVrac[rel] = j.Variantes[0].Disques
+			}
 		}
 	}
 	if q.Vrac != nil {

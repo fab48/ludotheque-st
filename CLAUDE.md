@@ -83,10 +83,12 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
 ## Architecture du lanceur (sources/lanceur)
 
 - `main.go` : Config (config.json), routes HTTP sur 127.0.0.1:8480 :
-  `/api/catalogue`, `/api/lancer`, `/api/arreter`, `/api/fin-web`, `/api/evenements` (SSE),
+  `/api/catalogue` (`?vrac=favoris` : sans trier le vrac, seulement ses favoris), `/api/vrac`
+  (tout le vrac, demandé ensuite par l'interface), `/api/lancer`, `/api/arreter`, `/api/fin-web`, `/api/evenements` (SSE),
   `/api/admin` (F10), `/api/systeme` (quitter/éteindre), `/api/affichage` (écran des jeux),
   `/api/demos`, `/api/demo/*`, `/api/capture/retirer`, `/api/menage`, `/api/exporter` ; fichiers `/ui/`, `/medias/`, `/reforged/`.
-- `jeux.go` : catalogue (variantes, mode vrac = toutes les images de disques/, regroupées),
+- `jeux.go` : catalogue (variantes, mode vrac = toutes les images de disques/, regroupées ;
+  ★ d'un jeu du vrac dans `favoris_vrac` de catalogue.json : 1re disquette → ses disquettes),
   `preparerHatari` (arguments + cfg générée + variables d'environnement ; **sous Windows,
   Hatari tourne dans le dossier du pack et ne reçoit que des chemins relatifs** : SDL lui
   passe ses arguments en UTF-8 mais il ouvre les fichiers en ANSI, un accent dans le dossier
@@ -133,7 +135,7 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   "adultes"}, évènements SSE « export ») ou `Ludotheque.exe --exporter favoris|bac [--adultes]
   [--sortie f.zip]` : zip prêt à l'emploi Windows + Linux dans **exports/** (ignoré par git),
   dossier `ludotheque-st/` : les 2 lanceurs, ui, emulateurs, tos, demos, config.json, catalogue.json
-  réduit aux jeux choisis (favoris = cochés et ★ ; bac = cochés + vrac s'il est affiché ; jeux
+  réduit aux jeux choisis (favoris = cochés et ★, et les ★ du vrac ; bac = cochés + vrac s'il est affiché ; jeux
   jouables seulement), leurs images, medias, dossiers Reforged et sauvegardes (copie de
   runtime/disques retrouvée par `prefixeCopie`/`ancienneCopie`, comme `disquePropre`). Vrac de
   disques/GAME → disques/vrac/ (le ménage du nouveau pack n'y touche pas). Mode 755 pour les
@@ -381,3 +383,13 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   en rendu simple, et divise par deux l'accéléré des chargements (×3,9 au lieu de ×8) ; le
   facteur k de `Ludo_Rendu` est calculé sur toute la largeur de l'écran au lieu de la zone 4:3
   (k = 3 au lieu de 2 en 1080p) : à corriger dans le patch si les vieux PC rament en jeu.
+- 22/10/2026 (suite) : le bac s'affiche d'abord avec le catalogue et les favoris
+  (`chargerCatalogue` → /api/catalogue?vrac=favoris), le tri de tout le vrac suit en arrière-plan
+  (`chargerVrac` → /api/vrac, « vrac : tri en cours… » dans la barre) et n'est redemandé qu'après
+  un ménage (`vracGen` écarte une réponse périmée). Bouton ★ sur la fiche (F2, manette RT =
+  bouton 7, F2 aussi dans le panneau F10 ; pas F5, qui rechargeait la page : l'interface bloque
+  F5 et Ctrl+R, Ctrl+F5 recharge) : catalogue et vrac, enregistré aussitôt par /api/admin ;
+  étoile dorée sur le boîtier des disquettes favorites ; sous le filtre Favoris, la disquette
+  retirée s'en va et la sélection passe à sa voisine. L'image originale d'une version native
+  (Stunt_Car_Racer.st) ne compte plus comme un jeu du vrac. Formats maison (Cannon Fodder…) :
+  toujours F12 › Floppy disks pour changer de disquette (signalé « HS » par Fab sous Mint).

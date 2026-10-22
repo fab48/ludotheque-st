@@ -75,8 +75,11 @@ func selectionExport(c *Catalogue, mode string, adultes bool) (cat, vr []Jeu) {
 			cat = append(cat, j)
 		}
 	}
-	if mode == "bac" && c.Vrac {
+	if c.Vrac && (mode == "bac" || len(c.FavorisVrac) > 0) { // favoris : ceux du vrac aussi
 		for _, j := range vrac(c) {
+			if mode == "favoris" && (j.Favori == nil || !*j.Favori) {
+				continue
+			}
 			if garder(&j) {
 				vr = append(vr, j)
 			}
@@ -276,6 +279,20 @@ func exporter(mode string, adultes bool, sortie string, avance func(string)) (ma
 		nc.Jeux = append(nc.Jeux, j)
 	}
 	nc.Vrac = len(vr) > 0
+	nc.FavorisVrac = nil // ★ du vrac, à leur place dans le nouveau pack (disques/GAME → disques/vrac)
+	for _, j := range vr {
+		if j.Favori == nil || !*j.Favori {
+			continue
+		}
+		var ds []string
+		for _, d := range j.Variantes[0].Disques {
+			ds = append(ds, cheminExport(d))
+		}
+		if nc.FavorisVrac == nil {
+			nc.FavorisVrac = map[string][]string{}
+		}
+		nc.FavorisVrac[ds[0]] = ds
+	}
 	jsonCat, err := json.MarshalIndent(&nc, "", " ")
 	if err != nil {
 		return nil, err
