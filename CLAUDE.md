@@ -310,13 +310,22 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   menu Bureau). Étoile par jeu (clic, Espace/X) → « favori » dans catalogue.json (`/api/admin`
   {"favoris": {id: bool}}). Filtre du bac « Favoris seulement » (F4, bouton ★ de la barre,
   Affichage, manette LT = bouton 6), gardé dans ludo-prefs, mis par défaut ; la recherche
-  ignore le filtre (fouille tout le bac). 12 favoris de départ (`FAVORIS` de gen_catalogue.py).
+  ignore le filtre (fouille tout le bac). 16 favoris de départ (`FAVORIS` de gen_catalogue.py :
+  les 12 du 16/10 + 4 ajoutés le 19/10).
 - 16/10/2026 : 15 jeux cultes ajoutés (177 au catalogue) : Starglider, The Sentinel, Elite, Head Over
   Heels, Zool, Super Off Road, Lotus Turbo Challenge 2, Operation Wolf, Rocket Ranger, Batman The Movie,
   Leisure Suit Larry, Gobliins 2 (v1.02 [cr ICS] : l'édition FR [cr ICS] a un répertoire illisible,
   rangée dans runtime/_a_supprimer/), Ishar 2 ([cr Elite], anglais), Pro Tennis Tour (Great Courts),
   Time Bandit. Réglages devinés d'après le contenu des disquettes (AUTO, STF pour les 1985-87,
-  trainers « N ») : **pas encore lancés dans Hatari** (valide_windows.py à passer sur ces 15 ids).
+  trainers « N »). Ce sont des suggestions de Claude, pas la liste de Fab (ses jeux = les favoris).
+  Lancés le 19/10 (valide_windows.py) : arrivent à l'écran titre, au menu ou à l'intro : Sentinel
+  (« Landscape number? »), Head Over Heels (menu, F1), Zool, Operation Wolf, Larry (avertissement,
+  Entrée), Gobliins 2 et Ishar 2 (intro), Great Courts, Time Bandit (1 ou 2) ; Super Off Road corrigé
+  (voir plus bas). **Encore bloqués, pas corrigés** : Starglider (écran noir, même en STE ou TOS 1.02 :
+  image TOSEC sans crack), Elite (STE : erreur de bus en $FC2F1E, la ROM du TOS 1.x ; en STF : protection
+  Novella, un mot du manuel), Lotus Turbo Challenge 2 (menu Cynix : « 1 », puis protection du manuel),
+  Rocket Ranger (« File GMTN not found on Reel 1 », aussi en STF), Batman The Movie (bureau GEM en STE,
+  écran blanc en STF).
 - 16/10/2026 : le mode vrac trie comme le ménage (`ecartesVrac`, jeux.go) sans rien effacer :
   une édition par jeu, rien de ce que le catalogue a déjà, titres écartés cachés. Visait les
   images TOSEC posées à la racine de disques/ (5 Vroom…), que le ménage ne touche pas.
@@ -353,6 +362,14 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   champ de recherche, alerte par-dessus F10, demos_apres_min 0, Select+Start relâchés un à un.
   La collection TOSEC n'est plus dans C:\Atari_ST_TOSEC_2012_04_23 (seul reste disques/Games,
   déjà passé au ménage du 16/10).
+- 19/10/2026 : les jeux de Fab validés dans Hatari (valide_windows.py) : les 12 favoris, plus Arkanoid 2,
+  Bubble Bobble, Battle Chess et Super Off Road (demandés en favoris le 16/10, demande interrompue :
+  ajoutés à `FAVORIS` le 19/10, 16 favoris). Tous arrivent à l'écran titre, au menu ou en démo.
+  Deux écrans demandent une disquette qui est déjà là : Shufflepuck Café (« Insérer le disque
+  shufflepuck1 dans le lecteur 0 », vers 16 s : une touche) et Super Off Road (« Please insert DATA
+  disk… press FIRE », vers 45 s : tir ou Espace). Vérifié : passés, on arrive au bar / à la course.
+  Pas d'appuis automatiques jusque-là (une touche toutes les 250 ms pendant 30 à 60 s gêne le joueur) :
+  l'aide de la fiche le dit. Shufflepuck : séquence ["entree"] pour l'intro du crack (Espace = menu).
 - 22/10/2026 : export « bac » lent sur deux PC Mint (et menu de Hatari au lancement d'un jeu,
   cause pas encore trouvée : TOS bon, puisque OK dans ce menu lance le jeu ; journal des touches
   demandé à Fab avec `"hatari_options": ["--trace", "keymap", "--trace-file",
