@@ -305,7 +305,7 @@ button { font-family: inherit; color: inherit; }
   <section id="fiche" class="boite" aria-label="Fiche du jeu">
     <div class="interieur">
       <div style="flex:none; position:relative">
-        <button id="f-favori" data-action="etoile" title="Favori (F5 · manette : RT)" aria-label="Favori"><span class="etoile-ici"></span><span class="touche">F5</span></button>
+        <button id="f-favori" data-action="etoile" title="Favori (F2 · manette : RT)" aria-label="Favori"><span class="etoile-ici"></span><span class="touche">F2</span></button>
         <div id="f-titre"></div>
         <div id="f-lignes"></div>
       </div>
@@ -628,7 +628,7 @@ function chargerVrac() {
 // ★ posées pendant qu'une réponse du lanceur était en route : elles gagnent
 function garderFavoris(l) { (l || []).forEach(j => { if (j.id in etat.favLocaux) j.favori = etat.favLocaux[j.id]; }); }
 
-// ★ de la disquette choisie (bouton de la fiche, F5, manette : RT), enregistrée aussitôt
+// ★ de la disquette choisie (bouton de la fiche, F2, manette : RT), enregistrée aussitôt
 async function basculerFavori() {
   const j = etat.liste[etat.sel];
   if (!j || etat.phase !== 'bureau') return;
@@ -788,7 +788,7 @@ function dessinerFiche() {
   }
   $('#f-titre').textContent = j.titre;
   const fv = $('#f-favori'); fv.classList.toggle('on', !!j.favori);
-  fv.title = (j.favori ? 'Favori : F5 pour le retirer' : 'Ajouter aux favoris : F5') + ' · manette : RT';
+  fv.title = (j.favori ? 'Favori : F2 pour le retirer' : 'Ajouter aux favoris : F2') + ' · manette : RT';
   const l1 = [j.editeur, j.annee].filter(Boolean).join(', ');
   const l2 = [j.genre, j.joueurs ? (j.joueurs + (j.joueurs > 1 ? ' joueurs' : ' joueur')) : ''].filter(Boolean).join(' · ');
   $('#f-lignes').innerHTML = '';
@@ -1008,7 +1008,10 @@ function ouvrirWeb(url, j) {
   setTimeout(() => { try { f.focus(); } catch (e) {} }, 100);
 }
 let echapDebut = 0;
-function toucheWeb(e) { if (e.key === 'Escape' && !e.repeat) echapDebut = Date.now(); }
+function toucheWeb(e) {
+  if (e.key === 'Escape' && !e.repeat) echapDebut = Date.now();
+  if (e.key === 'F5' && !e.ctrlKey && !e.shiftKey) e.preventDefault();   // rechargerait toute la ludothèque
+}
 function toucheWebFin(e) { if (e.key === 'Escape') echapDebut = 0; }
 function fermerWeb(silencieux) {
   const w = $('#web'); const f = w.querySelector('iframe');
@@ -1301,7 +1304,7 @@ async function exporterZip() {
   Son.cloche();
   const choix = n.favoris ? ['Annuler', 'Favoris', 'Tout le bac'] : ['Annuler', 'Tout le bac'];
   const r = await alerte('EXPORTER EN ZIP\n\nUn pack prêt à l\'emploi, Windows et Linux : lanceurs, Hatari, TOS, démos, réglages, et les jeux choisis avec leurs sauvegardes.\n\n' +
-    (n.favoris ? '★ Favoris : ' + nombre(n.favoris) + ' jeu' + (n.favoris > 1 ? 'x' : '') + '\n' : 'Aucun favori (★ sur la fiche : F5).\n') +
+    (n.favoris ? '★ Favoris : ' + nombre(n.favoris) + ' jeu' + (n.favoris > 1 ? 'x' : '') + '\n' : 'Aucun favori (★ sur la fiche : F2).\n') +
     'Tout le bac : ' + nombre(n.bac) + ' jeux\n\nLe zip est rangé dans exports/.', choix, '?', n.favoris ? 1 : choix.length - 1);
   if (r < 1) return;
   const mode = choix[r] === 'Favoris' ? 'favoris' : 'bac';
@@ -1458,7 +1461,7 @@ function intention(t) {
 }
 
 const TOUCHES = { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas', Enter: 'ok', ' ': 'x', Escape: 'retour',
-  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F4: 'favoris', F5: 'etoile', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
+  Delete: 'suppr', PageUp: 'pgprec', PageDown: 'pgsuiv', Home: 'debut', End: 'fin', F2: 'etoile', F4: 'favoris', F6: 'mhz', F7: 'demos', F9: 'menu', F10: 'admin', Tab: 'menu' };
 // champ de recherche du moment : celui du catalogue F10, ou celui du bac
 function champRecherche() {
   if (etat.dialogue === 'panneau') return $('#pn-recherche');
@@ -1495,6 +1498,8 @@ function basculerCoquin() {
 }
 
 document.addEventListener('keydown', (e) => {
+  // F5 ou Ctrl+R rechargeraient la page (retour à l'écran d'allumage) : Ctrl+F5 reste possible
+  if ((e.key === 'F5' && !e.ctrlKey && !e.shiftKey) || (e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === 'r')) { e.preventDefault(); return; }
   if (etat.phase === 'web') return;
   if (etat.phase === 'demarrage') { if (!['Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) { e.preventDefault(); allumer(); } return; }
   if (suivreKonami(e)) { e.preventDefault(); basculerCoquin(); return; }

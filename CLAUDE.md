@@ -369,8 +369,9 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
 - 22/10/2026 (suite) : le bac s'affiche d'abord avec le catalogue et les favoris
   (`chargerCatalogue` → /api/catalogue?vrac=favoris), le tri de tout le vrac suit en arrière-plan
   (`chargerVrac` → /api/vrac, « vrac : tri en cours… » dans la barre) et n'est redemandé qu'après
-  un ménage (`vracGen` écarte une réponse périmée). Bouton ★ sur la fiche (F5, manette RT =
-  bouton 7, F5 aussi dans le panneau F10) : catalogue et vrac, enregistré aussitôt par /api/admin ;
+  un ménage (`vracGen` écarte une réponse périmée). Bouton ★ sur la fiche (F2, manette RT =
+  bouton 7, F2 aussi dans le panneau F10 ; pas F5, qui rechargeait la page : l'interface bloque
+  F5 et Ctrl+R, Ctrl+F5 recharge) : catalogue et vrac, enregistré aussitôt par /api/admin ;
   étoile dorée sur le boîtier des disquettes favorites ; sous le filtre Favoris, la disquette
   retirée s'en va et la sélection passe à sa voisine. L'image originale d'une version native
   (Stunt_Car_Racer.st) ne compte plus comme un jeu du vrac. Formats maison (Cannon Fodder…) :
