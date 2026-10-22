@@ -115,6 +115,8 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
 - `tri.go` : tri des noms TOSEC (une édition par jeu, incompatibles écartés, voir « Collection
   TOSEC ») ; sert au ménage, au mode vrac (titre, éditeur, année, disquettes « (Disk 1 of 3)(Intro) »
   regroupées, séquence ["espace"] ou ["N","espace"] si [t]) et à `Ludotheque.exe --trier`.
+  `imageLisible` (zip avec une disquette ?) garde ses réponses dans runtime/lisibles.json (chemin
+  relatif, taille, date à la seconde) : sans lui, chaque démarrage rouvrait tous les zips du vrac.
 - `menage.go` : rangement de **disques/GAME** (et tout dossier game/games de disques/), où
   l'utilisateur dépose la collection TOSEC telle quelle ou en vrac. Au démarrage, si le contenu
   a changé (signature dans runtime/rangement.json), et par Fichier › Ménage des disquettes
@@ -135,7 +137,10 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   jouables seulement), leurs images, medias, dossiers Reforged et sauvegardes (copie de
   runtime/disques retrouvée par `prefixeCopie`/`ancienneCopie`, comme `disquePropre`). Vrac de
   disques/GAME → disques/vrac/ (le ménage du nouveau pack n'y touche pas). Mode 755 pour les
-  fichiers sans extension et les .sh. Testé le 18/10 : favoris 12 jeux 73 Mo en 2 s ; bac
+  fichiers sans extension et les .sh. Le zip contient aussi runtime/lisibles.json (réponses
+  d'`imageLisible` pour ses zips) : le nouveau pack ne les rouvre pas à son premier démarrage
+  (dates gardées à la seconde par unzip sous Linux ; l'Explorateur de Windows les arrondit, les
+  zips sont alors relus une fois). Testé le 18/10 : favoris 12 jeux 73 Mo en 2 s ; bac
   163 + 2 157 jeux, 960 Mo en 28 s ; les deux dézippés et relancés (dossier avec accent) : tous
   les jeux retrouvés.
 - `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari. En « lisse »,
@@ -345,3 +350,17 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   champ de recherche, alerte par-dessus F10, demos_apres_min 0, Select+Start relâchés un à un.
   La collection TOSEC n'est plus dans C:\Atari_ST_TOSEC_2012_04_23 (seul reste disques/Games,
   déjà passé au ménage du 16/10).
+- 22/10/2026 : export « bac » lent sur deux PC Mint (et menu de Hatari au lancement d'un jeu,
+  cause pas encore trouvée : TOS bon, puisque OK dans ce menu lance le jeu ; journal des touches
+  demandé à Fab avec `"hatari_options": ["--trace", "keymap", "--trace-file",
+  "runtime/hatari/touches.txt"]`). Lenteurs liées au nombre de jeux, mesurées sur un pack de
+  177 + 1 998 zips (processeur bridé ×6 pour l'interface) : le premier /api/catalogue de chaque
+  démarrage ouvrait les 1 998 zips (`imageLisible`, cache en mémoire seulement) → gardé dans
+  runtime/lisibles.json, aussi écrit par l'export (0 zip ouvert au 1er démarrage d'un export
+  dézippé) ; le bac créait un bouton par disquette (1 743 boutons, 12 861 éléments) → seulement
+  les ±10 autour de la sélection (`boutonsBac`, créés et retirés par `placer`) : bac complet
+  899 → 109 ms, une lettre de recherche 636 → 122 ms, rendu identique au pixel près.
+  Hatari sans pilote graphique (llvmpipe) : « pixels nets » coûte 90 % d'un cœur contre 54 %
+  en rendu simple, et divise par deux l'accéléré des chargements (×3,9 au lieu de ×8) ; le
+  facteur k de `Ludo_Rendu` est calculé sur toute la largeur de l'écran au lieu de la zone 4:3
+  (k = 3 au lieu de 2 en 1080p) : à corriger dans le patch si les vieux PC rament en jeu.

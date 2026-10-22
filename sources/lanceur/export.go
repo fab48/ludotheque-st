@@ -330,6 +330,11 @@ func exporter(mode string, adultes bool, sortie string, avance func(string)) (ma
 	if err == nil {
 		_, err = w.Write(jsonCat)
 	}
+	if b := lisiblesExport(l.fichiers); err == nil && b != nil {
+		if w, err = z.CreateHeader(&zip.FileHeader{Name: dossierZip + "runtime/lisibles.json", Method: zip.Deflate, Modified: time.Now()}); err == nil {
+			_, err = w.Write(b)
+		}
+	}
 	if err == nil {
 		err = z.Close()
 	}

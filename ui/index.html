@@ -599,47 +599,57 @@ const FENETRE = 9; // disquettes affichées de chaque côté
 
 function tailleNom(t) { const n = t.length; return n <= 8 ? 32 : n <= 14 ? 28 : n <= 20 ? 24 : n <= 28 ? 21 : 18; }
 
+// Seules les disquettes proches de la sélection existent (placer les crée et les
+// retire) : avec tout le vrac, 1 700 boutons créés d'un coup prenaient près d'une
+// seconde sur un vieux PC, à chaque retour de jeu et à chaque lettre de la recherche.
+const boutonsBac = new Map();   // rang dans etat.liste → bouton
+
 function construireBac() {
-  const zone = $('#disques'); zone.textContent = '';
+  $('#disques').textContent = ''; boutonsBac.clear();
   let grp = null;
-  etat.liste.forEach((j, i) => {
-    const d = j.disquette || {};
-    const b = document.createElement('button');
-    b.className = 'disq' + (j.variantes.some(v => v.dispo) ? '' : ' absente'); b.dataset.i = i;
-    b.setAttribute('aria-label', j.titre);
-    b.style.background = d.corps || (j.vrac ? '#55585e' : '#1c1c1f');
-    const manuscrit = d.police === 'manuscrit';
-    const nbD = (j.variantes[0] && j.variantes[0].disques || []).length;
-    const sous = [j.annee, (j.editeur || '').split(/[\/,]/)[0]].filter(Boolean).join(' · ') || (j.vrac ? 'vrac' : '');
-    b.innerHTML =
-      '<span class="etiq"><span class="bande"></span><span class="nom"></span><span class="sous"></span></span>' +
-      '<span class="volet"></span><span class="prot"></span>' + (nbD > 1 ? '<span class="elastique"></span>' : '');
-    b.querySelector('.bande').style.background = d.bande || '#bbb';
-    const nom = b.querySelector('.nom');
-    nom.textContent = j.titre;
-    nom.style.fontFamily = manuscrit ? "'Caveat', cursive" : "'VT323', monospace";
-    nom.style.fontWeight = manuscrit ? '700' : '400';
-    nom.style.fontSize = (tailleNom(j.titre) + (manuscrit ? 3 : 0)) + 'px';
-    b.querySelector('.sous').textContent = sous;
+  etat.liste.forEach((j) => {
     const g = groupeDe(j);
-    if (g !== grp) { const o = document.createElement('span'); o.className = 'onglet'; o.textContent = g; b.appendChild(o); grp = g; j._debutGroupe = true; } else j._debutGroupe = false;
-    j._groupe = g;
-    b.addEventListener('click', () => { if (i === etat.sel) { etat.capture++; dessinerFiche(); Son.touche(); } else choisir(i); });
-    b.addEventListener('dblclick', () => { if (i === etat.sel) charger(); });
-    zone.appendChild(b);
+    j._debutGroupe = g !== grp; j._groupe = g; grp = g;
   });
   etat.lettres = new Set(etat.liste.map(lettreDe));
   placer();
   dessinerFiche();
 }
 
+function creerDisquette(j, i) {
+  const d = j.disquette || {};
+  const b = document.createElement('button');
+  b.className = 'disq' + (j.variantes.some(v => v.dispo) ? '' : ' absente'); b.dataset.i = i;
+  b.setAttribute('aria-label', j.titre);
+  b.style.background = d.corps || (j.vrac ? '#55585e' : '#1c1c1f');
+  const manuscrit = d.police === 'manuscrit';
+  const nbD = (j.variantes[0] && j.variantes[0].disques || []).length;
+  const sous = [j.annee, (j.editeur || '').split(/[\/,]/)[0]].filter(Boolean).join(' · ') || (j.vrac ? 'vrac' : '');
+  b.innerHTML =
+    '<span class="etiq"><span class="bande"></span><span class="nom"></span><span class="sous"></span></span>' +
+    '<span class="volet"></span><span class="prot"></span>' + (nbD > 1 ? '<span class="elastique"></span>' : '');
+  b.querySelector('.bande').style.background = d.bande || '#bbb';
+  const nom = b.querySelector('.nom');
+  nom.textContent = j.titre;
+  nom.style.fontFamily = manuscrit ? "'Caveat', cursive" : "'VT323', monospace";
+  nom.style.fontWeight = manuscrit ? '700' : '400';
+  nom.style.fontSize = (tailleNom(j.titre) + (manuscrit ? 3 : 0)) + 'px';
+  b.querySelector('.sous').textContent = sous;
+  if (j._debutGroupe) { const o = document.createElement('span'); o.className = 'onglet'; o.textContent = j._groupe; b.appendChild(o); }
+  b.addEventListener('click', () => { if (i === etat.sel) { etat.capture++; dessinerFiche(); Son.touche(); } else choisir(i); });
+  b.addEventListener('dblclick', () => { if (i === etat.sel) charger(); });
+  return b;
+}
+
 function placer() {
   const n = etat.liste.length, sel = etat.sel;
   const vol = etat.phase === 'insertion' || etat.phase === 'lecture' || etat.phase === 'jeu' || etat.phase === 'web';
-  $$('#disques .disq').forEach((b) => {
-    const i = +b.dataset.i, k = i - sel, ad = Math.abs(k);
-    if (ad > FENETRE + 1) { b.style.display = 'none'; return; }
-    b.style.display = '';
+  for (const [i, b] of boutonsBac) if (Math.abs(i - sel) > FENETRE + 1) { b.remove(); boutonsBac.delete(i); }
+  for (let i = Math.max(0, sel - FENETRE - 1); i <= Math.min(n - 1, sel + FENETRE + 1); i++) {
+    if (!boutonsBac.has(i)) { const b = creerDisquette(etat.liste[i], i); boutonsBac.set(i, b); $('#disques').appendChild(b); }
+  }
+  boutonsBac.forEach((b, i) => {
+    const k = i - sel, ad = Math.abs(k);
     let dx = k === 0 ? 0 : Math.sign(k) * (118 + (ad - 1) * 46);
     let dy = k === 0 ? -78 : 0, dz = k === 0 ? 40 : -(40 + ad * 16), ry = k === 0 ? 0 : (k < 0 ? 52 : -52), rz = 0, sc = 1, op = ad > FENETRE ? 0 : 1, z = 100 - ad;
     if (k === 0 && vol) { dx = 140; dy = 400; dz = 0; ry = 0; rz = 90; sc = 0.3; op = 0; z = 300; }
