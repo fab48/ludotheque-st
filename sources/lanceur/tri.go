@@ -501,7 +501,10 @@ func contientImage(l []*imageTosec, e *imageTosec) bool {
 }
 
 // imageLisible : un zip contient bien une image .st/.msa/.stx non vide.
-// Réponse gardée tant que le zip ne change pas : le vrac retrie à chaque /api/catalogue.
+// Le vrac retrie à chaque /api/catalogue : la réponse est gardée tant que le zip ne
+// change pas (même taille, même date), en mémoire et, pour les zips du pack, dans
+// runtime/lisibles.json. Sans ce fichier, chaque démarrage rouvrait tous les zips du
+// vrac : 2 000 lectures éparpillées, une demi-minute sur le disque dur d'un vieux PC.
 func imageLisible(p string) bool {
 	i, err := os.Stat(p)
 	if err != nil || i.Size() == 0 {
@@ -510,24 +513,110 @@ func imageLisible(p string) bool {
 	if !strings.EqualFold(filepath.Ext(p), ".zip") {
 		return true
 	}
-	cle := fmt.Sprintf("%s|%d|%d", p, i.Size(), i.ModTime().UnixNano())
+	cle, l := cleLisible(p), lisible{Taille: i.Size(), Date: i.ModTime().Unix()}
 	muLisibles.Lock()
-	ok, vu := lisibles[cle]
+	chargerLisibles()
+	r, vu := lisibles[cle]
 	muLisibles.Unlock()
-	if vu {
-		return ok
+	if vu && r.Taille == l.Taille && r.Date == l.Date {
+		return r.Ok
 	}
-	ok = zipAvecImage(p)
+	l.Ok = zipAvecImage(p)
 	muLisibles.Lock()
-	lisibles[cle] = ok
+	lisibles[cle] = l
+	if !filepath.IsAbs(cle) { // hors du pack (--trier sur la collection) : en mémoire seulement
+		lisiblesModifies = true
+	}
 	muLisibles.Unlock()
-	return ok
+	return l.Ok
+}
+
+// lisible : réponse de zipAvecImage pour un zip de cette taille et de cette date.
+type lisible struct {
+	Taille int64 `json:"taille"`
+	Date   int64 `json:"date"` // secondes : gardées telles quelles par un zip (export)
+	Ok     bool  `json:"ok"`
 }
 
 var (
-	muLisibles sync.Mutex
-	lisibles   = map[string]bool{}
+	muLisibles       sync.Mutex
+	lisibles         map[string]lisible // chemin relatif au pack (absolu hors du pack)
+	lisiblesModifies bool
+	muEcritLisibles  sync.Mutex
 )
+
+// cleLisible : chemin relatif au pack, en « / » (le pack peut changer de dossier).
+func cleLisible(p string) string {
+	if a, err := filepath.Abs(p); err == nil { // --trier "..\TOSEC" : chemin relatif au dossier courant
+		p = a
+	}
+	if r, err := filepath.Rel(base, p); err == nil && !strings.HasPrefix(r, "..") {
+		return filepath.ToSlash(r)
+	}
+	return p
+}
+
+func fichierLisibles() string { return filepath.Join(base, "runtime", "lisibles.json") }
+
+// chargerLisibles : runtime/lisibles.json, une fois (verrou pris).
+func chargerLisibles() {
+	if lisibles != nil {
+		return
+	}
+	lisibles = map[string]lisible{}
+	if b, err := os.ReadFile(fichierLisibles()); err == nil {
+		_ = json.Unmarshal(b, &lisibles)
+	}
+}
+
+// enregistrerLisibles : réécrit runtime/lisibles.json si des zips du pack ont été lus.
+func enregistrerLisibles() {
+	muEcritLisibles.Lock()
+	defer muEcritLisibles.Unlock()
+	muLisibles.Lock()
+	if !lisiblesModifies {
+		muLisibles.Unlock()
+		return
+	}
+	l := map[string]lisible{}
+	for k, v := range lisibles {
+		if !filepath.IsAbs(k) {
+			l[k] = v
+		}
+	}
+	lisiblesModifies = false
+	muLisibles.Unlock()
+	b, err := json.Marshal(l)
+	if err != nil {
+		return
+	}
+	p := fichierLisibles()
+	_ = os.MkdirAll(filepath.Dir(p), 0o755)
+	if err := os.WriteFile(p+".tmp", b, 0o644); err == nil {
+		_ = os.Rename(p+".tmp", p)
+	}
+}
+
+// lisiblesExport : runtime/lisibles.json d'un export, pour ses zips (chemin dans le
+// zip → fichier du pack) : le nouveau pack n'a pas à les rouvrir à son premier
+// démarrage. La date d'un fichier sort du zip à la seconde près (Linux) ; sinon
+// (Explorateur de Windows), le zip est simplement relu.
+func lisiblesExport(fichiers map[string]string) []byte {
+	l := map[string]lisible{}
+	for n, p := range fichiers {
+		if !strings.EqualFold(filepath.Ext(n), ".zip") || !strings.HasPrefix(n, "disques/") {
+			continue
+		}
+		if i, err := os.Stat(p); err == nil {
+			l[n] = lisible{Taille: i.Size(), Date: i.ModTime().Unix(), Ok: imageLisible(p)}
+		}
+	}
+	if len(l) == 0 {
+		return nil
+	}
+	b, _ := json.Marshal(l)
+	return b
+}
 
 func zipAvecImage(p string) bool {
 	z, err := zip.OpenReader(p)
@@ -750,6 +839,7 @@ func trierTosec(images []*imageTosec, absolu func(*imageTosec) string, catalogue
 		}
 		out = append(out, t)
 	}
+	enregistrerLisibles()
 	return out
 }
 
