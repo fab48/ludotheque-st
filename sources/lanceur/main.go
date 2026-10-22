@@ -127,6 +127,7 @@ func main() {
 	}
 
 	http.HandleFunc("/api/catalogue", apiCatalogue)
+	http.HandleFunc("/api/vrac", apiVrac)
 	http.HandleFunc("/api/lancer", apiLancer)
 	http.HandleFunc("/api/arreter", apiArreter)
 	http.HandleFunc("/api/fin-web", apiFinWeb)
