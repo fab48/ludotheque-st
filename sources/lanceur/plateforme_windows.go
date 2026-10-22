@@ -299,6 +299,10 @@ func envoyerTouche(fifo string, st, pc, pid int) {
 	pKeybdEvent.Call(0, uintptr(pc), scancode|relache, 0)
 }
 
+// relacherTouche : rien sous Windows, Hatari ignore un relâché sans appui ; pendant
+// l'accéléré, --fast-forward-key-repeat no relâche déjà chaque touche au bout d'une image.
+func relacherTouche(fifo string, st int) {}
+
 // attendreFenetre : la fenêtre de Hatari doit exister avant d'y envoyer des touches.
 func attendreFenetre(pid int) {
 	for i := 0; i < 50; i++ {

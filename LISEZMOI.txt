@@ -40,6 +40,7 @@ Changer de groupe        Page préc. / suiv.      LB / RB
 Aller à une lettre       la lettre
 Choisir la version       ↑ ↓                     haut / bas
 Image suivante           Espace                  X
+Favori (★ de la fiche)   F2                      RT
 Charger                  Entrée (ou double-clic) A
 Annuler                  Échap                   B
 Menus                    F9 ou Tab               Start
@@ -109,6 +110,10 @@ CHARGEMENT
   Lecteur de disquette accéléré et démarrage rapide du TOS
   ("chargement_rapide"). Si une protection refuse de charger, ajoutez pour
   ce jeu : "options": ["--fastfdc", "no"].
+  Touches au démarrage : la ludothèque appuie seule sur la touche qui passe
+  l'intro du crack ou choisit le jeu dans un menu de compil (Espace pour
+  les jeux du vrac). Si un jeu choisit ses menus tout seul, décochez la case
+  « Touches au démarrage » de sa fiche (gardée dans catalogue.json).
   L'écran blanc « The Little Green Desktop » de certaines images est
   masqué : le lanceur en fait une copie sans cette amorce dans
   runtime/disques/ ("nettoyer_amorce"). Les sauvegardes de ces jeux vont

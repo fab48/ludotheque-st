@@ -5,9 +5,9 @@ Chaque ligne : id, titre, éditeur, année, genre, joueurs, [disques...], option
 Les couleurs des disquettes et des étiquettes sont tirées de l'id (stables).
 
   python gen_catalogue.py [catalogue.json] [--garder]
---garder : reprend les cases cochées (F10), les favoris (aussi ceux du vrac) et le mode
-vrac de l'ancien catalogue pour les jeux qui y étaient déjà (sinon : ACTIFS et FAVORIS
-ci-dessous).
+--garder : reprend les cases cochées (F10), les favoris (aussi ceux du vrac), les cases
+« Touches au démarrage » de la fiche et le mode vrac de l'ancien catalogue pour les jeux
+qui y étaient déjà (sinon : ACTIFS et FAVORIS ci-dessous).
 
 Les images « tosec/… » viennent de la collection TOSEC 2012 (disques/tosec/).
 """
@@ -482,13 +482,18 @@ if '--garder' in sys.argv and os.path.exists(sortie):
     ancien = json.load(open(sortie, encoding='utf-8'))
     coches = {a['id']: a.get('actif', True) for a in ancien.get('jeux', [])}
     favoris = {a['id']: a['favori'] for a in ancien.get('jeux', []) if 'favori' in a}
+    sans_touches = {a['id'] for a in ancien.get('jeux', []) if a.get('sans_touches')}
     for j in jeux:
         if j['id'] in coches:
             j['actif'] = coches[j['id']]
         if j['id'] in favoris:
             j['favori'] = favoris[j['id']]
+        if j['id'] in sans_touches:   # case « Touches au démarrage » décochée sur la fiche
+            j['sans_touches'] = True
     cat['vrac'] = ancien.get('vrac', False)
     if ancien.get('favoris_vrac'):   # ★ posées sur des jeux du vrac (fiche du bac)
         cat['favoris_vrac'] = ancien['favoris_vrac']
+    if ancien.get('sans_touches_vrac'):
+        cat['sans_touches_vrac'] = ancien['sans_touches_vrac']
 json.dump(cat, open(sortie, 'w', encoding='utf-8', newline='\n'), ensure_ascii=False, indent=1)
 print(len(jeux), 'jeux,', sum(1 for j in jeux if j['actif']), 'dans le bac,', sum(1 for j in jeux if j.get('favori')), 'favoris')

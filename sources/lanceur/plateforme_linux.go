@@ -215,6 +215,12 @@ func envoyerTouche(fifo string, st, pc, pid int) {
 	}
 }
 
+// relacherTouche : un relâché seul, au cas où celui de envoyerTouche se serait perdu ;
+// sans effet sur le jeu si la touche n'est pas enfoncée.
+func relacherTouche(fifo string, st int) {
+	ecrireFifo(fifo, "hatari-event keyup 0x"+strconv.FormatInt(int64(st), 16))
+}
+
 func ecrireFifo(fifo, ligne string) {
 	if fifo == "" {
 		return

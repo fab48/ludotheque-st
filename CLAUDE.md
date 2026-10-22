@@ -88,7 +88,8 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
   `/api/admin` (F10), `/api/systeme` (quitter/éteindre), `/api/affichage` (écran des jeux),
   `/api/demos`, `/api/demo/*`, `/api/capture/retirer`, `/api/menage`, `/api/exporter` ; fichiers `/ui/`, `/medias/`, `/reforged/`.
 - `jeux.go` : catalogue (variantes, mode vrac = toutes les images de disques/, regroupées ;
-  ★ d'un jeu du vrac dans `favoris_vrac` de catalogue.json : 1re disquette → ses disquettes),
+  ★ d'un jeu du vrac dans `favoris_vrac` de catalogue.json : 1re disquette → ses disquettes ;
+  case « Touches au démarrage » décochée : `sans_touches` du jeu, `sans_touches_vrac` pour le vrac),
   `preparerHatari` (arguments + cfg générée + variables d'environnement ; **sous Windows,
   Hatari tourne dans le dossier du pack et ne reçoit que des chemins relatifs** : SDL lui
   passe ses arguments en UTF-8 mais il ouvre les fichiers en ANSI, un accent dans le dossier
@@ -403,3 +404,11 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   vérifié sur le jeu lui-même (pas d'image ici). Mortevielle : F8 (ses menus) était la touche de
   capture de Hatari → capture sur AltGr+G (raccourci d'origine de Hatari), `toucheCapture`
   écarte F1…F10 même si config.json les demande ; F8 vu arriver au ST (code 0x42).
+- 22/10/2026 (suite) : Sherman M4 (vrac) choisissait ses menus tout seul, en continu : touche
+  bloquée de la version d'avant (voir clic sans fin ci-dessus). En plus : case « Touches au
+  démarrage » sur la fiche (clic ; montrée quand le jeu a des touches de démarrage, `touchesDemarrage`
+  de l'interface = celle du lanceur) pour couper l'Espace de l'intro sur un jeu qui le prend pour un
+  choix de menu ; enregistrée par /api/admin {"touches": {id: bool}}, suivie par l'export et
+  `gen_catalogue.py --garder`. Sous Linux, relâché seul des touches de démarrage à la fin des
+  appuis et 3 s après (`relacherTouche`, tube) : débloque le TOS si le vrai relâché s'est perdu ;
+  rien sous Windows (Hatari ignore un relâché sans appui).

@@ -147,8 +147,9 @@ button { font-family: inherit; color: inherit; }
 .radio .nom { white-space: nowrap; flex: none; }
 .disq.absente { filter: grayscale(.85) brightness(.8); }
 .radio .desc { color: #555; font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#f-mhz { flex: none; }
-#f-mhz .carre { width: 18px; height: 18px; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; flex: none; }
+#f-mhz, #f-touches { flex: none; }
+#f-touches.choisie .desc { color: #555; }
+#f-mhz .carre, #f-touches .carre { width: 18px; height: 18px; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; flex: none; }
 #f-mhz.risque .desc { color: #a00; }
 #f-mhz .touche { margin-left: auto; flex: none; font-size: 17px; color: #777; }
 
@@ -316,6 +317,7 @@ button { font-family: inherit; color: inherit; }
       <div class="sous-titre">Version :</div>
       <div id="f-variantes"></div>
       <button id="f-mhz" class="radio cache" data-action="mhz" title="F6 · manette : Select"><span class="carre"></span><span class="nom">Processeur 16 MHz</span><span class="desc"></span><span class="touche">F6</span></button>
+      <button id="f-touches" class="radio cache" data-action="touches" title="Appuyées toutes seules au lancement (intro du crack, menu de compil). À décocher si le jeu choisit ses menus tout seul."><span class="carre"></span><span class="nom">Touches au démarrage</span><span class="desc"></span></button>
       <div class="boutons" style="margin-top:auto">
         <button class="bouton" data-action="annuler">Annuler</button>
         <button class="bouton defaut" data-action="charger">CHARGER</button>
@@ -410,6 +412,7 @@ const etat = {
   recherche: '',        // texte du champ de recherche du bac
   favoris: true,        // le bac ne montre que les favoris (★ de la fiche ou du catalogue F10)
   favLocaux: {},        // ★ posées depuis le démarrage (id → bool), gardées si une réponse en route les ignore
+  touchesLocales: {},   // cases « Touches au démarrage » changées depuis le démarrage (id → bool), idem
   coquin: false,        // Konami code tapé : jeux pour adultes dans le bac (jusqu'à la veille)
 };
 
@@ -625,8 +628,13 @@ function chargerVrac() {
   placer();
   return p;
 }
-// ★ posées pendant qu'une réponse du lanceur était en route : elles gagnent
-function garderFavoris(l) { (l || []).forEach(j => { if (j.id in etat.favLocaux) j.favori = etat.favLocaux[j.id]; }); }
+// ★ et cases posées pendant qu'une réponse du lanceur était en route : elles gagnent
+function garderFavoris(l) {
+  (l || []).forEach(j => {
+    if (j.id in etat.favLocaux) j.favori = etat.favLocaux[j.id];
+    if (j.id in etat.touchesLocales) j.sans_touches = !etat.touchesLocales[j.id];
+  });
+}
 
 // ★ de la disquette choisie (bouton de la fiche, F2, manette : RT), enregistrée aussitôt
 async function basculerFavori() {
@@ -783,7 +791,7 @@ function dessinerFiche() {
   $('#f-favori').classList.toggle('cache', !j);
   if (!j) {
     $('#f-titre').textContent = '—'; ['#f-lignes', '#f-variantes', '#f-commandes'].forEach(s => { $(s).textContent = ''; });
-    $('#f-astuce').classList.add('cache'); $('#f-mhz').classList.add('cache');
+    $('#f-astuce').classList.add('cache'); $('#f-mhz').classList.add('cache'); $('#f-touches').classList.add('cache');
     cap.innerHTML = ''; cap.style.background = '#000'; placer(); return;
   }
   $('#f-titre').textContent = j.titre;
@@ -855,12 +863,45 @@ function dessinerFiche() {
     fm.querySelector('.carre').textContent = on ? '✕' : '';
     fm.querySelector('.desc').textContent = j.mhz16 === 'conseille' ? (j.mhz16_note || AVIS_MHZ.conseille) : AVIS_MHZ.risque;
   }
+  const ft = $('#f-touches'), tds = avecMhz ? touchesDemarrage(j) : [];
+  ft.classList.toggle('cache', !tds.length);
+  if (tds.length) {
+    ft.classList.toggle('choisie', !j.sans_touches);
+    ft.querySelector('.carre').textContent = j.sans_touches ? '' : '✕';
+    ft.querySelector('.desc').textContent = j.sans_touches ? 'coupées' : tds.join(' + ');
+  }
   placer();
 }
 
 /* ---------- processeur 16 MHz (Mega STE) : choix gardé par jeu ----------
    Conseillé (catalogue : "mhz16": "conseille") pour les jeux limités par le
    processeur ; ailleurs, alerte : peu de gain et risque de casser. */
+// touches appuyées au lancement (comme touchesDemarrage du lanceur), pour la case de la fiche
+const NOMS_TOUCHES = { espace: 'Espace', entree: 'Entrée', echap: 'Échap' };
+function touchesDemarrage(j) {
+  let n = j.sequence || [];
+  if (!n.length) {
+    if (j.touche_type === 'espace') n = ['espace'];
+    else if (!j.touche) return [];
+    else n = [j.touche_type === 'chiffre' ? j.touche : 'pave' + j.touche];
+  }
+  return n.map(t => NOMS_TOUCHES[t.toLowerCase()] || (/^pave/i.test(t) ? 'pavé ' + t.slice(4) : t.toUpperCase()));
+}
+// case « Touches au démarrage » (clic) : certains jeux du vrac prenaient l'Espace de l'intro
+// du crack pour un choix dans leur menu (Sherman M4) ; enregistrée aussitôt dans le catalogue
+async function basculerTouches() {
+  const j = etat.liste[etat.sel];
+  if (!j || etat.phase !== 'bureau' || !touchesDemarrage(j).length) return;
+  const sans = !j.sans_touches;
+  j.sans_touches = sans; etat.touchesLocales[j.id] = !sans;
+  Son.touche(); dessinerFiche();
+  try { await api('/api/admin', { touches: { [j.id]: !sans } }); }
+  catch (e) {
+    j.sans_touches = !sans; delete etat.touchesLocales[j.id]; dessinerFiche();
+    alerte(/404/.test(e.message) ? 'Réglage non enregistré : le lanceur en mémoire est une ancienne version.\n\nQuittez la ludothèque (Fichier › Quitter) et relancez-la.' : 'Réglage non enregistré.\n\n' + e.message, ['OK']);
+  }
+}
+
 const AVIS_MHZ = { conseille: 'conseillé : plus fluide', risque: '⚠ peut mal tourner' };
 async function basculerMhz() {
   const j = etat.liste[etat.sel], v = j && j.variantes[etat.variante];
@@ -1331,6 +1372,7 @@ async function action(a) {
     case 'suiv': choisir(etat.sel + 1); break;
     case 'charger': charger(); break;
     case 'etoile': if (etat.phase === 'bureau' && !etat.dialogue) basculerFavori(); break;
+    case 'touches': if (etat.phase === 'bureau' && !etat.dialogue) basculerTouches(); break;
     case 'mhz': basculerMhz(); break;
     case 'annuler': Son.touche(); etat.variante = Math.max(0, (etat.liste[etat.sel] || { variantes: [] }).variantes.findIndex(v => v.dispo)); dessinerFiche(); break;
     case 'ejecter': if (etat.phase === 'jeu') api('/api/arreter', {}).catch(() => {}); else if (etat.phase === 'web') fermerWeb(false); break;

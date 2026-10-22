@@ -279,14 +279,19 @@ func exporter(mode string, adultes bool, sortie string, avance func(string)) (ma
 		nc.Jeux = append(nc.Jeux, j)
 	}
 	nc.Vrac = len(vr) > 0
-	nc.FavorisVrac = nil // ★ du vrac, à leur place dans le nouveau pack (disques/GAME → disques/vrac)
+	// ★ et cases « Touches au démarrage » du vrac, à leur place dans le nouveau pack
+	// (disques/GAME → disques/vrac)
+	nc.FavorisVrac, nc.SansTouchesVrac = nil, nil
 	for _, j := range vr {
-		if j.Favori == nil || !*j.Favori {
-			continue
-		}
 		var ds []string
 		for _, d := range j.Variantes[0].Disques {
 			ds = append(ds, cheminExport(d))
+		}
+		if j.SansTouches {
+			nc.SansTouchesVrac = append(nc.SansTouchesVrac, ds[0])
+		}
+		if j.Favori == nil || !*j.Favori {
+			continue
 		}
 		if nc.FavorisVrac == nil {
 			nc.FavorisVrac = map[string][]string{}

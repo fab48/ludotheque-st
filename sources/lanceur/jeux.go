@@ -17,6 +17,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -64,7 +65,8 @@ type Jeu struct {
 	Mhz16       string            `json:"mhz16,omitempty"`      // avis sur le 16 MHz : conseille | risque
 	Mhz16Note   string            `json:"mhz16_note,omitempty"` // précision affichée sur la fiche
 	Actif       *bool             `json:"actif,omitempty"`
-	Favori      *bool             `json:"favori,omitempty"` // ★ : montré par le filtre « favoris » du bac
+	Favori      *bool             `json:"favori,omitempty"`       // ★ : montré par le filtre « favoris » du bac
+	SansTouches bool              `json:"sans_touches,omitempty"` // touches de démarrage coupées (case de la fiche)
 	Disquette   map[string]string `json:"disquette,omitempty"`
 	Variantes   []Variante        `json:"variantes"`
 	Captures    []string          `json:"captures,omitempty"` // calculé
@@ -83,7 +85,10 @@ type Catalogue struct {
 	// jeux du vrac marqués ★ (bouton de la fiche) : 1re disquette → toutes ses disquettes,
 	// de quoi les montrer au démarrage sans attendre le tri de tout le vrac
 	FavorisVrac map[string][]string `json:"favoris_vrac,omitempty"`
-	Jeux        []Jeu               `json:"jeux"`
+	// jeux du vrac dont la case « Touches au démarrage » est décochée (1re disquette) :
+	// l'Espace qui passe l'intro du crack choisissait les menus de certains (Sherman M4)
+	SansTouchesVrac []string `json:"sans_touches_vrac,omitempty"`
+	Jeux            []Jeu    `json:"jeux"`
 }
 
 var muCatalogue sync.Mutex
@@ -237,6 +242,7 @@ func vrac(c *Catalogue) []Jeu {
 		if _, ok := c.FavorisVrac[ds[0]]; ok {
 			j.Favori = oui()
 		}
+		j.SansTouches = slices.Contains(c.SansTouchesVrac, ds[0])
 		out = append(out, j)
 	}
 	sort.Slice(out, func(a, b int) bool { return strings.ToLower(out[a].Titre) < strings.ToLower(out[b].Titre) })
@@ -313,6 +319,7 @@ func favorisVrac(c *Catalogue) []Jeu {
 		}
 		j := jeuVrac(cleVrac(id), ds)
 		j.Favori = oui()
+		j.SansTouches = slices.Contains(c.SansTouchesVrac, id)
 		out = append(out, j)
 	}
 	return out
@@ -486,6 +493,7 @@ func apiAdmin(w http.ResponseWriter, r *http.Request) {
 	var q struct {
 		Actifs  map[string]bool `json:"actifs"`
 		Favoris map[string]bool `json:"favoris"`
+		Touches map[string]bool `json:"touches"` // case « Touches au démarrage » de la fiche
 		Vrac    *bool           `json:"vrac"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
@@ -507,6 +515,17 @@ func apiAdmin(w http.ResponseWriter, r *http.Request) {
 		if f, ok := q.Favoris[c.Jeux[i].ID]; ok {
 			v := f
 			c.Jeux[i].Favori = &v
+		}
+		if t, ok := q.Touches[c.Jeux[i].ID]; ok {
+			c.Jeux[i].SansTouches = !t
+		}
+	}
+	for id, t := range q.Touches {
+		if rel, duVrac := strings.CutPrefix(id, "vrac:"); duVrac {
+			c.SansTouchesVrac = slices.DeleteFunc(c.SansTouchesVrac, func(s string) bool { return s == rel })
+			if !t {
+				c.SansTouchesVrac = append(c.SansTouchesVrac, rel)
+			}
 		}
 	}
 	for id, f := range q.Favoris {
@@ -1027,6 +1046,17 @@ func sequenceDemarrage(cmd *exec.Cmd, fifo string, j *Jeu, v2 bool) {
 			envoyerTouche(fifo, t.st, t.pc, pid)
 			time.Sleep(pas)
 		}
+		// un relâché perdu (le jeu a pris le clavier entre-temps) laissait le TOS répéter
+		// la touche sans fin : on relâche encore, à la fin et 3 s plus tard
+		relacher := func() {
+			for _, t := range touches {
+				if actif() {
+					relacherTouche(fifo, t.st)
+				}
+			}
+		}
+		relacher()
+		time.AfterFunc(3*time.Second, relacher)
 	}
 	delai := j.ToucheDelai
 	if v2 && turboMode() == "disque" {
@@ -1103,6 +1133,9 @@ type toucheDemarrage struct {
 // touchesDemarrage : "sequence" du catalogue, sinon l'ancienne forme
 // "touche" + "touche_type" (pave par défaut, chiffre, espace).
 func touchesDemarrage(j *Jeu) []toucheDemarrage {
+	if j.SansTouches {
+		return nil
+	}
 	noms := j.Sequence
 	if len(noms) == 0 {
 		switch {
