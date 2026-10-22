@@ -31,7 +31,7 @@
   "sortie_manette_s": 1,
   "tir_clavier": "Right Ctrl",
   "tir_clavier_j2": "Left Ctrl",
-  "touche_capture": "F8",
+  "touche_capture": "",
   "touche_menu_auto": true,
   "turbo": "disque",
   "turbo_chargement_s": 4

@@ -388,7 +388,7 @@ func completer(j *Jeu, hatariOK bool, tosDefaut string) {
 	if j.Vrac {
 		return
 	}
-	// Tes captures (F8 en jeu) passent devant celles fournies avec le pack,
+	// Tes captures (AltGr+G en jeu) passent devant celles fournies avec le pack,
 	// la plus récente en premier.
 	dir := filepath.Join(base, "medias", j.ID)
 	ents, _ := os.ReadDir(dir)
@@ -451,7 +451,7 @@ func apiCatalogue(w http.ResponseWriter, r *http.Request) {
 	}
 	repondre(w, map[string]any{
 		"titre": c.Titre, "vrac_actif": c.Vrac, "jeux": c.Jeux, "vrac": vr, "vrac_complet": !partiel,
-		"systeme": map[string]any{"os": runtime.GOOS, "manettes": nombreManettes(), "version": version, "hatari": exe, "hatari2": v2,
+		"systeme": map[string]any{"os": runtime.GOOS, "manettes": nombreManettes(), "version": version, "hatari": exe, "hatari2": v2, "capture": texteCapture(),
 			"sortie_echap_s": cfg.SortieEchap, "sortie_manette_s": cfg.SortieManette,
 			"extinction": cfg.AutoriserSysteme, "affichage": etatAffichage()},
 		"rangement": etatRangement(),
@@ -722,6 +722,11 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 	_ = os.MkdirAll(l.medias, 0o755)
 	fifo := ""
 	if v2 {
+		// Pendant l'accéléré, une touche tenue 120 ms dure une seconde pour le ST : le TOS
+		// la répète en cliquant, et si le jeu prend le clavier avant le relâché (Espace
+		// des touches de démarrage, Rick Dangerous), le clic se répète sans fin. Hatari
+		// relâche alors chaque touche au bout d'une image.
+		args = append(args, "--fast-forward-key-repeat", "no")
 		args = append(args, "--drive-led", "no", "--screenshot-dir", rel(l.medias))
 		args = append(args, "--log-file", rel(filepath.Join(home, "hatari.log")))
 		args = append(args, argsAffichage(l.pleinEcran)...)
@@ -973,9 +978,23 @@ func apiRetirerCapture(w http.ResponseWriter, r *http.Request) {
 	repondre(w, map[string]bool{"ok": true})
 }
 
-// configHatari : raccourcis et réglages communs (capture sur une seule touche, tir clavier).
+// toucheCapture : touche de capture sans modificateur (config.json « touche_capture »), sauf
+// une touche de fonction de l'Atari : Hatari la gardait pour lui et le jeu ne la recevait
+// plus (F8 des menus de Mortevielle). Reste toujours AltGr+G, le raccourci de Hatari.
+func toucheCapture() string {
+	t := strings.TrimSpace(cfg.ToucheCapture)
+	if regexp.MustCompile(`(?i)^F([1-9]|10)$`).MatchString(t) {
+		return ""
+	}
+	return t
+}
+
+// texteCapture : la touche de capture telle que l'interface et l'encart l'annoncent.
+func texteCapture() string { return firstNonEmpty(toucheCapture(), "AltGr+G") }
+
+// configHatari : raccourcis et réglages communs (capture, tir clavier).
 func configHatari() string {
-	t := firstNonEmpty(cfg.ToucheCapture, "F8")
+	t := toucheCapture()
 	tir := firstNonEmpty(cfg.TirClavier, "Right Ctrl")
 	tir2 := firstNonEmpty(cfg.TirClavier2, "Left Ctrl")
 	return "[KeyShortcutsWithoutMod]\nkScreenShot = " + t + "\nkFastForward = F11\nkFullScreen = \n\n" +

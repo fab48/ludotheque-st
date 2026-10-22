@@ -187,12 +187,17 @@ func compterManettes() int {
 	return len(m)
 }
 
-// envoyerTouche : Linux passe par le tube de commandes de Hatari (scancode ST).
+// envoyerTouche : Linux passe par le tube de commandes de Hatari (scancode ST). Appui
+// court : ces touches vont droit au clavier du ST, sans le relâché automatique de Hatari
+// pendant l'accéléré (--fast-forward-key-repeat no) ; 250 ms y duraient deux secondes
+// pour le ST, assez pour que le TOS répète la touche (clic sans fin dans Rick Dangerous).
+// 30 ms : au moins une image à vitesse normale, moins que le délai de répétition (300 ms)
+// tant que l'accéléré ne dépasse pas ×10.
 func envoyerTouche(fifo string, st, pc, pid int) {
 	if fifo == "" {
 		return
 	}
-	for _, ev := range []string{"keydown", "keyup"} {
+	for i, ev := range []string{"keydown", "keyup"} {
 		for essai := 0; essai < 20; essai++ {
 			f, err := os.OpenFile(fifo, os.O_WRONLY|syscall.O_NONBLOCK, 0)
 			if err == nil {
@@ -202,7 +207,11 @@ func envoyerTouche(fifo string, st, pc, pid int) {
 			}
 			time.Sleep(100 * time.Millisecond)
 		}
-		time.Sleep(250 * time.Millisecond)
+		if i == 0 {
+			time.Sleep(30 * time.Millisecond)
+		} else {
+			time.Sleep(250 * time.Millisecond)
+		}
 	}
 }
 

@@ -60,7 +60,7 @@ func lignesCommandes(j *Jeu) []string {
 	}
 	l = append(l, "",
 		"Échap maintenu 2 s ou Select + Start : retour au bac",
-		"Pause ou Select : ces commandes (jeu en pause)  ·  F8 : capture")
+		"Pause ou Select : ces commandes (jeu en pause)  ·  "+texteCapture()+" : capture")
 	return l
 }
 

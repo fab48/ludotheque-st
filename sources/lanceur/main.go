@@ -67,7 +67,7 @@ func configParDefaut() Config {
 		HatariLinux:      "emulateurs/hatari-linux/hatari",
 		HatariOptions:    []string{},
 		AutoriserSysteme: true,
-		ChargementRapide: true, Joystick: "auto", TirClavier: "Right Ctrl", ToucheCapture: "F8",
+		ChargementRapide: true, Joystick: "auto", TirClavier: "Right Ctrl", ToucheCapture: "",
 		ToucheAuto: true, DemosApres: 3, DureeDemo: 4, NettoyerAmorce: true, TurboChargement: 4, CarteChargement: true,
 		EcranFiltre: "net", Turbo: "disque", EcranHz: 50,
 	}

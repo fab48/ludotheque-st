@@ -813,7 +813,7 @@ function dessinerFiche() {
   } else {
     const c = (j.disquette && j.disquette.bande) || '#3a6ea5';
     cap.style.background = `linear-gradient(160deg, ${c} 0%, #0b0b14 100%)`;
-    cap.innerHTML = '<div class="trame"></div><div class="vide"><div class="grand"></div><div class="petit">Pas encore de capture.<br>En jeu : F8</div></div>';
+    cap.innerHTML = '<div class="trame"></div><div class="vide"><div class="grand"></div><div class="petit">Pas encore de capture.<br>En jeu : ' + toucheCapture() + '</div></div>';
     cap.querySelector('.grand').textContent = j.titre.toUpperCase();
   }
   if (caps.length) cap.style.background = '#000';
@@ -952,11 +952,14 @@ async function charger() {
   etat.capturesAvant = (j.captures || []).length; etat.idEnJeu = j.id;
 }
 
+// touche de capture dans Hatari (AltGr + G ; F1…F10 restent aux jeux)
+function toucheCapture() { return ((etat.cat && etat.cat.systeme && etat.cat.systeme.capture) || 'AltGr+G').replace('+', ' + '); }
+
 function afficherEnJeu(j, rep) {
   etat.phase = 'jeu';
   $('#ej-titre').textContent = j.titre;
   $('#ej-sortie').textContent = 'Pour revenir : ' + etat.sortie;
-  const aide = ['F8 : capture d\'écran pour la fiche'];
+  const aide = [toucheCapture() + ' : capture d\'écran pour la fiche'];
   if (etat.mhzEnJeu) aide.push('processeur 16 MHz');
   $('#ej-commandes').textContent = texteCommandes(j);
   $('#ej-aide').textContent = aide.join('  ·  ');

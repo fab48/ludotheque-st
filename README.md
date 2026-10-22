@@ -140,7 +140,7 @@ Démos : déposez-les dans `demos/` ; titre et texte du bandeau dans `demos.json
 | Play Demo Random | F7 | |
 | **Quitter un jeu** | **Échap maintenu 2 s** | **Select + Start 1 s** |
 | Commandes du jeu / pause | Pause | Select |
-| Capture pour la fiche | F8 | |
+| Capture pour la fiche | AltGr + G | |
 
 En jeu, le joueur 1 joue à la manette 1 (ou flèches + Ctrl droit) et le joueur 2 à la
 manette 2 (ou Z Q S D + Ctrl gauche). Le mode d'emploi complet est dans

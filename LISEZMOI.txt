@@ -68,11 +68,11 @@ COMMANDES DU JEU
   encart ; la même touche le referme. ("carte_au_chargement" dans config.json)
 
 CAPTURES POUR LES FICHES
-  F8 en jeu : capture de l'écran du ST, rangée dans medias/<jeu>/ et
+  AltGr + G en jeu : capture de l'écran du ST, rangée dans medias/<jeu>/ et
   affichée dans la fiche au retour. Dans le bac, la petite poubelle sur
   l'image (ou Suppr) retire la capture affichée (rangée dans _retirees,
   pas effacée). Touche réglable dans
-  config.json ("touche_capture").
+  config.json ("touche_capture"), sauf F1 à F10 : les jeux s'en servent.
 
 ÉCRAN DES JEUX (menu Options)
   Pixels nets (par défaut), image lissée, ou pixels entiers (cadre noir

@@ -43,7 +43,7 @@ catalogue.json                  jeux, versions (variantes), cases cochées (F10)
 demos.json, demos/              35 démos célèbres (TOSEC) : veille et Play Demo Random (F7)
 ui/index.html                   TOUTE l'interface (HTML/CSS/JS vanilla, une page, scène 1280×720)
 ui/polices, ui/sons             VT323/Caveat, disquette.wav (son du dépôt shufflepuck)
-medias/<id>/                    captures des fiches (1.png, 2.png fournies ; grab*.png = F8 en jeu)
+medias/<id>/                    captures des fiches (1.png, 2.png fournies ; grab*.png = AltGr+G en jeu)
 disques/                        images .ST/.MSA (beaucoup de compils Automation « A_xxx_*.ST »)
 disques/tosec/                  ~150 images choisies dans la collection TOSEC 2012 (13/10/2026)
 tos/                            tos162fr.img (défaut, force STE), tos104fr/tos102fr (STF, TOSEC),
@@ -156,7 +156,8 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
 
 Entrées : sortie de jeu = Échap maintenu 2 s, ou Select+Start 1 s (surveillés par le lanceur).
 J1 = manette 1 ou flèches + Ctrl droit (Joystick1) ; J2 = manette 2 ou ZQSD + Ctrl gauche
-(port 0, sauf jeux souris). F8 = capture (raccourci Hatari). F11 = accéléré manuel.
+(port 0, sauf jeux souris). AltGr+G = capture (raccourci Hatari ; plus F8, que Mortevielle
+attend : `touche_capture` de config.json n'est jamais une touche F1…F10). F11 = accéléré manuel.
 
 ## Notre Hatari 2.6.1 (sources/hatari/*.patch)
 
@@ -287,7 +288,7 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
 - Pas encore vérifié sous Windows : encart Pause/Select, filtres d'écran (vus OK sur une
   capture de Fab).
 - medias/<id>/1.png des 135 jeux qui n'en avaient pas : capture automatique (la plus colorée
-  de la validation) ; quelques-unes montrent une protection ou un texte → F8 en jeu les remplace.
+  de la validation) ; quelques-unes montrent une protection ou un texte → AltGr+G en jeu les remplace.
 - IK+ Reforged à déposer. Idées évoquées : la même chose pour DOSBox plus tard.
 - 14-15/10/2026, v1.1 : case « Processeur 16 MHz » (F6, Select), écran à 50 Hz en jeu (testé :
   60 → 50 → 60 Hz ; une fois, le Chrome de la ludothèque s'est fermé 4 s après le retour à
@@ -376,3 +377,12 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   retirée s'en va et la sélection passe à sa voisine. L'image originale d'une version native
   (Stunt_Car_Racer.st) ne compte plus comme un jeu du vrac. Formats maison (Cannon Fodder…) :
   toujours F12 › Floppy disks pour changer de disquette (signalé « HS » par Fab sous Mint).
+- 22/10/2026 (suite) : « cliiiii » sans fin dans Rick Dangerous (clic clavier du TOS répété) :
+  les touches de démarrage (Espace pendant 5 s) étaient tenues 120 ms (Windows) ou 250 ms
+  (Linux, tube) en temps réel, soit 1 à 2 s pour le ST pendant l'accéléré ; le TOS répétait la
+  touche et, si le jeu prenait le clavier avant le relâché, ne la relâchait jamais. Désormais
+  `--fast-forward-key-repeat no` (Hatari relâche chaque touche au bout d'une image pendant
+  l'accéléré) et appui de 30 ms par le tube sous Linux (pas concerné par cette option). Pas
+  vérifié sur le jeu lui-même (pas d'image ici). Mortevielle : F8 (ses menus) était la touche de
+  capture de Hatari → capture sur AltGr+G (raccourci d'origine de Hatari), `toucheCapture`
+  écarte F1…F10 même si config.json les demande ; F8 vu arriver au ST (code 0x42).
