@@ -55,6 +55,7 @@ type Config struct {
 	EcranFiltre      string   `json:"ecran_filtre"`        // net | lisse | entier | hatari
 	EcranLignes      int      `json:"ecran_lignes"`        // lignes de balayage, 0..100
 	Ecran43          bool     `json:"ecran_4_3"`           // proportions d'un écran d'époque
+	EcranBords       bool     `json:"ecran_bords"`         // bords de l'écran ST montrés à tous les jeux (sinon coupés, voir argsAffichage)
 	EcranHz          int      `json:"ecran_hz"`            // écran passé à 50 Hz pendant Hatari (0 = non), voir frequence.go
 }
 

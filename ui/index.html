@@ -268,6 +268,7 @@ button { font-family: inherit; color: inherit; }
         <button data-action="lignes:35"><span class="coche"></span>Lignes de balayage : légères</button>
         <button data-action="lignes:65"><span class="coche"></span>Lignes de balayage : marquées</button>
         <button data-action="jeu:43"><span class="coche"></span>Format 4:3 (écran d'époque)</button>
+        <button data-action="jeu:bords"><span class="coche"></span>Jeux : bords de l'écran ST</button>
         <button data-action="jeu:50hz"><span class="coche"></span>Écran à 50 Hz en jeu (fluide)</button>
       </div>
     </div>
@@ -1118,6 +1119,7 @@ function majCoches() {
   const ln = af.lignes || 0;
   [0, 35, 65].forEach(v => c('lignes:' + v, (ln === 0 ? 0 : ln < 50 ? 35 : 65) === v));
   c('jeu:43', !!af.format43);
+  c('jeu:bords', !!af.bords);
   c('jeu:50hz', af.ecran50 !== false);
   ['eteindre', 'redemarrer'].forEach(a => { const b = document.querySelector(`[data-action="${a}"]`); if (b) b.disabled = s.extinction === false; });
 }
@@ -1228,11 +1230,12 @@ async function enregistrerPanneau() {
 // Écran des jeux (Hatari du pack) : enregistré dans config.json par le lanceur.
 async function reglerAffichage(a) {
   const s = (etat.cat && etat.cat.systeme) || {};
-  const af = Object.assign({ filtre: 'net', lignes: 0, format43: false, ecran50: true }, s.affichage || {});
+  const af = Object.assign({ filtre: 'net', lignes: 0, format43: false, ecran50: true, bords: false }, s.affichage || {});
   const [k, v] = a.split(':');
   if (k === 'lignes') af.lignes = +v;
   else if (v === '43') af.format43 = !af.format43;
   else if (v === '50hz') af.ecran50 = !af.ecran50;
+  else if (v === 'bords') af.bords = !af.bords;
   else af.filtre = v;
   Son.touche();
   try { s.affichage = await api('/api/affichage', af); majCoches(); }

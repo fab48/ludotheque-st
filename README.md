@@ -20,7 +20,7 @@ ou Select + Start.
 - **35 démos célèbres** de la scène ST, en écran de veille ou en **Play Demo Random**
   (F7).
 - **Hatari 2.6.1 modifié** : chargements accélérés seulement quand le lecteur tourne,
-  filtres d'écran, format 4:3.
+  filtres d'écran, format 4:3, bords de l'écran ST rognés (image plus grande).
 - Versions « reforged » : Stunt Car Racer en HD (natif) et en réplique web, Shufflepuck
   Café web ; IK+ Reforged se dépose dans `reforged/ikplus/`.
 - **100 % portable** : Windows et Linux (Mint, Manjaro…), rien à installer pour jouer.

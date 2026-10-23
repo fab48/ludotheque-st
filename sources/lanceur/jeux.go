@@ -67,6 +67,7 @@ type Jeu struct {
 	Actif       *bool             `json:"actif,omitempty"`
 	Favori      *bool             `json:"favori,omitempty"`       // ★ : montré par le filtre « favoris » du bac
 	SansTouches bool              `json:"sans_touches,omitempty"` // touches de démarrage coupées (case de la fiche)
+	Bords       bool              `json:"bords,omitempty"`        // garde les bords de l'écran ST (jeu en overscan)
 	Disquette   map[string]string `json:"disquette,omitempty"`
 	Variantes   []Variante        `json:"variantes"`
 	Captures    []string          `json:"captures,omitempty"` // calculé
@@ -623,6 +624,7 @@ type lancementHatari struct {
 	options       []string
 	medias        string // dossier des captures
 	pleinEcran    bool
+	bords         bool   // bords de l'écran ST montrés (démos, jeux en overscan)
 	turbo         bool   // démarrage en accéléré
 	commandes     string // joystick (défaut) | souris
 	correctifs    []Correctif
@@ -641,7 +643,7 @@ func commandeHatari(c *Catalogue, j *Jeu, v *Variante, mhz16 bool) (*exec.Cmd, s
 	return preparerHatari(lancementHatari{
 		machine: firstNonEmpty(v.Machine, c.Hatari.Machine, "ste"), tos: firstNonEmpty(v.Tos, c.Hatari.Tos),
 		disques: v.Disques, auto: v.Auto, dossier: v.Dossier, options: opts, medias: medias,
-		pleinEcran: cfg.PleinEcranJeux, turbo: true, commandes: j.Commandes, correctifs: v.Correctifs,
+		pleinEcran: cfg.PleinEcranJeux, bords: j.Bords, turbo: true, commandes: j.Commandes, correctifs: v.Correctifs,
 	})
 }
 
@@ -748,7 +750,7 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 		args = append(args, "--fast-forward-key-repeat", "no")
 		args = append(args, "--drive-led", "no", "--screenshot-dir", rel(l.medias))
 		args = append(args, "--log-file", rel(filepath.Join(home, "hatari.log")))
-		args = append(args, argsAffichage(l.pleinEcran)...)
+		args = append(args, argsAffichage(l.pleinEcran, l.bords)...)
 		if l.dossier != "" {
 			d, err := chemin(l.dossier)
 			if err != nil || !existe(d) {

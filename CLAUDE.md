@@ -149,6 +149,11 @@ Lancer pour tester : `Ludotheque.exe --fenetre` (navigateur en fenêtre),
 - `affichage.go` : filtres d'écran → variables d'env lues par notre Hatari. En « lisse »,
   `--max-width 416 --max-height 276` : sinon Hatari double la basse résolution (832×552,
   blocs de 2×2) et le lissage linéaire ne se voit presque pas.
+  Bords de l'écran ST rognés (`argsAffichage`) : Hatari montre 416×276 (48 points à gauche
+  et à droite, 29 lignes en haut, 47 en bas) pour une image de 320×200, et ces bords noirs
+  laissaient au jeu 72 % de la hauteur (Shufflepuck). `--max-width 640 --max-height 424`
+  (`320 212` en « lisse ») : 320×212, mêmes proportions, 4:3 toujours juste. Gardés pour les
+  démos, les jeux `"bords": true` (`BORDS` de gen_catalogue.py, overscan) et tous si `ecran_bords`.
 - `navigateur.go` : Chrome/Chromium/Edge/Firefox en kiosque, profil dans runtime/,
   `--disable-extensions` (Windows installait Adobe Acrobat dans le profil : chemins de 175 car.).
 - **Le pack doit tourner de partout** (dossier profond, accents, `&`, crochets, `Łódź`) : tout
@@ -243,7 +248,8 @@ port, navigateur, kiosque, plein_ecran_jeux, sortie_echap_s, sortie_manette_s,
 boutons_manette, joystick (auto|manette|clavier), tir_clavier(_j2), touche_capture,
 touche_menu_auto, demos_apres_min, duree_demo_min, nettoyer_amorce, carte_au_chargement,
 turbo (disque|debut|non), turbo_chargement_s (mode debut), ecran_filtre, ecran_lignes,
-ecran_4_3, ecran_hz (50 par défaut : écran principal passé à 50 Hz, ou 100, pendant Hatari en plein
+ecran_4_3, ecran_bords (false : bords de l'écran ST rognés, menu Options › « Jeux : bords de
+l'écran ST »), ecran_hz (50 par défaut : écran principal passé à 50 Hz, ou 100, pendant Hatari en plein
 écran, jeux et démos, puis remis 1,5 s après ; 0 = ne pas toucher ; menu Options › « Écran à 50 Hz » ;
 `frequence*.go`, ChangeDisplaySettingsEx CDS_FULLSCREEN ; pas encore sous Linux).
 
@@ -412,3 +418,10 @@ Planches : runtime/tests/planche-NN.png. `VMAX=4500` (VBL) pour regarder plus lo
   `gen_catalogue.py --garder`. Sous Linux, relâché seul des touches de démarrage à la fin des
   appuis et 3 s après (`relacherTouche`, tube) : débloque le TOS si le vrai relâché s'est perdu ;
   rien sous Windows (Hatari ignore un relâché sans appui).
+- 23/10/2026 : Shufflepuck Reforged sans son sur le fixe (Windows) : la page joue bien ses sons
+  dans Chromium (signal mesuré dans le cadre de la ludothèque), cause pas trouvée, Fab laisse
+  tomber. Bandes noires autour des jeux en plein écran = les bords de l'écran du ST que Hatari
+  affiche (cadre de couleur 0) : rognés par défaut (voir `affichage.go`), image du jeu ×1,3 en
+  largeur et en hauteur, ×2 en « pixels entiers ». Vérifié sous Xvfb (EmuTOS, 1920×1080) ; pas
+  encore sur Shufflepuck lui-même. `BORDS` (Lethal Xcess, Wings of Death, Enchanted Land) est
+  deviné et ne vaut qu'après `gen_catalogue.py --garder` (catalogue.json pas régénéré ici).

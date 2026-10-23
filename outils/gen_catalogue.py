@@ -307,6 +307,10 @@ for _j in J:
     if _j[6][0].startswith('tosec/') and _j[0] not in SEQ and _j[0] not in TOUCHES:
         SEQ[_j[0]] = ['espace']
 
+# jeux qui dessinent dans les bords de l'écran (overscan) : bords gardés, rognés pour les
+# autres (argsAffichage du lanceur). Devinés (Thalion), à vérifier en jeu.
+BORDS = {'lethal-xcess', 'wings-of-death', 'enchanted-land'}
+
 # jeux qui se jouent à la souris (le port 0 reste à la souris)
 SOURIS = {'shufflepuck-cafe', 'populous', 'mortevielle', 'dungeon-master', 'captain-blood', 'lemmings', 'arkanoid-2',
           'north-and-south', 'defender-of-the-crown', 'vroom', 'mega-lo-mania', 'midwinter', 'castle-master', 'cadaver',
@@ -438,6 +442,8 @@ for (i, t, e, a, g, p, d, x) in J:
         j['auteur'] = x['auteur']
     if i in SOURIS:
         j['commandes'] = 'souris'
+    if i in BORDS:
+        j['bords'] = True
     if i in AIDE:
         j['aide'] = AIDE[i]
     if i in DUREE:

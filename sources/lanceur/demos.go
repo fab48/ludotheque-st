@@ -235,6 +235,7 @@ func boucleDemos(f *FichierDemos, ds []Demo, stop chan struct{}) {
 		cmd, _, err := preparerHatari(lancementHatari{
 			machine: firstNonEmpty(d.Machine, f.Machine, "st"), tos: tosDemos(f, d), disques: d.Disques,
 			options: d.Options, medias: filepath.Join(base, "runtime", "captures-demos"), pleinEcran: true,
+			bords: true, // les démos dessinent dans les bords (overscan)
 		})
 		if err != nil {
 			log.Printf("démo %s : %v", d.Titre, err)

@@ -81,6 +81,10 @@ CAPTURES POUR LES FICHES
   comme un écran d'époque. Enregistré dans config.json ("ecran_filtre",
   "ecran_lignes" de 0 à 100, "ecran_4_3"). Le son est coupé pendant le
   chargement accéléré.
+  Les bords de l'écran du ST (le cadre, noir dans la plupart des jeux) sont
+  rognés : l'image du jeu prend toute la hauteur de l'écran. Un jeu qui
+  dessine dans les bords (overscan) les retrouve avec « Jeux : bords de
+  l'écran ST » ("ecran_bords") ; les démos les gardent toujours.
 
 Dans Hatari : F12 ouvre son menu (changer de disquette, réglages).
 
