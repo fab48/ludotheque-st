@@ -6,6 +6,12 @@
   "options": []
  },
  "vrac": true,
+ "favoris_vrac": {
+  "disques/A_069_kickoff2.ST": [
+   "disques/A_069_kickoff2.ST",
+   "disques/A_069_5_kickoff2.ST"
+  ]
+ },
  "jeux": [
   {
    "id": "stunt-car-racer",
@@ -547,7 +553,8 @@
    ],
    "aide": "Tir maintenu : s'agripper, dégainer, frapper",
    "touche_type": "espace",
-   "actif": true
+   "actif": true,
+   "favori": true
   },
   {
    "id": "rick-dangerous",
@@ -1205,7 +1212,8 @@
     "entree"
    ],
    "actif": true,
-   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks)."
+   "note": "Disquettes changées automatiquement (sinon F12 › Floppy disks).",
+   "favori": true
   },
   {
    "id": "loom",
@@ -1656,7 +1664,8 @@
     }
    ],
    "aide": "Tir : accélérer · jusqu'à 2 joueurs",
-   "actif": true
+   "actif": true,
+   "favori": true
   },
   {
    "id": "lemmings",

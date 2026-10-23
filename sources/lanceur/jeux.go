@@ -697,6 +697,7 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 	// Disquettes 1 et 2 dans A et B ; toutes vont dans la liste du changement
 	// automatique (notre Hatari met la bonne quand le jeu cherche un fichier).
 	var images, vrais []string
+	prises := map[string]bool{} // copies déjà données à une disquette de ce lancement
 	for i, d := range l.disques {
 		p, err := chemin(d)
 		if err != nil || !existe(p) {
@@ -706,10 +707,18 @@ func preparerHatari(l lancementHatari) (*exec.Cmd, string, error) {
 			}
 			return nil, "", fmt.Errorf("image absente : %s", d)
 		}
-		p = disquePropre(p, l.correctifs)
+		p = disquePropre(p, l.correctifs, prises)
+		prises[p] = true
 		images, vrais = append(images, rel(p)), append(vrais, p)
 		if i < 2 {
 			args = append(args, map[int]string{0: "--disk-a", 1: "--disk-b"}[i], rel(p))
+		}
+	}
+	// Une image qui manque fait ouvrir à Hatari une console « Not a disk image » qui
+	// attend Entrée, derrière le plein écran : on s'arrête avant.
+	for _, p := range vrais {
+		if !existe(p) {
+			return nil, "", fmt.Errorf("image absente : %s", rel(p))
 		}
 	}
 	liste := ""
@@ -802,7 +811,10 @@ type Correctif struct {
 // chemin complet plus long : au-delà, il reçoit une copie au nom court.
 const cheminMaxHatari = 240
 
-func disquePropre(p string, correctifs []Correctif) string {
+// prises : copies déjà données aux autres disquettes du lancement, jamais reprises
+// (deux disquettes au contenu identique ont la même empreinte : la 2e renommait la
+// copie de la 1re, et Hatari recevait un fichier disparu ; Kick Off 2, A_069).
+func disquePropre(p string, correctifs []Correctif, prises map[string]bool) string {
 	ext, nomImage := strings.ToLower(filepath.Ext(p)), filepath.Base(p)
 	trop := len(p) > cheminMaxHatari
 	// Zip (dossier Games de TOSEC copié tel quel) : notre Hatari Windows est compilé
@@ -844,7 +856,7 @@ func disquePropre(p string, correctifs []Correctif) string {
 	if existe(copie) {
 		return copie
 	}
-	if a := ancienneCopie(dir, prefixe, nomImage, func() []byte { return d }); a != "" {
+	if a := ancienneCopie(dir, prefixe, nomImage, func() []byte { return d }, prises); a != "" {
 		if err := os.Rename(a, copie); err == nil {
 			log.Printf("copie reprise avec ses sauvegardes : %s → %s", filepath.Base(a), filepath.Base(copie))
 			return copie
@@ -899,8 +911,8 @@ func nomCourt(nom string, n int) string {
 // Le nom seul ne suffit pas pour l'ancien nommage (il ressemble au nouveau, et deux
 // jeux ont parfois une image du même nom, « disk1.st ») : la copie doit avoir le
 // contenu de la disquette d'origine, sauvegardes mises à part. original : chargé
-// seulement s'il faut comparer.
-func ancienneCopie(dir, prefixe, nom string, original func() []byte) string {
+// seulement s'il faut comparer. evite : copies à laisser à d'autres disquettes.
+func ancienneCopie(dir, prefixe, nom string, original func() []byte, evite map[string]bool) string {
 	es, err := os.ReadDir(dir)
 	if err != nil {
 		return ""
@@ -912,7 +924,7 @@ func ancienneCopie(dir, prefixe, nom string, original func() []byte) string {
 		n := e.Name()
 		memePrefixe := strings.HasPrefix(n, prefixe)
 		ancien := !memePrefixe && len(n) == 9+len(nom) && n[8] == '-' && estHex(n[:8]) && strings.EqualFold(n[9:], nom)
-		if e.IsDir() || !(memePrefixe || ancien) {
+		if e.IsDir() || !(memePrefixe || ancien) || evite[filepath.Join(dir, n)] {
 			continue
 		}
 		if ancien {

@@ -148,7 +148,7 @@ func copieSauvegardes(p string, cor []Correctif) string {
 		}
 		d, _ := os.ReadFile(p)
 		return d
-	})
+	}, nil)
 }
 
 type listeExport struct {
